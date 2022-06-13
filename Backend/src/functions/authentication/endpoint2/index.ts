@@ -1,4 +1,4 @@
-import schema from './schema';
+//import schema from './schema';
 import { handlerPath } from '@libs/handler-resolver';
 
 export default {
@@ -8,11 +8,13 @@ export default {
       http: {
         method: 'get',
         path: 'endpoint2',
-        request: {
-          schemas: {
-            'application/json': schema,
-          },
-        },
+        //cors: true,
+        // authorizer: {
+        //   type: 'COGNITO_USER_POOLS',
+        //   authorizerId: {
+        //     Ref: 'UserPoolApiGatewayAuthorizer
+        //   }
+        // }
       },
     },
   ],

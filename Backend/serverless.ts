@@ -8,6 +8,8 @@ const serverlessConfiguration: AWS = {
   plugins: ['serverless-esbuild', 'serverless-offline'],
   provider: {
     name: 'aws',
+    stage: 'development',
+    region: 'ap-southeast-2',
     runtime: 'nodejs14.x',
     apiGateway: {
       minimumCompressionSize: 1024,
@@ -33,6 +35,62 @@ const serverlessConfiguration: AWS = {
       concurrency: 10,
     },
   },
+  resources: {
+    Resources: {
+      UserPoolApiGatewayAuthorizer: {
+        Type: 'AWS::ApiGateway::Authorizer',
+        Properties: {
+            AuthorizerResultTtlInSeconds: 300,
+            Name: '${self:provider.stage}-user-pool-authorizer', 
+            RestApiId: {
+              Ref: 'ApiGatewayRestApi'
+            },
+            IdentitySource: 'method.request.header.Authorization',
+            Type: 'COGNITO_USER_POOLS',
+            "ProviderARNs": [
+              {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:cognito-idp:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":userpool/",
+                    {
+                      "Ref": "CognitoUserPool"
+                    },
+                  ]
+                ]
+              }
+            ],
+        }
+      },
+      CognitoUserPool: { 
+        Type: 'AWS::Cognito::UserPool',
+        Properties : {
+          UserPoolName: '${self:provider.stage}-user-pool',
+          UsernameAttributes: ['email'],
+          AutoVerifiedAttributes: ['email']
+          }
+      },
+      CognitoUserPoolClient:{
+        Type: 'AWS::Cognito::UserPoolClient',
+        Properties: {
+          ClientName: '${self:provider.stage}-user-pool-client',
+            UserPoolId: {
+              Ref: 'CognitoUserPool'
+            },
+            ExplicitAuthFlows: ['ADMIN_NO_SRP_AUTH'],
+            GenerateSecret: false
+        },
+      },
+    },
+  }
 };
 
 module.exports = serverlessConfiguration;
