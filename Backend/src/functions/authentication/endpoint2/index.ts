@@ -12,7 +12,7 @@ export default {
         // authorizer: {
         //   type: 'COGNITO_USER_POOLS',
         //   authorizerId: {
-        //     Ref: 'UserPoolApiGatewayAuthorizer
+        //     Ref: 'UserPoolApiGatewayAuthorizer'
         //   }
         // }
       },

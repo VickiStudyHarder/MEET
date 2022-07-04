@@ -5,7 +5,7 @@ import {endpoint1, endpoint2 } from '@functions/authentication';
 const serverlessConfiguration: AWS = {
   service: 'backend',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-offline'],
+  plugins: ['serverless-esbuild', 'serverless-dynamodb-local', 'serverless-offline'],
   provider: {
     name: 'aws',
     stage: 'development',
@@ -33,6 +33,14 @@ const serverlessConfiguration: AWS = {
       define: { 'require.resolve': undefined },
       platform: 'node',
       concurrency: 10,
+    },
+    dynamodb: {
+      stages: "development",
+      start: {
+        port: 8000,
+        inMemory: true,
+        migrate: true
+      },
     },
   },
   resources: {
@@ -89,7 +97,64 @@ const serverlessConfiguration: AWS = {
             GenerateSecret: false
         },
       },
-    },
+      StudentsTable: {
+        Type: 'AWS::DynamoDB::Table',
+        Properties: {
+            TableName: 'StudentsTable',
+            AttributeDefinitions: [
+                { 
+                  AttributeName: 'userId', 
+                  AttributeType: 'S'
+                },
+                {
+                  AttributeName: 'meetingStartTime', AttributeType : 'N'
+                }
+            ],
+            KeySchema: [
+                { 
+                  AttributeName: 'userId',
+                  KeyType: 'HASH' 
+                }, 
+                {
+                  AttributeName:'meetingStartTime', KeyType:'RANGE'
+                }
+            ],
+            ProvisionedThroughput: {
+                ReadCapacityUnits: 1,
+                WriteCapacityUnits: 1
+            }
+          }
+        },
+      MentorsTable: {
+          Type: 'AWS::DynamoDB::Table',
+          Properties: {
+              TableName: 'MentorsTable',
+              AttributeDefinitions: [
+                  { 
+                    AttributeName: 'userId', 
+                    AttributeType: 'S'
+                  },
+                  {
+                    AttributeName: 'meetingStartTime', AttributeType : 'N'
+                  }
+              ],
+              KeySchema: [
+                  { 
+                    AttributeName: 'userId',
+                    KeyType: 'HASH' 
+                  }, 
+                  {
+                    AttributeName:'meetingStartTime', KeyType:'RANGE'
+                  }
+              ],
+              ProvisionedThroughput: {
+                  ReadCapacityUnits: 1,
+                  WriteCapacityUnits: 1
+              }
+        }
+      },
+
+    }
   }
 };
 
