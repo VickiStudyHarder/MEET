@@ -1,11 +1,15 @@
 import type { AWS } from '@serverless/typescript';
 
-import {endpoint1, endpoint2 } from '@functions/authentication';
+import { create, getById } from '@functions/meetings';
 
 const serverlessConfiguration: AWS = {
   service: 'backend',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild', 'serverless-dynamodb-local', 'serverless-offline'],
+  plugins: [
+    'serverless-esbuild',
+    'serverless-dynamodb-local',
+    'serverless-offline',
+  ],
   provider: {
     name: 'aws',
     stage: 'development',
@@ -21,7 +25,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { endpoint1, endpoint2 },
+  functions: { create, getById },
   package: { individually: true },
   custom: {
     esbuild: {
@@ -35,11 +39,11 @@ const serverlessConfiguration: AWS = {
       concurrency: 10,
     },
     dynamodb: {
-      stages: "development",
+      stages: 'development',
       start: {
         port: 8000,
         inMemory: true,
-        migrate: true
+        migrate: true,
       },
     },
   },
@@ -48,114 +52,87 @@ const serverlessConfiguration: AWS = {
       UserPoolApiGatewayAuthorizer: {
         Type: 'AWS::ApiGateway::Authorizer',
         Properties: {
-            AuthorizerResultTtlInSeconds: 300,
-            Name: '${self:provider.stage}-user-pool-authorizer', 
-            RestApiId: {
-              Ref: 'ApiGatewayRestApi'
+          AuthorizerResultTtlInSeconds: 300,
+          Name: '${self:provider.stage}-user-pool-authorizer',
+          RestApiId: {
+            Ref: 'ApiGatewayRestApi',
+          },
+          IdentitySource: 'method.request.header.Authorization',
+          Type: 'COGNITO_USER_POOLS',
+          ProviderARNs: [
+            {
+              'Fn::Join': [
+                '',
+                [
+                  'arn:aws:cognito-idp:',
+                  {
+                    Ref: 'AWS::Region',
+                  },
+                  ':',
+                  {
+                    Ref: 'AWS::AccountId',
+                  },
+                  ':userpool/',
+                  {
+                    Ref: 'CognitoUserPool',
+                  },
+                ],
+              ],
             },
-            IdentitySource: 'method.request.header.Authorization',
-            Type: 'COGNITO_USER_POOLS',
-            "ProviderARNs": [
-              {
-                "Fn::Join": [
-                  "",
-                  [
-                    "arn:aws:cognito-idp:",
-                    {
-                      "Ref": "AWS::Region"
-                    },
-                    ":",
-                    {
-                      "Ref": "AWS::AccountId"
-                    },
-                    ":userpool/",
-                    {
-                      "Ref": "CognitoUserPool"
-                    },
-                  ]
-                ]
-              }
-            ],
-        }
+          ],
+        },
       },
-      CognitoUserPool: { 
+      CognitoUserPool: {
         Type: 'AWS::Cognito::UserPool',
-        Properties : {
+        Properties: {
           UserPoolName: '${self:provider.stage}-user-pool',
           UsernameAttributes: ['email'],
-          AutoVerifiedAttributes: ['email']
-          }
+          AutoVerifiedAttributes: ['email'],
+        },
       },
-      CognitoUserPoolClient:{
+      CognitoUserPoolClient: {
         Type: 'AWS::Cognito::UserPoolClient',
         Properties: {
           ClientName: '${self:provider.stage}-user-pool-client',
-            UserPoolId: {
-              Ref: 'CognitoUserPool'
-            },
-            ExplicitAuthFlows: ['ADMIN_NO_SRP_AUTH'],
-            GenerateSecret: false
+          UserPoolId: {
+            Ref: 'CognitoUserPool',
+          },
+          ExplicitAuthFlows: ['ADMIN_NO_SRP_AUTH'],
+          GenerateSecret: false,
         },
       },
-      StudentsTable: {
+      UserTable: {
         Type: 'AWS::DynamoDB::Table',
         Properties: {
-            TableName: 'StudentsTable',
-            AttributeDefinitions: [
-                { 
-                  AttributeName: 'userId', 
-                  AttributeType: 'S'
-                },
-                {
-                  AttributeName: 'meetingStartTime', AttributeType : 'N'
-                }
-            ],
-            KeySchema: [
-                { 
-                  AttributeName: 'userId',
-                  KeyType: 'HASH' 
-                }, 
-                {
-                  AttributeName:'meetingStartTime', KeyType:'RANGE'
-                }
-            ],
-            ProvisionedThroughput: {
-                ReadCapacityUnits: 1,
-                WriteCapacityUnits: 1
-            }
-          }
+          TableName: 'UserTable',
+          AttributeDefinitions: [
+            {
+              AttributeName: 'PK',
+              AttributeType: 'S',
+            },
+            {
+              AttributeName: 'SK',
+              AttributeType: 'S',
+            },
+          ],
+          KeySchema: [
+            {
+              AttributeName: 'PK',
+              KeyType: 'HASH',
+            },
+            {
+              AttributeName: 'SK',
+              KeyType: 'RANGE',
+            },
+          ],
+          ProvisionedThroughput: {
+            ReadCapacityUnits: 1,
+            WriteCapacityUnits: 1,
+          },
         },
-      MentorsTable: {
-          Type: 'AWS::DynamoDB::Table',
-          Properties: {
-              TableName: 'MentorsTable',
-              AttributeDefinitions: [
-                  { 
-                    AttributeName: 'userId', 
-                    AttributeType: 'S'
-                  },
-                  {
-                    AttributeName: 'meetingStartTime', AttributeType : 'N'
-                  }
-              ],
-              KeySchema: [
-                  { 
-                    AttributeName: 'userId',
-                    KeyType: 'HASH' 
-                  }, 
-                  {
-                    AttributeName:'meetingStartTime', KeyType:'RANGE'
-                  }
-              ],
-              ProvisionedThroughput: {
-                  ReadCapacityUnits: 1,
-                  WriteCapacityUnits: 1
-              }
-        }
       },
-
-    }
-  }
+    },
+  },
 };
 
 module.exports = serverlessConfiguration;

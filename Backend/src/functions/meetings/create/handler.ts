@@ -7,21 +7,23 @@ const { marshall } = require('@aws-sdk/util-dynamodb');
 
 import schema from './schema';
 
-const endpoint1: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
+const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
+  console.log(event.body)
   try {
     const body = event.body;
+    body["PK"] = body.userId;
+    body["SK"] = `m#${body.meetingStart}`
+    console.log({body})
     const params = {
-      TableName: 'StudentsTable',
-      Item: marshall(body || {}),
-    };
-    const createResult = await db.send(new PutItemCommand(params));
-    console.log({ createResult });
-
+          TableName: 'UserTable',
+          Item: marshall(body || {}),
+      };
+    const result = await db.send(new PutItemCommand(params));
     return formatJSONResponse({
       status: 200,
-      message: 'Sucessfully created post',
+      message: `${result}`,
       event,
     });
   } catch (e) {
@@ -34,4 +36,4 @@ const endpoint1: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   }
 };
 
-export const main = middyfy(endpoint1);
+export const main = middyfy(create);

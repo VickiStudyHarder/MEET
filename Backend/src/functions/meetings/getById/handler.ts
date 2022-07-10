@@ -7,18 +7,26 @@ const { unmarshall, marshall } = require('@aws-sdk/util-dynamodb');
 
 import schema from './schema';
 
-const endpoint2: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
+const getById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
+  console.log(event.pathParameters)
   try {
     const { Items } = await db.send(
-      new ScanCommand({ TableName: 'StudentsTable' })
+      new ScanCommand({
+        TableName: 'UserTable',
+        FilterExpression: 'PK = :pk',
+        ExpressionAttributeValues: {
+          ':pk': { S: `${event.pathParameters.id}` },
+        },
+      })
     );
+    console.log(Items)
 
     return formatJSONResponse({
       statusCode: 200,
-      message: Items.map((item) => unmarshall(item)),
-      event,
+      message: `${event}`,
+      body: Items.map((item) => unmarshall(item)),
     });
   } catch (e) {
     return formatJSONResponse({
@@ -29,4 +37,4 @@ const endpoint2: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   }
 };
 
-export const main = middyfy(endpoint2);
+export const main = middyfy(getById);

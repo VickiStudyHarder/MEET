@@ -2,6 +2,7 @@ import React, { createContext, Dispatch, SetStateAction, useState } from 'react'
 import { CognitoUser, AuthenticationDetails} from 'amazon-cognito-identity-js'
 import UserPool from '../utils/auth/UserPool'
 import {useNavigate} from 'react-router-dom'
+import { BooleanLiteral } from 'typescript'
 
 export type users = "student" | "mentor" | ""
 
@@ -20,18 +21,12 @@ export type AccountContextInterface = {
     setCourses: Dispatch<SetStateAction<any>>;
     setUserType: Dispatch<SetStateAction<string>>;
     setError: Dispatch<SetStateAction<string>>;
+    isCodeSent: boolean;
+    setIsCodeSent: Dispatch<SetStateAction<boolean>>
+    confirmationCode: string;
+    setConfirmationCode: Dispatch<SetStateAction<string>>;
  }
 
-// const defaultState = {
-//     authenticate:  async (Username: string, Password: string) => {console.log("defaultState authenticate")},
-//     getSession:  async () => {console.log("defaultState getSession")},
-//     logout: () => {console.log("defaultState logout")},
-//     isAuthenticated: false,
-//     email: "",
-//     password: "",
-//     courses: [],
-//     userType: "" as users
-// }
 
 const AccountContext = createContext<AccountContextInterface>({} as AccountContextInterface);
 
@@ -44,6 +39,8 @@ const Account = (props: any) => {
   const [courses, setCourses] = useState([])
   const [userType, setUserType] = useState("")
   const [error, setError] = useState("")
+  const [isCodeSent, setIsCodeSent] = useState(false)
+  const [confirmationCode, setConfirmationCode] = useState("")
 
     const navigate = useNavigate()
 
@@ -144,7 +141,11 @@ const Account = (props: any) => {
         userType,
         setUserType,
         error,
-        setError
+        setError,
+        isCodeSent, 
+        setIsCodeSent,
+        confirmationCode,
+        setConfirmationCode
         }}>
         {props.children}
        </AccountContext.Provider>

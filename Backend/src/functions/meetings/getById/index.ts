@@ -7,7 +7,7 @@ export default {
     {
       http: {
         method: 'get',
-        path: 'endpoint2',
+        path: 'meeting/{id}',
         //cors: true,
         // authorizer: {
         //   type: 'COGNITO_USER_POOLS',

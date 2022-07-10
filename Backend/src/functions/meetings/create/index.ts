@@ -7,7 +7,7 @@ export default {
     {
       http: {
         method: 'post',
-        path: 'endpoint1',
+        path: 'meeting',
         request: {
           schemas: {
             'application/json': schema,
