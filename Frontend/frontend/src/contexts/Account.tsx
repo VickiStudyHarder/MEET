@@ -2,7 +2,6 @@ import React, { createContext, Dispatch, SetStateAction, useState } from 'react'
 import { CognitoUser, AuthenticationDetails} from 'amazon-cognito-identity-js'
 import UserPool from '../utils/auth/UserPool'
 import {useNavigate} from 'react-router-dom'
-import { BooleanLiteral } from 'typescript'
 
 export type users = "student" | "mentor" | ""
 

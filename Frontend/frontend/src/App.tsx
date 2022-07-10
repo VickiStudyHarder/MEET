@@ -7,7 +7,7 @@ import { Account } from './contexts/Account';
 import { Meeting } from './contexts/Meeting';
 import { Video } from './contexts/Video';
 import Home from './components/pages/Home';
-import VideoCallWrapper from './components/organisms/Video/VideoCallWrapper';
+import VideoContainer from './components/organisms/Video/VideoContainer';
 import ProtectedRoute from './hooks/ProtectedRoute';
 
 function App() {
@@ -23,7 +23,7 @@ function App() {
                 {/* </Route> */}
                 <Route path='/signup' element={<SignUp />} />
                 <Route path='/login' element={<Login />} />
-                <Route path='/video' element={<VideoCallWrapper />} />
+                <Route path='/video' element={<VideoContainer />} />
               </Routes>
             </Video>
           </Meeting>
