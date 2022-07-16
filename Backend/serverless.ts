@@ -1,6 +1,14 @@
 import type { AWS } from '@serverless/typescript';
 
 import { create, getById } from '@functions/meetings';
+import {
+  getAllMentors,
+  getAllStudents,
+  createUser,
+  deleteUser,
+  getUserById,
+  updateUser,
+} from '@functions/users';
 
 const serverlessConfiguration: AWS = {
   service: 'backend',
@@ -25,7 +33,16 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { create, getById },
+  functions: {
+    create,
+    getById,
+    getAllMentors,
+    getAllStudents,
+    createUser,
+    deleteUser,
+    getUserById,
+    updateUser,
+  },
   package: { individually: true },
   custom: {
     esbuild: {

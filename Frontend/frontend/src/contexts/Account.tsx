@@ -72,7 +72,6 @@ const Account = (props: any) => {
 
               const token = session.getIdToken().getJwtToken()
 
-              
               setIsAuthenticated(true)
               resolve({
                 user,
@@ -101,6 +100,7 @@ const Account = (props: any) => {
           user.authenticateUser(authDetails, { 
             onSuccess: (data) => {
               console.log('onSuccess', data);
+              console.log(data.getAccessToken().getJwtToken())
               setIsAuthenticated(true)
               resolve(data)
             },

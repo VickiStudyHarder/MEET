@@ -18,9 +18,9 @@ function App() {
           <Meeting>
             <Video>
               <Routes>
-                {/* <Route path='/' element={<ProtectedRoute />}> */}
-                <Route path='/home' element={<Home />} />
-                {/* </Route> */}
+                <Route path='/' element={<ProtectedRoute />}>
+                  <Route path='/home' element={<Home />} />
+                </Route>
                 <Route path='/signup' element={<SignUp />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/video' element={<VideoContainer />} />
