@@ -1,18 +1,26 @@
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
+import { PrismaClient } from '@prisma/client';
 
 import schema from './schema';
 
-const getById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
+const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
-  console.log(event.pathParameters);
+  const prisma = new PrismaClient();
+
   try {
+    const result = await prisma.user.update({
+      where: {
+        id: event.pathParameters.id,
+      },
+      data: event.body,
+    });
     return formatJSONResponse({
       statusCode: 200,
       message: `${event}`,
-      body: '',
+      body: result,
     });
   } catch (e) {
     return formatJSONResponse({
@@ -20,7 +28,9 @@ const getById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       message: `${e.message}`,
       event,
     });
+  } finally {
+    await prisma.$disconnect();
   }
 };
 
-export const main = middyfy(getById);
+export const main = middyfy(update);

@@ -1,13 +1,19 @@
 import type { AWS } from '@serverless/typescript';
 
-import { create, getById } from '@functions/meetings';
+import {
+  getAllMentors,
+  getAllStudents,
+  createUser,
+  deleteUser,
+  getUserById,
+  updateUser,
+} from '@functions/users';
 
 const serverlessConfiguration: AWS = {
   service: 'backend',
   frameworkVersion: '3',
   plugins: [
     'serverless-esbuild',
-    'serverless-dynamodb-local',
     'serverless-offline',
   ],
   provider: {
@@ -25,7 +31,14 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { create, getById },
+  functions: {
+    getAllMentors,
+    getAllStudents,
+    createUser,
+    deleteUser,
+    getUserById,
+    updateUser,
+  },
   package: { individually: true },
   custom: {
     esbuild: {
@@ -37,15 +50,7 @@ const serverlessConfiguration: AWS = {
       define: { 'require.resolve': undefined },
       platform: 'node',
       concurrency: 10,
-    },
-    dynamodb: {
-      stages: 'development',
-      start: {
-        port: 8000,
-        inMemory: true,
-        migrate: true,
-      },
-    },
+    }
   },
   resources: {
     Resources: {
@@ -99,36 +104,6 @@ const serverlessConfiguration: AWS = {
           },
           ExplicitAuthFlows: ['ADMIN_NO_SRP_AUTH'],
           GenerateSecret: false,
-        },
-      },
-      UserTable: {
-        Type: 'AWS::DynamoDB::Table',
-        Properties: {
-          TableName: 'UserTable',
-          AttributeDefinitions: [
-            {
-              AttributeName: 'PK',
-              AttributeType: 'S',
-            },
-            {
-              AttributeName: 'SK',
-              AttributeType: 'S',
-            },
-          ],
-          KeySchema: [
-            {
-              AttributeName: 'PK',
-              KeyType: 'HASH',
-            },
-            {
-              AttributeName: 'SK',
-              KeyType: 'RANGE',
-            },
-          ],
-          ProvisionedThroughput: {
-            ReadCapacityUnits: 1,
-            WriteCapacityUnits: 1,
-          },
         },
       },
     },

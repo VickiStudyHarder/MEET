@@ -1,18 +1,25 @@
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
+import { PrismaClient } from '@prisma/client';
 
 import schema from './schema';
 
 const getById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
-  console.log(event.pathParameters);
+  const prisma = new PrismaClient();
+
   try {
+    const result = await prisma.user.findUnique({
+      where: {
+        id: event.pathParameters.id,
+      }
+    });
     return formatJSONResponse({
       statusCode: 200,
-      message: `${event}`,
-      body: '',
+      message: `Successfully retrieved user`,
+      body: result,
     });
   } catch (e) {
     return formatJSONResponse({
@@ -20,6 +27,8 @@ const getById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       message: `${e.message}`,
       event,
     });
+  }  finally {
+    await prisma.$disconnect()
   }
 };
 

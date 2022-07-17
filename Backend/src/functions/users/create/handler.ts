@@ -1,26 +1,31 @@
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-
 import schema from './schema';
+import {PrismaClient} from '@prisma/client'
 
 const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
-  console.log(event.body)
+  const prisma = new PrismaClient()
+
   try {
+    const result = await prisma.user.create({data: event.body}
+    )
     return formatJSONResponse({
       status: 200,
-      message: ``,
+      message: `User successfully created`,
       event,
+      body: result,
     });
-  } catch (e) {
+  } catch (e) { 
     console.error(e);
     return formatJSONResponse({
       status: 500,
-      message: `${e.message}}`,
-      event,
-    });
+      message: `${e.message}`,
+    })
+  } finally {
+    await prisma.$disconnect()
   }
 };
 

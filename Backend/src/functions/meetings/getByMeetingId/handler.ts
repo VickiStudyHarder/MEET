@@ -4,24 +4,23 @@ import { middyfy } from '@libs/lambda';
 
 import schema from './schema';
 
-const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
-  event
-) => {
-  console.log(event.body)
+const getByMeetingId: ValidatedEventAPIGatewayProxyEvent<
+  typeof schema
+> = async (event) => {
+  console.log(event.pathParameters);
   try {
     return formatJSONResponse({
-      status: 200,
-      message: ``,
-      event,
+      statusCode: 200,
+      message: `${event}`,
+      body: '',
     });
   } catch (e) {
-    console.error(e);
     return formatJSONResponse({
-      status: 500,
-      message: `${e.message}}`,
+      statusCode: 500,
+      message: `${e.message}`,
       event,
     });
   }
 };
 
-export const main = middyfy(create);
+export const main = middyfy(getByMeetingId);
