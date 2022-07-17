@@ -1,40 +1,31 @@
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-const db = require('@libs/database');
-const { PutItemCommand } = require('@aws-sdk/client-dynamodb');
-const { marshall } = require('@aws-sdk/util-dynamodb');
-
 import schema from './schema';
+import {PrismaClient} from '@prisma/client'
 
 const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
-  console.log(event.body);
+  const prisma = new PrismaClient()
+
   try {
-    const body = event.body;
-    console.log({ body });
-    console.log(body.role);
-    body['PK'] = `${body.role}#${body.awsUserName}`;
-    //body['SK'] = 'userInformation';
-    const params = {
-      TableName: 'UserTable',
-      Item: marshall(body || {}),
-      ConditionExpression: 'attribute_not_exists(PK)',
-    };
-    const result = await db.send(new PutItemCommand(params));
+    const result = await prisma.user.create({data: event.body}
+    )
     return formatJSONResponse({
       status: 200,
       message: `User successfully created`,
       event,
-      body: `${result}`,
+      body: result,
     });
-  } catch (e) {
+  } catch (e) { 
     console.error(e);
     return formatJSONResponse({
       status: 500,
       message: `${e.message}`,
-    });
+    })
+  } finally {
+    await prisma.$disconnect()
   }
 };
 

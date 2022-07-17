@@ -7,7 +7,7 @@ export default {
     {
       http: {
         method: 'GET',
-        path: 'user/students',
+        path: 'students',
         //cors: true,
         // authorizer: {
         //   type: 'COGNITO_USER_POOLS',

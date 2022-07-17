@@ -1,34 +1,25 @@
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-const db = require('@libs/database');
-const { ScanCommand } = require('@aws-sdk/client-dynamodb');
-const { unmarshall, marshall } = require('@aws-sdk/util-dynamodb');
+import { PrismaClient } from '@prisma/client';
 
 import schema from './schema';
 
-const getAllStudents: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
-  event
-) => {
+const getAllStudents: ValidatedEventAPIGatewayProxyEvent<
+  typeof schema
+> = async (event) => {
+  const prisma = new PrismaClient();
+
   try {
-    const { Items } = await db.send(
-      new ScanCommand({
-        TableName: 'UserTable',
-        FilterExpression: 'contains (PK, :pk)',
-        ExpressionAttributeValues: {
-          ':pk': { S: 'student' },
-        },
-      })
-    );
+    const result = await prisma.user.findMany({
+      where: {
+        role: 'student',
+      },
+    });
     return formatJSONResponse({
       statusCode: 200,
       message: `${event}`,
-      body: Items.map((item) => {
-        const result = unmarshall(item);
-        delete result.PK;
-        delete result.SK;
-        return result;
-      }),
+      body: result,
     });
   } catch (e) {
     return formatJSONResponse({
@@ -36,6 +27,8 @@ const getAllStudents: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async 
       message: `${e.message}`,
       event,
     });
+  } finally {
+    await prisma.$disconnect();
   }
 };
 

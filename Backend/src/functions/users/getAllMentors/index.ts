@@ -7,7 +7,7 @@ export default {
     {
       http: {
         method: 'GET',
-        path: 'user/mentors',
+        path: 'mentors',
         request: {
           schemas: {
             'application/json': schema,
