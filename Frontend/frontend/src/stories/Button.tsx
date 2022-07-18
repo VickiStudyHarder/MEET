@@ -1,4 +1,3 @@
-import * as material from "@mui/material";
 import { func } from "prop-types";
 import React from "react";
 import "./button.css";
@@ -24,7 +23,6 @@ interface ButtonProps {
    * Optional click handler
    */
   onClick?: () => void;
-  disabled:boolean;
 }
 
 /**
@@ -35,7 +33,6 @@ export const Button = ({
   size = "medium",
   backgroundColor,
   label,
-  disabled,
   ...props
 }: ButtonProps) => {
   const mode = primary
@@ -43,7 +40,6 @@ export const Button = ({
     : "storybook-button--secondary";
   return (
     <>
-      <material.Button disabled={disabled? true:false} >Disabled</material.Button>
       <button
         type="button"
         className={["storybook-button", `storybook-button--${size}`, mode].join(

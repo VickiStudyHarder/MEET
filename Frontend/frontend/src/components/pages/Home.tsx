@@ -32,6 +32,7 @@ const meetingExample: IMeeting = {
       dueDate: new Date('July 28, 2022 04:00:00'),
     },
   ],
+  meetingId: ''
 };
 
 const Home = () => {

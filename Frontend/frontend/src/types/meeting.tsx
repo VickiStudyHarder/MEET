@@ -3,14 +3,11 @@ import { IUser } from "./user";
 
 export interface IMeeting {
   meetingId: string;
-  mentor: IUser;
-  participants: IUser[];
+  userId: string;
+  participants: string[];
   meetingStart: Date;
   meetingEnd: Date;
   notes: string[];
   ratings: Rating[];
   actionItems: ActionItem[];
 }
-
-
-export interface 
