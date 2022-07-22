@@ -1,6 +1,6 @@
 import { func } from "prop-types";
 import React from "react";
-import "./FullCalendar.css";
+import "./fullCalendar.css";
 
 interface FullCalendarProps {
   /**
