@@ -1,0 +1,13 @@
+.fc .fc-timegrid-slot-minor{
+    border-top-style: hidden;
+}
+.fc .fc-timegrid-slot{
+    height: 5.5em;
+}
+.fc th{
+    height: 5.5em;
+    line-height: 5.5;
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+}
