@@ -9,6 +9,13 @@ import {
   updateUser,
 } from '@functions/users';
 
+import {
+ create,
+ remove,
+ update,
+ getById
+} from '@functions/meetings';
+
 const serverlessConfiguration: AWS = {
   service: 'backend',
   frameworkVersion: '3',
@@ -38,6 +45,10 @@ const serverlessConfiguration: AWS = {
     deleteUser,
     getUserById,
     updateUser,
+    create,
+    remove,
+    update,
+    getById,
   },
   package: { individually: true },
   custom: {
