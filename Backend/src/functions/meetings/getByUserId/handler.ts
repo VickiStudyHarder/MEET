@@ -16,7 +16,13 @@ const getByUserId: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         userId: event.pathParameters.userId
       },
       select : {
-        meeting: true
+        meeting: {
+          include: {
+            notes: true,
+            toDoItem: true,
+            meetingAttendee: true
+          }
+        }
       } 
     })
     console.log({result})
