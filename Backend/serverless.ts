@@ -13,7 +13,8 @@ import {
  create,
  remove,
  update,
- getById
+ getById,
+ getByUserId
 } from '@functions/meetings';
 
 const serverlessConfiguration: AWS = {
@@ -49,6 +50,7 @@ const serverlessConfiguration: AWS = {
     remove,
     update,
     getById,
+    getByUserId
   },
   package: { individually: true },
   custom: {

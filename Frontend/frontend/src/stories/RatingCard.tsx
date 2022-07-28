@@ -1,15 +1,9 @@
 import * as React from "react";
-import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Rating from "@mui/material/Rating";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
 import { Avatar, CardActionArea } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
@@ -38,20 +32,76 @@ export default function RatingCard(props: IRatingCard) {
       />
 
 
-      <Card sx={{width: 662, height: 518, borderRadius: 5, marginTop: -12}}>
-        <Grid container sx={{justifyContent: "center", alignItems: "center", direction: "column"}}>
+      <Card sx={{
+          width: 662, 
+          height: 518, 
+          borderRadius: 5, 
+          marginTop: -12
+          }}>
+
+        <Grid container 
+          sx={{
+            justifyContent: "center", 
+            alignItems: "center", 
+            direction: "column"
+            }}>
           <Grid item>
           <CardContent sx={{borderRadius: 5, marginTop:15}}>
-          <Typography component="legend" variant="h3" sx={{marginTop: 1, mx: "auto"}}>{props.userName}</Typography>
+          <Typography 
+            component="legend" 
+            variant="h3" 
+            sx={{
+              marginTop: 1, 
+              mx: "auto"
+              }}>
+            {props.userName}
+          </Typography>
           
           
           <Typography variant="body1" component="h2">
             {props.courseName}
           </Typography>
-          <Typography component="legend" sx={{mx: "auto" , marginTop: 1, color:"#617181"}}>{props.UserType}</Typography>
-          <Typography variant="h5" component="legend" sx={{mx: "auto", marginTop: 8, fontSize : "2rem", color:"#ABAFC7"}}>Achievement</Typography>
-          <div><Rating name="read-only" size="large" value={props.Rating} sx={{marginleft: 100, marginTop: 5, fontSize : "3rem", color:"#FF054D"}} readOnly /></div>
-          <Typography variant="body1" component="legend" sx={{mx: "auto", fontSize : "1rem"}}>Participating Rate: {props.Part_rate}%</Typography>
+          <Typography 
+            component="legend" 
+            sx={{
+              mx: "auto" , 
+              marginTop: 1, 
+              color:"#617181"
+              }}>
+                {props.UserType}
+          </Typography>
+          <Typography 
+            variant="h5" 
+            component="legend" 
+            sx={{
+              mx: "auto", 
+              marginTop: 8, 
+              fontSize : "2rem", 
+              color:"#ABAFC7"}}
+              >
+                Achievement
+          </Typography>
+
+          <div><Rating 
+            name="read-only" 
+            size="large" 
+            value={props.Rating} 
+            sx={{
+              marginleft: 100, 
+              marginTop: 5, 
+              fontSize : "3rem", 
+              color:"#FF054D"}} 
+              readOnly />
+          </div>
+          <Typography 
+            variant="body1" 
+            component="legend" 
+            sx={{
+              mx: "auto", 
+              fontSize : "1rem"
+              }}>
+                Participating Rate: {props.Part_rate}%
+          </Typography>
           </CardContent>
           </Grid>
         </Grid>
