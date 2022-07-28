@@ -1,4 +1,5 @@
 import * as React from "react";
+<<<<<<< HEAD
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
@@ -15,6 +16,14 @@ import FormRow from "@mui/material/Grid";
 import Item from "@mui/material/Grid";
 import Rating from "@mui/material/Rating";
 import Button from "@mui/material/Button";
+=======
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import { Avatar, CardActionArea, Icon } from "@mui/material";
+import Grid from "@mui/material/Grid";
+>>>>>>> 191df2033899cd8550b5f805dd2234024c0f7176
 import Link from "@mui/material/Link";
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
