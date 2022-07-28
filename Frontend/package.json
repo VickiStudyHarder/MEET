@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "storybook": "^6.5.9"
+  }
+}
