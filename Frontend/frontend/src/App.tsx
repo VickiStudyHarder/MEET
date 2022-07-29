@@ -8,6 +8,7 @@ import { Meeting } from './contexts/Meeting';
 import { Video } from './contexts/Video';
 import Home from './components/pages/Home';
 import VideoContainer from './components/organisms/Video/VideoContainer';
+import Google from './components/organisms/Google/Google'
 import ProtectedRoute from './hooks/ProtectedRoute';
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
                 <Route path='/signup' element={<SignUp />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/video' element={<VideoContainer />} />
+                <Route path='/google' element={<Google />} />
               </Routes>
             </Video>
           </Meeting>

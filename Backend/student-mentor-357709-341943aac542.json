@@ -1,0 +1,12 @@
+{
+    "type": "service_account",
+    "project_id": "student-mentor-357709",
+    "private_key_id": "341943aac542bf5d6c10c375a3b4f1bb913b82ac",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC0c6E3Ic9LPLMF\nL+aqftkMlQUPr3xokO4gPHqdlcwVUW4RchJ4tcbKZ0kX98njV2ElKIDIocHvTGPC\n4kVe9QRd1rsOd4LfnMHKupQGUvqimrDsawePo85aCTjL5L4+ZCmOeSRGZccl2goy\nSa99eJERrKEcQXuvWrrS3OIXEyi/ott34o6PESH6dx6zesGjodmOUH5SsxMpB4o9\nG3BjPpIUDuIZts+JoH7JnMLkUPX5dVKPOJ2zazFyGAi6SJNmqWhmMXTtyouv5KFU\nPeVdU8S/XqolpHLKHbLKo2w9i5UT+FUmPlAh4D01cZ4Q7nHOuZmvvYhvNV/JhQ/b\nmWNoBKnDAgMBAAECggEANeSW0HVriKffO3xb4q2xuz1CXrXlbQFj7QLDCA91/SPt\nwI4WEDER5t9ECEF77Ubqf4OCOul8lzB0Vv7nAv4gSLpZ8W8mCgyyIA7rKJxduHSE\nxIcOogqlFWTNrq9pVg7qDmAFwnShLp/ZDb3OCKYahXHOSDcSboOlalaHu6aANAM5\nJOEcnb8oZLGagGmMTN4GnmLY13QUtyiTdJDyYLNWMWPUbh+9TJBE8KBs6VXvfFHs\nc7L4Fdp97FlGcFwMBr5x9TONKq8pbcsEWc9oV7PGd69Td8/uXevdtF1hZqJPVAn3\nFdnoFdp3uN+hXD0WlYl0Sau8rTYBjeHAAnjv6Zs6uQKBgQD0K+lZMorddn+lWXG6\ndxiGUgMzRYbLbdSDGo1Odo7k6942BANEf8Pt8OkyZU1YfghrhDKf0hKt9AJ1QMLp\nveGGoQxYuFAyvfaF6/iBN9Ku5Mf8sIt8eWVaylq4B3LP4gIZTn54TDyq1qIW8WRg\nDFdsIWrQ1YZ10h2GFVMz3zpWpQKBgQC9MX9rz+maRyym0/juZX4EsHc1i5W5C/Je\ngKEBsFekM4ePWawEW4wOdfzTyr6z9kX7TsgNHrFj18Qbtn2+p3rSqw7sSJG+plo3\n218dtp3sQX+uqK1D7fFPCe90SvmaWyhaDueXfOBAfWX9BW1jj9GTfnHQqSxY0IC3\nlpMqQZx6RwKBgDK5uKWWMXEmwAfq2Ayj1014Vj/djs5OR9rgtkB5st/t/GD+Xmtp\nm5uf8+JLV1EuBbPIZ/f53XWT/rq7NIL4tpSQeo8n40lXW5Kg3iSCI1vAHafqSWAX\nnC3LYiNfMMPtMQBu5Sk6tVPMeSoJBhBKIBNPsfAmm+N4Pjfv0DQziNwdAoGBAIIe\nFcV/U+lARCxkotLKyJXPC92up4WB+uoVyyYPMueCbRwhDxZcJAIaEY1T5j59BPpm\n311um4/QaFaq9uZ15xoWfYfyDRKy9F9wJ4WXABvpnDfyWF/cuNakPaScn/gR87mk\ngJEGWHDiDY+r+OS9l+S51OsuPorCs5QQIhywzT6nAoGBAONzAwWQgJkKtgKt1cdP\n8MvvMPFjGLua9TEML0luAx97+qUbLHbMwAXRLnnT6XDYq2+0QIvpF94iooEohmpv\neSjY25WjBaEvQteV8cd6LTaUYOgRSg/4RMhr4JVeaT01HUdQ9Csi9DoNILlvucYp\nNz0SRcT6mNA9DnZXUiok/ySj\n-----END PRIVATE KEY-----\n",
+    "client_email": "student-mentor-service-acc@student-mentor-357709.iam.gserviceaccount.com",
+    "client_id": "109417663476546636699",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/student-mentor-service-acc%40student-mentor-357709.iam.gserviceaccount.com"
+}
