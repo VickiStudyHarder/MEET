@@ -4,10 +4,10 @@ import React from "react";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-
+import EditIcon from '@mui/icons-material/Edit';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
 interface ListProps {
-  createdBy: string;
   meetingName: string;
   pic: string;
   description: string;
@@ -27,7 +27,6 @@ const modalStyle = {
 };
 
 export default function RecordingModal({
-  createdBy = "",
   meetingName = "",
   pic = "",
   type = 'delete',
@@ -42,9 +41,13 @@ export default function RecordingModal({
   const handleOpenDelete = () => setOpenDelete(true);
   const handleCloseDelet = () => setOpenDelete(false);
 
-  const [openManage, setOpenManage] = React.useState(false);
-  const handleOpenManage = () => setOpenManage(true);
-  const handleCloseMange = () => setOpenManage(false);
+  const [openEdit, setOpenEdit] = React.useState(false);
+  const handleOpenEdit = () => setOpenEdit(true);
+  const handleCloseEdit = () => setOpenEdit(false);
+
+  const [openAdd, setOpenAdd] = React.useState(false);
+  const handleOpenAdd = () => setOpenAdd(true);
+  const handleCloseAdd = () => setOpenAdd(false);
   return (
     <>
       {
@@ -81,18 +84,10 @@ export default function RecordingModal({
                       </Box>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: "center", marginRight: 3 }}>
-                      <Button onClick={handleCloseDetail} variant="contained" style={{ backgroundColor: "#FCDC00", borderRadius: 20, width: 155, height: 40 }}>
+                      <Button onClick={handleCloseDetail} variant="contained" style={{ color: "#000000", backgroundColor: "#FCDC00", borderRadius: 20, width: 155, height: 40 }}>
                         Close
                       </Button>
                     </Box>
-                  </Box>
-                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Typography variant="subtitle2" component="div" marginTop={2} marginBottom={2}>
-                      Created by:&nbsp;
-                    </Typography>
-                    <Typography variant="subtitle2" color="text.secondary" component="div" marginTop={2} marginBottom={2}>
-                      {createdBy}
-                    </Typography>
                   </Box>
                 </Card>
               </Box>
@@ -104,8 +99,8 @@ export default function RecordingModal({
       {
         type === 'delete' && (
           <div>
-            <Fab onClick={handleOpenDelete} color="secondary" aria-label="delete recording" size="large">
-              <DeleteOutlineIcon style={{ fontSize: 40, margin: 10 }} />
+            <Fab onClick={handleOpenDelete} style={{ backgroundColor: '#6001D3' }} aria-label="delete recording" size="medium">
+              <DeleteOutlineIcon style={{ fontSize: 35, margin: 10, color: '#ffffff' }} />
             </Fab>
             <Modal
               open={openDelete}
@@ -116,8 +111,8 @@ export default function RecordingModal({
               <Box sx={modalStyle}>
                 <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Typography variant="subtitle1" component="div" marginTop={2} >
-                      Remove this recording from your list?
+                    <Typography variant="subtitle1" component="div" marginTop={4} marginBottom={-5} >
+                      Remove this recording?
                     </Typography>
                   </Box>
                   <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -139,20 +134,12 @@ export default function RecordingModal({
                         <Button variant="contained" style={{ backgroundColor: "#6001D3", borderRadius: 20, width: 165, height: 40, marginBottom: 15 }}>
                           Confirm
                         </Button>
-                        <Button onClick={handleCloseDelet} variant="contained" style={{ backgroundColor: "#FCDC00", borderRadius: 20, width: 155, height: 40, marginLeft: 10 }}>
+                        <Button onClick={handleCloseDelet} variant="contained" style={{ color: "#000000", backgroundColor: "#FCDC00", borderRadius: 20, width: 155, height: 40, marginLeft: 10 }}>
                           Cancel
                         </Button>
                       </Box>
 
                     </Box>
-                  </Box>
-                  <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                    <Typography variant="subtitle2" component="div" marginTop={2} marginBottom={2}>
-                      Created by:&nbsp;
-                    </Typography>
-                    <Typography variant="subtitle2" color="text.secondary" component="div" marginTop={2} marginBottom={2}>
-                      {createdBy}
-                    </Typography>
                   </Box>
                 </Card>
               </Box>
@@ -160,14 +147,14 @@ export default function RecordingModal({
           </div>
         )}
       {
-        type === 'manage' && (
+        type === 'edit' && (
           <div>
-            <Fab onClick={handleOpenManage} color="secondary" aria-label="manage recording" size="large">
-              <KeyboardArrowRightIcon style={{ fontSize: 40, margin: 10 }} />
+            <Fab onClick={handleOpenEdit} color="secondary" style={{ backgroundColor: '#6001D3' }} aria-label="manage recording" size="medium">
+              <EditIcon style={{ fontSize: 30, margin: 10 }} />
             </Fab>
             <Modal
-              open={openManage}
-              onClose={handleCloseMange}
+              open={openEdit}
+              onClose={handleCloseEdit}
               aria-labelledby="modal-modal-title"
               aria-describedby="modal-modal-description"
             >
@@ -177,8 +164,11 @@ export default function RecordingModal({
                     <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                       <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 3 }} variant='circular' src={pic} />
                       <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }}>
+
                         <Box sx={{ flex: 1 }}>
-                          <TextField fullWidth id="meeting-name" label="Meeting name" variant="standard" sx={{ marginTop: 5, marginBottom: 2 }} />
+                          <Typography component="div" variant="h5" marginTop={6} marginBottom={2}>
+                            {meetingName}
+                          </Typography>
                           <TextField
                             fullWidth
                             id="description"
@@ -200,7 +190,62 @@ export default function RecordingModal({
                         <Button variant="contained" style={{ backgroundColor: "#6001D3", borderRadius: 20, width: 165, height: 40, marginBottom: 15 }}>
                           Confirm
                         </Button>
-                        <Button onClick={handleCloseMange} variant="contained" style={{ backgroundColor: "#FCDC00", borderRadius: 20, width: 155, height: 40, marginLeft: 10 }}>
+                        <Button onClick={handleCloseEdit} variant="contained" style={{ color: '#000000', backgroundColor: "#FCDC00", borderRadius: 20, width: 155, height: 40, marginLeft: 10 }}>
+                          Cancel
+                        </Button>
+                      </Box>
+                    </Box>
+                  </Box>
+                </Card>
+              </Box>
+            </Modal>
+          </div>
+        )}
+      {
+        type === 'add' && (
+          <div>
+            <Button onClick={handleOpenAdd} variant="outlined" sx={{ borderColor: "#6001D3", color:"#6001D3" }} startIcon={<AddCircleOutlineIcon />}>
+             New
+            </Button>
+            <Modal
+              open={openAdd}
+              onClose={handleCloseAdd}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={modalStyle}>
+                <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                      <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 3 }} variant='circular' src={pic} />
+                      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }}>
+
+                        <Box sx={{ flex: 1 }}>
+                          <Typography component="div" variant="h5" marginTop={6} marginBottom={2}>
+                            {meetingName}
+                          </Typography>
+                          <TextField
+                            fullWidth
+                            id="description"
+                            label="Description"
+                            multiline
+                            rows={3}
+                          />
+                        </Box>
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: "center", margin: 5 }}>
+                      <IconButton color="primary" aria-label="upload picture" component="label">
+                        <input hidden accept="image/*" type="file" />
+                        <CloudUploadIcon style={{ fontSize: 60 }} />
+                      </IconButton>
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: "center", marginRight: 3 }}>
+                      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                        <Button variant="contained" style={{ backgroundColor: "#6001D3", borderRadius: 20, width: 165, height: 40, marginBottom: 15 }}>
+                          Confirm
+                        </Button>
+                        <Button onClick={handleCloseAdd} variant="contained" style={{ color: '#000000', backgroundColor: "#FCDC00", borderRadius: 20, width: 155, height: 40, marginLeft: 10 }}>
                           Cancel
                         </Button>
                       </Box>

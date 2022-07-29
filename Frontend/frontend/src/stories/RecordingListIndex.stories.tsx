@@ -1,13 +1,12 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-
-import RecordingModal from './RecordingModal';
+import RecordingListIndex from './RecordingListIndex';
 
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'RecordingModal',
-  component: RecordingModal,
+  title: 'RecordingListIndex',
+  component: RecordingListIndex,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   // argTypes: {
   //   createdBy: 'Alan',
@@ -17,15 +16,17 @@ export default {
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof RecordingModal>;
+} as ComponentMeta<typeof RecordingListIndex>;
 
-const Template: ComponentStory<typeof RecordingModal> = (args) => (<RecordingModal {...args} />);
+const Template: ComponentStory<typeof RecordingListIndex> = (args) => (<RecordingListIndex {...args} />);
 
 export const Test = Template.bind({});
 Test.args = {
+  createdBy: 'Jack Wolf',
   meetingName: 'meeting 1',
   pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg',
   description: 'this is a test description this is a test description this is a test description this is a test description',
-  // type: delete/detail/edit/add
-  type: 'delete', 
+  // role: student/mentor
+  role: 'student', 
 };
+

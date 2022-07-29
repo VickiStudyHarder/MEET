@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, Divider, Fab, List, ListItem, ListItemAvatar, ListItemText, Modal, Typography } from "@mui/material";
+import { Avatar, Button, Card, Divider, Fab, IconButton, List, ListItem, ListItemAvatar, ListItemText, Modal, TextField, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React from "react";
 import { pink } from '@mui/material/colors';
@@ -7,6 +7,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import RecordingModal from './RecordingModal'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 interface ListProps {
   createdBy: string;
@@ -32,7 +33,7 @@ const modalStyle = {
  * Primary UI component for user interaction
  */
 export default function RecordingList({
-  createdBy = "",
+
   meetingName = "",
   pic = "",
   role = 'student',
@@ -46,42 +47,31 @@ export default function RecordingList({
         {
           role === 'student' && (
             <Box sx={{ width: '100%' }}>
-              <Card sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-                  <Avatar sx={{ width: 380, height: 220, borderRadius: 5, margin: 6, marginLeft: 3 }} variant='rounded' src={pic} />
-                  <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <Box sx={{ flex: '1 100 auto' }}>
-                      <Typography variant="subtitle2" color="text.secondary" component="div" marginTop={8} marginBottom={5}>
-                        By {createdBy}
-                      </Typography>
-                      <Typography component="div" variant="h4" fontWeight={'bold'}>
-                        {meetingName}
-                      </Typography>
-                      <RecordingModal
-                        createdBy={createdBy}
-                        meetingName={meetingName}
-                        pic={pic}
-                        description={description}
-                        type='detail'
-                      ></RecordingModal>
+              <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                    <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 3 }} variant='circular' src={pic} />
+                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', maxWidth: '70%' }}>
+                      <Box sx={{ flex: 1 }}>
+                        <Typography component="div" variant="h5" marginTop={8}>
+                          {meetingName}
+                        </Typography>
+                        <Typography variant="subtitle2" color="text.secondary" component="div" marginTop={2} marginBottom={5}>
+                          {description}
+                        </Typography>
+                      </Box>
                     </Box>
                   </Box>
-                </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', marginRight: 4 }}>
-                  <RecordingModal
-                    createdBy={createdBy}
-                    meetingName={meetingName}
-                    pic={pic}
-                    description={description}
-                    type='delete'
-                  ></RecordingModal>
-
-                  <Fab color="secondary" aria-label="download recording" size="large" sx={{ margin: 5 }}>
-                    <CloudDownloadIcon style={{ fontSize: 35, margin: 10 }} />
-                  </Fab>
-                  <Fab color="secondary" aria-label="play recording" size="large">
-                    <PlayArrowIcon style={{ fontSize: 40, margin: 10 }} />
-                  </Fab>
+                  <Box sx={{ display: 'flex', alignItems: "center", marginRight: 5 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                      <Fab style={{ backgroundColor: '#6001D3', marginRight: 20 }} aria-label="delete recording" size="medium">
+                        <PlayArrowIcon style={{ fontSize: 35, margin: 10, color: '#ffffff' }} />
+                      </Fab>
+                      <Fab style={{ backgroundColor: '#6001D3', marginLeft: 20 }} aria-label="delete recording" size="medium">
+                        <CloudDownloadIcon style={{ fontSize: 30, margin: 10, color: '#ffffff' }} />
+                      </Fab>
+                    </Box>
+                  </Box>
                 </Box>
               </Card>
             </Box>
@@ -89,52 +79,47 @@ export default function RecordingList({
         {
           role === 'mentor' && (
             <Box sx={{ width: '100%' }}>
-              <Card sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-                  <Avatar sx={{ width: 380, height: 220, borderRadius: 5, margin: 6, marginLeft: 3 }} variant='rounded' src={pic} />
-                  <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <Box sx={{ flex: '1 100 auto' }}>
-                      <Typography variant="subtitle2" color="text.secondary" component="div" marginTop={8} marginBottom={5}>
-                        By {createdBy}
-                      </Typography>
-                      <Typography component="div" variant="h4" fontWeight={'bold'}>
-                        {meetingName}
-                      </Typography>
+              <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                    <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 3 }} variant='circular' src={pic} />
+                    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }}>
+                      <Box sx={{ flex: 1 }}>
+                        <Typography component="div" variant="h5" marginTop={8}>
+                          {meetingName}
+                        </Typography>
+                        <Typography variant="subtitle2" color="text.secondary" component="div" marginTop={2} marginBottom={5}>
+                          {description}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                  <Box sx={{ display: 'flex', alignItems: "center", marginRight: 5 }}>
+                    <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                      <Box marginRight={5}>
+                        <RecordingModal
+                          meetingName={meetingName}
+                          pic={pic}
+                          description={description}
+                          type='delete'
+                        ></RecordingModal>
+                      </Box>
                       <RecordingModal
-                        createdBy={createdBy}
                         meetingName={meetingName}
                         pic={pic}
                         description={description}
-                        type='detail'
+                        type='edit'
                       ></RecordingModal>
                     </Box>
                   </Box>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', marginRight: 4 }}>
-                  <RecordingModal
-                    createdBy={createdBy}
-                    meetingName={meetingName}
-                    pic={pic}
-                    description={description}
-                    type='delete'
-                  ></RecordingModal>
-                  <Fab color="secondary" aria-label="download recording" size="large" sx={{ margin: 5 }}>
-                    <PlayArrowIcon style={{ fontSize: 35, margin: 10 }} />
-                  </Fab>
-                  <RecordingModal
-                    createdBy={createdBy}
-                    meetingName={meetingName}
-                    pic={pic}
-                    description={description}
-                    type='manage'
-                  ></RecordingModal>
-                </Box>
               </Card>
             </Box>
-          )}
+          )
+        }
 
-      </ListItem>
+      </ListItem >
       <Divider variant="inset" component="li" />
-    </List>
+    </List >
   );
 };
