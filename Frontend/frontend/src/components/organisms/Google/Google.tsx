@@ -1,72 +1,105 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {
-  Button,
-  Grid,
-  Box,
-  Paper,
-  TextField,
-  IconButton,
-  InputAdornment,
-} from '@mui/material';
-import Typography from '@mui/material/Typography';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+  GoogleLogin,
+  GoogleLoginResponse,
+  GoogleLoginResponseOffline,
+} from 'react-google-login';
+import { gapi } from 'gapi-script';
+import { createToken } from '../../../api/google';
 import { AccountContext } from '../../../contexts/Account';
-import UserPool from '../../../utils/auth/UserPool';
+import { Box, Button, Typography } from '@mui/material';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { useNavigate } from 'react-router-dom';
-import { CognitoUser } from 'amazon-cognito-identity-js';
-import { GoogleLogin } from 'react-google-login';
-import { gapi } from 'gapi-script'
 
-
-
-interface IGoogle {}
+interface IGoogle {
+  incrementStage: () => void;
+  decrementStage: () => void;
+}
 
 const CLIENT_ID =
   '782858661732-0gqlc5n856gk2b943tpl3ebarpcdhfdg.apps.googleusercontent.com';
 
-const Google: React.FC<IGoogle> = () => {
-  const [token, setToken] = useState('')
+const GoogleAuth: React.FC<IGoogle> = ({ incrementStage, decrementStage }) => {
+  const [token, setToken] = useState('');
+  const [isNextEnabled, setNextEnabled] = useState(false);
+  const navigate = useNavigate();
+
+  const { email } = useContext(AccountContext);
 
   useEffect(() => {
     function start() {
       gapi.client.init({
         clientId: CLIENT_ID,
-        scope: 'openid email profile https://www.googleapis.com/auth/calendar'
-      })
+        scope: 'openid email profile https://www.googleapis.com/auth/calendar',
+      });
     }
 
-    gapi.load('client:auth2', start)
-  })
+    gapi.load('client:auth2', start);
+  }, [isNextEnabled]);
 
-  const onSuccess = (response: any) => {
-    //const accessToken = gapi.auth.getAccessToken().access_token;
-    console.log(response);
-    //console.log(accessToken)
+  const onSuccess = async (
+    response: GoogleLoginResponse | GoogleLoginResponseOffline
+  ) => {
+    const { code } = response;
+    console.log({ email });
+    try {
+      const result = await createToken(code || '', email);
+      if (result.status !== 200) {
+        throw new Error('Unable to set tokens correctly');
+      }
+      console.log(result);
+      setNextEnabled(true);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const onFailure = (error: any) => {
     console.log(error);
   };
 
-
   return (
-    <div>
-      <div>Google Calendar API</div>
-      <div>
-        <GoogleLogin
-          clientId={CLIENT_ID}
-          buttonText='Sign In & Authorize Calendar'
-          onSuccess={onSuccess}
-          onFailure={onFailure}
-          cookiePolicy={'single_host_origin'}
-          responseType='code'
-          accessType='offline'
-          scope='openid email profile https://www.googleapis.com/auth/calendar'
-        />
-      </div>
-    </div>
+    <Box
+      sx={{
+        my: 8,
+        mx: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justify: 'center',
+      }}
+    >
+      <GoogleLogin
+        clientId={CLIENT_ID}
+        buttonText='Sign In & Authorize Calendar'
+        onSuccess={onSuccess}
+        onFailure={onFailure}
+        cookiePolicy={'single_host_origin'}
+        responseType='code'
+        accessType='offline'
+        scope='openid email profile https://www.googleapis.com/auth/calendar'
+      />
+      <Box sx={{ x: 20 }}>
+        <Button
+          onClick={decrementStage}
+          sx={{ p: 4 }}
+          startIcon={<ArrowBackIosIcon />}
+        >
+          Previous
+        </Button>
+        {isNextEnabled && (
+          <Button
+            onClick={() => navigate('/login')}
+            sx={{ p: 4 }}
+            endIcon={<ArrowForwardIcon />}
+          >
+            Complete Sign Up
+          </Button>
+        )}
+      </Box>
+    </Box>
   );
 };
 
-export default Google;
+export default GoogleAuth;

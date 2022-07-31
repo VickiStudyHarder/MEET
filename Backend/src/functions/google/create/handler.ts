@@ -2,66 +2,56 @@ import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
 import { PrismaClient } from '@prisma/client';
-const { google } =  require('googleapis')
+import oauth2Client from '@libs/oauth2-client'
 
 import schema from './schema';
 
-const createCalendarEvent: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
-  event
-) => {
+const createCalendarEvent: ValidatedEventAPIGatewayProxyEvent<
+  typeof schema
+> = async (event) => {
   const prisma = new PrismaClient();
 
-  const CREDENTIALS = JSON.parse(process.env.GOOGLE_CREDENTIALS)
-  const calendarId = process.env.CALENDAR_ID
-
-  const SCOPES = 'https://www.googleapis.com/auth/calendar';
-  const calendar = google.calendar({version : "v3"});
-
-  console.log(CREDENTIALS.type)
-
-  var calendarEvent = {
-    'summary': 'Google I/O 2015',
-    'location': '800 Howard St., San Francisco, CA 94103',
-    'description': 'A chance to hear more about Google\'s developer products.',
-    'start': {
-      'dateTime': '2022-07-29T13:00:00',
-      'timeZone': 'Australia/Sydney',
-    },
-    'end': {
-      'dateTime': '2022-07-29T14:00:00',
-      'timeZone': 'Australia/Sydney',
-    }
-  };
-
-  console.log(CREDENTIALS.client_email)
-  console.log(CREDENTIALS.private_key)
-  
-  const auth = new google.auth.JWT(
-    CREDENTIALS.client_email,
-    null,
-    CREDENTIALS.private_key,
-    SCOPES
-  )
+  console.log(event.body);
+  console.log(event.pathParameters.username);
+  const { token } = event.body;
+  const username = event.pathParameters.username;
+  const { tokens } = await oauth2Client.getToken(token);
+  console.log(tokens.refresh_token);
 
   try {
-    const response = await calendar.events.insert({
-      auth,
-      calendarId,
-      resource: calendarEvent
-    })
+    const result = await prisma.user.update({
+      where: {
+        id: username,
+      },
+      data: {
+        tokens: {
+          upsert: {
+            create: {
+              refreshToken: tokens.refresh_token,
+            },
+            update: {
+              refreshToken: tokens.refresh_token,
+            },
+          },
+        },
+      },
+    });
+    console.log(result);
+    // const result = await prisma.tokens.create({
 
+    // })
     return formatJSONResponse({
       status: 200,
-      message: ``,
+      message: `success`,
       event,
-      body: response
+      body: tokens,
     });
   } catch (e) {
     console.error(e);
     return formatJSONResponse({
       status: 500,
       message: `${e.message}}`,
-      event
+      event,
     });
   }
 };

@@ -7,7 +7,7 @@ export default {
     {
       http: {
         method: 'POST',
-        path: 'calendar',
+        path: 'google/createToken/{username}',
         request: {
           schemas: {
             'application/json': schema,

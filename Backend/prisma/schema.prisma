@@ -22,13 +22,22 @@ model User {
   toDoItem ToDoItem[]
   groupParticipant GroupParticipant[]
   group Group[]
+  tokens Tokens?
+}
+
+model Tokens {
+  user User @relation(fields: [userId], references:[id], onDelete: Cascade)
+  userId String @id @unique
+  refreshToken String
 }
 
 model Meeting {
   id Int @id @default(autoincrement())
   startTime DateTime
   endTime DateTime
-  googleCalendarId String
+  summary String
+  description String
+  location String
   meetingAttendee MeetingAttendee[]
   toDoItem ToDoItem[]
   notes Notes[]
@@ -41,6 +50,7 @@ model MeetingAttendee {
   user User @relation(fields: [userId], references:[id], onDelete: Cascade)
   userId String
   attended  Boolean  @default(false)
+  googleCalendarId String @default("")
 }
 
 model ToDoItem {

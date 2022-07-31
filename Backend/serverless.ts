@@ -72,6 +72,9 @@ const serverlessConfiguration: AWS = {
       define: { 'require.resolve': undefined },
       platform: 'node',
       concurrency: 10,
+    },
+    'serverless-offline' : {
+      httpPort: 4000
     }
   },
   resources: {
