@@ -47,7 +47,7 @@ const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       },
     });
 
-    const result = await addGoogleMeeting(meetingPayload, meeting.id);
+    //const result = await addGoogleMeeting(meetingPayload, meeting.id);
 
     return formatJSONResponse({
       status: 200,

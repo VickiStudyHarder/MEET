@@ -19,7 +19,7 @@ const remove: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       }
     })
 
-    await deleteGoogleMeeting(meetingAttendees);
+    //await deleteGoogleMeeting(meetingAttendees);
 
     const result = await prisma.meeting.delete({
       where: {
