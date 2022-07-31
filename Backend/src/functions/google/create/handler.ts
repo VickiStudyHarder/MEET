@@ -37,9 +37,7 @@ const createCalendarEvent: ValidatedEventAPIGatewayProxyEvent<
       },
     });
     console.log(result);
-    // const result = await prisma.tokens.create({
 
-    // })
     return formatJSONResponse({
       status: 200,
       message: `success`,
