@@ -24,7 +24,8 @@ export type AccountContextInterface = {
     setIsCodeSent: Dispatch<SetStateAction<boolean>>
     confirmationCode: string;
     setConfirmationCode: Dispatch<SetStateAction<string>>;
- }
+    username: string;
+   }
 
 
 const AccountContext = createContext<AccountContextInterface>({} as AccountContextInterface);
@@ -40,6 +41,7 @@ const Account = (props: any) => {
   const [error, setError] = useState("")
   const [isCodeSent, setIsCodeSent] = useState(false)
   const [confirmationCode, setConfirmationCode] = useState("")
+  const [username, setUsername] = useState("")
 
     const navigate = useNavigate()
 
@@ -102,6 +104,11 @@ const Account = (props: any) => {
               console.log('onSuccess', data);
               console.log(data.getAccessToken().getJwtToken())
               setIsAuthenticated(true)
+              const user = UserPool.getCurrentUser()
+              if (user) {
+                const username = user.getUsername();
+                setUsername(username)
+              }
               resolve(data)
             },
             onFailure: (err) => {
@@ -144,7 +151,8 @@ const Account = (props: any) => {
         isCodeSent, 
         setIsCodeSent,
         confirmationCode,
-        setConfirmationCode
+        setConfirmationCode,
+        username
         }}>
         {props.children}
        </AccountContext.Provider>

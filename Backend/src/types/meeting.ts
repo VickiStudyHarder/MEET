@@ -1,34 +1,31 @@
-import { ActionItem, Rating } from "./basic";
-import { IUser } from "./user";
-
-export interface IMeeting {
-  meetingId: string;
-  userId: string;
+export interface IMeetingPayload {
+  meetingStart: string;
+  meetingEnd: string;
+  id: number;
+  startTime: string;
+  endTime: string;
   summary: string;
   description: string;
   location: string;
-  meetingStart: Date;
-  meetingEnd: Date;
+  attendee: string[];
   toDoItems?: IToDoItem[];
   notes?: INotes[];
   attendees?: IMeetingAttendee[];
 }
-
 export interface IToDoItem {
-  id?: number;
+  id: number;
   title: string;
   dueDate: Date;
-  assigneeId?: string;
+  assigneeId: string;
 }
 export interface INotes {
-  id?: number;
+  id: number;
   title: string;
   details: string;
-  meetingId?: number;
+  meetingId: number;
 }
-
 export interface IMeetingAttendee {
-  id?: number;
+  id: number;
   userId: string;
   attended: boolean;
 }

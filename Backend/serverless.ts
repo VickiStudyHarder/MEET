@@ -17,13 +17,19 @@ import {
  getByUserId
 } from '@functions/meetings';
 
+import {
+  createCalendarEvent
+} from '@functions/google'
+
 const serverlessConfiguration: AWS = {
   service: 'backend',
   frameworkVersion: '3',
   plugins: [
     'serverless-esbuild',
     'serverless-offline',
+    'serverless-dotenv-plugin'
   ],
+  useDotenv: true,
   provider: {
     name: 'aws',
     stage: 'development',
@@ -36,6 +42,8 @@ const serverlessConfiguration: AWS = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
+      GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+      GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET
     },
   },
   // import the function via paths
@@ -50,7 +58,8 @@ const serverlessConfiguration: AWS = {
     remove,
     update,
     getById,
-    getByUserId
+    getByUserId,
+    createCalendarEvent
   },
   package: { individually: true },
   custom: {
@@ -63,6 +72,9 @@ const serverlessConfiguration: AWS = {
       define: { 'require.resolve': undefined },
       platform: 'node',
       concurrency: 10,
+    },
+    'serverless-offline' : {
+      httpPort: 4000
     }
   },
   resources: {
