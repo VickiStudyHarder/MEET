@@ -1,20 +1,24 @@
-import { Box, Container, TextField } from "@mui/material";
+import { Box, Button, Container, Link, TextField } from "@mui/material";
 import { url } from "inspector";
 import React from "react";
 import Brand from "./Brand";
-import Input from "./Input";
+import CustomInput from "./Input";
 
 interface LandingPageProps {
   onLogin: () => void;
   onCreateAccount: () => void;
+  isSignin: boolean;
 }
 
-export const LandingPage = ({ onLogin, onCreateAccount }: LandingPageProps) => {
-  const bgImgUrl =
-    "./landingpage.jpg";
+export const LandingPage = (props: LandingPageProps) => {
+  const bgImgUrl = "./landingpage.jpg";
+  const onClick = ()=>{
+
+  }
   return (
     <Container
-      style={{
+      sx={{
+        margin: 0,
         width: "100%",
         height: "auto",
         backgroundSize: "cover",
@@ -36,9 +40,55 @@ export const LandingPage = ({ onLogin, onCreateAccount }: LandingPageProps) => {
         <Box style={{ position: "absolute", left: "95px", top: "140px" }}>
           <Brand></Brand>
         </Box>
-        <Input
-          style={{ position: "absolute", left: "95px", top: "248px" }}
-        ></Input>
+        <CustomInput
+          sx={{ position: "absolute", left: "95px", top: "248px" }}
+        ></CustomInput>
+        <CustomInput
+          sx={{ position: "absolute", left: "95px", top: "328px" }}
+        ></CustomInput>
+        <Link
+          sx={{ position: "absolute", left: "95px", top: "405px" }}
+          href="#"
+        >
+          {props.isSignin
+            ? "Already have an account? Sign in here."
+            : "Already have an account? Sign in here."}
+        </Link>
+        <Button
+          variant="contained"
+          sx={{
+            position: "absolute",
+            left: "95px",
+            bottom: "98px",
+            width: "227px",
+            height: "72px",
+            borderRadius: "36px",
+            backgroundImage: "linear-gradient(to right,#EA327C, #720CCA)",
+          }}
+          onClick={onClick()}
+        >
+          <Box
+            sx={{
+              position: "absolute",
+              left: "24px",
+              textAlign: "center",
+              width: "130px",
+            }}
+          >
+            Get Started
+          </Box>
+          <img
+            style={{
+              width: "44px",
+              height: "44px",
+              position: "absolute",
+              right: "16px",
+              top: "16px",
+            }}
+            src="./get-started.png"
+            alt=""
+          ></img>
+        </Button>
       </Box>
     </Container>
   );

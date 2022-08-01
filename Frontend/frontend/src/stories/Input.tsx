@@ -2,14 +2,14 @@ import { TextField } from "@mui/material";
 import * as React from "react";
 
 export interface IInputProps {
-  style: any;
+  sx: any;
 }
 
-export default function Input(props: IInputProps) {
+export default function CustomInput(props: IInputProps) {
   return (
     <TextField
-        style={props.style}
       sx={{
+        ...props.sx,
         "& .MuiInputBase-root": { borderRadius: "30px", opacity: "1",backgroundColor:'white' },
         "& .MuiInputBase-root:before": { opacity: "0" },
         "& .MuiInputBase-root:after": { opacity: "0" },
