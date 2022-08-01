@@ -1,14 +1,10 @@
-import { Box, Button, Container, Link, TextField } from "@mui/material";
-import { url } from "inspector";
-import React, { useContext, useRef, useState } from "react";
-import AccountContext from "../contexts/Account";
-import Brand from "./Brand";
-import CustomInput from "./Input";
+import { Box, Button, Container, Link } from "@mui/material";
+import { useContext, useState } from "react";
+import AccountContext from "../../../contexts/Account";
+import Brand from "../../../stories/Brand";
+import CustomInput from "../../../stories/Input";
 
-interface LandingPageProps {
-  onLogin?: () => void;
-  onCreateAccount?: () => void;
-}
+interface LandingPageProps {}
 
 export const LandingPage = (props: LandingPageProps) => {
   const { authenticate } = useContext(AccountContext);
@@ -55,15 +51,6 @@ export const LandingPage = (props: LandingPageProps) => {
           <Brand></Brand>
         </Box>
         <CustomInput
-          onChange={(e: any) => setEmail(e.target.value)}
-          type="email"
-          value={email}
-          label={
-            createMode ? "Put email here for regsiteration" : "Your email here"
-          }
-          sx={{ position: "absolute", left: "95px", top: "248px" }}
-        ></CustomInput>
-        <CustomInput
           onChange={(e: any) => setPasswd(e.target.value)}
           value={passwd}
           type="password"
@@ -72,8 +59,32 @@ export const LandingPage = (props: LandingPageProps) => {
               ? "Create a password for your account"
               : "Your password here"
           }
-          sx={{ position: "absolute", left: "95px", top: "328px" }}
+          sx={{ position: "absolute", left: "95px", top: "326px" }}
         ></CustomInput>
+        <CustomInput
+          onChange={(e: any) => setEmail(e.target.value)}
+          type="email"
+          value={email}
+          label={
+            createMode ? "Put email here for regsiteration" : "Your email here"
+          }
+          sx={{ position: "absolute", left: "95px", top: "248px" }}
+        ></CustomInput>
+        {createMode ? (
+          <CustomInput
+            onChange={(e: any) => setEmail(e.target.value)}
+            type="email"
+            value={email}
+            label={
+              createMode
+                ? "Put email here for regsiteration"
+                : "Your email here"
+            }
+            sx={{ position: "absolute", left: "95px", top: "404px" }}
+          ></CustomInput>
+        ) : (
+          <></>
+        )}
         <Link
           sx={{ position: "absolute", left: "95px", top: "405px" }}
           href="#"

@@ -10,6 +10,7 @@ import Home from './components/pages/Home';
 import VideoContainer from './components/organisms/Video/VideoContainer';
 import GoogleAuth from './components/organisms/Google/Google'
 import ProtectedRoute from './hooks/ProtectedRoute';
+import { LandingPage } from './components/pages/auth/LandingPage';
 
 function App() {
   return (
@@ -22,8 +23,8 @@ function App() {
                 <Route path='/' element={<ProtectedRoute />}>
                   <Route path='/home' element={<Home />} />
                 </Route>
-                <Route path='/signup' element={<SignUp />} />
-                <Route path='/login' element={<Login />} />
+                {/* <Route path='/signup' element={<SignUp />} /> */}
+                <Route path='/login' element={<LandingPage  />} />
                 <Route path='/video' element={<VideoContainer />} />
               </Routes>
             </Video>
