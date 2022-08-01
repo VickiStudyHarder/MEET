@@ -75,5 +75,9 @@
     text-align: center;
     color: #FFFFFF;
     cursor:pointer;
+    &:hover{
+      background: #FD346E;
+      box-shadow: -15px 20px 40px rgba(253, 52, 110, 0.301961);
+    }
   }
 }

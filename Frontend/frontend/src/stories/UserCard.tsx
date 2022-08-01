@@ -1,17 +1,10 @@
 import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
 import { Avatar, CardActionArea } from "@mui/material";
 import './UserCard.scss';
 import Star from './assets/star.svg';
+import { Button } from '@mui/material';
 
 export interface userCardInfo {
   time?: string;
@@ -41,8 +34,8 @@ export default function PostingCard(props: userCardInfo) {
         {props.desc}
       </Box>
       <Box className="btn-box">
-        <Box className="btn-l">Approve</Box>
-        <Box className="btn-r">Deny</Box>
+        <Button className="btn-l">Approve</Button>
+        <Button className="btn-r">Deny</Button>
       </Box>
     </Box>
   );

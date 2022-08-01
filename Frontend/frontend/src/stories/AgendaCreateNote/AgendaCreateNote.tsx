@@ -1,18 +1,8 @@
 import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import SkipNextIcon from "@mui/icons-material/SkipNext";
-import { Avatar, CardActionArea } from "@mui/material";
 import './AgendaCreateNote.scss';
-import Star from '../assets/Calender/star.png';
+import { Button } from '@mui/material';
 
 
 export interface CalendarUserCardMiniInfo {
@@ -33,9 +23,9 @@ export default function PostingCard(props: CalendarUserCardMiniInfo) {
           {props.desc}
         </Box>
       </Box>
-      <Box className="r">
+      <Button className="r">
         Delete
-      </Box>
+      </Button>
     </Box>
   );
 }
