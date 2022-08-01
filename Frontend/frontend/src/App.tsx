@@ -8,6 +8,7 @@ import { Meeting } from './contexts/Meeting';
 import { Video } from './contexts/Video';
 import Home from './components/pages/Home';
 import VideoContainer from './components/organisms/Video/VideoContainer';
+import GoogleAuth from './components/organisms/Google/Google'
 import ProtectedRoute from './hooks/ProtectedRoute';
 
 function App() {

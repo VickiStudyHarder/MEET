@@ -15,12 +15,14 @@ import { AccountContext } from '../../../contexts/Account';
 import UserPool from '../../../utils/auth/UserPool';
 import { useNavigate } from 'react-router-dom';
 import { CognitoUser } from 'amazon-cognito-identity-js';
+import { createUser } from '../../../api/users';
 
 interface ICourses {
   decrementStage: () => void;
+  incrementStage: () => void;
 }
 
-const Courses: React.FC<ICourses> = ({ decrementStage }) => {
+const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
   const navigate = useNavigate();
   const [input, setInput] = useState('');
 
@@ -35,6 +37,7 @@ const Courses: React.FC<ICourses> = ({ decrementStage }) => {
     setConfirmationCode,
     isCodeSent,
     setIsCodeSent,
+    username,
   } = useContext(AccountContext);
 
   const addCourse = () => {
@@ -53,28 +56,40 @@ const Courses: React.FC<ICourses> = ({ decrementStage }) => {
         console.log(error);
         return;
       }
-      setIsCodeSent(true)
+      setIsCodeSent(true);
     });
   };
 
-  const onConfirm = () => {
+  const onConfirm = async () => {
     const confirmParams = {
       Pool: UserPool,
       Username: email,
     };
 
     const cognitoUser = new CognitoUser(confirmParams);
-    cognitoUser.confirmRegistration(
+    const x = await cognitoUser.confirmRegistration(
       confirmationCode,
       true,
-      (err: any, data: any) => {
+      async (err: any, data: any) => {
         if (err) {
           console.log(err);
         }
-        console.log('Confirmed User');
-        navigate('/login');
       }
     );
+    console.log(x)
+    const username = cognitoUser.getUsername();
+    console.log(username)
+    const user = {
+      id: username,
+      firstName: 'test',
+      lastName: 'test',
+      dateOfBirth: new Date(),
+      role: 'student',
+      rating: 0,
+      totalMeetings: 0,
+    };
+    await createUser(user);
+    incrementStage()
   };
 
   useEffect(() => {}, [courses, isCodeSent]);

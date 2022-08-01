@@ -15,38 +15,46 @@ import {
   ThemeProvider,
   Typography,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
 const meetingExample: IMeeting = {
-  userId: 'test',
-  meetingStart: new Date('July 22, 2022 03:00:00'),
-  meetingEnd: new Date('July 22, 2022 04:00:00'),
-  participants: ['user3', 'user2'],
-  notes: ['this was a good meeting'],
-  ratings: [{ value: 4, comments: 'Meeting could be improved' }],
-  actionItems: [
+  userId: 'z3417347@gmail.com',
+  summary: 'test summary',
+  description: 'test description',
+  location: 'test location',
+  meetingStart: new Date('August 02, 2022 10:00:00'),
+  meetingEnd: new Date('August 02, 2022 11:00:00'),
+  attendees: [{ userId: 'z3417347@gmail.com', attended: false }],
+  notes: [{ title: 'this was a good meeting', details: 'meeting details' }],
+  toDoItems: [
     {
       title: 'update the database',
-      description: 'we need to update the database for some reasons',
       dueDate: new Date('July 28, 2022 04:00:00'),
+      assigneeId: 'z3417347@gmail.com'
     },
   ],
-  meetingId: ''
+  meetingId: '',
 };
 
 const Home = () => {
-  const { postMeeting, getMeetingById, getUpcomingMeetings } =
-    useContext(MeetingContext);
+  const { postMeeting, getMeeting } = useContext(MeetingContext);
   const [meetings, setMeetings] = useState<IMeeting[]>([]);
+  const navigate = useNavigate();
 
   const onClickPost = async (meeting: IMeeting) => {
-    await postMeeting(meeting);
+    const result = await postMeeting(meeting);
+    console.log(result);
   };
 
   const onClickGetById = async (id: string) => {
-    const result = await getMeetingById('test');
+    const result = await getMeeting('test');
     setMeetings(result.data.body);
+  };
+
+  const onClickGoogle = async () => {
+    navigate('/google');
   };
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -78,10 +86,17 @@ const Home = () => {
             >
               Get By Id
             </Button>
+            <Button
+              variant='contained'
+              onClick={() => onClickGoogle()}
+              sx={{ m: 2 }}
+            >
+              Google
+            </Button>
           </Stack>
         </Container>
         <Container maxWidth='lg'>
-          <Typography variant='h3' textAlign= 'center'>
+          <Typography variant='h3' textAlign='center'>
             Your Upcoming Meetings
           </Typography>
           <Grid container spacing={1}>
@@ -90,13 +105,47 @@ const Home = () => {
                 return (
                   <>
                     <Grid item xs={3}>
-                      <Button variant='contained' sx={{textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>View Meeting</Button>
+                      <Button
+                        variant='contained'
+                        sx={{
+                          textAlign: 'center',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                      >
+                        View Meeting
+                      </Button>
                     </Grid>
-                    <Grid item xs={9}  alignItems="center">
+                    <Grid item xs={9} alignItems='center'>
                       <Stack direction='row'>
-                        <Paper sx={{width: '33%', textAlign: 'center', justifyContent: 'center', alignItems: 'center'}} >{new Date(meeting.meetingStart).toDateString()}</Paper>
-                        <Paper sx={{width: '33%', textAlign: 'center', justify: 'center', alignItems: 'center'}}>{new Date(meeting.meetingEnd).toDateString()}</Paper>
-                        <Paper sx={{width: '33%', textAlign: 'center', justifyContent: 'center', alignItems: 'center'}}>
+                        <Paper
+                          sx={{
+                            width: '33%',
+                            textAlign: 'center',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                        >
+                          {new Date(meeting.meetingStart).toDateString()}
+                        </Paper>
+                        <Paper
+                          sx={{
+                            width: '33%',
+                            textAlign: 'center',
+                            justify: 'center',
+                            alignItems: 'center',
+                          }}
+                        >
+                          {new Date(meeting.meetingEnd).toDateString()}
+                        </Paper>
+                        <Paper
+                          sx={{
+                            width: '33%',
+                            textAlign: 'center',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                        >
                           <Stack>
                             {meeting.participants.map((participant: string) => (
                               <div>{participant}</div>

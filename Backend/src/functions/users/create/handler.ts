@@ -9,6 +9,8 @@ const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 ) => {
   const prisma = new PrismaClient()
 
+  console.log(event.body)
+
   try {
     const result = await prisma.user.create({data: event.body}
     )
