@@ -16,6 +16,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import NavBar from '../molecules/NavBar';
 
 const theme = createTheme();
 
@@ -69,6 +70,7 @@ const Home = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <NavBar />
       <main>
         <Container maxWidth='lg'>
           <Stack direction='row' justifyContent='center' sx={{ m: 2 }}>
