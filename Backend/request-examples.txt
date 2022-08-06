@@ -1,0 +1,255 @@
+Meetings 
+
+POST /meeting
+
+Request
+
+{
+    "meetingStart" : "dateTime",
+    "meetingEnd": "dateTime",
+    "summary" : "string",
+    "description" : "string",
+    "location" : "string",
+    "attendees" : "string[]",
+    "toDoItems" : IToDoItems[], //optional,
+    "notes": INotes[], //optional,
+    "attendees" : IAttendees[], //optional
+}
+
+Response 
+
+{
+    "id": "number"
+    "meetingStart" : "dateTime",
+    "meetingEnd": "dateTime",
+    "summary" : "string",
+    "description" : "string",
+    "location" : "string",
+    "attendees" : "string[]",
+    "toDoItems" : IToDoItems[], //optional,
+    "notes": INotes[], //optional,
+    "attendees" : IAttendees[], //optional
+}
+
+PUT /meeting/{id}
+
+Request
+
+{
+    "meetingStart" : "dateTime",
+    "meetingEnd": "dateTime",
+    "summary" : "string",
+    "description" : "string",
+    "location" : "string",
+    "attendees" : "string[]",
+    "toDoItems" : IToDoItems[], //optional,
+    "notes": INotes[], //optional,
+    "attendees" : IAttendees[], //optional
+}
+
+Response 
+
+{
+    "id": "number"
+    "meetingStart" : "dateTime",
+    "meetingEnd": "dateTime",
+    "summary" : "string",
+    "description" : "string",
+    "location" : "string",
+    "attendees" : "string[]",
+    "toDoItems" : IToDoItems[], //optional,
+    "notes": INotes[], //optional,
+    "attendees" : IAttendees[], //optional
+}
+
+
+DELETE /meeting/{id}
+
+GET /meeting/{id}
+
+//Get a specific meeting
+
+Response 
+
+{
+    "id": "number"
+    "meetingStart" : "dateTime",
+    "meetingEnd": "dateTime",
+    "summary" : "string",
+    "description" : "string",
+    "location" : "string",
+    "attendees" : "string[]",
+    "toDoItems" : IToDoItems[], //optional,
+    "notes": INotes[], //optional,
+    "attendees" : IAttendees[], //optional
+}
+
+
+GET /meeting/{userId}/user
+
+//Get a specific meeting
+
+//Returns JSON array of objects
+
+Response 
+
+[
+    {
+    "id": "number"
+    "meetingStart" : "dateTime",
+    "meetingEnd": "dateTime",
+    "summary" : "string",
+    "description" : "string",
+    "location" : "string",
+    "attendees" : "string[]",
+    "toDoItems" : IToDoItems[], //optional,
+    "notes": INotes[], //optional,
+    "attendees" : IAttendees[], //optional
+    },
+    {
+    "id": "number"
+    "meetingStart" : "dateTime",
+    "meetingEnd": "dateTime",
+    "summary" : "string",
+    "description" : "string",
+    "location" : "string",
+    "attendees" : "string[]",
+    "toDoItems" : IToDoItems[], //optional,
+    "notes": INotes[], //optional,
+    "attendees" : IAttendees[], //optional
+    }
+]
+
+IToDoItem = {
+    id: number, // optional
+    title: string,
+    dueDate: dateTime,
+    assigneeId: string
+}
+
+INotes = {
+    id: number, // optional
+    title: string,
+    details: string,
+    meetingId: number
+}
+
+IMeetingAttendee {
+    id: number, //optional,
+    userId: string,
+    attended: boolean
+}
+
+POST /user 
+
+//DO NOT USE THIS ENDPOINT
+
+Request
+
+{
+    "id" : "string",
+    "firstName" : "string",
+    "lastName" : "string",
+    "role": "string",
+    "rating": "number",
+    "totalMeetings" : "number"
+}
+
+Response
+
+{
+    "id" : "string",
+    "firstName" : "string",
+    "lastName" : "string",
+    "role": "string",
+    "rating": "number",
+    "totalMeetings" : "number"
+}
+
+GET /user/{id}
+
+Response
+
+{
+    "id" : "string",
+    "firstName" : "string",
+    "lastName" : "string",
+    "role": "string",
+    "rating": "number",
+    "totalMeetings" : "number"
+}
+
+PUT /user/{id}
+
+Request
+
+{
+    "id" : "string",
+    "firstName" : "string",
+    "lastName" : "string",
+    "role": "string",
+    "rating": "number",
+    "totalMeetings" : "number"
+}
+
+Response
+
+{
+    "id" : "string",
+    "firstName" : "string",
+    "lastName" : "string",
+    "role": "string",
+    "rating": "number",
+    "totalMeetings" : "number"
+}
+
+GET /mentors
+
+// returns an array of all the available mentors
+
+Response
+
+[
+    {
+    "id" : "string",
+    "firstName" : "string",
+    "lastName" : "string",
+    "role": "string",
+    "rating": "number",
+    "totalMeetings" : "number"
+    },
+    {
+    "id" : "string",
+    "firstName" : "string",
+    "lastName" : "string",
+    "role": "string",
+    "rating": "number",
+    "totalMeetings" : "number"
+    },
+]
+
+
+GET /students
+
+// returns an array of all the available students
+
+Response
+
+[
+    {
+    "id" : "string",
+    "firstName" : "string",
+    "lastName" : "string",
+    "role": "string",
+    "rating": "number",
+    "totalMeetings" : "number"
+    },
+    {
+    "id" : "string",
+    "firstName" : "string",
+    "lastName" : "string",
+    "role": "string",
+    "rating": "number",
+    "totalMeetings" : "number"
+    },
+]

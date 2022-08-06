@@ -7,9 +7,9 @@ import { Account } from './contexts/Account';
 import { Meeting } from './contexts/Meeting';
 import { Video } from './contexts/Video';
 import Home from './components/pages/Home';
-import VideoContainer from './components/organisms/Video/VideoContainer';
 import GoogleAuth from './components/organisms/Google/Google'
 import ProtectedRoute from './hooks/ProtectedRoute';
+import { LandingPage } from './components/pages/auth/LandingPage';
 
 function App() {
   return (
@@ -19,12 +19,13 @@ function App() {
           <Meeting>
             <Video>
               <Routes>
-                <Route path='/' element={<ProtectedRoute />}>
+                {/* <Route path='/' element={<ProtectedRoute />}> */}
                   <Route path='/home' element={<Home />} />
-                </Route>
+                {/* </Route> */}
                 <Route path='/signup' element={<SignUp />} />
                 <Route path='/login' element={<Login />} />
-                <Route path='/video' element={<VideoContainer />} />
+                {/* <Route path='/signup' element={<SignUp />} /> */}
+                <Route path='/login' element={<LandingPage  />} />
               </Routes>
             </Video>
           </Meeting>

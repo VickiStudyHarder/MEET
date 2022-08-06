@@ -1,0 +1,70 @@
+.calender-user-card-wrap{
+  width: 356px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .l{
+    height: 280px;
+    width: 230px;
+    border-radius: 20px;
+    display: inline-block;
+    background: url("../assets/Calender/bg.png") no-repeat;
+    background-position: bottom;
+    box-shadow: -15px 30px 60px rgba(8, 20, 32, 0.2);
+    padding-top: 70px;
+    padding-left:44px;
+    box-sizing: border-box;
+    .name{
+      width: 106px;
+      word-wrap: break-word;
+      font-family: 'Nunito';
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 30px;
+      color: #030314;
+      margin-bottom: 8px;
+    }
+    .desc{
+      .txt{
+        width: 98px;
+        height: 20px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+        font-family: 'Quicksand';
+        font-size: 16px;
+        line-height: 26px;
+        color: #70798B;
+        margin-bottom: 8px;
+      }
+      .line{
+        width: 46px;
+        height: 2px;
+        opacity: 0.2;
+        background-color: #000;
+        border-radius: 1px;
+        margin-bottom: 16px;
+      }
+    }
+    .star-box{
+      .star{
+        width: 12px;
+        height: 12px;
+        margin-right: 4px;
+      }
+    }
+  }
+  .r{
+    height: 188px;
+    width: 188px;
+    border-radius: 20px;
+    display: inline-block;
+    position: relative;
+    margin-left: -66px;
+    .avator{
+      height: 188px;
+      width: 188px;
+      border-radius: 20px;
+    }
+  }
+}
