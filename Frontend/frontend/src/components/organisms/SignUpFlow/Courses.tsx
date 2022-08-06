@@ -11,7 +11,7 @@ import {
 import Typography from '@mui/material/Typography';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { AccountContext } from '../../../contexts/Account';
+import { AuthContext } from '../../../contexts/Auth';
 import UserPool from '../../../utils/auth/UserPool';
 import { useNavigate } from 'react-router-dom';
 import { CognitoUser } from 'amazon-cognito-identity-js';
@@ -38,7 +38,7 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
     isCodeSent,
     setIsCodeSent,
     username,
-  } = useContext(AccountContext);
+  } = useContext(AuthContext);
 
   const addCourse = () => {
     const updatedCourses = [input, ...courses];
@@ -76,9 +76,9 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
         }
       }
     );
-    console.log(x)
+    console.log(x);
     const username = cognitoUser.getUsername();
-    console.log(username)
+    console.log(username);
     const user = {
       id: username,
       firstName: 'test',
@@ -89,7 +89,7 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
       totalMeetings: 0,
     };
     await createUser(user);
-    incrementStage()
+    incrementStage();
   };
 
   useEffect(() => {}, [courses, isCodeSent]);

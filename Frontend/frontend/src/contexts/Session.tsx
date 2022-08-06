@@ -1,19 +1,17 @@
-import React, {
-  createContext,
-} from 'react';
+import React, { createContext } from 'react';
 import { IMeeting } from '../types/meeting';
 import { getMeetingById, createMeeting } from '../api/meeting';
 
-export type IMeetingContext = {
+export type ISessionContext = {
   getMeeting: (meetingId: string) => any;
   postMeeting: (meeting: IMeeting) => any;
 };
 
-const MeetingContext = createContext<IMeetingContext>({} as IMeetingContext);
+const SessionContext = createContext<ISessionContext>({} as ISessionContext);
 
-export default MeetingContext;
+export default SessionContext;
 
-const Meeting = (props: any) => {
+const Session = (props: any) => {
   const getMeeting = async (meetingId: string) => {
     const result = await getMeetingById(meetingId);
     return result;
@@ -25,12 +23,10 @@ const Meeting = (props: any) => {
   };
 
   return (
-    <MeetingContext.Provider
-      value={{ getMeeting, postMeeting }}
-    >
+    <SessionContext.Provider value={{ getMeeting, postMeeting }}>
       {props.children}
-    </MeetingContext.Provider>
+    </SessionContext.Provider>
   );
 };
 
-export { Meeting, MeetingContext };
+export { Session, SessionContext };

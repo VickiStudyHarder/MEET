@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import { withStyles } from '@material-ui/core/styles';
-
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   Grid,
   Button,
@@ -17,17 +15,19 @@ import {
 interface INavBar {}
 
 const options = [
-  { title: 'Home', url: '/Home' },
-  { title: 'Calendar', url: '/Calendar' },
-  { title: 'Agenda', url: '/Agenda' },
-  { title: 'Notes', url: '/Notes' },
-  { title: 'To Do Task', url: '/ToDo' },
-  { title: 'Rating', url: '/Rating' },
-  { title: 'Recording', url: '/Recording' },
-  { title: 'Group', url: '/Group' },
+  { title: 'Home', url: '/home' },
+  { title: 'Calendar', url: '/calendar' },
+  { title: 'Agenda', url: '/agenda' },
+  { title: 'Notes', url: '/notes' },
+  { title: 'To Do Task', url: '/todo' },
+  { title: 'Rating', url: '/rating' },
+  { title: 'Recording', url: '/recording' },
+  { title: 'Group', url: '/group' },
 ];
 
 const NavBar: React.FC<INavBar> = ({}) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
 
@@ -49,13 +49,26 @@ const NavBar: React.FC<INavBar> = ({}) => {
         xs={12}
         spacing={4}
         justify='flex-end'
-        style={{ paddingTop: '10px', paddingBottom: '10px', marginBottom: '10px' }}
+        style={{
+          paddingTop: '10px',
+          paddingBottom: '10px',
+          marginBottom: '10px',
+        }}
       >
         <Toolbar>
           {options.map((option) => {
             return (
-              <Button color='inherit' onClick={(e) => handleMenu(e)}>
-                {option.title}
+              <Button
+                color='inherit'
+                onClick={(e) => {
+                  navigate(option.url);
+                }}
+              >
+                {location.pathname === option.url ? (
+                  <Typography style={{ fontWeight: 600 }}>{option.title}</Typography>
+                ) : (
+                  <Typography>{option.title}</Typography>
+                )}
               </Button>
             );
           })}

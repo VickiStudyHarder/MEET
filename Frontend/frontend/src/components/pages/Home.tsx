@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import axios from 'axios';
-import { MeetingContext } from '../../contexts/Meeting';
+import { SessionContext } from '../../contexts/Session';
 import { IMeeting } from '../../types/meeting';
 import {
   Container,
@@ -33,14 +33,14 @@ const meetingExample: IMeeting = {
     {
       title: 'update the database',
       dueDate: new Date('July 28, 2022 04:00:00'),
-      assigneeId: 'z3417347@gmail.com'
+      assigneeId: 'z3417347@gmail.com',
     },
   ],
   meetingId: '',
 };
 
 const Home = () => {
-  const { postMeeting, getMeeting } = useContext(MeetingContext);
+  const { postMeeting, getMeeting } = useContext(SessionContext);
   const [meetings, setMeetings] = useState<IMeeting[]>([]);
   const navigate = useNavigate();
 
