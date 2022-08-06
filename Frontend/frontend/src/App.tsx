@@ -9,6 +9,7 @@ import { Video } from './contexts/Video';
 import Home from './components/pages/Home';
 import GoogleAuth from './components/organisms/Google/Google'
 import ProtectedRoute from './hooks/ProtectedRoute';
+import { LandingPage } from './components/pages/auth/LandingPage';
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
                 {/* </Route> */}
                 <Route path='/signup' element={<SignUp />} />
                 <Route path='/login' element={<Login />} />
+                {/* <Route path='/signup' element={<SignUp />} /> */}
+                <Route path='/login' element={<LandingPage  />} />
               </Routes>
             </Video>
           </Meeting>

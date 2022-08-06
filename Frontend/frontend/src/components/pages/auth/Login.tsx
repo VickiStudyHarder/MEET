@@ -5,6 +5,7 @@ import { Avatar, Box, Button, Checkbox, Container, CssBaseline, FormControlLabel
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Typography } from '@material-ui/core';
 import { createTheme } from '@mui/material/styles'
+import "./Login.scss"
 
 const theme = createTheme();
 
@@ -31,24 +32,23 @@ const SignUp = () => {
     };
 
     return (
-        <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <Box
-              sx={{
-                marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-              }}
-            >
-              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <ThemeProvider theme={theme} >
+          <Container  component="main" maxWidth="xs">
+            <Box className="login-box">
+              {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                 <LockOutlinedIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
                 Sign in
-              </Typography>
-              <Box component="form" onSubmit={onSubmit} noValidate sx={{ mt: 1 }}>
+              </Typography> */}
+              <Box className="title">
+                <Box className="l"></Box>
+                <Box className="r">
+                  <Box className="txt-1">MEET</Box>
+                  <Box className="txt-2">is all you need</Box>
+                </Box>
+              </Box>
+              <Box component="form" onSubmit={onSubmit} noValidate>
                 <TextField
                   margin="normal"
                   required
@@ -73,26 +73,24 @@ const SignUp = () => {
                   value={password}
                   onChange={(e: any) => setPassword(e.target.value)}
                 />
-                <FormControlLabel
+                <Button className="tip" onClick={() => {navigate('/signup')}}>
+                  {"Don't have an account? Sign Up"}
+                </Button>
+                {/* <FormControlLabel
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
-                />
+                /> */}
                 <Button
+                  className="btn"
                   type="submit"
                   fullWidth
                   variant="contained"
                   onClick={onSubmit}
-                  sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  <span className="text">Sign In</span>
+                  <span className="icon">&gt;</span>
                 </Button>
-                <Grid container justifyContent="center">
-                  <Grid justifyContent="center">
-                    <Button onClick={() => {navigate('/signup')}}>
-                      {"Don't have an account? Sign Up"}
-                    </Button>
-                </Grid>
-              </Grid>
+              
               </Box>
             </Box>
           </Container>
