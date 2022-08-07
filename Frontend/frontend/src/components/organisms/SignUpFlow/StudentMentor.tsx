@@ -10,7 +10,7 @@ import {
 import Typography from '@mui/material/Typography';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { AuthContext } from '../../../contexts/Auth';
+import { UserContext } from '../../../contexts/User';
 
 interface IStudentMentor {
   incrementStage: () => void;
@@ -21,7 +21,7 @@ const StudentMentor: React.FC<IStudentMentor> = ({
   incrementStage,
   decrementStage,
 }) => {
-  const { userType, setUserType } = useContext(AuthContext);
+  const { userType, setUserType } = useContext(UserContext);
 
   const handleChange = (
     event: React.MouseEvent<HTMLElement>,

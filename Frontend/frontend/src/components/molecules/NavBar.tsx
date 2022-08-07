@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import {
   Grid,
@@ -11,6 +11,7 @@ import {
   Avatar,
   Box,
 } from '@material-ui/core';
+import Popover from '@mui/material/Popover';
 
 interface INavBar {}
 
@@ -25,30 +26,16 @@ const options = [
   { title: 'Group', url: '/group' },
 ];
 
-const NavBar: React.FC<INavBar> = ({}) => {
+const NavBar: React.FC<INavBar> = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [open, setOpen] = useState(false);
-
-  const handleMenu = (event: { currentTarget: any }) => {
-    console.log(event.currentTarget);
-    setAnchorEl(event.currentTarget);
-    console.log(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return (
-    <Box sx={{ display: 'flex' }} style={{ marginBottom: '40px' }}>
+    <Box sx={{ display: 'flex' }}>
       <Grid
         container
-        sm={12}
-        xs={12}
         spacing={4}
-        justify='flex-end'
+        justifyContent='flex-end'
         style={{
           paddingTop: '10px',
           paddingBottom: '10px',
@@ -63,9 +50,12 @@ const NavBar: React.FC<INavBar> = ({}) => {
                 onClick={(e) => {
                   navigate(option.url);
                 }}
+                key={option.title}
               >
                 {location.pathname === option.url ? (
-                  <Typography style={{ fontWeight: 600 }}>{option.title}</Typography>
+                  <Typography style={{ fontWeight: 600 }}>
+                    {option.title}
+                  </Typography>
                 ) : (
                   <Typography>{option.title}</Typography>
                 )}

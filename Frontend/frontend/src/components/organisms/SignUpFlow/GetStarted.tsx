@@ -3,14 +3,14 @@ import { TextField, Button, Grid, Box, Paper, Avatar } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../contexts/Auth';
+import { UserContext } from '../../../contexts/User';
 
 interface IGetStarted {
   incrementStage: () => void;
 }
 
 const GetStarted: React.FC<IGetStarted> = ({ incrementStage }) => {
-  const { email, setEmail, password, setPassword } = useContext(AuthContext);
+  const { email, setEmail, password, setPassword } = useContext(UserContext);
 
   const navigate = useNavigate();
 

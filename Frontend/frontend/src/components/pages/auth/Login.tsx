@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { AuthContext } from '../../../contexts/Auth';
+import { UserContext } from '../../../contexts/User';
 import { useNavigate } from 'react-router-dom';
 import {
   Avatar,
@@ -25,7 +25,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const { authenticate } = useContext(AuthContext);
+  const { authenticate } = useContext(UserContext);
 
   const onSubmit = (event: any) => {
     console.log('On Submit');
@@ -35,7 +35,7 @@ const SignUp = () => {
     authenticate(email, password)
       .then((data: any) => {
         console.log('Logged In!', data);
-        navigate('/Home');
+        navigate('/home');
       })
       .catch((err: any) => {
         console.error('Failed to login!', err);

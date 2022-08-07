@@ -1,2 +1,1 @@
-export { Auth } from './Auth';
-export { Session } from './Session';
+export { User } from './User';

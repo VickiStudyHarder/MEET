@@ -1,7 +1,7 @@
 import { Box, Button, Container, Link, TextField } from '@mui/material';
 import { url } from 'inspector';
 import React, { useContext, useRef, useState } from 'react';
-import AuthContext from '../contexts/Auth';
+import UserContext from '../contexts/User';
 import Brand from './Brand';
 import CustomInput from './Input';
 
@@ -11,7 +11,7 @@ interface LandingPageProps {
 }
 
 export const LandingPage = (props: LandingPageProps) => {
-  const { authenticate } = useContext(AuthContext);
+  const { authenticate } = useContext(UserContext);
   const bgImgUrl = './landingpage.jpg';
   const onClick = (event: any) => {
     console.log(email, passwd);

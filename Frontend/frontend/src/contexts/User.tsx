@@ -2,15 +2,17 @@ import React, {
   createContext,
   Dispatch,
   SetStateAction,
+  useEffect,
   useState,
 } from 'react';
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import UserPool from '../utils/auth/UserPool';
 import { useNavigate } from 'react-router-dom';
+import { getMeetingsByUserId } from '../api/meeting';
 
 export type users = 'student' | 'mentor' | '';
 
-export type AuthContextInterface = {
+export type IUserContext = {
   authenticate: (Username: string, Password: string) => Promise<void>;
   getSession: () => Promise<unknown>;
   logout: () => void;
@@ -30,15 +32,14 @@ export type AuthContextInterface = {
   confirmationCode: string;
   setConfirmationCode: Dispatch<SetStateAction<string>>;
   username: string;
+  userMeetings: any;
 };
 
-const AuthContext = createContext<AuthContextInterface>(
-  {} as AuthContextInterface
-);
+const UserContext = createContext<IUserContext>({} as IUserContext);
 
-export default AuthContext;
+export default UserContext;
 
-const Auth = (props: any) => {
+const User = (props: any) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -48,8 +49,22 @@ const Auth = (props: any) => {
   const [isCodeSent, setIsCodeSent] = useState(false);
   const [confirmationCode, setConfirmationCode] = useState('');
   const [username, setUsername] = useState('');
+  const [userMeetings, setUserMeetings] = useState<any>(null)
+
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getMeeting = async (x: string) => {
+      console.log("Get Meeting")
+      console.log(email)
+      let response = await getMeetingsByUserId(x);
+      console.log(response)
+      setUserMeetings(response)
+    }
+    getMeeting(email)
+  }, [email])
+
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {
@@ -99,6 +114,7 @@ const Auth = (props: any) => {
 
   const authenticate = async (Username: string, Password: string) => {
     await new Promise((resolve, reject) => {
+      console.log(Username)
       const user = new CognitoUser({ Username, Pool: UserPool });
       const authDetails = new AuthenticationDetails({ Username, Password });
 
@@ -110,9 +126,11 @@ const Auth = (props: any) => {
           console.log(data.getAccessToken().getJwtToken());
           setIsAuthenticated(true);
           const user = UserPool.getCurrentUser();
+          console.log(user)
           if (user) {
             const username = user.getUsername();
             setUsername(username);
+            setEmail(Username)
           }
           resolve(data);
         },
@@ -138,7 +156,7 @@ const Auth = (props: any) => {
     }
   };
   return (
-    <AuthContext.Provider
+    <UserContext.Provider
       value={{
         authenticate,
         getSession,
@@ -159,11 +177,12 @@ const Auth = (props: any) => {
         confirmationCode,
         setConfirmationCode,
         username,
+        userMeetings
       }}
     >
       {props.children}
-    </AuthContext.Provider>
+    </UserContext.Provider>
   );
 };
 
-export { Auth, AuthContext };
+export { User, UserContext };
