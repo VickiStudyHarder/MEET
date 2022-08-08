@@ -70,16 +70,27 @@ const GoogleAuth: React.FC<IGoogle> = ({ incrementStage, decrementStage }) => {
         justify: 'center',
       }}
     >
-      <GoogleLogin
-        clientId={CLIENT_ID}
-        buttonText='Sign In & Authorize Calendar'
-        onSuccess={onSuccess}
-        onFailure={onFailure}
-        cookiePolicy={'single_host_origin'}
-        responseType='code'
-        accessType='offline'
-        scope='openid email profile https://www.googleapis.com/auth/calendar'
-      />
+      <Box sx={{ p: 4, textAlign: 'center' }}>
+        <Typography>Complete Google Sign Up</Typography>
+        <Typography>To Proceed</Typography>
+      </Box>
+      <Box
+        sx={{
+          alignItems: 'center',
+          justify: 'center',
+        }}
+      >
+        <GoogleLogin
+          clientId={CLIENT_ID}
+          buttonText='Sign In & Authorize Calendar'
+          onSuccess={onSuccess}
+          onFailure={onFailure}
+          cookiePolicy={'single_host_origin'}
+          responseType='code'
+          accessType='offline'
+          scope='openid email profile https://www.googleapis.com/auth/calendar'
+        />
+      </Box>
       <Box sx={{ x: 20 }}>
         <Button
           onClick={decrementStage}
@@ -90,11 +101,11 @@ const GoogleAuth: React.FC<IGoogle> = ({ incrementStage, decrementStage }) => {
         </Button>
         {isNextEnabled && (
           <Button
-            onClick={() => navigate('/login')}
+            onClick={incrementStage}
             sx={{ p: 4 }}
             endIcon={<ArrowForwardIcon />}
           >
-            Complete Sign Up
+            Next
           </Button>
         )}
       </Box>
