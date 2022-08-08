@@ -38,7 +38,7 @@ function App() {
             <Route path='/rating' element={<Rating />} />
             <Route path='/recording' element={<Recording />} />
             <Route path='/todos' element={<ToDos />} />
-            {/* <Route path='/login' element={<LandingPage  />} /> */}
+            <Route path='/login1' element={<LandingPage  />} />
           </Routes>
         </User>
       </div>

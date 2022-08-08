@@ -33,6 +33,12 @@ export type IUserContext = {
   setConfirmationCode: Dispatch<SetStateAction<string>>;
   username: string;
   userMeetings: any;
+  firstName: string;
+  setFirstName: Dispatch<SetStateAction<string>>;
+  lastName: string;
+  setLastName: Dispatch<SetStateAction<string>>;
+  dateOfBirth: Date | null;
+  setDateOfBirth: Dispatch<SetStateAction<Date | null>>;
 };
 
 const UserContext = createContext<IUserContext>({} as IUserContext);
@@ -43,28 +49,33 @@ const User = (props: any) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
   const [courses, setCourses] = useState([]);
   const [userType, setUserType] = useState('');
   const [error, setError] = useState('');
   const [isCodeSent, setIsCodeSent] = useState(false);
   const [confirmationCode, setConfirmationCode] = useState('');
   const [username, setUsername] = useState('');
-  const [userMeetings, setUserMeetings] = useState<any>(null)
-
+  const [userMeetings, setUserMeetings] = useState<any>(null);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const getMeeting = async (x: string) => {
-      console.log("Get Meeting")
-      console.log(email)
+      console.log('Get Meeting');
+      console.log(email);
       let response = await getMeetingsByUserId(x);
-      console.log(response)
-      setUserMeetings(response)
-    }
-    getMeeting(email)
-  }, [email])
+      console.log(response);
+      setUserMeetings(response);
+    };
+    getMeeting(email);
+  }, [email]);
 
+  const getMeeting = () => {
+    return getMeetingsByUserId('z3417347@gmail.com');
+  };
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {
@@ -114,7 +125,7 @@ const User = (props: any) => {
 
   const authenticate = async (Username: string, Password: string) => {
     await new Promise((resolve, reject) => {
-      console.log(Username)
+      console.log(Username);
       const user = new CognitoUser({ Username, Pool: UserPool });
       const authDetails = new AuthenticationDetails({ Username, Password });
 
@@ -126,11 +137,11 @@ const User = (props: any) => {
           console.log(data.getAccessToken().getJwtToken());
           setIsAuthenticated(true);
           const user = UserPool.getCurrentUser();
-          console.log(user)
+          console.log(user);
           if (user) {
             const username = user.getUsername();
             setUsername(username);
-            setEmail(Username)
+            setEmail(Username);
           }
           resolve(data);
         },
@@ -177,7 +188,13 @@ const User = (props: any) => {
         confirmationCode,
         setConfirmationCode,
         username,
-        userMeetings
+        userMeetings,
+        firstName,
+        setFirstName,
+        lastName,
+        setLastName,
+        dateOfBirth,
+        setDateOfBirth,
       }}
     >
       {props.children}
