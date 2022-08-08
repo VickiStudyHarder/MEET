@@ -25,7 +25,7 @@ const GoogleAuth: React.FC<IGoogle> = ({ incrementStage, decrementStage }) => {
   const [isNextEnabled, setNextEnabled] = useState(false);
   const navigate = useNavigate();
 
-  const { email } = useContext(UserContext);
+  const { email, setGoogleAuthToken } = useContext(UserContext);
 
   useEffect(() => {
     function start() {
@@ -44,11 +44,8 @@ const GoogleAuth: React.FC<IGoogle> = ({ incrementStage, decrementStage }) => {
     const { code } = response;
     console.log({ email });
     try {
-      const result = await createToken(code || '', email);
-      if (result.status !== 200) {
-        throw new Error('Unable to set tokens correctly');
-      }
-      console.log(result);
+      console.log(code)
+      setGoogleAuthToken(code || '');
       setNextEnabled(true);
     } catch (e) {
       console.log(e);

@@ -16,7 +16,7 @@ const createCalendarEvent: ValidatedEventAPIGatewayProxyEvent<
   const { token } = event.body;
   const username = event.pathParameters.username;
   const { tokens } = await oauth2Client.getToken(token);
-  console.log(tokens.refresh_token);
+  console.log(tokens);
 
   try {
     const result = await prisma.user.update({

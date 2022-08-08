@@ -11,6 +11,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { createToken } from '../../../api/google';
 
 const CompleteSignUp: React.FC<{}> = () => {
   const navigate = useNavigate();
@@ -31,7 +32,8 @@ const CompleteSignUp: React.FC<{}> = () => {
     firstName,
     lastName,
     dateOfBirth,
-    userType
+    userType,
+    googleAuthToken,
   } = useContext(UserContext);
 
   const handleClickOpen = () => {
@@ -46,10 +48,10 @@ const CompleteSignUp: React.FC<{}> = () => {
     event.preventDefault();
 
     console.log(email, password);
-    UserPool.signUp(email, password, [], [], (err: any, data: any) => {
+    UserPool.signUp(email, password, [], [], async (err: any, data: any) => {
       if (err) {
         setError(err.message);
-        setOpen(true)
+        setOpen(true);
         console.log(error);
         return;
       }
@@ -86,6 +88,11 @@ const CompleteSignUp: React.FC<{}> = () => {
       totalMeetings: 0,
     };
     await createUser(user);
+    const result = await createToken(googleAuthToken || '', email);
+    if (result.status !== 200) {
+      throw new Error('Unable to set tokens correctly');
+    }
+    console.log(result);
     navigate('/login');
   };
 
@@ -136,7 +143,7 @@ const CompleteSignUp: React.FC<{}> = () => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText id='alert-dialog-description'>
-             {error}
+              {error}
             </DialogContentText>
           </DialogContent>
           <DialogActions>

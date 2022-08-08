@@ -39,6 +39,8 @@ export type IUserContext = {
   setLastName: Dispatch<SetStateAction<string>>;
   dateOfBirth: Date | null;
   setDateOfBirth: Dispatch<SetStateAction<Date | null>>;
+  setGoogleAuthToken: Dispatch<SetStateAction<string>>
+  googleAuthToken: string;
 };
 
 const UserContext = createContext<IUserContext>({} as IUserContext);
@@ -59,6 +61,7 @@ const User = (props: any) => {
   const [confirmationCode, setConfirmationCode] = useState('');
   const [username, setUsername] = useState('');
   const [userMeetings, setUserMeetings] = useState<any>(null);
+  const [googleAuthToken, setGoogleAuthToken] = useState('')
 
   const navigate = useNavigate();
 
@@ -195,6 +198,8 @@ const User = (props: any) => {
         setLastName,
         dateOfBirth,
         setDateOfBirth,
+        setGoogleAuthToken,
+        googleAuthToken
       }}
     >
       {props.children}
