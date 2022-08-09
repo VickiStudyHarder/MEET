@@ -8,7 +8,7 @@ interface LandingPageProps {}
 
 export const LandingPage = (props: LandingPageProps) => {
   const { authenticate } = useContext(AccountContext);
-  const bgImgUrl = "./landingpage.jpg";
+  const bgImgUrl = "./landing_page.jpg";
   const onClick = (event: any) => {
     console.log(email, passwd);
     event.preventDefault();
@@ -26,31 +26,37 @@ export const LandingPage = (props: LandingPageProps) => {
   const [passwd, setPasswd] = useState("");
   const [createMode, setCreateMode] = useState(false);
   return (
-    <Container
-      sx={{
-        margin: 0,
-        width: "100%",
-        height: "auto",
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        backgroundImage: `url(${bgImgUrl})`,
-      }}
-    >
-      <Box
+    <>
+      <div
         style={{
-          borderRadius: 64,
-          width: 596,
-          height: 729,
+          position: "absolute",
+          top:"0px",
+          width: "100vw",
+          height: "100vh",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundImage: `url(${bgImgUrl})`,
+        }}
+      ></div>
+      <Box
+        sx={{
+          borderRadius: '64px',
+          width: '596px',
           backdropFilter: "blur(8px)",
-          marginLeft: 64,
-          marginTop: 64,
+          marginLeft: '100px',
+          marginTop: '100px',
         }}
       >
-        <Box style={{ position: "absolute", left: "95px", top: "140px" }}>
+        <Box sx={{ paddingLeft: "80px", paddingTop: "80px" }}>
           <Brand></Brand>
         </Box>
-        <CustomInput
+        <Box >
+          <div style={{borderRadius:"100%",width:"108px",height:"108px"}}>
+            <input type="file"></input>
+          </div>
+        </Box>
+        {/* <CustomInput
           onChange={(e: any) => setPasswd(e.target.value)}
           value={passwd}
           type="password"
@@ -131,8 +137,8 @@ export const LandingPage = (props: LandingPageProps) => {
             src="./get-started.png"
             alt=""
           ></img>
-        </Button>
+        </Button> */}
       </Box>
-    </Container>
+    </>
   );
 };
