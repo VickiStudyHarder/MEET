@@ -83,3 +83,11 @@ export interface IGroupPostItem {
   groupId?: string;
   postDate?: string;
 }
+
+export interface IUser {
+  userId: string;
+  userName: string;
+  rating: Rating;
+  role: string;
+  avatar: string;
+}

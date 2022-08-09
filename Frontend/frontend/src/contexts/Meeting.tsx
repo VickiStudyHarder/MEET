@@ -1,7 +1,7 @@
 import React, {
   createContext,
 } from 'react';
-import { IMeeting } from '../types/meeting';
+import { IMeeting } from '../types/types';
 import { getMeetingById, createMeeting } from '../api/meeting';
 
 export type IMeetingContext = {

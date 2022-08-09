@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import axios from 'axios';
 import { MeetingContext } from '../../contexts/Meeting';
-import { IMeeting } from '../../types/meeting';
+import { IMeeting } from '../../types/types';
 import {
   Container,
   createTheme,
