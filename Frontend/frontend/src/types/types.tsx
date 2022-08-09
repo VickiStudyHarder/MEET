@@ -1,6 +1,3 @@
-import { ActionItem, Rating } from "./basic";
-import { IUser } from "./user";
-
 export interface IMeeting {
   meetingId: string;
   ownerId: string;
@@ -9,10 +6,17 @@ export interface IMeeting {
   startDate: Date;
   endDate: Date;
   zoom: string;
+  requests: IMeetingRequest[];
   attendees?: IMeetingAttendee[];
   notes?: INote[];
   todos?: IToDoItem[];
   recordings?: IRecordingItem[];
+}
+
+export interface IMeetingRequest {
+  userId?: string;
+  meetingId?: string;
+  postDate?: string;
 }
 
 export interface IMeetingAttendee {
@@ -62,7 +66,7 @@ export interface IRecordingItem {
   file?: string;
 }
 
-export interface IGroup {
+export default interface IGroup {
   id?: string;
   ownerId?: string;
   title?: string;
@@ -70,7 +74,7 @@ export interface IGroup {
   attendees?: IGroupAttendee[];
 }
 
-export interface IGroupAttendee {
+export default interface IGroupAttendee {
   userId: string;
   groupId?: string;
   attended: boolean;
@@ -87,7 +91,7 @@ export interface IGroupPostItem {
 export interface IUser {
   userId: string;
   userName: string;
-  rating: Rating;
+  // rating: Rating;
   role: string;
   avatar: string;
 }
