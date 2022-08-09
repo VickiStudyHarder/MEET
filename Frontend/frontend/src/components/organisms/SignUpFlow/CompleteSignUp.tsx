@@ -1,31 +1,22 @@
 import React, { useState, useEffect, useContext } from 'react';
-import {
-  Button,
-  Grid,
-  Box,
-  Paper,
-  TextField,
-  IconButton,
-  InputAdornment,
-} from '@mui/material';
+import { Button, Grid, Box, Paper, TextField, Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { UserContext } from '../../../contexts/User';
 import UserPool from '../../../utils/auth/UserPool';
 import { useNavigate } from 'react-router-dom';
 import { CognitoUser } from 'amazon-cognito-identity-js';
 import { createUser } from '../../../api/users';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import { createToken } from '../../../api/google';
 
-interface ICourses {
-  decrementStage: () => void;
-  incrementStage: () => void;
-}
-
-const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
+const CompleteSignUp: React.FC<{}> = () => {
   const navigate = useNavigate();
   const [input, setInput] = useState('');
-
+  const [open, setOpen] = React.useState(false);
   const {
     email,
     password,
@@ -38,21 +29,29 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
     isCodeSent,
     setIsCodeSent,
     username,
+    firstName,
+    lastName,
+    dateOfBirth,
+    userType,
+    googleAuthToken,
   } = useContext(UserContext);
 
-  const addCourse = () => {
-    const updatedCourses = [input, ...courses];
-    setCourses(updatedCourses);
-    setInput('');
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   const onSignUp = (event: any) => {
     event.preventDefault();
 
     console.log(email, password);
-    UserPool.signUp(email, password, [], [], (err: any, data: any) => {
+    UserPool.signUp(email, password, [], [], async (err: any, data: any) => {
       if (err) {
         setError(err.message);
+        setOpen(true);
         console.log(error);
         return;
       }
@@ -81,18 +80,27 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
     console.log(username);
     const user = {
       id: username,
-      firstName: 'test',
-      lastName: 'test',
-      dateOfBirth: new Date(),
-      role: 'student',
+      firstName: firstName,
+      lastName: lastName,
+      dateOfBirth: dateOfBirth,
+      role: userType,
       rating: 0,
       totalMeetings: 0,
     };
     await createUser(user);
-    incrementStage();
+    const result = await createToken(googleAuthToken || '', email);
+    if (result.status !== 200) {
+      throw new Error('Unable to set tokens correctly');
+    }
+    console.log(result);
+    navigate('/login');
   };
 
   useEffect(() => {}, [courses, isCodeSent]);
+
+  const onSubmit = () => {
+    console.log('On Submit');
+  };
 
   return (
     <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
@@ -106,40 +114,12 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
           justify: 'center',
         }}
       >
-        <Typography component='h1' variant='h5' sx={{ p: 4 }}>
-          Which courses are you taking?
-        </Typography>
-        {courses.length > 0 && (
+        <Box>
           <Typography component='h1' variant='h5' sx={{ p: 4 }}>
-            Selected Courses:
+            Complete Sign Up
           </Typography>
-        )}
-        {courses.length > 0 &&
-          courses.map((course: string) => {
-            return (
-              <Typography component='h1' variant='h5'>
-                {course}
-              </Typography>
-            );
-          })}
+        </Box>
         <Box component='form' noValidate sx={{ m: 4 }}>
-          <TextField
-            id='outlined-multiline-flexible'
-            label='Courses'
-            multiline
-            maxRows={4}
-            value={input}
-            onChange={(e: any) => setInput(e.target.value)}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position='end'>
-                  <IconButton onClick={addCourse}>
-                    <AddCircleOutlineIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
           {isCodeSent && (
             <TextField
               sx={{ m: 4 }}
@@ -152,21 +132,32 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
             />
           )}
         </Box>
-        <Box sx={{ x: 40 }}>
-          <Button
-            onClick={decrementStage}
-            sx={{ p: 4 }}
-            startIcon={<ArrowBackIosIcon />}
-          >
-            Previous
-          </Button>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+        >
+          <DialogTitle id='alert-dialog-title'>
+            {'An error occured'}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id='alert-dialog-description'>
+              {error}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Close</Button>
+          </DialogActions>
+        </Dialog>
+        <Box>
           {isCodeSent ? (
             <Button onClick={onConfirm} sx={{ p: 4 }}>
               Confirm Code
             </Button>
           ) : (
             <Button onClick={onSignUp} sx={{ p: 4 }}>
-              Sign Up
+              Get Sign Up Verification Code
             </Button>
           )}
         </Box>
@@ -175,4 +166,4 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
   );
 };
 
-export default Courses;
+export default CompleteSignUp;

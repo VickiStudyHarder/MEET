@@ -25,7 +25,7 @@ const getByUserId: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         }
       } 
     })
-    console.log({result})
+    console.log(result)
     return formatJSONResponse({
       statusCode: 200,
       message: `${event}`,
