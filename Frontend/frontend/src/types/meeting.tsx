@@ -12,42 +12,74 @@ export interface IMeeting {
   attendees?: IMeetingAttendee[];
   notes?: INote[];
   todos?: IToDoItem[];
+  recordings?: IRecordingItem[];
 }
 
 export interface IMeetingAttendee {
   userId: string;
-  meetingId?: number;
+  meetingId?: string;
   attended: boolean;
 }
+
 export interface INote {
-  id?: number;
-  ownerId?: number;
-  meetingId?: number;
-  items? : INoteItem[]
+  id?: string;
+  ownerId?: string;
+  meetingId?: string;
+  items?: INoteItem[];
 }
 
 export interface INoteItem {
-  id?: number;
-  noteId?: number;
+  id?: string;
+  noteId?: string;
   title?: string;
   content?: string;
 }
 
-export interface Agenda{
-  id?:number;
-  meetingId?:number;
-  items?: AgendaItem[]
+export interface Agenda {
+  id?: string;
+  meetingId?: string;
+  items?: AgendaItem[];
 }
 
 export interface AgendaItem {
-  id?:number;
-  agendaId?:number;
-  title?:string;
-  content?:string
+  id?: string;
+  agendaId?: string;
+  title?: string;
+  content?: string;
 }
 
 export interface IToDoItem {
-  id?: number;
-  meetingId?:number
+  id?: string;
+  meetingId?: string;
   title: string;
+}
+
+export interface IRecordingItem {
+  id?: string;
+  meetingId?: string;
+  title?: string;
+  description?: string;
+  file?: string;
+}
+
+export interface IGroup {
+  id?: string;
+  ownerId?: string;
+  title?: string;
+  description?: string;
+  attendees?: IGroupAttendee[];
+}
+
+export interface IGroupAttendee {
+  userId: string;
+  groupId?: string;
+  attended: boolean;
+}
+
+export interface IGroupPostItem {
+  id?: string;
+  ownerId?: string;
+  content?: string;
+  groupId?: string;
+  postDate?: string;
 }
