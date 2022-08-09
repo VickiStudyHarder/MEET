@@ -3,32 +3,51 @@ import { IUser } from "./user";
 
 export interface IMeeting {
   meetingId: string;
-  userId: string;
-  summary: string;
+  ownerId: string;
+  title: string;
   description: string;
-  location: string;
-  meetingStart: Date;
-  meetingEnd: Date;
-  toDoItems?: IToDoItem[];
-  notes?: INotes[];
+  startDate: Date;
+  endDate: Date;
+  zoom: string;
   attendees?: IMeetingAttendee[];
+  notes?: INote[];
+  todos?: IToDoItem[];
+}
+
+export interface IMeetingAttendee {
+  userId: string;
+  meetingId?: number;
+  attended: boolean;
+}
+export interface INote {
+  id?: number;
+  ownerId?: number;
+  meetingId?: number;
+  items? : INoteItem[]
+}
+
+export interface INoteItem {
+  id?: number;
+  noteId?: number;
+  title?: string;
+  content?: string;
+}
+
+export interface Agenda{
+  id?:number;
+  meetingId?:number;
+  items?: AgendaItem[]
+}
+
+export interface AgendaItem {
+  id?:number;
+  agendaId?:number;
+  title?:string;
+  content?:string
 }
 
 export interface IToDoItem {
   id?: number;
+  meetingId?:number
   title: string;
-  dueDate: Date;
-  assigneeId?: string;
-}
-export interface INotes {
-  id?: number;
-  title: string;
-  details: string;
-  meetingId?: number;
-}
-
-export interface IMeetingAttendee {
-  id?: number;
-  userId: string;
-  attended: boolean;
 }
