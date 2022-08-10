@@ -16,7 +16,7 @@ export interface IMeeting {
 export interface IMeetingRequest {
   userId?: string;
   meetingId?: string;
-  postDate?: string;
+  postDate?: Date;
 }
 
 export interface IMeetingAttendee {
@@ -65,13 +65,13 @@ export interface IRecordingItem {
   description?: string;
   file?: string;
 }
-
-
 export default interface IGroupAttendee {
   userId: string;
   groupId?: string;
   attended: boolean;
 }
+
+
 
 export default interface IGroup {
   id?: string;
@@ -85,7 +85,7 @@ export interface IGroupPostItem {
   ownerId?: string;
   content?: string;
   groupId?: string;
-  postDate?: string;
+  postDate?: Date;
 }
 
 export interface IUser {

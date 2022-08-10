@@ -50,6 +50,7 @@ const LandingPage = (props: LandingPageProps) => {
         <Box style={{ position: 'absolute', left: '95px', top: '140px' }}>
           <Brand></Brand>
         </Box>
+
         <CustomInput
           onChange={(e: any) => setPasswd(e.target.value)}
           value={passwd}
