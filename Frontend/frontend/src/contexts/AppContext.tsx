@@ -71,23 +71,23 @@ const AppContextProvider = (props: any) => {
     console.log(`get meeting by user id ${userId}:`, resp);
     if (resp?.data?.statusCode === 200) {
       const data = resp?.data?.body;
-      // if (data.length > 0) {
-      //   const mapped = data?.map((item: any) => ({
-      //     ...item,
-      //     startable:
-      //       Date.now() / 1000 - Date.parse(item.startTime) / 1000 <
-      //       8 * 60
-      //         ? true
-      //         : false,
-      //     startTime: Date.parse(item.startTime),
-      //     endTime: Date.parse(item.endTime),
-      //   }));
-      //   const sorted = mapped?.sort(
-      //     (a: any, b: any) => Number(a.startTime) - Number(b.startTime)
-      //   );
-      //   console.log(`sort meeting by user id ${userId}:`, sorted);
-      //   setUserMeetings(sorted);
-      // }
+      if (data.length > 0) {
+        const mapped = data?.map((item: any) => ({
+          ...item,
+          startable:
+            Date.now() / 1000 - Date.parse(item.startTime) / 1000 <
+            8 * 60
+              ? true
+              : false,
+          startTime: Date.parse(item.startTime),
+          endTime: Date.parse(item.endTime),
+        }));
+        const sorted = mapped?.sort(
+          (a: any, b: any) => Number(a.startTime) - Number(b.startTime)
+        );
+        console.log(`sort meeting by user id ${userId}:`, sorted);
+        setUserMeetings(sorted);
+      }
     } else {
       console.error(
         "getMeetingsByUserId is invalid on remote",
