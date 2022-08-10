@@ -48,41 +48,46 @@ export default function Calendar({
   ...props
 }: ICalendar) {*/
 
+
+
+
 const Calendar: React.FC<ICalendar> = () => {
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
-      <Grid container direction="row" sx={{ width: 2000, height: 500 }}>
+      <Grid container direction="row" sx={{
+        alignItems: "center", mx: "auto", justifyContent: "center"
+      }}>
         <Grid item>
           <Grid container direction="column">
             <Grid item sx={{ marginRight: 10 }}>
               <CalendarUserCardPrimary />
             </Grid>
-            <Grid item>
+            <Grid item sx={{ marginTop: 5 }}>
               <Grid container direction="column">
                 <Grid container direction="row">
                   <Grid item>
                     <CalendarUserCardMini />
                   </Grid>
-                  <Grid item>
+                  <Grid item sx={{ marginLeft: 5 }}>
                     <CalendarUserCardMini />
                   </Grid>
 
                 </Grid>
-                <Grid container direction="row">
+                <Grid container direction="row" sx={{ marginTop: 5 }}>
                   <Grid item>
                     <CalendarUserCardMini />
                   </Grid>
-                  <Grid item>
+                  <Grid item sx={{ marginLeft: 5 }}>
                     <CalendarUserCardMini />
                   </Grid>
 
                 </Grid>
-                <Grid container direction="row">
+                <Grid container direction="row" sx={{ marginTop: 5 }}>
                   <Grid item>
                     <CalendarUserCardMini />
                   </Grid>
-                  <Grid item>
+                  <Grid item sx={{ marginLeft: 5 }}>
                     <CalendarUserCardMini />
                   </Grid>
 
@@ -92,7 +97,7 @@ const Calendar: React.FC<ICalendar> = () => {
 
           </Grid>
         </Grid>
-        <Grid item sx={{ width: 1000, height: 500 }}>
+        <Grid item sx={{ width: 1200 }}>
           <Calendar_table />
         </Grid>
         <CssBaseline />
@@ -100,7 +105,6 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
       </Grid>
-      <div>Calendar1</div>
     </ThemeProvider >
 
 
