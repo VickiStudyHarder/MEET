@@ -13,7 +13,7 @@ function API({}: Props) {
     console.log("/api",userMeetings)
   },[userMeetings])
 
-  useEffect(()=>{setUserMeetings([{meeting:{description:"01"}},{meeting:{description:"02"}}])},[])
+  // useEffect(()=>{setUserMeetings([{meeting:{description:"01"}},{meeting:{description:"02"}}])},[])
 
   return (
     <div>

@@ -16,7 +16,7 @@ import StudentGroupNameCard from '../../stories/StudentGroupNameCard';
 import CreateStudentGroupForm from '../../stories/CreateStudentGroupForm';
 import ChatWindow from '../organisms/ChatWindow/ChatWindow';
 import { getGroups } from '../../api/groupChat';
-import UserContext from '../../contexts/User';
+import AppContext from '../../contexts/AppContext';
 import StudentGroupCard from '../../stories/StudentGroupCard';
 
 interface IGroup {}
@@ -24,7 +24,7 @@ interface IGroup {}
 const theme = createTheme();
 
 const Group: React.FC<IGroup> = () => {
-  const { email } = useContext(UserContext);
+  const { email } = useContext(AppContext);
   const [open, setOpen] = useState(false);
   const [myGroups, setMyGroups] = useState<any>(null);
   const [availableGroups, setAvailableGroups] = useState<any>(null);

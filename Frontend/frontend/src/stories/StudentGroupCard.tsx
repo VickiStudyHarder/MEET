@@ -7,7 +7,7 @@ import { Avatar, Button, CardActionArea, Icon } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
-import UserContext from '../contexts/User';
+import AppContext from '../contexts/AppContext';
 import { joinGroup, leaveGroup } from '../api/groupChat';
 
 export interface IParticipant {
@@ -29,7 +29,7 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
   groupParticipant,
   userIsParticipant,
 }) => {
-  const { email } = useContext(UserContext);
+  const { email } = useContext(AppContext);
 
   const handleJoinGroup = async () => {
     const result = await joinGroup(email, name);
@@ -109,21 +109,6 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
                   my: 'auto',
                 }}
               >
-                <Button onClick={handleJoinGroup}>
-                  <Typography variant='body1' sx={{ m: 'auto' }}>
-                    Join
-                  </Typography>
-                  <ArrowRightAltOutlinedIcon />
-                </Button>
-              </Box>
-            ) : (
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  my: 'auto',
-                }}
-              >
                 <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                   <Button>
                     <Typography variant='body1'>Revisit</Typography>
@@ -136,6 +121,21 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
                     <ArrowRightAltOutlinedIcon />
                   </Button>
                 </Box>
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  my: 'auto',
+                }}
+              >
+                <Button onClick={handleJoinGroup}>
+                  <Typography variant='body1' sx={{ m: 'auto' }}>
+                    Join
+                  </Typography>
+                  <ArrowRightAltOutlinedIcon />
+                </Button>
               </Box>
             )}
           </CardContent>
