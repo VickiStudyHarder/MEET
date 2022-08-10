@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { UserContext } from '../../../contexts/User';
+import { AppContext } from '../../../contexts/AppContext';
 
 const Status = () => {
   const [status, setStatus] = useState(false);
 
-  const { getSession, logout } = useContext(UserContext);
+  const { getSession, logout } = useContext(AppContext);
 
   useEffect(() => {
     getSession().then((session: any) => {

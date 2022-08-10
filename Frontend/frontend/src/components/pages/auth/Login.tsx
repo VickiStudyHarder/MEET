@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../../../contexts/User';
+import { AppContext } from '../../../contexts/AppContext';
 import { useNavigate } from 'react-router-dom';
 import {
   Avatar,
@@ -17,6 +17,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Typography } from '@material-ui/core';
 import { createTheme } from '@mui/material/styles';
 import './Login.scss';
+import CustomInput from '../../../stories/Input';
 
 const theme = createTheme();
 
@@ -25,7 +26,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const { authenticate } = useContext(UserContext);
+  const { authenticate } = useContext(AppContext);
 
   const onSubmit = (event: any) => {
     console.log('On Submit');
@@ -60,7 +61,7 @@ const SignUp = () => {
             </Box>
           </Box>
           <Box component='form' onSubmit={onSubmit} noValidate>
-            <TextField
+            <CustomInput
               margin='normal'
               required
               fullWidth
@@ -72,7 +73,7 @@ const SignUp = () => {
               value={email}
               onChange={(e: any) => setEmail(e.target.value)}
             />
-            <TextField
+            <CustomInput
               margin='normal'
               required
               fullWidth

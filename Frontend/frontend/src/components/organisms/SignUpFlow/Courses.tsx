@@ -11,7 +11,7 @@ import {
 import Typography from '@mui/material/Typography';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { UserContext } from '../../../contexts/User';
+import { AppContext } from '../../../contexts/AppContext';
 import UserPool from '../../../utils/auth/UserPool';
 import { useNavigate } from 'react-router-dom';
 import { CognitoUser } from 'amazon-cognito-identity-js';
@@ -38,7 +38,7 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
     isCodeSent,
     setIsCodeSent,
     username,
-  } = useContext(UserContext);
+  } = useContext(AppContext);
 
   const addCourse = () => {
     const updatedCourses = [input, ...courses];
