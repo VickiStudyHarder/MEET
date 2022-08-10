@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { IMeeting } from '../../types/meeting';
 import {
   Container,
   createTheme,
@@ -9,26 +8,27 @@ import {
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../molecules/NavBar';
 import UserContext from '../../contexts/User';
+import { IMeeting } from '../../types/types';
 
 const theme = createTheme();
 
 const meetingExample: IMeeting = {
-  userId: 'z3417347@gmail.com',
-  summary: 'test summary',
-  description: 'test description',
-  location: 'test location',
-  meetingStart: new Date('August 02, 2022 10:00:00'),
-  meetingEnd: new Date('August 02, 2022 11:00:00'),
-  attendees: [{ userId: 'z3417347@gmail.com', attended: false }],
-  notes: [{ title: 'this was a good meeting', details: 'meeting details' }],
-  toDoItems: [
-    {
-      title: 'update the database',
-      dueDate: new Date('July 28, 2022 04:00:00'),
-      assigneeId: 'z3417347@gmail.com',
-    },
-  ],
-  meetingId: '',
+  // userId: 'z3417347@gmail.com',
+  // summary: 'test summary',
+  // description: 'test description',
+  // location: 'test location',
+  // meetingStart: new Date('August 02, 2022 10:00:00'),
+  // meetingEnd: new Date('August 02, 2022 11:00:00'),
+  // attendees: [{ userId: 'z3417347@gmail.com', attended: false }],
+  // notes: [{ title: 'this was a good meeting', details: 'meeting details' }],
+  // toDoItems: [
+  //   {
+  //     title: 'update the database',
+  //     dueDate: new Date('July 28, 2022 04:00:00'),
+  //     assigneeId: 'z3417347@gmail.com',
+  //   },
+  // ],
+  // meetingId: '',
 };
 
 const Home = () => {

@@ -1,12 +1,12 @@
 export interface IMeeting {
-  meetingId: string;
-  ownerId: string;
-  title: string;
-  description: string;
-  startDate: Date;
-  endDate: Date;
-  zoom: string;
-  requests: IMeetingRequest[];
+  meetingId?: string;
+  ownerId?: string;
+  title?: string;
+  description?: string;
+  startDate?: Date;
+  endDate?: Date;
+  zoom?: string;
+  requests?: IMeetingRequest[];
   attendees?: IMeetingAttendee[];
   notes?: INote[];
   todos?: IToDoItem[];
@@ -66,13 +66,6 @@ export interface IRecordingItem {
   file?: string;
 }
 
-export default interface IGroup {
-  id?: string;
-  ownerId?: string;
-  title?: string;
-  description?: string;
-  attendees?: IGroupAttendee[];
-}
 
 export default interface IGroupAttendee {
   userId: string;
@@ -80,6 +73,13 @@ export default interface IGroupAttendee {
   attended: boolean;
 }
 
+export default interface IGroup {
+  id?: string;
+  ownerId?: string;
+  title?: string;
+  description?: string;
+  attendees?: IGroupAttendee[];
+}
 export interface IGroupPostItem {
   id?: string;
   ownerId?: string;
