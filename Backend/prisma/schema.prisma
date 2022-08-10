@@ -11,80 +11,88 @@ datasource db {
 }
 
 model User {
-  id String @id @unique
-  firstName String
-  lastName String
-  dateOfBirth String
-  role String
-  rating Int
-  totalMeetings Int
-  meetingAttendee MeetingAttendee[]
-  toDoItem ToDoItem[]
-  groupParticipant GroupParticipant[]
-  group Group[]
-  tokens Tokens?
+  id               String             @id @unique
+  firstName        String
+  lastName         String
+  dateOfBirth      String
+  role             String
+  rating           Int
+  totalMeetings    Int
+  meetingAttendee  MeetingAttendee[]
+  toDoItem         ToDoItem[]
+  tokens           Tokens?
+  messageHistory   MessageHistory[]
+  GroupParticipant GroupParticipant[]
 }
 
 model Tokens {
-  user User @relation(fields: [userId], references:[id], onDelete: Cascade)
-  userId String @id @unique
+  user         User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       String @id @unique
   refreshToken String
 }
 
 model Meeting {
-  id Int @id @default(autoincrement())
-  startTime DateTime
-  endTime DateTime
-  summary String
-  description String
-  location String
+  id              Int               @id @default(autoincrement())
+  startTime       DateTime
+  endTime         DateTime
+  summary         String
+  description     String
+  location        String
   meetingAttendee MeetingAttendee[]
-  toDoItem ToDoItem[]
-  notes Notes[]
+  toDoItem        ToDoItem[]
+  notes           Notes[]
 }
 
 model MeetingAttendee {
-  id Int @id @default(autoincrement())
-  meeting Meeting @relation(fields: [meetingId], references:[id], onDelete: Cascade)
-  meetingId Int
-  user User @relation(fields: [userId], references:[id], onDelete: Cascade)
-  userId String
-  attended  Boolean  @default(false)
-  googleCalendarId String @default("")
+  id               Int     @id @default(autoincrement())
+  meeting          Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  meetingId        Int
+  user             User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId           String
+  attended         Boolean @default(false)
+  googleCalendarId String  @default("")
 }
 
 model ToDoItem {
-  id Int @id @default(autoincrement())
-  title String
-  dueDate DateTime
-  user User @relation(fields:[assigneeId], references:[id], onDelete: Cascade)
+  id         Int      @id @default(autoincrement())
+  title      String
+  dueDate    DateTime
+  user       User     @relation(fields: [assigneeId], references: [id], onDelete: Cascade)
   assigneeId String
-  meeting Meeting @relation(fields:[meetingId], references:[id], onDelete: Cascade)
-  meetingId Int
+  meeting    Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  meetingId  Int
 }
 
 model Notes {
-  id Int @id @default(autoincrement())
-  title String
-  details String
-  meeting Meeting @relation(fields:[meetingId], references:[id], onDelete: Cascade)
+  id        Int     @id @default(autoincrement())
+  title     String
+  details   String
+  meeting   Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
   meetingId Int
 }
 
 model Group {
-  id Int @id @default(autoincrement())
-  url String
-  name String
-  description String
-  user User @relation(fields:[ownerId], references:[id])
-  ownerId String
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  description      String
+  messageHistory   MessageHistory[]
   groupParticipant GroupParticipant[]
 }
 
+model MessageHistory {
+  id       Int      @id @default(autoincrement())
+  group    Group    @relation(fields: [groupId], references: [id])
+  groupId  Int
+  message  String
+  timeSent DateTime
+  user     User     @relation(fields: [userId], references: [id])
+  userId   String
+}
+
 model GroupParticipant {
-  id Int @id @default(autoincrement())
-  user User @relation(fields: [participantId], references: [id])
-  participantId String
-  group Group @relation(fields: [groupId], references:[id])
-  groupId Int
+  id      Int    @id @default(autoincrement())
+  group   Group  @relation(fields: [groupName], references: [name])
+  groupName String
+  user    User   @relation(fields: [userId], references: [id])
+  userId  String
 }

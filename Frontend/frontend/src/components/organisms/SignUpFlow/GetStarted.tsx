@@ -34,22 +34,44 @@ const GetStarted: React.FC<IGetStarted> = ({ incrementStage }) => {
 
   const navigate = useNavigate();
 
+  const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
   const onSubmit = (e: any) => {
     e.preventDefault();
     if (!validateEmail(email)) {
+      console.log(email);
       setError('Email address is not valid');
+      setOpen(true);
+      return;
     } else if (password === '') {
       setError('Password is required');
+      setOpen(true);
+      return;
+    } else if (password.length < 8) {
+      setError('Password must be at least 8 characters');
+      setOpen(true);
+      return;
+    } else if (password === password.toLowerCase()) {
+      setError('Password must contain at least one uppercase letter');
+      setOpen(true);
+      return;
+    } else if (!password.includes('!' || '.' || '$' || '*')) {
+      console.log(password);
+      setError('Password must contain a special character');
+      setOpen(true);
+      return;
     } else if (firstName === '') {
       setError('First Name is required');
+      setOpen(true);
+      return;
     } else if (lastName === '') {
       setError('Last Name is required');
+      setOpen(true);
+      return;
     } else if (dateOfBirth === null) {
       setError('Date Of Birth Is Required');
-    }
-
-    if (error !== null) {
       setOpen(true);
+      return;
     }
     incrementStage();
   };
@@ -139,7 +161,7 @@ const GetStarted: React.FC<IGetStarted> = ({ incrementStage }) => {
             value={lastName}
             onChange={(e: any) => setLastName(e.target.value)}
           />
-          <Box sx={{ p: 4 }}>
+          <Box sx={{ py: 4 }}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
                 label='Date Of Birth'
