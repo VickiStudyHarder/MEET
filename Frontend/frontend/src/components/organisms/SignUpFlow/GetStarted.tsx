@@ -3,7 +3,7 @@ import { TextField, Button, Grid, Box, Paper, Avatar } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../../contexts/User';
+import { AppContext } from '../../../contexts/AppContext';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
@@ -28,7 +28,7 @@ const GetStarted: React.FC<IGetStarted> = ({ incrementStage }) => {
     setLastName,
     dateOfBirth,
     setDateOfBirth,
-  } = useContext(UserContext);
+  } = useContext(AppContext);
   const [error, setError] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 

@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../molecules/NavBar';
-import UserContext from '../../contexts/User';
+import AppContext from '../../contexts/AppContext';
 import { IMeeting } from '../../types/types';
 
 const theme = createTheme();
@@ -23,7 +23,7 @@ const meetingExample: IMeeting = {
 };
 
 const Home = () => {
-  const { userMeetings } = useContext(UserContext);
+  const { userMeetings } = useContext(AppContext);
 
   useEffect(() => {}, [userMeetings]);
 

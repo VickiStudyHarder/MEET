@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../../../contexts/User';
+import { AppContext } from '../../../contexts/AppContext';
 import { useNavigate } from 'react-router-dom';
 import {
   Avatar,
@@ -26,7 +26,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const { authenticate } = useContext(UserContext);
+  const { authenticate } = useContext(AppContext);
 
   const onSubmit = (event: any) => {
     console.log('On Submit');
