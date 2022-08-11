@@ -5,7 +5,7 @@ import Exist_StuGro_box from '../../stories/Exist_StuGro_box';
 import CalendarUserCardMini from '../../stories/CalendarUserCardMini/CalendarUserCardMini';
 import CalendarUserCardPrimary from '../../stories/CalendarUserCardPrimary/CalendarUserCardPrimary';
 import Calendar_table from '../../stories/Calendar_table';
-import MeetingScheduleTomorrow from '../../stories/CalendarMentorConfirmedMeetings/CalendarMentorConfirmedMeetings';
+import CalendarMentorConfirmedMeetings from '../../stories/CalendarMentorConfirmedMeetings/CalendarMentorConfirmedMeetings';
 import Grid from "@mui/material/Grid";
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
@@ -50,7 +50,7 @@ interface ICalendar {
   role?: string;
 }
 
-let role = "student"
+let role = "mentor"
 
 
 
@@ -103,6 +103,7 @@ const Calendar: React.FC<ICalendar> = () => {
       mentorname: "hi1",
       mentorRole: 'mentor',
       rating: 4,
+      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
     }
   ];
 
@@ -112,56 +113,67 @@ const Calendar: React.FC<ICalendar> = () => {
       mentorname: "hi1",
       mentorRole: 'mentor',
       rating: 4,
+      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
     },
     {
       mentorname: "hi1",
       mentorRole: 'mentor',
       rating: 4,
+      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
     },
     {
       mentorname: "hi1",
       mentorRole: 'mentor',
       rating: 4,
+      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
     },
     {
       mentorname: "hi1",
       mentorRole: 'mentor',
       rating: 4,
+      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
     },
     {
       mentorname: "hi1",
       mentorRole: 'mentor',
       rating: 4,
+      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
     },
     {
       mentorname: "hi1",
       mentorRole: 'mentor',
       rating: 4,
+      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
     },
     {
       mentorname: "hi1",
       mentorRole: 'mentor',
       rating: 4,
+      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
     },
     {
       mentorname: "hi1",
       mentorRole: 'mentor',
       rating: 4,
+      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
     },
     {
       mentorname: "hi1",
       mentorRole: 'mentor',
       rating: 4,
+      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
     },
     {
       mentorname: "hi1",
       mentorRole: 'mentor',
       rating: 4,
+      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
     },
     {
       mentorname: "hi1",
       mentorRole: 'mentor',
       rating: 4,
+      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
     },
   ];
 
@@ -180,17 +192,14 @@ const Calendar: React.FC<ICalendar> = () => {
             <Grid item>
               <Grid container direction="column">
                 <Grid item >
-                  <CalendarUserCardPrimary name={"hi2"}
-                    job={'mentor'}
-                    Rating={3} />
+                  <CalendarUserCardPrimary name={studentdata?.[0]?.mentorname}
+                    job={studentdata?.[0]?.mentorRole}
+                    Rating={studentdata?.[0]?.rating}
+                    avator={studentdata?.[0]?.avator} />
                 </Grid>
 
 
-                <Grid item sx={{ overflow: 'auto', height: 600 }}>
-
-
-
-
+                <Grid item sx={{ overflow: 'auto', height: 500 }}>
                   <Grid container direction="column">
                     <Grid container direction="row" >
                       <Grid item sx={{ width: 200 }}>
@@ -200,29 +209,24 @@ const Calendar: React.FC<ICalendar> = () => {
 
                           <CalendarUserCardMini
                             name={item?.mentorname}
+                            avator={item?.avator}
 
                           />
                         ))}
-
                       </Grid>
 
                       <Grid item sx={{ overflow: 'auto' }}>
-
-
                         {mentorlistdata.slice(secondColumnStart + 1, TotalNumberofMentor).map((item) => (
 
                           <CalendarUserCardMini
                             name={item?.mentorname}
+                            avator={item?.avator}
 
                           />
                         ))}
 
                       </Grid>
-
-
                     </Grid>
-
-
                   </Grid>
                 </Grid>
 
@@ -251,21 +255,21 @@ const Calendar: React.FC<ICalendar> = () => {
         role === "mentor" && (
           <>
             <Grid container direction="row" sx={{
-              heigh: 800, width: 1200, mx: "auto", justifyContent: "center"
+              heigh: 800, width: 1400, mx: "auto", justifyContent: "center"
             }}>
               <Grid item sx={{
                 mx: "auto", alignItems: "center"
               }}>
+                <h1>Upcoming Meetings</h1>
                 <Box sx={{
                   maxHeight: 800,
                   overflow: 'auto',
 
 
                 }}>
-
                   {data.map((item) => (
 
-                    <MeetingScheduleTomorrow
+                    <CalendarMentorConfirmedMeetings
                       date={item?.date}
                       meetingName={item?.meetingName}
                       time={item?.time}
@@ -276,16 +280,14 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
 
-
                 </Box>
 
               </Grid>
               <Grid item
                 sx={{
-                  width: 1200, alignItems: "center", mx: "auto", justifyContent: "center"
+                  width: 1000, alignItems: "center", mx: "auto", justifyContent: "center"
                 }}>
                 <Calendar_table />
-                <div>test</div>
               </Grid>
               <CssBaseline />
 
