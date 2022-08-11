@@ -8,7 +8,7 @@ import {
   Divider,
   Dialog,
   Grid,
-  Container
+  Container,
 } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import NavBar from '../molecules/NavBar';
@@ -80,7 +80,7 @@ const Group: React.FC<IGroup> = () => {
           }}
         >
           <Typography sx={{ display: 'flex', flexGrow: 1 }}>
-            Study Hard-Study Group
+            All Study Groups
           </Typography>
           <Button onClick={handleClickOpen} variant='contained'>
             +Add
@@ -89,41 +89,47 @@ const Group: React.FC<IGroup> = () => {
       </Box>
       <Divider variant='middle' sx={{ width: '100%' }} />
       <Box sx={{ display: 'flex', flexDirection: 'row', p: 6 }}>
-        <Box sx={{ height: '100%' }}>
-          <StudentGroupNameCard />
+        <Box sx={{ height: '100%', m: 2 }}>
+          <StudentGroupNameCard myGroups={myGroups} />
         </Box>
-        <Container sx={{ display: 'flex', flexDirection: 'column', width: '100%'}} >
-        <Box sx={{ display: 'flex', flexGrow: 1, m: 2, width: '100%' }}>
-          <Grid container spacing={2}>
-            {myGroups &&
-              myGroups.map((group: any) => {
-                return (
-                  <StudentGroupCard
-                    name={group.name}
-                    groupParticipant={group.groupParticipant}
-                    description={group.description}
-                    userIsParticipant={true}
-                  />
-                );
-              })}
-          </Grid>
-        </Box>
-        <Box sx={{ display: 'flex', flexGrow: 1, m: 2 , width: '100%'}}>
-          <Grid container spacing={2}>
-            {availableGroups &&
-              availableGroups.map((group: any) => {
-                return (
-                  <StudentGroupCard
-                    name={group.name}
-                    groupParticipant={group.groupParticipant}
-                    description={group.description}
-                    userIsParticipant={false}
-                  />
-                );
-              })}
-          </Grid>
-          {/* <ChatWindow /> */}
-        </Box>
+        <Container
+          sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+        >
+          <Box sx={{ display: 'flex', flexGrow: 1, m: 2, width: '100%' }}>
+            <Grid container spacing={2}>
+              {myGroups &&
+                myGroups.map((group: any) => {
+                  return (
+                    <StudentGroupCard
+                      id={group.id}
+                      name={group.name}
+                      groupParticipant={group.groupParticipant}
+                      description={group.description}
+                      userIsParticipant={true}
+                      getAllGroups={getAllGroups}
+                    />
+                  );
+                })}
+            </Grid>
+          </Box>
+          <Box sx={{ display: 'flex', flexGrow: 1, m: 2, width: '100%' }}>
+            <Grid container spacing={2}>
+              {availableGroups &&
+                availableGroups.map((group: any) => {
+                  return (
+                    <StudentGroupCard
+                      id={group.id}
+                      name={group.name}
+                      groupParticipant={group.groupParticipant}
+                      description={group.description}
+                      userIsParticipant={false}
+                      getAllGroups={getAllGroups}
+                    />
+                  );
+                })}
+            </Grid>
+            {/* <ChatWindow /> */}
+          </Box>
         </Container>
       </Box>
       <Dialog

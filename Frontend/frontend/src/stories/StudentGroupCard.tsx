@@ -1,42 +1,46 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import { Avatar, Button, CardActionArea, Icon } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
+import { Avatar, Button, CardActionArea } from '@mui/material';
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
 import AppContext from '../contexts/AppContext';
 import { joinGroup, leaveGroup } from '../api/groupChat';
-
-export interface IParticipant {
-  id: number;
-  groupName: string;
-  userId: string;
-}
-
-export interface IStudentGroupCard {
-  name: string;
-  description: string;
-  groupParticipant: IParticipant[];
-  userIsParticipant: boolean;
-}
+import { IStudentGroupCard } from '../types/groups';
+import { useNavigate } from 'react-router-dom';
 
 const StudentGroupCard: React.FC<IStudentGroupCard> = ({
+  id,
   name,
   description,
   groupParticipant,
   userIsParticipant,
+  getAllGroups,
 }) => {
   const { email } = useContext(AppContext);
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const [snackBarMessage, setSnackBarMessage] = useState('');
 
   const handleJoinGroup = async () => {
-    const result = await joinGroup(email, name);
+    const { status, data } = await joinGroup(email, name);
+    if (status === 200) {
+      console.log(data);
+      setSnackBarMessage(`Successfully left ${data.event.body.name}`);
+      setOpen(true);
+      getAllGroups();
+    }
   };
 
   const handleLeaveGroup = async () => {
-    const result = await leaveGroup(email, name);
+    const { status, data } = await leaveGroup(email, name);
+    if (status === 200) {
+      console.log(data);
+      setSnackBarMessage(`Successfully left ${data.event.body.name}`);
+      setOpen(true);
+      getAllGroups();
+    }
   };
 
   return (
@@ -110,7 +114,11 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
                 }}
               >
                 <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                  <Button>
+                  <Button
+                    onClick={() => {
+                      navigate(`/group/${id}`);
+                    }}
+                  >
                     <Typography variant='body1'>Revisit</Typography>
                     <ArrowRightAltOutlinedIcon />
                   </Button>

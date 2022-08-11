@@ -23,6 +23,7 @@ import {
   leaveGroup,
   getGroupById,
   getAllGroups,
+  sendMessage
 } from '@functions/groups';
 
 import { createCalendarEvent } from '@functions/google';
@@ -71,6 +72,7 @@ const serverlessConfiguration: AWS = {
     leaveGroup,
     getGroupById,
     getAllGroups,
+    sendMessage
   },
   package: { individually: true },
   custom: {
