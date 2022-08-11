@@ -42,6 +42,7 @@ export type IAppContext = {
   setDateOfBirth: Dispatch<SetStateAction<Date | null>>;
   setGoogleAuthToken: Dispatch<SetStateAction<string>>;
   googleAuthToken: string;
+  meetingTodos: []
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -391,6 +392,7 @@ const AppContextProvider = (props: any) => {
         setDateOfBirth,
         setGoogleAuthToken,
         googleAuthToken,
+        meetingTodos
       }}
     >
       {props.children}
