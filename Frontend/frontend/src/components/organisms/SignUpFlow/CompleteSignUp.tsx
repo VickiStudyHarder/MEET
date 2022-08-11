@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, Grid, Box, Paper, TextField, Stack } from '@mui/material';
 import Typography from '@mui/material/Typography';
-import { UserContext } from '../../../contexts/User';
+import { AppContext } from '../../../contexts/AppContext';
 import UserPool from '../../../utils/auth/UserPool';
 import { useNavigate } from 'react-router-dom';
 import { CognitoUser } from 'amazon-cognito-identity-js';
@@ -34,7 +34,7 @@ const CompleteSignUp: React.FC<{}> = () => {
     dateOfBirth,
     userType,
     googleAuthToken,
-  } = useContext(UserContext);
+  } = useContext(AppContext);
 
   const handleClickOpen = () => {
     setOpen(true);

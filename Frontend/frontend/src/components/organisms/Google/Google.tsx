@@ -6,7 +6,7 @@ import {
 } from 'react-google-login';
 import { gapi } from 'gapi-script';
 import { createToken } from '../../../api/google';
-import { UserContext } from '../../../contexts/User';
+import { AppContext } from '../../../contexts/AppContext';
 import { Box, Button, Typography } from '@mui/material';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -25,7 +25,7 @@ const GoogleAuth: React.FC<IGoogle> = ({ incrementStage, decrementStage }) => {
   const [isNextEnabled, setNextEnabled] = useState(false);
   const navigate = useNavigate();
 
-  const { email, setGoogleAuthToken } = useContext(UserContext);
+  const { email, setGoogleAuthToken } = useContext(AppContext);
 
   useEffect(() => {
     function start() {

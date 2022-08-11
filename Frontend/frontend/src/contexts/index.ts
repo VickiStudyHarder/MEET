@@ -1,1 +1,1 @@
-export { User } from './User';
+export { AppContextProvider as User } from './AppContext';

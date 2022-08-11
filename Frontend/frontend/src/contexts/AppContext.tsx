@@ -4,15 +4,16 @@ import React, {
   SetStateAction,
   useEffect,
   useState,
-} from 'react';
-import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import UserPool from '../utils/auth/UserPool';
-import { useNavigate } from 'react-router-dom';
-import { getMeetingsByUserId } from '../api/meeting';
+} from "react";
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import UserPool from "../utils/auth/UserPool";
+import { useNavigate } from "react-router-dom";
+import { getMeetingsByUserId } from "../api/meeting";
+import { array } from "prop-types";
 
-export type users = 'student' | 'mentor' | '';
+export type users = "student" | "mentor" | "";
 
-export type IUserContext = {
+export type IAppContext = {
   authenticate: (Username: string, Password: string) => Promise<void>;
   getSession: () => Promise<unknown>;
   logout: () => void;
@@ -39,46 +40,65 @@ export type IUserContext = {
   setLastName: Dispatch<SetStateAction<string>>;
   dateOfBirth: Date | null;
   setDateOfBirth: Dispatch<SetStateAction<Date | null>>;
-  setGoogleAuthToken: Dispatch<SetStateAction<string>>
+  setGoogleAuthToken: Dispatch<SetStateAction<string>>;
   googleAuthToken: string;
 };
 
-const UserContext = createContext<IUserContext>({} as IUserContext);
+const AppContext = createContext<IAppContext>({} as IAppContext);
 
-export default UserContext;
+export default AppContext;
 
-const User = (props: any) => {
+const AppContextProvider = (props: any) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState("z3417347@gmail.com");
+  const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState<Date | null>(null);
   const [courses, setCourses] = useState([]);
-  const [userType, setUserType] = useState('');
-  const [error, setError] = useState('');
+  const [userType, setUserType] = useState("");
+  const [error, setError] = useState("");
   const [isCodeSent, setIsCodeSent] = useState(false);
-  const [confirmationCode, setConfirmationCode] = useState('');
-  const [username, setUsername] = useState('');
+  const [confirmationCode, setConfirmationCode] = useState("");
+  const [username, setUsername] = useState("");
   const [userMeetings, setUserMeetings] = useState<any>(null);
-  const [googleAuthToken, setGoogleAuthToken] = useState('')
+  const [googleAuthToken, setGoogleAuthToken] = useState("");
 
   const navigate = useNavigate();
 
+  const getMeeting = async (userId: string) => {
+    let resp = await getMeetingsByUserId(userId);
+    console.log(`get meeting by user id ${userId}:`, resp);
+    if (resp?.data?.statusCode === 200) {
+      const data = resp?.data?.body;
+      if (data.length > 0) {
+        const mapped = data?.map((item: any) => ({
+          ...item,
+          startable:
+            Date.now() / 1000 - Date.parse(item.startTime) / 1000 <
+            8 * 60
+              ? true
+              : false,
+          startTime: Date.parse(item.startTime),
+          endTime: Date.parse(item.endTime),
+        }));
+        const sorted = mapped?.sort(
+          (a: any, b: any) => Number(a.startTime) - Number(b.startTime)
+        );
+        console.log(`sort meeting by user id ${userId}:`, sorted);
+        setUserMeetings(sorted);
+      }
+    } else {
+      console.error(
+        "getMeetingsByUserId is invalid on remote",
+        resp?.data?.message
+      );
+    }
+  };
+
   useEffect(() => {
-    const getMeeting = async (x: string) => {
-      console.log('Get Meeting');
-      console.log(email);
-      let response = await getMeetingsByUserId(x);
-      console.log(response);
-      setUserMeetings(response);
-    };
     getMeeting(email);
   }, [email]);
-
-  const getMeeting = () => {
-    return getMeetingsByUserId('z3417347@gmail.com');
-  };
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {
@@ -136,7 +156,7 @@ const User = (props: any) => {
 
       user.authenticateUser(authDetails, {
         onSuccess: (data) => {
-          console.log('onSuccess', data);
+          console.log("onSuccess", data);
           console.log(data.getAccessToken().getJwtToken());
           setIsAuthenticated(true);
           const user = UserPool.getCurrentUser();
@@ -149,12 +169,12 @@ const User = (props: any) => {
           resolve(data);
         },
         onFailure: (err) => {
-          console.error('onFailure', err);
+          console.error("onFailure", err);
           setIsAuthenticated(false);
           reject(err);
         },
         newPasswordRequired: (data) => {
-          console.log('newPasswordRequired', data);
+          console.log("newPasswordRequired", data);
           resolve(data);
         },
       });
@@ -166,11 +186,11 @@ const User = (props: any) => {
     if (user) {
       user.signOut();
       setIsAuthenticated(false);
-      navigate('/login');
+      navigate("/login");
     }
   };
   return (
-    <UserContext.Provider
+    <AppContext.Provider
       value={{
         authenticate,
         getSession,
@@ -199,12 +219,12 @@ const User = (props: any) => {
         dateOfBirth,
         setDateOfBirth,
         setGoogleAuthToken,
-        googleAuthToken
+        googleAuthToken,
       }}
     >
       {props.children}
-    </UserContext.Provider>
+    </AppContext.Provider>
   );
 };
 
-export { User, UserContext };
+export { AppContextProvider, AppContext };
