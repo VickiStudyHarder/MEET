@@ -97,7 +97,7 @@ const AppContextProvider = (props: any) => {
   const [meetingNotes, setMeetingNotes] = useState<any>([]);
   const [selectedNote, setSelectedNote] = useState<any>({});
 
-  const [todoLanes, setTodoLanes] = useState<any>([{}]);
+  const [meetingTodos, setMeetingTodos] = useState<any>([{}]);
 
   const [meetingRecordings,setMeetingRecordings] = useState<any>([{}])
   const [selectedRecording,setSelectedRecording] = useState<any>([{}])
@@ -190,7 +190,7 @@ const AppContextProvider = (props: any) => {
         meetingTime: "",
       },
     ]);
-    setTodoLanes([
+    setMeetingTodos([
       {
         option: {
           show: true,
@@ -198,10 +198,10 @@ const AppContextProvider = (props: any) => {
         },
         title: "meeting 1",
         task: [
-          { name: "to do item", isDeleted: false ,isEditing:false},
-          { name: "to do item", isDeleted: false ,isEditing:false},
-          { name: "to do item", isDeleted: false ,isEditing:false},
-          { name: "to do item", isDeleted: false ,isEditing:false},
+          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
+          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
+          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
+          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
         ],
       },
       {
@@ -211,9 +211,9 @@ const AppContextProvider = (props: any) => {
         },
         title: "meeting 2",
         task: [
-          { name: "to do item", isDeleted: false ,isEditing:false},
-          { name: "to do item", isDeleted: false ,isEditing:false},
-          { name: "to do item", isDeleted: false ,isEditing:false},
+          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
+          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
+          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
         ],
       },
       {
@@ -223,8 +223,8 @@ const AppContextProvider = (props: any) => {
         },
         title: "meeting 3",
         task: [
-          { name: "to do item", isDeleted: false ,isEditing:false},
-          { name: "to do item", isDeleted: true ,isEditing:false},
+          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
+          { name: "to do item",isCompleted:false, isDeleted: true ,isEditing:false},
         ],
       },
       {
