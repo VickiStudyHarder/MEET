@@ -2,6 +2,9 @@ import { ThemeProvider } from '@emotion/react';
 import { createTheme, CssBaseline } from '@mui/material';
 import React from 'react';
 import NavBar from '../molecules/NavBar';
+import CalendarUserCardMini from '../../stories/CalendarUserCardMini/CalendarUserCardMini';
+import {Todo} from '../../stories/Todo';
+
 
 interface IToDos {}
 
@@ -12,7 +15,9 @@ const ToDos: React.FC<IToDos> = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <NavBar />
-      <div>ToDos</div>
+      {/* <div>ToDos</div> */}
+      {/* <CalendarUserCardMini /> */}
+      <Todo />
     </ThemeProvider>
   );
 };
