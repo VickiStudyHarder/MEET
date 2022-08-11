@@ -50,7 +50,9 @@ interface ICalendar {
   role?: string;
 }
 
-let role = "mentor"
+
+//test trial the role: student/mentor
+let role = "student"
 
 
 
@@ -60,6 +62,7 @@ const Calendar: React.FC<ICalendar> = () => {
 
   // useEffect(() => {}, [calenderMentorConfirmedMeetings]);
 
+  //fake data for testing
   const data = [
     {
       date: ["01", "DEC", "2022"],
@@ -192,13 +195,14 @@ const Calendar: React.FC<ICalendar> = () => {
             <Grid item>
               <Grid container direction="column">
                 <Grid item >
+                  <h1>Chosen Mentor:</h1>
                   <CalendarUserCardPrimary name={studentdata?.[0]?.mentorname}
                     job={studentdata?.[0]?.mentorRole}
                     Rating={studentdata?.[0]?.rating}
                     avator={studentdata?.[0]?.avator} />
                 </Grid>
 
-
+                <h1>List of Mentors:</h1>
                 <Grid item sx={{ overflow: 'auto', height: 500 }}>
                   <Grid container direction="column">
                     <Grid container direction="row" >
@@ -255,7 +259,7 @@ const Calendar: React.FC<ICalendar> = () => {
         role === "mentor" && (
           <>
             <Grid container direction="row" sx={{
-              heigh: 800, width: 1400, mx: "auto", justifyContent: "center"
+              justifyContent: "center"
             }}>
               <Grid item sx={{
                 mx: "auto", alignItems: "center"
@@ -285,7 +289,7 @@ const Calendar: React.FC<ICalendar> = () => {
               </Grid>
               <Grid item
                 sx={{
-                  width: 1000, alignItems: "center", mx: "auto", justifyContent: "center"
+                  width: 1200, alignItems: "center", mx: "auto", justifyContent: "center"
                 }}>
                 <Calendar_table />
               </Grid>
