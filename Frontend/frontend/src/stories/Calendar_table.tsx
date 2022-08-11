@@ -56,9 +56,9 @@ export default function Calendar_table({
   ]
   console.log(JSON.stringify(events))
   return (
-    <>
+    <div className="FullCalendarPage">
       <FullCalendar
-        height={795} // 此处高度为方便截图，可不设置
+        height={800} // 此处高度为方便截图，可不设置
         initialView="timeGridWeek"
         plugins={[dayGridPlugin, timeGridPlugin, momentPlugin]}
         allDaySlot={false}
@@ -68,6 +68,6 @@ export default function Calendar_table({
         contentHeight='600'
         events={events}
       />
-    </>
+    </div>
   );
 };
