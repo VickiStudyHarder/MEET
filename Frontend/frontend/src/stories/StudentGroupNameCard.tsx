@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -6,18 +6,18 @@ import Typography from '@mui/material/Typography';
 import { Avatar, CardActionArea } from '@mui/material';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
+import AppContext from '../contexts/AppContext';
 
 export interface IStudentGroupNameCard {
-  imageUrl?: string;
-  userName?: string;
-  courseName?: string;
-  MyGroupLink?: string;
-  GroupSpaceLink?: string;
+  myGroups?: any;
 }
 
-export default function StudentGroupNameCard(props: IStudentGroupNameCard) {
+export const StudentGroupNameCard: React.FC<IStudentGroupNameCard> = ({
+  myGroups,
+}) => {
+  const { firstName, lastName } = useContext(AppContext);
   return (
-    <Box sx={{ width: 380, height: 666 }}>
+    <Box sx={{ width: 380, height: 666}}>
       <Avatar
         sx={{
           width: 260,
@@ -26,17 +26,17 @@ export default function StudentGroupNameCard(props: IStudentGroupNameCard) {
           marginTop: 0,
           mx: 'auto',
         }}
-        src={props.imageUrl}
+        // src={props.imageUrl}
       />
-      <Card sx={{ width: 380, height: 610, borderRadius: 5, marginTop: -25 }}>
+      <Card sx={{ width: 380, height: 610, borderRadius: 5, marginTop: -25 , display: 'flex', flexDirection: 'column'}}>
         <CardActionArea>
-          <CardContent>
+          <CardContent sx={{display: 'flex', flexDirection: 'column'}}>
             <Typography
               variant='body1'
               component='h2'
               sx={{ textAlign: 'center', fontSize: '1.5rem', marginTop: 30 }}
             >
-              {props.userName}
+              {firstName} {lastName}
             </Typography>
             <Typography
               variant='body1'
@@ -47,46 +47,20 @@ export default function StudentGroupNameCard(props: IStudentGroupNameCard) {
                 marginTop: 2,
                 color: '#70798B',
               }}
-            >
-              {props.courseName}
+            ></Typography>
+
+            <Typography  variant="h3" textAlign='center' sx={{ m: 8 }}>
+                Your Groups
             </Typography>
-
-            <Box textAlign='center' sx={{ marginTop: 10 }}>
-              <Button
-                href={props.GroupSpaceLink}
-                sx={{
-                  textAlign: 'center',
-                  minWidth: '196px',
-                  minHeight: '55px',
-                  maxHeight: '55px',
-                  maxWidth: '196px',
-                  borderRadius: 7,
-                  backgroundColor: '#F6F6F6',
-                  color: '#000000',
-                  fontSize: 12,
-                  marginBottom: 6,
-                }}
-                variant='contained'
-              >
-                Group Space
-              </Button>
-            </Box>
-
-            <Link
-              href={props.MyGroupLink}
-              underline='hover'
-              sx={{
-                textAlign: 'center',
-                color: '#000000',
-                mx: 'auto',
-                fontSize: '1rem',
-              }}
-            >
-              {<Typography variant='body1'>My Group</Typography>}
-            </Link>
+              {myGroups &&
+                myGroups.map((group: any) => {
+                  return <Typography sx={{width: '100%', m: 'auto', textAlign: 'center' }}>{group.name}</Typography>;
+                })}
           </CardContent>
         </CardActionArea>
       </Card>
     </Box>
   );
-}
+};
+
+export default StudentGroupNameCard;

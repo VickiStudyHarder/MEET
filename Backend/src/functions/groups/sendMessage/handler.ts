@@ -5,21 +5,31 @@ import { PrismaClient } from '@prisma/client';
 
 import schema from './schema';
 
+interface IMessage {
+  id?: number;
+  groupId: number;
+  message: string;
+  timeSent: string;
+  userId: string;
+}
+
 const prisma = new PrismaClient();
 
-const joinGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
+const sendMessage: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
-  const groupName = event.body.name as string;
-  const userId = event.body.userId as string;
+  const body: IMessage = event.body as unknown as IMessage;
 
   try {
-    const result = await prisma.groupParticipant.create({
+    const result = await prisma.messageHistory.create({
       data: {
-        userId: userId,
-        groupName: groupName,
+        groupId: body.groupId,
+        message: body.message,
+        timeSent: body.timeSent,
+        userId: body.userId,
       },
     });
+
     return formatJSONResponse({
       status: 200,
       message: 'Success',
@@ -36,4 +46,4 @@ const joinGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   }
 };
 
-export const main = middyfy(joinGroup);
+export const main = middyfy(sendMessage);
