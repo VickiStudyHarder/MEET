@@ -64,9 +64,13 @@ const AppContextProvider = (props: any) => {
   const [userMeetings, setUserMeetings] = useState<any>(null);
   const [googleAuthToken, setGoogleAuthToken] = useState("");
 
+  const [isMentor, setIsMentor] = useState(true);
+
   const [calenderStudentSelectedMentor, setCalenderStudentSelectedMentor] =
     useState({});
-  const [calenderStudentAllMentors, setCalenderStudentAllMentors] = useState([{}]);
+  const [calenderStudentAllMentors, setCalenderStudentAllMentors] = useState([
+    {},
+  ]);
   const [
     calenderStudentConfirmedMeetings,
     setCalenderStudentConfirmedMeetings,
@@ -81,6 +85,19 @@ const AppContextProvider = (props: any) => {
     useState([{}]);
   const [calenderMentorFutureMeetings, setCalenderMentorFutureMeetings] =
     useState([{}]);
+
+  const [dashboardUserMeetings, setDashboardUserMeetings] = useState<any>([{}]);
+  const [dashboardMentorRequests, setDashboardMentorRequests] = useState<any>([
+    {},
+  ]);
+
+  const [inMeetingAgenda, setInMeetingAgenda] = useState<any>({});
+  const [inMeetingNote, setInMeetingNote] = useState<any>({});
+
+  const [meetingNotes, setMeetingNotes] = useState<any>([]);
+  const [noteNote, setNoteNote] = useState<any>({});
+
+  const [todoLanes, setTodoLanes] = useState<any>([{}]);
 
   const navigate = useNavigate();
 
@@ -119,19 +136,136 @@ const AppContextProvider = (props: any) => {
 
   useEffect(() => {
     setCalenderStudentSelectedMentor({
-      mentorId:"",
-      name:"",
-      rating:5,
-      avatar:""
+      mentorId: "",
+      name: "",
+      rating: 5,
+      avatar: "",
     });
-    setCalenderStudentAllMentors([
-      {mentorId:"",avatar:"",name:""}
-    ])
-    setCalenderStudentConfirmedMeetings([{meetingId:"",meetingName:"",date:""}])
-    setCalenderStudentMentorAvailableTimes([{meetingId:"",meetingName:"",date:""}])
-    setCalenderMentorAvailableTimes([{meetingId:"",date:""}])
-    setCalenderMentorConfirmedMeetings([{meetingId:"",meetingName:"",date:""}])
-    setCalenderMentorFutureMeetings([{meetingId:"",meetingName:"",date:""}])
+    setCalenderStudentAllMentors([{ mentorId: "", avatar: "", name: "" }]);
+    setCalenderStudentConfirmedMeetings([
+      { meetingId: "", meetingName: "", title: "", start: "", end: "" },
+    ]);
+    setCalenderStudentMentorAvailableTimes([
+      { meetingId: "", meetingName: "", title: "", start: "", end: "" },
+    ]);
+    setCalenderMentorAvailableTimes([{ meetingId: "", datetime: "" }]);
+    setCalenderMentorConfirmedMeetings([
+      {
+        meetingId: "",
+        meetingName: "",
+        title: "",
+        color: "",
+        start: "",
+        end: "",
+      },
+    ]);
+    setCalenderMentorFutureMeetings([
+      {
+        meetingId: "",
+        meetingName: "",
+        datetime: "",
+        date: { day: "01", month: "DEC", year: "2022" },
+      },
+    ]);
+    setDashboardUserMeetings([
+      {
+        meetingId: "",
+        date: { day: "01", month: "DEC", year: "2022" },
+        meetingName: "name 1",
+        time: "12:00 - 13:00",
+      },
+    ]);
+    setDashboardMentorRequests([
+      {
+        requestId: "",
+        meetingId: "",
+        avatar: "",
+        usreName: "",
+        courseName: "",
+        meetingName: "",
+        rating: 5,
+        meetingTime: "",
+      },
+    ]);
+    setTodoLanes([
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: "meeting 1",
+        task: [
+          { name: "to do item", isdel: false },
+          { name: "to do item", isdel: false },
+          { name: "to do item", isdel: false },
+          { name: "to do item", isdel: false },
+        ],
+      },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: "meeting 2",
+        task: [
+          { name: "to do item", isdel: false },
+          { name: "to do item", isdel: false },
+          { name: "to do item", isdel: false },
+        ],
+      },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: "meeting 3",
+        task: [
+          { name: "to do item", isdel: false },
+          { name: "to do item", isdel: true },
+        ],
+      },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: "Meeting 4",
+        task: [],
+      },
+    ]);
+    setInMeetingAgenda({
+      meetingId: "",
+      agenda: {
+        agendaId: "",
+        title: "",
+        description: "",
+        items: [
+          { itemId: "", title: "", content: "" },
+          { itemId: "", title: "", content: "" },
+        ],
+      },
+    });
+    setInMeetingNote({
+      meetingId: "",
+      note: {
+        noteId: "",
+        title: "",
+        description: "",
+        items: [{ itemId: "", title: "", content: "" }],
+      },
+    });
+    setMeetingNotes([
+      { meetingId: "", noteId: "", title: "", description: "" },
+    ]);
+    setNoteNote({
+      meetingId: "",
+      note: {
+        noteId: "",
+        title: "",
+        description: "",
+        items: [{ itemId: "", title: "", content: "" }],
+      },
+    });
   }, []);
 
   const getSession = async () =>
