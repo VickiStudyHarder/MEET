@@ -64,6 +64,24 @@ const AppContextProvider = (props: any) => {
   const [userMeetings, setUserMeetings] = useState<any>(null);
   const [googleAuthToken, setGoogleAuthToken] = useState("");
 
+  const [calenderStudentSelectedMentor, setCalenderStudentSelectedMentor] =
+    useState({});
+  const [calenderStudentAllMentors, setCalenderStudentAllMentors] = useState([{}]);
+  const [
+    calenderStudentConfirmedMeetings,
+    setCalenderStudentConfirmedMeetings,
+  ] = useState([{}]);
+  const [
+    calenderStudentMentorAvailableTimes,
+    setCalenderStudentMentorAvailableTimes,
+  ] = useState([{}]);
+  const [calenderMentorAvailableTimes, setCalenderMentorAvailableTimes] =
+    useState([{}]);
+  const [calenderMentorConfirmedMeetings, setCalenderMentorConfirmedMeetings] =
+    useState([{}]);
+  const [calenderMentorFutureMeetings, setCalenderMentorFutureMeetings] =
+    useState([{}]);
+
   const navigate = useNavigate();
 
   const getMeeting = async (userId: string) => {
@@ -75,8 +93,7 @@ const AppContextProvider = (props: any) => {
         const mapped = data?.map((item: any) => ({
           ...item,
           startable:
-            Date.now() / 1000 - Date.parse(item.startTime) / 1000 <
-            8 * 60
+            Date.now() / 1000 - Date.parse(item.startTime) / 1000 < 8 * 60
               ? true
               : false,
           startTime: Date.parse(item.startTime),
@@ -99,6 +116,23 @@ const AppContextProvider = (props: any) => {
   useEffect(() => {
     getMeeting(email);
   }, [email]);
+
+  useEffect(() => {
+    setCalenderStudentSelectedMentor({
+      mentorId:"",
+      name:"",
+      rating:5,
+      avatar:""
+    });
+    setCalenderStudentAllMentors([
+      {mentorId:"",avatar:"",name:""}
+    ])
+    setCalenderStudentConfirmedMeetings([{meetingId:"",meetingName:"",date:""}])
+    setCalenderStudentMentorAvailableTimes([{meetingId:"",meetingName:"",date:""}])
+    setCalenderMentorAvailableTimes([{meetingId:"",date:""}])
+    setCalenderMentorConfirmedMeetings([{meetingId:"",meetingName:"",date:""}])
+    setCalenderMentorFutureMeetings([{meetingId:"",meetingName:"",date:""}])
+  }, []);
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {
