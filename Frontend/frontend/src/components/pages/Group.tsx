@@ -140,7 +140,7 @@ const Group: React.FC<IGroup> = () => {
         sx={{ display: 'flex', flexGrow: 1 }}
         maxWidth='lg'
       >
-        <CreateStudentGroupForm setOpen={setOpen} />
+        <CreateStudentGroupForm setOpen={setOpen} getAllGroups={getAllGroups} />
       </Dialog>
     </ThemeProvider>
   );
