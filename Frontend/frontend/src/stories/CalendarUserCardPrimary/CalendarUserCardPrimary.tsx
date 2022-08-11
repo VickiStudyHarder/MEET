@@ -11,13 +11,14 @@ import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import { Avatar, CardActionArea } from "@mui/material";
 import './CalendarUserCardPrimary.scss';
+import Rating from "@mui/material/Rating";
 import Star from '../assets/Calender/star.png';
 
 
 export interface CalendarUserCardPrimaryInfo {
   name?: string;
   job?: string;
-  star: Array<number>;
+  Rating?: number;
   avator?: string;
 }
 
@@ -35,9 +36,12 @@ export default function CalendarUserCardPrimary(props: CalendarUserCardPrimaryIn
           <Box className="line"></Box>
         </Box>
         <Box className="star-box">
-          {props.star.map(() =>
-            <img  className="star" src={Star} alt="Build" />
-          )}
+          <Rating
+            name="read-only"
+            size="small"
+            value={props.Rating}
+            readOnly
+          />
         </Box>
       </Box>
       <Box className="r">

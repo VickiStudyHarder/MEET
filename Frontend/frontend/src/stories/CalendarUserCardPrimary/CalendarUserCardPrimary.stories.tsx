@@ -20,7 +20,7 @@ export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
   name: 'Hilaria Abernathy',
-  job:'Executive',
-  star: [1,2,3],
-  avator:" "
+  job: 'Executive',
+  Rating: 3,
+  avator: " "
 };
