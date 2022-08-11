@@ -52,7 +52,7 @@ interface ICalendar {
 
 
 //test trial the role: student/mentor
-let role = "student"
+let role = "mentor"
 
 
 
@@ -66,7 +66,7 @@ const Calendar: React.FC<ICalendar> = () => {
   const data = [
     {
       date: ["01", "DEC", "2022"],
-      meetingName: "name 1",
+      meetingName: "Meeting name 1",
       time: "12:00 - 13:00",
     },
     {
@@ -76,28 +76,28 @@ const Calendar: React.FC<ICalendar> = () => {
     },
     {
       date: ["02", "DEC", "2022"],
-      meetingName: "name 2",
+      meetingName: "name 3",
+      time: "14:00 - 15:30",
+    },
+    {
+      date: ["10", "DEC", "2022"],
+      meetingName: "name 4",
+      time: "11:00 - 12:00",
+    },
+    {
+      date: ["19", "DEC", "2022"],
+      meetingName: "name 5",
+      time: "14:00 - 16:00",
+    },
+    {
+      date: ["20", "DEC", "2022"],
+      meetingName: "name 6",
       time: "14:00 - 15:00",
     },
     {
-      date: ["02", "DEC", "2022"],
-      meetingName: "name 2",
-      time: "14:00 - 15:00",
-    },
-    {
-      date: ["02", "DEC", "2022"],
-      meetingName: "name 2",
-      time: "14:00 - 15:00",
-    },
-    {
-      date: ["02", "DEC", "2022"],
-      meetingName: "name 2",
-      time: "14:00 - 15:00",
-    },
-    {
-      date: ["02", "DEC", "2022"],
-      meetingName: "name 2",
-      time: "14:00 - 15:00",
+      date: ["28", "DEC", "2022"],
+      meetingName: "name 7",
+      time: "15:00 - 17:00",
     },
   ];
 
@@ -202,8 +202,8 @@ const Calendar: React.FC<ICalendar> = () => {
                     avator={studentdata?.[0]?.avator} />
                 </Grid>
 
-                <h1>List of Mentors:</h1>
-                <Grid item sx={{ overflow: 'auto', height: 500 }}>
+                <h1>Mentor List:</h1>
+                <Grid item sx={{ overflow: 'auto', height: 400 }}>
                   <Grid container direction="column">
                     <Grid container direction="row" >
                       <Grid item sx={{ width: 200 }}>
@@ -266,8 +266,9 @@ const Calendar: React.FC<ICalendar> = () => {
               }}>
                 <h1>Upcoming Meetings</h1>
                 <Box sx={{
-                  maxHeight: 800,
+                  maxHeight: 720,
                   overflow: 'auto',
+                  width: 410
 
 
                 }}>
