@@ -100,7 +100,7 @@ export default function RecordingListIndex({
                   </Box>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', marginRight: 10 }}>
-                  <Fab style={{ backgroundColor: '#B98FEC' }} aria-label="delete recording" size="medium" >
+                  <Fab style={{ backgroundColor: '#ABAFC7' }} aria-label="delete recording" size="medium" >
                     <KeyboardArrowRightIcon style={{ fontSize: 40, margin: 10, color: '#ffffff' }} />
                   </Fab>
                 </Box>

@@ -1,13 +1,9 @@
 import { Avatar, Button, Card, Divider, Fab, IconButton, List, ListItem, ListItemAvatar, ListItemText, Modal, TextField, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React from "react";
-import { pink } from '@mui/material/colors';
-import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import RecordingModal from './RecordingModal'
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
 
 interface ListProps {
   createdBy: string;
@@ -22,19 +18,7 @@ interface ListProps {
   editFunc?: (params: any) => any;
 }
 
-const modalStyle = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '95%',
-  bgcolor: 'background.paper',
-  boxShadow: 24,
-};
 
-/**
- * Primary UI component for user interaction
- */
 export default function RecordingList({
   meetingName = "",
   createdBy = "",
@@ -50,7 +34,6 @@ export default function RecordingList({
 
   return (
     <>
-
       <ListItem alignItems="center" >
         {
           role === 'student' && (
