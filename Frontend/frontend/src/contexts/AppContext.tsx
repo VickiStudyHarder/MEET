@@ -156,9 +156,8 @@ const AppContextProvider = (props: any) => {
     });
     setSelectedStudent({
       userId: "",
-      name: "",
-      rating: 5,
-      avatar: "",
+      name: "Vicki Chen",
+      avatar: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg",
     })
     setAllMentors([{ mentorId: "", avatar: "", name: "" }]);
     setStudentBookedMeetings([
