@@ -7,8 +7,8 @@ import { Avatar, Button, CardActionArea, Icon } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
-import UserContext from '../contexts/User';
 import { joinGroup, leaveGroup } from '../api/groupChat';
+import AppContext from '../contexts/AppContext';
 
 export interface IParticipant {
   id: number;
@@ -29,7 +29,7 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
   groupParticipant,
   userIsParticipant,
 }) => {
-  const { email } = useContext(UserContext);
+  const { email } = useContext(AppContext);
 
   const handleJoinGroup = async () => {
     const result = await joinGroup(email, name);
