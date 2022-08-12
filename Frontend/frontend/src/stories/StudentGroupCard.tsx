@@ -7,8 +7,8 @@ import { Avatar, Button, CardActionArea, Icon } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import ArrowRightAltOutlinedIcon from '@mui/icons-material/ArrowRightAltOutlined';
-import AppContext from '../contexts/AppContext';
 import { joinGroup, leaveGroup } from '../api/groupChat';
+import AppContext from '../contexts/AppContext';
 
 export interface IParticipant {
   id: number;
@@ -109,6 +109,21 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
                   my: 'auto',
                 }}
               >
+                <Button onClick={handleJoinGroup}>
+                  <Typography variant='body1' sx={{ m: 'auto' }}>
+                    Join
+                  </Typography>
+                  <ArrowRightAltOutlinedIcon />
+                </Button>
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  my: 'auto',
+                }}
+              >
                 <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                   <Button>
                     <Typography variant='body1'>Revisit</Typography>
@@ -121,21 +136,6 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
                     <ArrowRightAltOutlinedIcon />
                   </Button>
                 </Box>
-              </Box>
-            ) : (
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  my: 'auto',
-                }}
-              >
-                <Button onClick={handleJoinGroup}>
-                  <Typography variant='body1' sx={{ m: 'auto' }}>
-                    Join
-                  </Typography>
-                  <ArrowRightAltOutlinedIcon />
-                </Button>
               </Box>
             )}
           </CardContent>

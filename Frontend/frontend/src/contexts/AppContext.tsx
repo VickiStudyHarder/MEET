@@ -70,7 +70,7 @@ const AppContextProvider = (props: any) => {
   const [isMentor, setIsMentor] = useState(true);
 
   const [selectedMentor, setSelectedMentor] = useState({}); //选中的导师
-  const [selectedStudent,setSelectedStudent] = 
+  const [selectedStudent,setSelectedStudent] = useState({})
   const [allMentors, setAllMentors] = useState([{}]); //导师列表
   const [studentBookedMeetings, setStudentBookedMeetings] = useState([{}]); //学生模式下已被学生预定的当前老师的会议
   const [mentorAvailableMeetings, setMentorAvailableMeetings] =
