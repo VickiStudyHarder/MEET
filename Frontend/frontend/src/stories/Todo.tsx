@@ -8,6 +8,7 @@ import Delicon from './assets/icon-del.png'
 import CalendarUserCardMini from './CalendarUserCardMini/CalendarUserCardMini';
 import './Todo.css'
 import { url } from 'inspector'
+import AppContext from '../contexts/AppContext'
 
 const { TextArea } = Input
 
@@ -36,80 +37,82 @@ const userInfo: { userName: string, userAvatar: string} = {
   userAvatar: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg',
 }
 
-let list: any = [
-  {
-    option: {
-      show: true,
-      showAdd: true,
-    },
-    title: 'meeting 1',
-    task: [
-      { name: 'to do item', isdel: false, deled: false, isEdit: false },
-      { name: 'to do item', isdel: false, deled: false, isEdit: false },
-      { name: 'to do item', isdel: false, deled: false, isEdit: false },
-      { name: 'to do item', isdel: false, deled: false, isEdit: false },
-    ],
-  },
-  {
-    option: {
-      show: true,
-      showAdd: true,
-    },
-    title: 'meeting 2',
-    task: [
-      { name: 'to do item', isdel: false, deled: false, isEdit: false },
-      { name: 'to do item', isdel: false, deled: false, isEdit: false },
-      { name: 'to do item', isdel: false, deled: false, isEdit: false },
-    ],
-  },
-  {
-    option: {
-      show: true,
-      showAdd: true,
-    },
-    title: 'meeting 3',
-    task: [
-      { name: 'to do item', isdel: false, deled: false, isEdit: false },
-      { name: 'to do item', isdel: true, deled: false, isEdit: false },
-    ],
-  },
-  {
-    option: {
-      show: true,
-      showAdd: true,
-    },
-    title: 'Meeting 4',
-    task: [],
-  },
-  {
-    option: {
-      show: true,
-      showAdd: true,
-    },
-    title: 'Meeting 5',
-    task: [
-      { name: 'to do item', isdel: false, deled: false, isEdit: false },
-      { name: 'to do item', isdel: true, deled: false, isEdit: false },
-    ],
-  },
-  {
-    option: {
-      show: true,
-      showAdd: true,
-    },
-    title: 'Meeting 6',
-    task: [
-      { name: 'to do item', isdel: false, deled: false, isEdit: false },
-      { name: 'to do item', isdel: true, deled: false, isEdit: false },
-    ],
-  }
-]
+// let list: any = [
+//   {
+//     option: {
+//       show: true,
+//       showAdd: true,
+//     },
+//     title: 'meeting 1',
+//     task: [
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//     ],
+//   },
+//   {
+//     option: {
+//       show: true,
+//       showAdd: true,
+//     },
+//     title: 'meeting 2',
+//     task: [
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//     ],
+//   },
+//   {
+//     option: {
+//       show: true,
+//       showAdd: true,
+//     },
+//     title: 'meeting 3',
+//     task: [
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: true, deled: false, isEdit: false },
+//     ],
+//   },
+//   {
+//     option: {
+//       show: true,
+//       showAdd: true,
+//     },
+//     title: 'Meeting 4',
+//     task: [],
+//   },
+//   {
+//     option: {
+//       show: true,
+//       showAdd: true,
+//     },
+//     title: 'Meeting 5',
+//     task: [
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: true, deled: false, isEdit: false },
+//     ],
+//   },
+//   {
+//     option: {
+//       show: true,
+//       showAdd: true,
+//     },
+//     title: 'Meeting 6',
+//     task: [
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: true, deled: false, isEdit: false },
+//     ],
+//   }
+// ]
 
 export const Todo: React.VFC = () => {
   const [user, setUser] = React.useState<User>()
-  const [data, setData] = React.useState(list)
-  // const { meetingTodos } = useContext(AppContext);
+  // const [data, setData] = React.useState(list)
+  const { meetingTodos:data, setMeetingTodos:setData } = useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
+  const { selectedStudent } = useContext(AppContext);
+  useEffect(() => {}, [selectedStudent]);
   const [filter, setfilter] = React.useState(false)
   const [isModalVisible, setisModalVisible] = React.useState(false)
   const [modalCtx, setModalCtx] = React.useState({
@@ -196,10 +199,10 @@ export const Todo: React.VFC = () => {
           )}
         </div>
         <div className="meet-userCard">
-            <CalendarUserCardMini 
-            avator={'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg'}
-            name={'Vicki Chen'}
-            />
+          <CalendarUserCardMini 
+            avator={selectedStudent?.avatar}
+            name={selectedStudent?.name}
+          />
         </div>
         <div className="meet-box">
           <div className="meet-box-scroll">

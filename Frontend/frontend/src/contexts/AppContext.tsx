@@ -197,32 +197,12 @@ const AppContextProvider = (props: any) => {
           show: true,
           showAdd: true,
         },
-        title: "meeting 1",
+        title: 'Meeting 1',
         task: [
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
         ],
       },
       {
@@ -230,28 +210,54 @@ const AppContextProvider = (props: any) => {
           show: true,
           showAdd: true,
         },
-        title: "meeting 2",
+        title: 'Meeting 2',
         task: [
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
         ],
       },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: 'Meeting 3',
+        task: [
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: true, deled: false, isEdit: false },
+        ],
+      },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: 'Meeting 4',
+        task: [],
+      },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: 'Meeting 5',
+        task: [
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: true, deled: false, isEdit: false },
+        ],
+      },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: 'Meeting 6',
+        task: [
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: true, deled: false, isEdit: false },
+        ],
+      }
     ]);
     setInMeetingAgenda({
       meetingId: "",
