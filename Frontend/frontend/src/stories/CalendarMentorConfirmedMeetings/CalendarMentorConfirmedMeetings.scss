@@ -1,0 +1,76 @@
+.meeting-schdule-small-wrap{
+  width: 400px;
+  height: 150px;
+  background: #FFFFFF;
+  border-radius: 20px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.05);
+  box-sizing: border-box;
+  padding: 24px 30px 0 36px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  border-style: solid;
+  border-color: rgb(238, 235, 234);
+
+  .l{
+    width: 204px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    font-family: 'Quicksand';
+    .name{
+      font-family: 'Nunito';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 22px;
+      line-height: 40px;
+      color: #030314;
+      margin-bottom: 20px;
+    }
+    .line{
+      width: 180px;
+      height: 4px;
+      background-color: #6001D3;
+      border-radius: 4px;
+      margin-bottom: 15px;
+    }
+    .time{
+      font-size: 14px;
+      line-height: 5px;
+      color: #000000;
+      margin-bottom: 20px;
+    }
+    .txt{
+      font-size: 16px;
+      line-height: 20px;
+      color: #081420;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      span{
+        margin-right: 18px;
+      }
+    }
+  }
+  .r{
+    height: 110px;
+    width: 72px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #242424;
+    border-radius: 10px;
+    .d-1{
+      font-size: 40px;
+      line-height: 42px;
+    }
+    .d-2{
+      font-size: 14px;
+    }
+    .d-3{
+      font-size: 14px;
+    }
+  }
+}

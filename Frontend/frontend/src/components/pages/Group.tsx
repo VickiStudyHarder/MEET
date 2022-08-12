@@ -16,8 +16,8 @@ import StudentGroupNameCard from '../../stories/StudentGroupNameCard';
 import CreateStudentGroupForm from '../../stories/CreateStudentGroupForm';
 import ChatWindow from '../organisms/ChatWindow/ChatWindow';
 import { getGroups } from '../../api/groupChat';
-import AppContext from '../../contexts/AppContext';
 import StudentGroupCard from '../../stories/StudentGroupCard';
+import AppContext from '../../contexts/AppContext';
 
 interface IGroup {}
 

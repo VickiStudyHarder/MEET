@@ -42,6 +42,7 @@ export type IAppContext = {
   setDateOfBirth: Dispatch<SetStateAction<Date | null>>;
   setGoogleAuthToken: Dispatch<SetStateAction<string>>;
   googleAuthToken: string;
+  meetingTodos: [];
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -64,6 +65,40 @@ const AppContextProvider = (props: any) => {
   const [userMeetings, setUserMeetings] = useState<any>(null);
   const [googleAuthToken, setGoogleAuthToken] = useState("");
 
+  // exposed vars
+
+  const [isMentor, setIsMentor] = useState(true);
+
+  const [selectedMentor, setSelectedMentor] = useState({}); //选中的导师
+  const [selectedStudent,setSelectedStudent] = useState({})
+  const [allMentors, setAllMentors] = useState([{}]); //导师列表
+  const [studentBookedMeetings, setStudentBookedMeetings] = useState([{}]); //学生模式下已被学生预定的当前老师的会议
+  const [mentorAvailableMeetings, setMentorAvailableMeetings] =
+  useState([{}]); //学生模式下当前老师的可被预定会议
+  const [mentorMeetings, setMentorMeetings] = useState([{}]); //老师模式下自己的meeting
+  
+  const [futureMeetings, setFutureMeetings] = useState<any>([{}]);  //老师模式下未来的会议
+  const [meetingRequests, setMeetingsRequests] = useState<any>([
+    {},
+  ]); //老师模式下学生的所有入会请求
+  
+  const [inMeetingAgenda, setInMeetingAgenda] = useState<any>({});
+  const [inMeetingNote, setInMeetingNote] = useState<any>({});
+
+  const [selectedAgenda,setSeletedAgenda] = useState({})
+  
+  const [meetingNotes, setMeetingNotes] = useState<any>([]);
+  const [selectedNote, setSelectedNote] = useState<any>({});
+  
+  const [meetingTodos, setMeetingTodos] = useState<any>([{}]);
+  
+  const [meetingRecordings, setMeetingRecordings] = useState<any>([{}]);
+  const [selectedRecording, setSelectedRecording] = useState<any>([{}]);
+  
+  
+  // context local vars
+  
+
   const navigate = useNavigate();
 
   const getMeeting = async (userId: string) => {
@@ -75,8 +110,7 @@ const AppContextProvider = (props: any) => {
         const mapped = data?.map((item: any) => ({
           ...item,
           startable:
-            Date.now() / 1000 - Date.parse(item.startTime) / 1000 <
-            8 * 60
+            Date.now() / 1000 - Date.parse(item.startTime) / 1000 < 8 * 60
               ? true
               : false,
           startTime: Date.parse(item.startTime),
@@ -99,6 +133,164 @@ const AppContextProvider = (props: any) => {
   useEffect(() => {
     getMeeting(email);
   }, [email]);
+
+  useEffect(() => {
+    setSelectedMentor({
+      mentorId: "",
+      name: "",
+      rating: 5,
+      avatar: "",
+    });
+    setAllMentors([{ mentorId: "", avatar: "", name: "" }]);
+    setStudentBookedMeetings([
+      { meetingId: "", title: "", start: "", end: "" },
+    ]);
+    setMentorAvailableMeetings([
+      { meetingId: "",  title: "", start: "", end: "" },
+    ]);
+    setMentorMeetings([{ meetingId: "",  title: "", start: "", end: "" },])
+    setFutureMeetings([
+      {
+        meetingId: "",
+        start:"",
+        end:"",
+        date: { day: "01", month: "DEC", year: "2022" },
+        title: "name 1",
+        time: "12:00 - 13:00",
+      },
+    ]);
+    setMeetingsRequests([
+      {
+        requestId: "",
+        meetingId: "",
+        userId:"",
+        avatar: "",
+        usreName: "",
+        courseName: "",
+        title: "",
+        rating: 5,
+        meetingTime: "",
+      },
+    ]);
+    setMeetingTodos([
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: "meeting 1",
+        task: [
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+        ],
+      },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: "meeting 2",
+        task: [
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+        ],
+      },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: "meeting 3",
+        task: [
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: true,
+            isEditing: false,
+          },
+        ],
+      },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: "Meeting 4",
+        task: [],
+      },
+    ]);
+    setInMeetingAgenda({
+      meetingId: "",
+      agenda: [
+        { itemId: "", title: "", content: "" },
+        { itemId: "", title: "", content: "" },
+      ],
+    });
+    setInMeetingNote({
+      meetingId: "",
+      note: [{ itemId: "", title: "", content: "" }],
+    });
+    setMeetingNotes([
+      { meetingId: "", userId: "",avatar:"", title: "", description: "" },
+    ]);
+    setSelectedNote({
+      meetingId: "",
+      note: [{ id: "", title: "", content: "" }],
+    });
+    setMeetingRecordings([
+      {
+        meetingId: "",
+        recording: [
+          { id: "", title: "", cover: "", file: "" },
+          { id: "", title: "", cover: "", file: "" },
+        ],
+      },
+    ]);
+  }, []);
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {
@@ -220,6 +412,7 @@ const AppContextProvider = (props: any) => {
         setDateOfBirth,
         setGoogleAuthToken,
         googleAuthToken,
+        meetingTodos,
       }}
     >
       {props.children}
