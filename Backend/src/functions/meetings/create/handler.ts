@@ -8,7 +8,9 @@ import { IMeetingPayload, IMeetingAttendee } from '../../../types/meeting';
 import schema from './schema';
 import { google } from 'googleapis';
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ['query', 'info', 'warn', 'error'],
+})
 
 const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
@@ -19,8 +21,8 @@ const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   try {
     const meeting = await prisma.meeting.create({
       data: {
-        startTime: new Date(meetingPayload.meetingStart),
-        endTime: new Date(meetingPayload.meetingEnd),
+        meetingStart: new Date(meetingPayload.meetingStart),
+        meetingEnd: new Date(meetingPayload.meetingEnd),
         summary: meetingPayload.summary,
         description: meetingPayload.description,
         location: meetingPayload.location,

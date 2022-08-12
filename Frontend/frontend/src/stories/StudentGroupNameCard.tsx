@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -7,6 +7,7 @@ import { Avatar, CardActionArea } from '@mui/material';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import AppContext from '../contexts/AppContext';
+import UserImage from '../assets/UserImage.png';
 
 export interface IStudentGroupNameCard {
   myGroups?: any;
@@ -16,25 +17,37 @@ export const StudentGroupNameCard: React.FC<IStudentGroupNameCard> = ({
   myGroups,
 }) => {
   const { firstName, lastName } = useContext(AppContext);
+
   return (
-    <Box sx={{ width: 380, height: 666}}>
+    <Box sx={{ width: 380, height: 666 }}>
       <Avatar
         sx={{
           width: 260,
+          minWidth: 260,
           height: 260,
-          borderRadius: 5,
-          marginTop: 0,
+          minHeight: 260,
+          z: 40,
           mx: 'auto',
         }}
-        // src={props.imageUrl}
+        variant='rounded'
+        src={UserImage}
       />
-      <Card sx={{ width: 380, height: 610, borderRadius: 5, marginTop: -25 , display: 'flex', flexDirection: 'column'}}>
+      <Card
+        sx={{
+          width: 380,
+          height: 610,
+          marginTop: -25,
+          pt:30,
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <CardActionArea>
-          <CardContent sx={{display: 'flex', flexDirection: 'column'}}>
+          <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             <Typography
               variant='body1'
               component='h2'
-              sx={{ textAlign: 'center', fontSize: '1.5rem', marginTop: 30 }}
+              sx={{ textAlign: 'center', fontSize: '1.5rem' }}
             >
               {firstName} {lastName}
             </Typography>
@@ -49,13 +62,23 @@ export const StudentGroupNameCard: React.FC<IStudentGroupNameCard> = ({
               }}
             ></Typography>
 
-            <Typography  variant="h3" textAlign='center' sx={{ m: 8 }}>
-                Your Groups
+            <Typography variant='h3' textAlign='center' sx={{ mx: 8 }}>
+              Your Groups
             </Typography>
-              {myGroups &&
-                myGroups.map((group: any) => {
-                  return <Typography sx={{width: '100%', m: 'auto', textAlign: 'center' }}>{group.name}</Typography>;
-                })}
+            {myGroups &&
+              myGroups.map((group: any) => {
+                return (
+                  <Typography
+                    sx={{
+                      width: '100%',
+                      m: 'auto',
+                      textAlign: 'center',
+                    }}
+                  >
+                    {group.name}
+                  </Typography>
+                );
+              })}
           </CardContent>
         </CardActionArea>
       </Card>

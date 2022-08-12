@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, Fab, IconButton, Modal, TextField, Typography } from "@mui/material";
+import { Avatar, Button, Card, Fab, IconButton, Input, Modal, TextField, Typography } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import React from "react";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
@@ -7,12 +7,16 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import EditIcon from '@mui/icons-material/Edit';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 
+
+const ariaLabel = { 'aria-label': 'description' };
+
 interface ListProps {
-  meetingName: string;
-  pic: string;
-  description: string;
+  meetingName?: string;
+  pic?: string;
+  description?: string;
   // delete/manage/detail
   type: string;
+  doSomething?: (params: any) => any;
   onClick?: () => void;
 }
 
@@ -31,6 +35,7 @@ export default function RecordingModal({
   pic = "",
   type = 'delete',
   description = "",
+  doSomething,
   ...props
 }: ListProps) {
   const [openDetail, setOpenDetail] = React.useState(false);
@@ -131,7 +136,7 @@ export default function RecordingModal({
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: "center", marginRight: 3 }}>
                       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <Button variant="contained" style={{ backgroundColor: "#6001D3", borderRadius: 20, width: 165, height: 40, marginBottom: 15 }}>
+                        <Button onClick={doSomething} variant="contained" style={{ backgroundColor: "#6001D3", borderRadius: 20, width: 165, height: 40, marginBottom: 15 }}>
                           Confirm
                         </Button>
                         <Button onClick={handleCloseDelet} variant="contained" style={{ color: "#000000", backgroundColor: "#FCDC00", borderRadius: 20, width: 155, height: 40, marginLeft: 10 }}>
@@ -180,14 +185,11 @@ export default function RecordingModal({
                       </Box>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: "center", margin: 5 }}>
-                      <IconButton color="primary" aria-label="upload picture" component="label">
-                        <input hidden accept="image/*" type="file" />
-                        <CloudUploadIcon style={{ fontSize: 60 }} />
-                      </IconButton>
+                      <Input placeholder="URL of recording" inputProps={ariaLabel} />
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: "center", marginRight: 3 }}>
                       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <Button variant="contained" style={{ backgroundColor: "#6001D3", borderRadius: 20, width: 165, height: 40, marginBottom: 15 }}>
+                        <Button onClick={doSomething} variant="contained" style={{ backgroundColor: "#6001D3", borderRadius: 20, width: 165, height: 40, marginBottom: 15 }}>
                           Confirm
                         </Button>
                         <Button onClick={handleCloseEdit} variant="contained" style={{ color: '#000000', backgroundColor: "#FCDC00", borderRadius: 20, width: 155, height: 40, marginLeft: 10 }}>
@@ -204,8 +206,8 @@ export default function RecordingModal({
       {
         type === 'add' && (
           <div>
-            <Button onClick={handleOpenAdd} variant="outlined" sx={{ borderColor: "#6001D3", color:"#6001D3" }} startIcon={<AddCircleOutlineIcon />}>
-             New
+            <Button onClick={handleOpenAdd} variant="outlined" sx={{ borderColor: "#6001D3", color: "#6001D3" }} startIcon={<AddCircleOutlineIcon />}>
+              New
             </Button>
             <Modal
               open={openAdd}
@@ -235,14 +237,11 @@ export default function RecordingModal({
                       </Box>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: "center", margin: 5 }}>
-                      <IconButton color="primary" aria-label="upload picture" component="label">
-                        <input hidden accept="image/*" type="file" />
-                        <CloudUploadIcon style={{ fontSize: 60 }} />
-                      </IconButton>
+                      <Input placeholder="URL of recording" inputProps={ariaLabel} />
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: "center", marginRight: 3 }}>
                       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                        <Button variant="contained" style={{ backgroundColor: "#6001D3", borderRadius: 20, width: 165, height: 40, marginBottom: 15 }}>
+                        <Button onClick={doSomething} variant="contained" style={{ backgroundColor: "#6001D3", borderRadius: 20, width: 165, height: 40, marginBottom: 15 }}>
                           Confirm
                         </Button>
                         <Button onClick={handleCloseAdd} variant="contained" style={{ color: '#000000', backgroundColor: "#FCDC00", borderRadius: 20, width: 155, height: 40, marginLeft: 10 }}>
