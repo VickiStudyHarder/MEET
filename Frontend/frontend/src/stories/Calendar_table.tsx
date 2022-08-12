@@ -52,12 +52,14 @@ export default function Calendar_table({
     color: "#6001D3",//事件块的颜色
     start: "2022-07-23T10:30:00+00:00",
     end: "2022-07-23T12:30:00+00:00"
+
   },
   ]
   console.log(JSON.stringify(events))
   return (
     <div className="FullCalendarPage">
       <FullCalendar
+        editable={true}
         height={800} // 此处高度为方便截图，可不设置
         initialView="timeGridWeek"
         plugins={[dayGridPlugin, timeGridPlugin, momentPlugin]}
