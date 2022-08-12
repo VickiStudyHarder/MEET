@@ -19,6 +19,7 @@ import { getGroupById, getGroups } from '../../api/groupChat';
 import AppContext from '../../contexts/AppContext';
 import StudentGroupCard from '../../stories/StudentGroupCard';
 import { useParams } from 'react-router-dom';
+import StudyGroupIcon from '../../assets/StudyGroupIcon.png';
 
 interface IGroupChat {}
 
@@ -30,7 +31,7 @@ const GroupChat: React.FC<IGroupChat> = () => {
   const [messages, setMessages] = useState<any>(null);
 
   useEffect(() => {
-    const timer = setInterval(getMessages, 15000);
+    const timer = setInterval(getMessages, 3000);
     return () => clearInterval(timer);
   }, []);
 
@@ -57,9 +58,21 @@ const GroupChat: React.FC<IGroupChat> = () => {
             flexDirection: 'row',
             px: 10,
             py: 2,
+            maxHeight: 140,
           }}
         >
-          <Typography sx={{ display: 'flex', flexGrow: 1 }}>
+          <Box sx={{ my: 'auto', mr: 2 }}>
+            <img
+              src={StudyGroupIcon}
+              height='120'
+              width='120'
+              alt='study-group-icon'
+            />
+          </Box>
+          <Typography
+            variant='h3'
+            sx={{ display: 'flex', flexGrow: 1, my: 'auto' }}
+          >
             All Study Groups
           </Typography>
         </Box>
@@ -70,9 +83,13 @@ const GroupChat: React.FC<IGroupChat> = () => {
           <StudentGroupNameCard />
         </Box>
         <Container
-          sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+          sx={{ display: 'flex', flexDirection: 'column', width: '100%'}}
         >
-          <ChatWindow groupId={Number(id)} messages={messages} getMessages={getMessages}/>
+          <ChatWindow
+            groupId={Number(id)}
+            messages={messages}
+            getMessages={getMessages}
+          />
         </Container>
       </Box>
     </ThemeProvider>
