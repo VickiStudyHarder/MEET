@@ -10,6 +10,7 @@ import UserPool from "../utils/auth/UserPool";
 import { useNavigate } from "react-router-dom";
 import { getMeetingsByUserId } from "../api/meeting";
 import { array } from "prop-types";
+import { IMeeting } from "../types/types";
 
 export type users = "student" | "mentor" | "";
 
@@ -153,6 +154,12 @@ const AppContextProvider = (props: any) => {
       rating: 5,
       avatar: "",
     });
+    setSelectedStudent({
+      userId: "",
+      name: "",
+      rating: 5,
+      avatar: "",
+    })
     setAllMentors([{ mentorId: "", avatar: "", name: "" }]);
     setStudentBookedMeetings([
       { meetingId: "", title: "", start: "", end: "" },
@@ -245,35 +252,6 @@ const AppContextProvider = (props: any) => {
           },
         ],
       },
-      {
-        option: {
-          show: true,
-          showAdd: true,
-        },
-        title: "meeting 3",
-        task: [
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: true,
-            isEditing: false,
-          },
-        ],
-      },
-      {
-        option: {
-          show: true,
-          showAdd: true,
-        },
-        title: "Meeting 4",
-        task: [],
-      },
     ]);
     setInMeetingAgenda({
       meetingId: "",
@@ -302,7 +280,18 @@ const AppContextProvider = (props: any) => {
         ],
       },
     ]);
+    getFutureMeetings("z3417347@gmail.com")
   }, []);
+
+  const getFutureMeetings = async (userId:string)=>{
+    const resp = await getMeetingsByUserId(userId)
+    if(resp?.status === 200){
+      const meetings = resp?.data?.body as IMeeting[]
+      console.log(meetings)
+    }else{
+      console.error(resp?.data)
+    }
+  }
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {
@@ -393,6 +382,7 @@ const AppContextProvider = (props: any) => {
       navigate("/login");
     }
   };
+
   return (
     <AppContext.Provider
       value={{
