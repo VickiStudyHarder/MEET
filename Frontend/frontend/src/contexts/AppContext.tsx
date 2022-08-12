@@ -42,6 +42,7 @@ export type IAppContext = {
   setDateOfBirth: Dispatch<SetStateAction<Date | null>>;
   setGoogleAuthToken: Dispatch<SetStateAction<string>>;
   googleAuthToken: string;
+  meetingTodos: []
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -64,6 +65,44 @@ const AppContextProvider = (props: any) => {
   const [userMeetings, setUserMeetings] = useState<any>(null);
   const [googleAuthToken, setGoogleAuthToken] = useState("");
 
+  const [isMentor, setIsMentor] = useState(true);
+
+  const [calenderStudentSelectedMentor, setCalenderStudentSelectedMentor] =
+    useState({});
+  const [calenderStudentAllMentors, setCalenderStudentAllMentors] = useState([
+    {},
+  ]);
+  const [
+    calenderStudentConfirmedMeetings,
+    setCalenderStudentConfirmedMeetings,
+  ] = useState([{}]);
+  const [
+    calenderStudentMentorAvailableTimes,
+    setCalenderStudentMentorAvailableTimes,
+  ] = useState([{}]);
+  const [calenderMentorAvailableTimes, setCalenderMentorAvailableTimes] =
+    useState([{}]);
+  const [calenderMentorConfirmedMeetings, setCalenderMentorConfirmedMeetings] =
+    useState([{}]);
+  const [calenderMentorFutureMeetings, setCalenderMentorFutureMeetings] =
+    useState([{}]);
+
+  const [dashboardUserMeetings, setDashboardUserMeetings] = useState<any>([{}]);
+  const [dashboardMentorRequests, setDashboardMentorRequests] = useState<any>([
+    {},
+  ]);
+
+  const [inMeetingAgenda, setInMeetingAgenda] = useState<any>({});
+  const [inMeetingNote, setInMeetingNote] = useState<any>({});
+
+  const [meetingNotes, setMeetingNotes] = useState<any>([]);
+  const [selectedNote, setSelectedNote] = useState<any>({});
+
+  const [meetingTodos, setMeetingTodos] = useState<any>([{}]);
+
+  const [meetingRecordings,setMeetingRecordings] = useState<any>([{}])
+  const [selectedRecording,setSelectedRecording] = useState<any>([{}])
+
   const navigate = useNavigate();
 
   const getMeeting = async (userId: string) => {
@@ -75,8 +114,7 @@ const AppContextProvider = (props: any) => {
         const mapped = data?.map((item: any) => ({
           ...item,
           startable:
-            Date.now() / 1000 - Date.parse(item.startTime) / 1000 <
-            8 * 60
+            Date.now() / 1000 - Date.parse(item.startTime) / 1000 < 8 * 60
               ? true
               : false,
           startTime: Date.parse(item.startTime),
@@ -99,6 +137,140 @@ const AppContextProvider = (props: any) => {
   useEffect(() => {
     getMeeting(email);
   }, [email]);
+
+  useEffect(() => {
+    setCalenderStudentSelectedMentor({
+      mentorId: "",
+      name: "",
+      rating: 5,
+      avatar: "",
+    });
+    setCalenderStudentAllMentors([{ mentorId: "", avatar: "", name: "" }]);
+    setCalenderStudentConfirmedMeetings([
+      { meetingId: "", meetingName: "", title: "", start: "", end: "" },
+    ]);
+    setCalenderStudentMentorAvailableTimes([
+      { meetingId: "", meetingName: "", title: "", start: "", end: "" },
+    ]);
+    setCalenderMentorAvailableTimes([{ meetingId: "", datetime: "" }]);
+    setCalenderMentorConfirmedMeetings([
+      {
+        meetingId: "",
+        meetingName: "",
+        title: "",
+        color: "",
+        start: "",
+        end: "",
+      },
+    ]);
+    setCalenderMentorFutureMeetings([
+      {
+        meetingId: "",
+        meetingName: "",
+        datetime: "",
+        date: { day: "01", month: "DEC", year: "2022" },
+      },
+    ]);
+    setDashboardUserMeetings([
+      {
+        meetingId: "",
+        date: { day: "01", month: "DEC", year: "2022" },
+        meetingName: "name 1",
+        time: "12:00 - 13:00",
+      },
+    ]);
+    setDashboardMentorRequests([
+      {
+        requestId: "",
+        meetingId: "",
+        avatar: "",
+        usreName: "",
+        courseName: "",
+        meetingName: "",
+        rating: 5,
+        meetingTime: "",
+      },
+    ]);
+    setMeetingTodos([
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: "meeting 1",
+        task: [
+          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
+          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
+          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
+          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
+        ],
+      },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: "meeting 2",
+        task: [
+          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
+          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
+          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
+        ],
+      },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: "meeting 3",
+        task: [
+          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
+          { name: "to do item",isCompleted:false, isDeleted: true ,isEditing:false},
+        ],
+      },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: "Meeting 4",
+        task: [],
+      },
+    ]);
+    setInMeetingAgenda({
+      meetingId: "",
+      agenda: {
+        agendaId: "",
+        title: "",
+        description: "",
+        items: [
+          { itemId: "", title: "", content: "" },
+          { itemId: "", title: "", content: "" },
+        ],
+      },
+    });
+    setInMeetingNote({
+      meetingId: "",
+      note: {
+        noteId: "",
+        title: "",
+        description: "",
+        items: [{ itemId: "", title: "", content: "" }],
+      },
+    });
+    setMeetingNotes([
+      { meetingId: "", noteId: "", title: "", description: "" },
+    ]);
+    setSelectedNote({
+      meetingId: "",
+      note: {
+        noteId: "",
+        title: "",
+        description: "",
+        items: [{ itemId: "", title: "", content: "" }],
+      },
+    });
+  }, []);
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {
@@ -220,6 +392,7 @@ const AppContextProvider = (props: any) => {
         setDateOfBirth,
         setGoogleAuthToken,
         googleAuthToken,
+        meetingTodos
       }}
     >
       {props.children}
