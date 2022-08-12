@@ -1,4 +1,5 @@
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { useEffect, useContext } from 'react';
 import React from 'react';
 import NavBar from '../molecules/NavBar';
 import Exist_StuGro_box from '../../stories/Exist_StuGro_box';
@@ -9,6 +10,8 @@ import CalendarMentorConfirmedMeetings from '../../stories/CalendarMentorConfirm
 import Grid from "@mui/material/Grid";
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import AppContext from "../../contexts/AppContext";
 //import './Calendar.css';
 
 
@@ -51,10 +54,31 @@ interface ICalendar {
 }
 
 
+
+
+
+interface studentdata_test {
+  mentorId?: string,
+  name?: string,
+  rating?: number,
+  avatar?: string,
+}
 //test trial the role: student/mentor
 let role = "mentor"
 
 
+/*const { setAllMentors } = useContext(AppContext);
+const { setSelectedMentor } = useContext(AppContext);
+
+useEffect(() => {
+  studentdata_test.mentorId = setSelectedMentor.mentorId,
+    studentdata_test.name = setSelectedMentor.name,
+    studentdata_test.rating = setSelectedMentor.rating,
+    studentdata_test.avatar = setSelectedMentor.avator
+
+
+}, [setSelectedMentor]);
+*/
 
 const Calendar: React.FC<ICalendar> = () => {
 
@@ -63,40 +87,61 @@ const Calendar: React.FC<ICalendar> = () => {
   // useEffect(() => {}, [calenderMentorConfirmedMeetings]);
 
   //fake data for testing
-  const data = [
+  const setFutureMeetings = [ //導師模式，所有導師未來的meetings
     {
-      date: ["01", "DEC", "2022"],
-      meetingName: "Meeting name 1",
+      meetingId: "1",
+      start: "",
+      end: "",
+      date: { day: "01", month: "DEC", year: "2022" },
+      title: "Meeting name 1",
       time: "12:00 - 13:00",
     },
     {
-      date: ["02", "DEC", "2022"],
-      meetingName: "name 2",
+      meetingId: "2",
+      start: "",
+      end: "",
+      date: { day: "01", month: "DEC", year: "2022" },
+      title: "name 2",
       time: "14:00 - 15:00",
     },
     {
-      date: ["02", "DEC", "2022"],
-      meetingName: "name 3",
+      meetingId: "3",
+      start: "",
+      end: "",
+      date: { day: "01", month: "DEC", year: "2022" },
+      title: "name 3",
       time: "14:00 - 15:30",
     },
     {
-      date: ["10", "DEC", "2022"],
-      meetingName: "name 4",
+      meetingId: "4",
+      start: "",
+      end: "",
+      date: { day: "01", month: "DEC", year: "2022" },
+      title: "name 4",
       time: "11:00 - 12:00",
     },
     {
-      date: ["19", "DEC", "2022"],
-      meetingName: "name 5",
+      meetingId: "5",
+      start: "",
+      end: "",
+      date: { day: "01", month: "DEC", year: "2022" },
+      title: "name 5",
       time: "14:00 - 16:00",
     },
     {
-      date: ["20", "DEC", "2022"],
-      meetingName: "name 6",
+      meetingId: "6",
+      start: "",
+      end: "",
+      date: { day: "01", month: "DEC", year: "2022" },
+      title: "name 6",
       time: "14:00 - 15:00",
     },
     {
-      date: ["28", "DEC", "2022"],
-      meetingName: "name 7",
+      meetingId: "7",
+      start: "",
+      end: "",
+      date: { day: "01", month: "DEC", year: "2022" },
+      title: "name 7",
       time: "15:00 - 17:00",
     },
   ];
@@ -180,6 +225,32 @@ const Calendar: React.FC<ICalendar> = () => {
     },
   ];
 
+
+  const mentorMeetings = [
+    {
+      meetingId: 1,
+      title: "meeting 1",
+      start: "2022-07-23T10:30:00+00:00",
+      end: "2022-07-23T12:30:00+00:00"
+    },
+    {
+      meetingId: 2,
+      title: "meeting 2",
+      start: "2022-08-23T10:30:00+00:00",
+      end: "2022-08-23T12:30:00+00:00"
+    },
+    {
+      meetingId: 3,
+      title: "meeting 3",
+      start: "2022-08-26T10:30:00+00:00",
+      end: "2022-08-26T12:30:00+00:00"
+    },
+
+
+  ]
+
+
+
   const secondColumnStart = mentorlistdata.length / 2;
   const TotalNumberofMentor = mentorlistdata.length
 
@@ -204,7 +275,7 @@ const Calendar: React.FC<ICalendar> = () => {
                 </Grid>
 
                 <h1>Mentor List:</h1>
-                <Grid item sx={{ overflow: 'auto', height: 400 }}>
+                <Grid item sx={{ overflow: 'auto', maxHeight: 400 }}>
                   <Grid container direction="column">
                     <Grid container direction="row" >
                       <Grid item sx={{ width: 200 }}>
@@ -212,22 +283,22 @@ const Calendar: React.FC<ICalendar> = () => {
 
                         {mentorlistdata.slice(0, secondColumnStart + 1).map((item) => (
 
-                          <CalendarUserCardMini
+                          <Button><CalendarUserCardMini
                             name={item?.mentorname}
                             avator={item?.avator}
 
-                          />
+                          /></Button>
                         ))}
                       </Grid>
 
-                      <Grid item sx={{ overflow: 'auto' }}>
+                      <Grid item sx={{ width: 200 }}>
                         {mentorlistdata.slice(secondColumnStart + 1, TotalNumberofMentor).map((item) => (
 
-                          <CalendarUserCardMini
+                          <Button><CalendarUserCardMini
                             name={item?.mentorname}
                             avator={item?.avator}
 
-                          />
+                          /></Button>
                         ))}
 
                       </Grid>
@@ -273,18 +344,15 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
                 }}>
-                  {data.map((item) => (
+                  {setFutureMeetings.map((item) => (
 
                     <CalendarMentorConfirmedMeetings
-                      date={item?.date}
-                      meetingName={item?.meetingName}
+                      date={[item?.date?.day, item?.date?.month, item?.date?.year]}
+                      meetingName={item?.title}
                       time={item?.time}
 
                     />
                   ))}
-
-
-
 
                 </Box>
 
@@ -293,7 +361,7 @@ const Calendar: React.FC<ICalendar> = () => {
                 sx={{
                   width: 1200, alignItems: "center", mx: "auto", justifyContent: "center"
                 }}>
-                <Calendar_table />
+                <Calendar_table events={mentorMeetings} />
               </Grid>
               <CssBaseline />
 
@@ -317,38 +385,6 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
 
-
-  /*
-  return (
-    <>
-        {
-          role === 'mentor' && (
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <NavBar />
-              <Exist_StuGro_box />
-              <div>Calendar1</div>
-            </ThemeProvider>
- 
- 
-          )
-        }
-        {
-          role === 'student' && (
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <NavBar />
-              <Exist_StuGro_box />
-              <div>Calendar</div>
-            </ThemeProvider>
- 
- 
-          )
- 
-        }
-      </>
-  );
-  */
 };
 
 export default Calendar;
