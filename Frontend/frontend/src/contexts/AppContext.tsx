@@ -42,15 +42,22 @@ export type IAppContext = {
   setDateOfBirth: Dispatch<SetStateAction<Date | null>>;
   setGoogleAuthToken: Dispatch<SetStateAction<string>>;
   googleAuthToken: string;
-  meetingTodos: [];
-  selectedMentor:{};
-  selectedStudent:{};
-  allMentors:[];
-  studentBookedMeetings:[];
-  mentorAvailableMeetings:[];
-  mentorMeetings:[];
-  futureMeetings:[];
-  meetingRequests:[];
+  selectedMentor:any;
+  selectedStudent:any;
+  allMentors:any;
+  studentBookedMeetings:any;
+  mentorAvailableMeetings:any;
+  mentorMeetings:any;
+  futureMeetings:any;
+  meetingRequests:any;
+  inMeetingAgenda:any;
+  inMeetingNote:any;
+  selectedAgenda:any;
+  meetingNotes:any;
+  selectedNote:any;
+  meetingTodos:any;
+  meetingRecordings:any;
+  selectedRecording:any
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -417,7 +424,22 @@ const AppContextProvider = (props: any) => {
         setDateOfBirth,
         setGoogleAuthToken,
         googleAuthToken,
+        selectedMentor,
+        selectedStudent,
+        allMentors,
+        studentBookedMeetings,
+        mentorAvailableMeetings,
+        mentorMeetings,
+        futureMeetings,
+        meetingRequests,
+        inMeetingAgenda,
+        inMeetingNote,
+        selectedAgenda,
+        meetingNotes,
+        selectedNote,
         meetingTodos,
+        meetingRecordings,
+        selectedRecording,
       }}
     >
       {props.children}
