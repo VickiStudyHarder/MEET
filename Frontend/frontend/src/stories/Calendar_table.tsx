@@ -28,18 +28,18 @@ interface CalendarProps {
   /**
    * Button contents
    */
-  label: string;
+  label?: string;
   /**
    * Optional click handler
    */
   onClick?: () => void;
-  defaultView: string;
+  defaultView?: string;
 }
 
 /**
  * Primary UI component for user interaction
  */
-export default function Calendar({
+export default function Calendar_table({
   primary = false,
   size = "medium",
   backgroundColor,
@@ -52,13 +52,15 @@ export default function Calendar({
     color: "#6001D3",//事件块的颜色
     start: "2022-07-23T10:30:00+00:00",
     end: "2022-07-23T12:30:00+00:00"
+
   },
   ]
   console.log(JSON.stringify(events))
   return (
-    <>
+    <div className="FullCalendarPage">
       <FullCalendar
-        height={500} // 此处高度为方便截图，可不设置
+        editable={true}
+        height={800} // 此处高度为方便截图，可不设置
         initialView="timeGridWeek"
         plugins={[dayGridPlugin, timeGridPlugin, momentPlugin]}
         allDaySlot={false}
@@ -67,7 +69,7 @@ export default function Calendar({
         scrollTime={'08:00:00'}
         contentHeight='600'
         events={events}
-        />
-    </>
+      />
+    </div>
   );
 };

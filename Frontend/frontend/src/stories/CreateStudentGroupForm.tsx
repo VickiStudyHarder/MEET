@@ -12,15 +12,17 @@ import { createGroup } from '../api/groupChat';
 
 export interface ICreateStudentGroupForm {
   setOpen: Dispatch<React.SetStateAction<boolean>>;
+  getAllGroups: any;
 }
 
 const CreateStudentGroupForm: React.FC<ICreateStudentGroupForm> = ({
   setOpen,
+  getAllGroups,
 }) => {
   const [name, setGroupName] = useState<string>('');
   const [description, setGroupDescription] = useState<string>('');
 
-  const handleCreate = (e: any) => {
+  const handleCreate = async (e: any) => {
     e.preventDefault();
     console.log(name);
     console.log(description);
@@ -29,8 +31,9 @@ const CreateStudentGroupForm: React.FC<ICreateStudentGroupForm> = ({
         name,
         description,
       };
-      createGroup(group);
+      await createGroup(group);
       setOpen(false);
+      await getAllGroups();
     }
   };
 

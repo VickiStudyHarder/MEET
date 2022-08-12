@@ -5,6 +5,9 @@
   flex-direction: column;
   justify-content: flex-end;
   position: relative;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  
   .img-box{
     width: 100px;
     height: 100px;
@@ -23,11 +26,14 @@
     height: 120px;
     width: 148px;
     border-radius: 20px;
-    box-shadow: -15px 30px 60px rgba(8, 20, 32, 0.2);
+    box-shadow:0 15px 35px rgba(0,0,0,0.05);
     box-sizing: border-box;
     display: flex;
     align-items: flex-end;
     padding-bottom: 12px;
+    border-style: solid;
+    border-color: rgb(238, 235, 234);
+
     .name{
       margin: 0 auto;
       width: 140px;
