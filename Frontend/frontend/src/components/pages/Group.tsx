@@ -19,7 +19,7 @@ import { getGroups } from '../../api/groupChat';
 import StudentGroupCard from '../../stories/StudentGroupCard';
 import AppContext from '../../contexts/AppContext';
 
-interface IGroup {}
+interface IGroup { }
 
 const theme = createTheme();
 
