@@ -15,7 +15,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import { styled } from "@mui/material/styles";
 // import { IMeeting } from "../../types/types";
-// import AppContext from "../../contexts/AppContext";
+import AppContext from "../../contexts/AppContext";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -47,9 +47,9 @@ const theme = createTheme();
 // };
 
 const Home = () => {
-  // const { userMeetings } = useContext(AppContext);
+  const { userMeetings } = useContext(AppContext);
 
-  // useEffect(() => {}, [userMeetings]);
+  useEffect(() => {}, [userMeetings]);
 
   const data = [
     {
@@ -76,7 +76,8 @@ const Home = () => {
   const requestCards = [
     { userName: "Jack", MeetingName: "meet1", MeetingTime: "12:00 - 13:00", Rating: 4},
     { userName: "Jack2", MeetingName: "meet2", MeetingTime: "14:00 - 15:00", Rating: 3},
-    { userName: "Jack3", MeetingName: "meet3", MeetingTime: "14:00 - 15:00", Rating: 3},
+    { userName: "Jack3", MeetingName: 
+    "meet3", MeetingTime: "14:00 - 15:00", Rating: 3},
     { userName: "Jack4", MeetingName: "meet4", MeetingTime: "14:00 - 15:00", Rating: 3},
     { userName: "Jack5", MeetingName: "meet5", MeetingTime: "14:00 - 15:00", Rating: 3},
   ];

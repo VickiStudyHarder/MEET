@@ -36,7 +36,7 @@
   width: 80%;
   height: 530px;
   border-radius: 10px;
-  background-image:url("/Users/vicki/Documents/GitHub/COMP9323/Frontend/frontend/src/stories/assets/todoBackground.png") ;
+  background-image:url("./assets/todoBackground.png") ;
   background-repeat:no-repeat;
   background-size:cover;
   margin-right: 20px;

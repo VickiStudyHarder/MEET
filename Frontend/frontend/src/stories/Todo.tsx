@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Input } from 'antd'
 import { Button } from '@mui/material'
 import Modal from '@mui/material/Modal'
@@ -33,9 +33,8 @@ interface MeetingProps {
 
 const userInfo: { userName: string, userAvatar: string} = {
   userName: 'Vicki Chen',
-  userAvatar: '/Users/vicki/Documents/GitHub/COMP9323/Frontend/frontend/src/stories/assets/userAvatar.png',
+  userAvatar: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg',
 }
-
 
 let list: any = [
   {
@@ -109,6 +108,8 @@ let list: any = [
 export const Todo: React.VFC = () => {
   const [user, setUser] = React.useState<User>()
   const [data, setData] = React.useState(list)
+  // const { meetingTodos } = useContext(AppContext);
+  // useEffect(() => {}, [meetingTodos]);
   const [filter, setfilter] = React.useState(false)
   const [isModalVisible, setisModalVisible] = React.useState(false)
   const [modalCtx, setModalCtx] = React.useState({
@@ -196,7 +197,7 @@ export const Todo: React.VFC = () => {
         </div>
         <div className="meet-userCard">
             <CalendarUserCardMini 
-            avator={'/Users/vicki/Documents/GitHub/COMP9323/Frontend/frontend/src/stories/assets/userAvatar.png'}
+            avator={'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg'}
             name={'Vicki Chen'}
             />
         </div>
