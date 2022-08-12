@@ -13,7 +13,7 @@ export interface MeetingScheduleTomorrowInfo {
 export default function MeetingScheduleTomorrow(props: MeetingScheduleTomorrowInfo) {
   const theme = useTheme();
   return (
-    <Box className="meeting-schdule-small-wrap">
+    <Box className="meeting-schdule-small-wrap" sx={{m:2}}>
       <Box className="l">
         <Box className="name">{props.meetingName}</Box>
         <Box className="line"></Box>
