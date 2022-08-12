@@ -28,10 +28,10 @@ const ToDos: React.FC<IToDos> = () => {
         />
       ))} */}
   
-      <CalendarUserCardMini 
+      {/* <CalendarUserCardMini 
             avator={'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg'}
             name={'Vicki Chen'}
-            />
+            /> */}
 
       {/* <div>ToDos</div> */}
       {/* <CalendarUserCardMini /> */}
