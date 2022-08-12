@@ -42,6 +42,7 @@ export type IAppContext = {
   setDateOfBirth: Dispatch<SetStateAction<Date | null>>;
   setGoogleAuthToken: Dispatch<SetStateAction<string>>;
   googleAuthToken: string;
+  meetingTodos: []
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -95,9 +96,12 @@ const AppContextProvider = (props: any) => {
   const [inMeetingNote, setInMeetingNote] = useState<any>({});
 
   const [meetingNotes, setMeetingNotes] = useState<any>([]);
-  const [noteNote, setNoteNote] = useState<any>({});
+  const [selectedNote, setSelectedNote] = useState<any>({});
 
-  const [todoLanes, setTodoLanes] = useState<any>([{}]);
+  const [meetingTodos, setMeetingTodos] = useState<any>([{}]);
+
+  const [meetingRecordings,setMeetingRecordings] = useState<any>([{}])
+  const [selectedRecording,setSelectedRecording] = useState<any>([{}])
 
   const navigate = useNavigate();
 
@@ -187,7 +191,7 @@ const AppContextProvider = (props: any) => {
         meetingTime: "",
       },
     ]);
-    setTodoLanes([
+    setMeetingTodos([
       {
         option: {
           show: true,
@@ -195,10 +199,10 @@ const AppContextProvider = (props: any) => {
         },
         title: "meeting 1",
         task: [
-          { name: "to do item", isdel: false },
-          { name: "to do item", isdel: false },
-          { name: "to do item", isdel: false },
-          { name: "to do item", isdel: false },
+          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
+          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
+          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
+          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
         ],
       },
       {
@@ -208,9 +212,9 @@ const AppContextProvider = (props: any) => {
         },
         title: "meeting 2",
         task: [
-          { name: "to do item", isdel: false },
-          { name: "to do item", isdel: false },
-          { name: "to do item", isdel: false },
+          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
+          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
+          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
         ],
       },
       {
@@ -220,8 +224,8 @@ const AppContextProvider = (props: any) => {
         },
         title: "meeting 3",
         task: [
-          { name: "to do item", isdel: false },
-          { name: "to do item", isdel: true },
+          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
+          { name: "to do item",isCompleted:false, isDeleted: true ,isEditing:false},
         ],
       },
       {
@@ -257,7 +261,7 @@ const AppContextProvider = (props: any) => {
     setMeetingNotes([
       { meetingId: "", noteId: "", title: "", description: "" },
     ]);
-    setNoteNote({
+    setSelectedNote({
       meetingId: "",
       note: {
         noteId: "",
@@ -388,6 +392,7 @@ const AppContextProvider = (props: any) => {
         setDateOfBirth,
         setGoogleAuthToken,
         googleAuthToken,
+        meetingTodos
       }}
     >
       {props.children}
