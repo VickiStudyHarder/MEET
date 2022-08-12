@@ -8,10 +8,10 @@ interface ListProps {
   meetingName: string;
   pic: string;
   // role: student/mentor
-  role: string;
-  description: string,
-  numberOfNotes: string
-  onClick?: () => void;
+  role?: string;
+  status: boolean;
+  doSomething: (params: any) => any;
+  numberOfNote: string;
 }
 
 const modalStyle = {
@@ -31,32 +31,32 @@ export default function NoteListIndex({
   createdBy = "",
   meetingName = "",
   pic = "",
-  role = 'student',
-  description = '',
-  numberOfNotes = '0',
+  status = true,
+  numberOfNote = '0',
+  doSomething,
   ...props
 }: ListProps) {
 
   return (
-    <List sx={{ width: '100%', bgcolor: 'background.paper', minWidth: 1200 }}>
+    // <List sx={{ width: '100%', bgcolor: 'background.paper', minWidth: 1200 }}>
+    <>
       <ListItem alignItems="center" >
         {
-          role === 'student' && (
+          status && (
             <Box sx={{ width: '100%' }}>
-              <Card sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
                   <Avatar sx={{ width: 380, height: 220, borderRadius: 5, margin: 6, marginLeft: 3 }} variant='rounded' src={pic} />
                   <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <Box sx={{ flex: '1 100 auto' }}>
                       <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                         <Typography variant="subtitle2" style={{ color: '#6001D3' }} component="div" marginTop={8} marginBottom={5} fontWeight={'bold'}>
-                          {numberOfNotes} Notes &nbsp;
+                          {numberOfNote} Notes &nbsp;
                         </Typography>
                         <Typography variant="subtitle2" color="text.secondary" component="div" marginTop={8} marginBottom={5}>
                           By {createdBy}
                         </Typography>
                       </Box>
-
                       <Typography component="div" variant="h4" fontWeight={'bold'}>
                         {meetingName}
                       </Typography>
@@ -64,25 +64,25 @@ export default function NoteListIndex({
                   </Box>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', marginRight: 10 }}>
-                  <Fab style={{ backgroundColor: '#6001D3' }} aria-label="delete recording" size="medium">
+                  <Fab style={{ backgroundColor: '#6001D3' }} aria-label="delete recording" size="medium" onClick={doSomething}>
                     <KeyboardArrowRightIcon style={{ fontSize: 40, margin: 10, color: '#ffffff' }} />
                   </Fab>
 
                 </Box>
-              </Card>
+              </Box>
             </Box>
           )}
         {
-          role === 'mentor' && (
+          !status && (
             <Box sx={{ width: '100%' }}>
-              <Card sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
                   <Avatar sx={{ width: 380, height: 220, borderRadius: 5, margin: 6, marginLeft: 3 }} variant='rounded' src={pic} />
                   <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <Box sx={{ flex: '1 100 auto' }}>
                       <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                         <Typography variant="subtitle2" style={{ color: '#6001D3' }} component="div" marginTop={8} marginBottom={5} fontWeight={'bold'}>
-                          {numberOfNotes} Notes &nbsp;
+                          {numberOfNote} Notes &nbsp;
                         </Typography>
                         <Typography variant="subtitle2" color="text.secondary" component="div" marginTop={8} marginBottom={5}>
                           By {createdBy}
@@ -95,16 +95,17 @@ export default function NoteListIndex({
                   </Box>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', marginRight: 10 }}>
-                  <Fab style={{ backgroundColor: '#6001D3' }} aria-label="delete recording" size="medium">
+                  <Fab style={{ backgroundColor: '#B98FEC' }} aria-label="delete recording" size="medium" >
                     <KeyboardArrowRightIcon style={{ fontSize: 40, margin: 10, color: '#ffffff' }} />
                   </Fab>
                 </Box>
-              </Card>
+              </Box>
             </Box>
           )}
 
+
       </ListItem>
-      <Divider variant="inset" component="li" />
-    </List>
+      <Divider variant="middle" sx={{ marginTop: -3, marginBottom: -3 }} />
+    </>
   );
 };
