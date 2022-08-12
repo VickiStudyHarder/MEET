@@ -42,7 +42,7 @@ export type IAppContext = {
   setDateOfBirth: Dispatch<SetStateAction<Date | null>>;
   setGoogleAuthToken: Dispatch<SetStateAction<string>>;
   googleAuthToken: string;
-  meetingTodos: []
+  meetingTodos: [];
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -65,43 +65,38 @@ const AppContextProvider = (props: any) => {
   const [userMeetings, setUserMeetings] = useState<any>(null);
   const [googleAuthToken, setGoogleAuthToken] = useState("");
 
+  // exposed vars
+
   const [isMentor, setIsMentor] = useState(true);
 
-  const [calenderStudentSelectedMentor, setCalenderStudentSelectedMentor] =
-    useState({});
-  const [calenderStudentAllMentors, setCalenderStudentAllMentors] = useState([
+  const [selectedMentor, setSelectedMentor] = useState({}); //选中的导师
+  const [allMentors, setAllMentors] = useState([{}]); //导师列表
+  const [studentBookedMeetings, setStudentBookedMeetings] = useState([{}]); //学生模式下已被学生预定的当前老师的会议
+  const [mentorAvailableMeetings, setMentorAvailableMeetings] =
+  useState([{}]); //学生模式下当前老师的可被预定会议
+  const [mentorMeetings, setMentorMeetings] = useState([{}]); //老师模式下自己的meeting
+  
+  const [futureMeetings, setFutureMeetings] = useState<any>([{}]);  //老师模式下未来的会议
+  const [meetingRequests, setMeetingsRequests] = useState<any>([
     {},
-  ]);
-  const [
-    calenderStudentConfirmedMeetings,
-    setCalenderStudentConfirmedMeetings,
-  ] = useState([{}]);
-  const [
-    calenderStudentMentorAvailableTimes,
-    setCalenderStudentMentorAvailableTimes,
-  ] = useState([{}]);
-  const [calenderMentorAvailableTimes, setCalenderMentorAvailableTimes] =
-    useState([{}]);
-  const [calenderMentorConfirmedMeetings, setCalenderMentorConfirmedMeetings] =
-    useState([{}]);
-  const [calenderMentorFutureMeetings, setCalenderMentorFutureMeetings] =
-    useState([{}]);
-
-  const [dashboardUserMeetings, setDashboardUserMeetings] = useState<any>([{}]);
-  const [dashboardMentorRequests, setDashboardMentorRequests] = useState<any>([
-    {},
-  ]);
-
+  ]); //老师模式下学生的所有入会请求
+  
   const [inMeetingAgenda, setInMeetingAgenda] = useState<any>({});
   const [inMeetingNote, setInMeetingNote] = useState<any>({});
 
+  const [selectedAgenda,setSeletedAgenda] = useState({})
+  
   const [meetingNotes, setMeetingNotes] = useState<any>([]);
   const [selectedNote, setSelectedNote] = useState<any>({});
-
+  
   const [meetingTodos, setMeetingTodos] = useState<any>([{}]);
-
-  const [meetingRecordings,setMeetingRecordings] = useState<any>([{}])
-  const [selectedRecording,setSelectedRecording] = useState<any>([{}])
+  
+  const [meetingRecordings, setMeetingRecordings] = useState<any>([{}]);
+  const [selectedRecording, setSelectedRecording] = useState<any>([{}]);
+  
+  
+  // context local vars
+  
 
   const navigate = useNavigate();
 
@@ -139,50 +134,35 @@ const AppContextProvider = (props: any) => {
   }, [email]);
 
   useEffect(() => {
-    setCalenderStudentSelectedMentor({
+    setSelectedMentor({
       mentorId: "",
       name: "",
       rating: 5,
       avatar: "",
     });
-    setCalenderStudentAllMentors([{ mentorId: "", avatar: "", name: "" }]);
-    setCalenderStudentConfirmedMeetings([
+    setAllMentors([{ mentorId: "", avatar: "", name: "" }]);
+    setStudentBookedMeetings([
       { meetingId: "", meetingName: "", title: "", start: "", end: "" },
     ]);
-    setCalenderStudentMentorAvailableTimes([
+    setMentorAvailableMeetings([
       { meetingId: "", meetingName: "", title: "", start: "", end: "" },
     ]);
-    setCalenderMentorAvailableTimes([{ meetingId: "", datetime: "" }]);
-    setCalenderMentorConfirmedMeetings([
+    setMentorMeetings([{ meetingId: "", meetingName: "", title: "", start: "", end: "" },])
+    setFutureMeetings([
       {
         meetingId: "",
-        meetingName: "",
-        title: "",
-        color: "",
-        start: "",
-        end: "",
-      },
-    ]);
-    setCalenderMentorFutureMeetings([
-      {
-        meetingId: "",
-        meetingName: "",
-        datetime: "",
-        date: { day: "01", month: "DEC", year: "2022" },
-      },
-    ]);
-    setDashboardUserMeetings([
-      {
-        meetingId: "",
+        start:"",
+        end:"",
         date: { day: "01", month: "DEC", year: "2022" },
         meetingName: "name 1",
         time: "12:00 - 13:00",
       },
     ]);
-    setDashboardMentorRequests([
+    setMeetingsRequests([
       {
         requestId: "",
         meetingId: "",
+        userId:"",
         avatar: "",
         usreName: "",
         courseName: "",
@@ -199,10 +179,30 @@ const AppContextProvider = (props: any) => {
         },
         title: "meeting 1",
         task: [
-          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
-          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
-          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
-          { name: "to do item", isCompleted:false,isDeleted: false ,isEditing:false},
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
         ],
       },
       {
@@ -212,9 +212,24 @@ const AppContextProvider = (props: any) => {
         },
         title: "meeting 2",
         task: [
-          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
-          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
-          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
         ],
       },
       {
@@ -224,8 +239,18 @@ const AppContextProvider = (props: any) => {
         },
         title: "meeting 3",
         task: [
-          { name: "to do item",isCompleted:false, isDeleted: false ,isEditing:false},
-          { name: "to do item",isCompleted:false, isDeleted: true ,isEditing:false},
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          },
+          {
+            name: "to do item",
+            isCompleted: false,
+            isDeleted: true,
+            isEditing: false,
+          },
         ],
       },
       {
@@ -239,37 +264,31 @@ const AppContextProvider = (props: any) => {
     ]);
     setInMeetingAgenda({
       meetingId: "",
-      agenda: {
-        agendaId: "",
-        title: "",
-        description: "",
-        items: [
-          { itemId: "", title: "", content: "" },
-          { itemId: "", title: "", content: "" },
-        ],
-      },
+      agenda: [
+        { itemId: "", title: "", content: "" },
+        { itemId: "", title: "", content: "" },
+      ],
     });
     setInMeetingNote({
       meetingId: "",
-      note: {
-        noteId: "",
-        title: "",
-        description: "",
-        items: [{ itemId: "", title: "", content: "" }],
-      },
+      note: [{ itemId: "", title: "", content: "" }],
     });
     setMeetingNotes([
       { meetingId: "", noteId: "", title: "", description: "" },
     ]);
     setSelectedNote({
       meetingId: "",
-      note: {
-        noteId: "",
-        title: "",
-        description: "",
-        items: [{ itemId: "", title: "", content: "" }],
-      },
+      note: [{ id: "", title: "", content: "" }],
     });
+    setMeetingRecordings([
+      {
+        meetingId: "",
+        recording: [
+          { id: "", title: "", cover: "", file: "" },
+          { id: "", title: "", cover: "", file: "" },
+        ],
+      },
+    ]);
   }, []);
 
   const getSession = async () =>
@@ -392,7 +411,7 @@ const AppContextProvider = (props: any) => {
         setDateOfBirth,
         setGoogleAuthToken,
         googleAuthToken,
-        meetingTodos
+        meetingTodos,
       }}
     >
       {props.children}
