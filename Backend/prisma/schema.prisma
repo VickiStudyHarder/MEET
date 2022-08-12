@@ -23,6 +23,7 @@ model User {
   tokens           Tokens?
   messageHistory   MessageHistory[]
   GroupParticipant GroupParticipant[]
+  notes Notes[]
 }
 
 model Tokens {
@@ -33,8 +34,8 @@ model Tokens {
 
 model Meeting {
   id              Int               @id @default(autoincrement())
-  startTime       DateTime
-  endTime         DateTime
+  meetingStart       DateTime
+  meetingEnd         DateTime
   summary         String
   description     String
   location        String
@@ -69,6 +70,8 @@ model Notes {
   details   String
   meeting   Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
   meetingId Int
+  user       User     @relation(fields: [creatingUserId], references: [id], onDelete: Cascade)
+  creatingUserId String
 }
 
 model Group {
