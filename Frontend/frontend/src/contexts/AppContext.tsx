@@ -57,6 +57,7 @@ export type IAppContext = {
   meetingNotes:any;
   selectedNote:any;
   meetingTodos:any;
+  setMeetingTodos:any;
   meetingRecordings:any;
   selectedRecording:any
 };
@@ -427,6 +428,7 @@ const AppContextProvider = (props: any) => {
         meetingNotes,
         selectedNote,
         meetingTodos,
+        setMeetingTodos,
         meetingRecordings,
         selectedRecording,
       }}
