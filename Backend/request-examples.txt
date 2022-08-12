@@ -132,6 +132,7 @@ INotes = {
     title: string,
     details: string,
     meetingId: number
+    creatingUserId: string;
 }
 
 IMeetingAttendee {
