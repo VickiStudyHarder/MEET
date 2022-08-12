@@ -25,8 +25,8 @@ Test.args = {
   createdBy: 'Jack Wolf',
   meetingName: 'meeting 1',
   pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg',
-  description: 'this is a test description this is a test description this is a test description this is a test description',
-  // role: student/mentor
-  role: 'student', 
+
+  numberOfRecording: '3',
+  status: true,
 };
 
