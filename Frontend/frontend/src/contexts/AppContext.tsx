@@ -42,7 +42,22 @@ export type IAppContext = {
   setDateOfBirth: Dispatch<SetStateAction<Date | null>>;
   setGoogleAuthToken: Dispatch<SetStateAction<string>>;
   googleAuthToken: string;
-  meetingTodos: [];
+  selectedMentor:any;
+  selectedStudent:any;
+  allMentors:any;
+  studentBookedMeetings:any;
+  mentorAvailableMeetings:any;
+  mentorMeetings:any;
+  futureMeetings:any;
+  meetingRequests:any;
+  inMeetingAgenda:any;
+  inMeetingNote:any;
+  selectedAgenda:any;
+  meetingNotes:any;
+  selectedNote:any;
+  meetingTodos:any;
+  meetingRecordings:any;
+  selectedRecording:any
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -66,9 +81,6 @@ const AppContextProvider = (props: any) => {
   const [googleAuthToken, setGoogleAuthToken] = useState("");
 
   // exposed vars
-
-  const [isMentor, setIsMentor] = useState(true);
-
   const [selectedMentor, setSelectedMentor] = useState({}); //选中的导师
   const [selectedStudent,setSelectedStudent] = useState({})
   const [allMentors, setAllMentors] = useState([{}]); //导师列表
@@ -412,7 +424,22 @@ const AppContextProvider = (props: any) => {
         setDateOfBirth,
         setGoogleAuthToken,
         googleAuthToken,
+        selectedMentor,
+        selectedStudent,
+        allMentors,
+        studentBookedMeetings,
+        mentorAvailableMeetings,
+        mentorMeetings,
+        futureMeetings,
+        meetingRequests,
+        inMeetingAgenda,
+        inMeetingNote,
+        selectedAgenda,
+        meetingNotes,
+        selectedNote,
         meetingTodos,
+        meetingRecordings,
+        selectedRecording,
       }}
     >
       {props.children}
