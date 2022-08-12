@@ -70,6 +70,7 @@ const AppContextProvider = (props: any) => {
   const [isMentor, setIsMentor] = useState(true);
 
   const [selectedMentor, setSelectedMentor] = useState({}); //选中的导师
+  const [selectedStudent,setSelectedStudent] = 
   const [allMentors, setAllMentors] = useState([{}]); //导师列表
   const [studentBookedMeetings, setStudentBookedMeetings] = useState([{}]); //学生模式下已被学生预定的当前老师的会议
   const [mentorAvailableMeetings, setMentorAvailableMeetings] =
@@ -142,19 +143,19 @@ const AppContextProvider = (props: any) => {
     });
     setAllMentors([{ mentorId: "", avatar: "", name: "" }]);
     setStudentBookedMeetings([
-      { meetingId: "", meetingName: "", title: "", start: "", end: "" },
+      { meetingId: "", title: "", start: "", end: "" },
     ]);
     setMentorAvailableMeetings([
-      { meetingId: "", meetingName: "", title: "", start: "", end: "" },
+      { meetingId: "",  title: "", start: "", end: "" },
     ]);
-    setMentorMeetings([{ meetingId: "", meetingName: "", title: "", start: "", end: "" },])
+    setMentorMeetings([{ meetingId: "",  title: "", start: "", end: "" },])
     setFutureMeetings([
       {
         meetingId: "",
         start:"",
         end:"",
         date: { day: "01", month: "DEC", year: "2022" },
-        meetingName: "name 1",
+        title: "name 1",
         time: "12:00 - 13:00",
       },
     ]);
@@ -166,7 +167,7 @@ const AppContextProvider = (props: any) => {
         avatar: "",
         usreName: "",
         courseName: "",
-        meetingName: "",
+        title: "",
         rating: 5,
         meetingTime: "",
       },
@@ -274,7 +275,7 @@ const AppContextProvider = (props: any) => {
       note: [{ itemId: "", title: "", content: "" }],
     });
     setMeetingNotes([
-      { meetingId: "", noteId: "", title: "", description: "" },
+      { meetingId: "", userId: "",avatar:"", title: "", description: "" },
     ]);
     setSelectedNote({
       meetingId: "",
