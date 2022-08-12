@@ -196,7 +196,8 @@ const Calendar: React.FC<ICalendar> = () => {
               <Grid container direction="column">
                 <Grid item >
                   <h1>Chosen Mentor:</h1>
-                  <CalendarUserCardPrimary name={studentdata?.[0]?.mentorname}
+                  <CalendarUserCardPrimary
+                    name={studentdata?.[0]?.mentorname}
                     job={studentdata?.[0]?.mentorRole}
                     Rating={studentdata?.[0]?.rating}
                     avator={studentdata?.[0]?.avator} />

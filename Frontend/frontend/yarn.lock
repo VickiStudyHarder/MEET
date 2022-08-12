@@ -1377,6 +1377,11 @@
   "resolved" "https://registry.npmjs.org/@csstools/selector-specificity/-/selector-specificity-2.0.1.tgz"
   "version" "2.0.1"
 
+"@date-io/core@^1.3.13":
+  "integrity" "sha512-AlEKV7TxjeK+jxWVKcCFrfYAk8spX9aCyiToFIiLPtfQbsjmRGLIhb5VZgptQcJdHtLXo7+m0DuurwFgUToQuA=="
+  "resolved" "https://registry.npmjs.org/@date-io/core/-/core-1.3.13.tgz"
+  "version" "1.3.13"
+
 "@date-io/core@^2.14.0":
   "integrity" "sha512-qFN64hiFjmlDHJhu+9xMkdfDG2jLsggNxKXglnekUpXSq8faiqZgtHm2lsHCUuaPDTV6wuXHcCl8J1GQ5wLmPw=="
   "resolved" "https://registry.npmjs.org/@date-io/core/-/core-2.14.0.tgz"
@@ -1403,6 +1408,13 @@
   dependencies:
     "@date-io/core" "^2.14.0"
 
+"@date-io/moment@^1.3.11":
+  "integrity" "sha512-3kJYusJtQuOIxq6byZlzAHoW/18iExJer9qfRF5DyyzdAk074seTuJfdofjz4RFfTd/Idk8WylOQpWtERqvFuQ=="
+  "resolved" "https://registry.npmjs.org/@date-io/moment/-/moment-1.3.13.tgz"
+  "version" "1.3.13"
+  dependencies:
+    "@date-io/core" "^1.3.13"
+
 "@date-io/moment@^2.14.0":
   "integrity" "sha512-VsoLXs94GsZ49ecWuvFbsa081zEv2xxG7d+izJsqGa2L8RPZLlwk27ANh87+SNnOUpp+qy2AoCAf0mx4XXhioA=="
   "resolved" "https://registry.npmjs.org/@date-io/moment/-/moment-2.14.0.tgz"
@@ -1419,6 +1431,43 @@
     "clsx" "^1.0.4"
     "focus-lock" "^0.8.0"
     "react-merge-refs" "^1.0.0"
+
+"@devexpress/dx-core@3.0.4":
+  "integrity" "sha512-ddgWLkbRf7bhB7WheCC8qwCjQ/hXhfT73dU1hs53WeE4KAI6+F/GFA+XReDpR3gO9KgzsCJliV9sBBZpeEJ1iQ=="
+  "resolved" "https://registry.npmjs.org/@devexpress/dx-core/-/dx-core-3.0.4.tgz"
+  "version" "3.0.4"
+
+"@devexpress/dx-react-core@^3.0.4":
+  "integrity" "sha512-uHKkt123ee3W1uBFLHK6z3h2f0qCfEyrr/9/Y39uh6RAtey9melI38bpXChG763CJBZwr6c9AFs9HWnJ4veMFg=="
+  "resolved" "https://registry.npmjs.org/@devexpress/dx-react-core/-/dx-react-core-3.0.4.tgz"
+  "version" "3.0.4"
+  dependencies:
+    "@devexpress/dx-core" "3.0.4"
+    "prop-types" "^15.7.2"
+
+"@devexpress/dx-react-scheduler-material-ui@^3.0.4":
+  "integrity" "sha512-XTmrPVXNFngupX9qyOwIcOySs093AtbYkKmkT361RKbX1wFeik8ZXYgPJoUoU87P7431uZdqSAtO+8dKAETJGg=="
+  "resolved" "https://registry.npmjs.org/@devexpress/dx-react-scheduler-material-ui/-/dx-react-scheduler-material-ui-3.0.4.tgz"
+  "version" "3.0.4"
+  dependencies:
+    "@date-io/moment" "^1.3.11"
+    "clsx" "^1.0.4"
+    "prop-types" "^15.7.2"
+
+"@devexpress/dx-react-scheduler@^3.0.4":
+  "integrity" "sha512-mvzW/Q05mGw/py540lMNp2PsXlbvZIteU6XG2SKj501kfuXBSfBx7rk6A0UURhoj+ZMzaKxevis2ucuKHOiCqQ=="
+  "resolved" "https://registry.npmjs.org/@devexpress/dx-react-scheduler/-/dx-react-scheduler-3.0.4.tgz"
+  "version" "3.0.4"
+  dependencies:
+    "@devexpress/dx-scheduler-core" "3.0.4"
+
+"@devexpress/dx-scheduler-core@3.0.4":
+  "integrity" "sha512-vZLHo6Gi6T8mXNOM0j8NHuV9cVijskwlO5T1IxYr+SQH3Dl5WXgwrgiTsmdsNspymVC6xrieMBoibtFwGzNudw=="
+  "resolved" "https://registry.npmjs.org/@devexpress/dx-scheduler-core/-/dx-scheduler-core-3.0.4.tgz"
+  "version" "3.0.4"
+  dependencies:
+    "moment" "^2.24.0"
+    "rrule" "2.6.4"
 
 "@devtools-ds/object-inspector@^1.1.2":
   "integrity" "sha512-VztcwqVwScSvYdvJVZBJYsVO/2Pew3JPpFV3T9fuCHQLlHcLYOV3aU/kBS2ScuE2O1JN0ZbobLqFLa3vQF54Fw=="
@@ -11325,6 +11374,11 @@
   dependencies:
     "yallist" "^4.0.0"
 
+"luxon@^1.21.3":
+  "integrity" "sha512-TfTiyvZhwBYM/7QdAVDh+7dBTBA29v4ik0Ce9zda3Mnf8on1S5KJI8P2jKFZ8+5C0jhmr0KwJEO/Wdpm0VeWJQ=="
+  "resolved" "https://registry.npmjs.org/luxon/-/luxon-1.28.0.tgz"
+  "version" "1.28.0"
+
 "lz-string@^1.4.4":
   "integrity" "sha512-0ckx7ZHRPqb0oUm8zNr+90mtf9DQB60H1wMCjBtfi62Kl3a7JbHob6gA2bC+xRvZoOL+1hzUK8jeuEIQE8svEQ=="
   "resolved" "https://registry.npmjs.org/lz-string/-/lz-string-1.4.4.tgz"
@@ -11822,7 +11876,7 @@
   "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
   "version" "1.0.4"
 
-"moment@^2.29.4":
+"moment@^2.24.0", "moment@^2.29.4":
   "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
   "version" "2.29.4"
@@ -14684,6 +14738,15 @@
   optionalDependencies:
     "fsevents" "~2.3.2"
 
+"rrule@2.6.4":
+  "integrity" "sha512-sLdnh4lmjUqq8liFiOUXD5kWp/FcnbDLPwq5YAc/RrN6120XOPb86Ae5zxF7ttBVq8O3LxjjORMEit1baluahA=="
+  "resolved" "https://registry.npmjs.org/rrule/-/rrule-2.6.4.tgz"
+  "version" "2.6.4"
+  dependencies:
+    "tslib" "^1.10.0"
+  optionalDependencies:
+    "luxon" "^1.21.3"
+
 "rsvp@^4.8.4":
   "integrity" "sha512-nfMOlASu9OnRJo1mbEk2cz0D56a1MBNrJ7orjRZQG10XDyuvwksKbuXNp6qa+kbn839HwjwhBzhFmdsaEAfauA=="
   "resolved" "https://registry.npmjs.org/rsvp/-/rsvp-4.8.5.tgz"
@@ -16243,6 +16306,11 @@
     "mkdirp" "^0.5.1"
     "source-map" "^0.4.2"
     "source-map-support" "^0.3.1"
+
+"tslib@^1.10.0":
+  "integrity" "sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg=="
+  "resolved" "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz"
+  "version" "1.14.1"
 
 "tslib@^1.8.1":
   "integrity" "sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg=="
