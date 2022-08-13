@@ -3,7 +3,7 @@ import { Box, createTheme, CssBaseline, Divider } from '@mui/material';
 import React from 'react';
 import PageTitle from '../../stories/PageTiltle';
 import NavBar from '../molecules/NavBar';
-import RatingCardMentor from '../../stories/RatingCardMentor'
+import RatingCardMentor from '../../stories/EvaluateCardButton'
 import RatingCard from "../../stories/RatingCard";
 
 interface IRating {}
@@ -18,7 +18,7 @@ const Rating: React.FC<IRating> = () => {
       userName: "Jack",
       courseName: "comp9323",
       Rating: 4,
-      UserType: "student",
+      UserType: "mentor",
       Part_rate: 80
     }
   ]

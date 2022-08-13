@@ -75,7 +75,7 @@ export default function RatingCard(props: IRatingCard) {
             component="legend" 
             sx={{
               mx: "auto", 
-              marginTop: 8, 
+              marginTop: 6, 
               fontSize : "2rem", 
               color:"#ABAFC7"}}
               >
@@ -93,15 +93,7 @@ export default function RatingCard(props: IRatingCard) {
               color:"#FF054D"}} 
               readOnly />
           </div>
-          <Typography 
-            variant="body1" 
-            component="legend" 
-            sx={{
-              mx: "auto", 
-              fontSize : "1rem"
-              }}>
-                Participating Rate: {props.Part_rate}%
-          </Typography>
+
           </CardContent>
           </Grid>
         </Grid>
