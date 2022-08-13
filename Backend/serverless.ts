@@ -10,16 +10,23 @@ import {
 } from '@functions/users';
 
 import {
- create,
- remove,
- update,
- getById,
- getByUserId
+  create,
+  remove,
+  update,
+  getById,
+  getByUserId,
 } from '@functions/meetings';
 
 import {
-  createCalendarEvent
-} from '@functions/google'
+  createGroup,
+  joinGroup,
+  leaveGroup,
+  getGroupById,
+  getAllGroups,
+  sendMessage
+} from '@functions/groups';
+
+import { createCalendarEvent } from '@functions/google';
 
 const serverlessConfiguration: AWS = {
   service: 'backend',
@@ -27,7 +34,7 @@ const serverlessConfiguration: AWS = {
   plugins: [
     'serverless-esbuild',
     'serverless-offline',
-    'serverless-dotenv-plugin'
+    'serverless-dotenv-plugin',
   ],
   useDotenv: true,
   provider: {
@@ -43,7 +50,7 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
       GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-      GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET
+      GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     },
   },
   // import the function via paths
@@ -59,7 +66,13 @@ const serverlessConfiguration: AWS = {
     update,
     getById,
     getByUserId,
-    createCalendarEvent
+    createCalendarEvent,
+    createGroup,
+    joinGroup,
+    leaveGroup,
+    getGroupById,
+    getAllGroups,
+    sendMessage
   },
   package: { individually: true },
   custom: {
@@ -73,9 +86,9 @@ const serverlessConfiguration: AWS = {
       platform: 'node',
       concurrency: 10,
     },
-    'serverless-offline' : {
-      httpPort: 4000
-    }
+    'serverless-offline': {
+      httpPort: 4000,
+    },
   },
   resources: {
     Resources: {

@@ -1,37 +1,52 @@
-import React from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import SignUp from './components/pages/auth/SignUp';
-import Login from './components/pages/auth/Login';
-import { Account } from './contexts/Account';
-import { Meeting } from './contexts/Meeting';
-import { Video } from './contexts/Video';
-import Home from './components/pages/Home';
-import VideoContainer from './components/organisms/Video/VideoContainer';
-import GoogleAuth from './components/organisms/Google/Google'
-import ProtectedRoute from './hooks/ProtectedRoute';
-import { LandingPage } from './components/pages/auth/LandingPage';
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  Agenda,
+  Calendar,
+  Group,
+  Notes,
+  Rating,
+  Recording,
+  ToDos,
+  Home,
+  Login,
+  SignUp,
+  LandingPage,
+  GroupChat
+} from "./components/pages";
+import GoogleAuth from "./components/organisms/Google/Google";
+import ProtectedRoute from "./hooks/ProtectedRoute";
+import API from "./components/pages/API";
+import { AppContextProvider } from "./contexts/AppContext";
 
 function App() {
   return (
-    <Router>
-      <div style={{ height: '100%', width: '100%' }}>
-        <Account>
-          <Meeting>
-            <Video>
-              <Routes>
-                <Route path='/' element={<ProtectedRoute />}>
-                  <Route path='/home' element={<Home />} />
-                </Route>
-                {/* <Route path='/signup' element={<SignUp />} /> */}
-                <Route path='/login' element={<LandingPage  />} />
-                <Route path='/video' element={<VideoContainer />} />
-              </Routes>
-            </Video>
-          </Meeting>
-        </Account>
-      </div>
-    </Router>
+      <Router>
+        <div style={{ height: "100%", width: "100%" }}>
+          <AppContextProvider>
+            <Routes>
+              {/* <Route path='/' element={<ProtectedRoute />}> */}
+              <Route path="/home" element={<Home />} />
+              {/* </Route> */}
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/agenda" element={<Agenda />} />
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/group" element={<Group />} />
+              <Route path="/group/:id" element={<GroupChat />} />
+              <Route path="/todo" element={<ToDos />} />
+              <Route path="/notes" element={<Notes />} />
+              <Route path="/rating" element={<Rating />} />
+              <Route path="/recording" element={<Recording />} />
+              <Route path="/todos" element={<ToDos />} />
+              <Route path="/login1" element={<LandingPage />} />
+              <Route path="/api" element={<API />} />
+            </Routes>
+          </AppContextProvider>
+        </div>
+      </Router>
   );
 }
 

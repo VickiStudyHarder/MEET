@@ -6,6 +6,7 @@ import StudentMentor from '../../organisms/SignUpFlow/StudentMentor';
 import Courses from '../../organisms/SignUpFlow/Courses';
 import GetStarted from '../../organisms/SignUpFlow/GetStarted';
 import GoogleAuth from '../../organisms/Google/Google';
+import CompleteSignUp from '../../organisms/SignUpFlow/CompleteSignUp';
 
 const theme = createTheme();
 
@@ -48,12 +49,14 @@ const SignUpPage = () => {
             decrementStage={decrementStage}
           />
         )}
-        {stage === 3 && <Courses decrementStage={decrementStage} incrementStage={incrementStage}/>}
-        {stage === 4 && (
+        {stage === 3 && (
           <GoogleAuth
             incrementStage={incrementStage}
             decrementStage={decrementStage}
           />
+        )}
+        {stage === 4 && (
+          <CompleteSignUp />
         )}
       </Grid>
     </ThemeProvider>

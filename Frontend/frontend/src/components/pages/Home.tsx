@@ -1,165 +1,157 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import axios from 'axios';
-import { MeetingContext } from '../../contexts/Meeting';
-import { IMeeting } from '../../types/meeting';
+import React, { useState, useEffect, useContext } from "react";
 import {
   Container,
   createTheme,
   CssBaseline,
-  Grid,
-  Paper,
-  Stack,
-  styled,
   ThemeProvider,
-  Typography,
-} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import NavBar from "../molecules/NavBar";
+import RequestCard from "../../stories/RequestCard";
+import MeetingScheduleToday from "../../stories/MeetingScheduleToday/MeetingScheduleToday";
+import MeetingScheduleTomorrow from "../../stories/MeetingScheduleTomorrow/MeetingScheduleTomorrow";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import { styled } from "@mui/material/styles";
+// import { IMeeting } from "../../types/types";
+// import AppContext from "../../contexts/AppContext";
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(2),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
 
 const theme = createTheme();
 
-const meetingExample: IMeeting = {
-  userId: 'z3417347@gmail.com',
-  summary: 'test summary',
-  description: 'test description',
-  location: 'test location',
-  meetingStart: new Date('August 02, 2022 10:00:00'),
-  meetingEnd: new Date('August 02, 2022 11:00:00'),
-  attendees: [{ userId: 'z3417347@gmail.com', attended: false }],
-  notes: [{ title: 'this was a good meeting', details: 'meeting details' }],
-  toDoItems: [
-    {
-      title: 'update the database',
-      dueDate: new Date('July 28, 2022 04:00:00'),
-      assigneeId: 'z3417347@gmail.com'
-    },
-  ],
-  meetingId: '',
-};
+// const meetingExample: IMeeting = {
+//   ownerId: 'z3417347@gmail.com',
+//   summary: 'test summary',
+//   description: 'test description',
+//   location: 'test location',
+//   meetingStart: new Date('August 02, 2022 10:00:00'),
+//   meetingEnd: new Date('August 02, 2022 11:00:00'),
+//   attendees: [{ userId: 'z3417347@gmail.com', attended: false }],
+//   notes: [{items: [{title: 'this was a good meeting', content: 'meeting details'}] }],
+//   toDoItems: [
+//     {
+//       title: 'update the database',
+//       dueDate: new Date('July 28, 2022 04:00:00'),
+//       assigneeId: 'z3417347@gmail.com',
+//     },
+//   ],
+//   meetingId: '',
+// };
 
 const Home = () => {
-  const { postMeeting, getMeeting } = useContext(MeetingContext);
-  const [meetings, setMeetings] = useState<IMeeting[]>([]);
-  const navigate = useNavigate();
+  // const { userMeetings } = useContext(AppContext);
 
-  const onClickPost = async (meeting: IMeeting) => {
-    const result = await postMeeting(meeting);
-    console.log(result);
-  };
+  // useEffect(() => {}, [userMeetings]);
 
-  const onClickGetById = async (id: string) => {
-    const result = await getMeeting('test');
-    setMeetings(result.data.body);
-  };
-
-  const onClickGoogle = async () => {
-    navigate('/google');
-  };
-
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
-
-  console.log({ meetings });
+  const data = [
+    {
+      date: ["01", "DEC", "2022"],
+      meetingName: "name 1",
+      time: "12:00 - 13:00",
+    },
+    {
+      date: ["02", "DEC", "2022"],
+      meetingName: "name 2",
+      time: "14:00 - 15:00",
+    },
+    {
+      date: ["02", "DEC", "2022"],
+      meetingName: "name 2",
+      time: "14:00 - 15:00",
+    },
+    {
+      date: ["02", "DEC", "2022"],
+      meetingName: "name 2",
+      time: "14:00 - 15:00",
+    },
+  ];
+  const requestCards = [
+    { userName: "Jack", MeetingName: "meet1", MeetingTime: "12:00 - 13:00", Rating: 4},
+    { userName: "Jack2", MeetingName: "meet2", MeetingTime: "14:00 - 15:00", Rating: 3},
+    { userName: "Jack3", MeetingName: "meet3", MeetingTime: "14:00 - 15:00", Rating: 3},
+    { userName: "Jack4", MeetingName: "meet4", MeetingTime: "14:00 - 15:00", Rating: 3},
+    { userName: "Jack5", MeetingName: "meet5", MeetingTime: "14:00 - 15:00", Rating: 3},
+  ];
+  let role = "mentor";
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <main>
-        <Container maxWidth='lg'>
-          <Stack direction='row' justifyContent='center' sx={{ m: 2 }}>
-            <Button
-              variant='contained'
-              onClick={postMeeting(meetingExample)}
-              sx={{ m: 2 }}
-            >
-              Post
-            </Button>
-            <Button
-              variant='contained'
-              onClick={() => onClickGetById('test')}
-              sx={{ m: 2 }}
-            >
-              Get By Id
-            </Button>
-            <Button
-              variant='contained'
-              onClick={() => onClickGoogle()}
-              sx={{ m: 2 }}
-            >
-              Google
-            </Button>
-          </Stack>
-        </Container>
-        <Container maxWidth='lg'>
-          <Typography variant='h3' textAlign='center'>
-            Your Upcoming Meetings
-          </Typography>
-          <Grid container spacing={1}>
-            {meetings.length > 0 &&
-              meetings.map((meeting: any) => {
-                return (
-                  <>
-                    <Grid item xs={3}>
-                      <Button
-                        variant='contained'
-                        sx={{
-                          textAlign: 'center',
-                          justifyContent: 'center',
-                          alignItems: 'center',
-                        }}
-                      >
-                        View Meeting
-                      </Button>
-                    </Grid>
-                    <Grid item xs={9} alignItems='center'>
-                      <Stack direction='row'>
-                        <Paper
-                          sx={{
-                            width: '33%',
-                            textAlign: 'center',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                          }}
-                        >
-                          {new Date(meeting.meetingStart).toDateString()}
-                        </Paper>
-                        <Paper
-                          sx={{
-                            width: '33%',
-                            textAlign: 'center',
-                            justify: 'center',
-                            alignItems: 'center',
-                          }}
-                        >
-                          {new Date(meeting.meetingEnd).toDateString()}
-                        </Paper>
-                        <Paper
-                          sx={{
-                            width: '33%',
-                            textAlign: 'center',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                          }}
-                        >
-                          <Stack>
-                            {meeting.participants.map((participant: string) => (
-                              <div>{participant}</div>
-                            ))}
-                          </Stack>
-                        </Paper>
-                      </Stack>
-                    </Grid>
-                  </>
-                );
-              })}
+      <NavBar />
+      {role === "student"? (
+        <Container maxWidth="xl" sx={{display:'flex'}}>
+          <Box sx={{ width:450, display:'flex'}}>
+          <Grid container spacing={3}>
+          <Grid item xs={3.5}>
+          <MeetingScheduleToday
+          date={data?.[0]?.date}
+          meetingName={data?.[0]?.meetingName}
+          time={data?.[0]?.time}
+          />
           </Grid>
+          </Grid>
+          </Box>
+          <Box sx={{ width:1200, display:'flex'}}>
+          {data.map((item) => (
+              <Grid container spacing={1}>
+                <Grid>
+                <MeetingScheduleTomorrow date={item?.date}
+                  meetingName={item?.meetingName}
+                  time={item?.time}/>
+                </Grid>
+              </Grid>  
+            ))}
+          </Box>
+          
+        {/* <Grid container spacing={3}>
+        <Grid item xs={3.5}>
+        <MeetingScheduleToday
+          date={data?.[0]?.date}
+          meetingName={data?.[0]?.meetingName}
+          time={data?.[0]?.time}
+        />
+        </Grid>
+        {data.map((item) => (
+              <Grid item xs={3.5}>
+                <MeetingScheduleTomorrow date={item?.date}
+                  meetingName={item?.meetingName}
+                  time={item?.time}/>
+              </Grid>
+            ))}
+        </Grid>   */}
+        
         </Container>
-      </main>
+      ):(
+        <Container maxWidth="xl" sx={{display:'flex'}}>
+          <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+          <Grid item xs={3.5}>
+              <MeetingScheduleToday
+                date={data?.[0]?.date}
+                meetingName={data?.[0]?.meetingName}
+                time={data?.[0]?.time}
+              />
+            </Grid>
+            {requestCards.map((item) => (
+              <Grid item xs={2.5}>
+                <RequestCard userName={item?.userName}
+                MeetingName={item?.MeetingName}
+                MeetingTime={item?.MeetingTime}
+                Rating={item?.Rating}/>
+              </Grid>
+            ))}
+          </Grid>
+        </Box>
+        </Container>
+      )}
     </ThemeProvider>
   );
 };
