@@ -10,24 +10,18 @@ interface IRating {}
 
 const theme = createTheme();
 
-const Ratingdata = [
-  { 
-    imageUrl: "https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg",
-    userName: "Jack",
-    courseName: "comp9323",
-    Rating: 4,
-    UserType: "student",
-    Part_rate: 80
-  }
-]
-
 const Rating: React.FC<IRating> = () => {
-  const data = {
-    mentorId: '1',
-    name:'Jack wolf',
-    pic:'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg'
-  }
-  
+
+  const Ratingdata = [
+    { 
+      imageUrl: "./calendar_avator.jpg",
+      userName: "Jack",
+      courseName: "comp9323",
+      Rating: 4,
+      UserType: "student",
+      Part_rate: 80
+    }
+  ]
   // submit function
   const submitRating = () => {}
 
@@ -38,7 +32,7 @@ const Rating: React.FC<IRating> = () => {
       <Box sx={{ margin: 10, display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ marginLeft: 3, display: 'flex' }} >
               <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', width: '100%' }}>
-                <PageTitle content={`Rating - ${data.name}`} icon='1' />
+                <PageTitle content={`Rating - ${Ratingdata[0].userName}`} icon='1' />
               </Box>
             </Box>
             <Divider variant="middle" sx={{ marginTop: 3 }} />
