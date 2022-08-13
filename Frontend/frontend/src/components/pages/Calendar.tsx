@@ -27,8 +27,8 @@ interface ICalendar {
 
 
 
-//切換導師和學生不同頁面 student/mentor
-let role = "mentor"
+//切換導師和學生不同頁面 student/mentor different page depending on role
+let role = "student"
 
 
 
@@ -40,7 +40,7 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
 
-  //導師模式，所有導師未來的meetings
+  //導師模式，所有導師未來的meetings. Mentor page, showing all the mentor confirmed meetings
 
   /*
   const setFutureMeetings = [
@@ -105,7 +105,7 @@ const Calendar: React.FC<ICalendar> = () => {
 */
 
 
-  //選中的導師
+  //選中的導師, selected mentor
   const selectedMentor = [
     {
       mentorname: "Mentor Name",
@@ -117,7 +117,7 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
 
-  //Mentor選單，所有mentor的列表
+  //Mentor選單，所有mentor的列表, all the mentor list
   const AllMentors = [
     {
       mentorId: "1",
@@ -177,7 +177,7 @@ const Calendar: React.FC<ICalendar> = () => {
   ];
 
 
-  const mentorMeetings = [ //導師確定的會議，給顯示在calender上
+  const mentorMeetings = [ //導師確定的會議，給顯示在calender上, showing all the mentor meetings on calendar
     {
       meetingId: 1,
       title: "meeting 1",
@@ -213,7 +213,7 @@ const Calendar: React.FC<ICalendar> = () => {
   ]
 
 
-  const StudentBookedMeetings = [//學生確定的會議，給顯示在calendar上
+  const StudentBookedMeetings = [//學生確定的會議，給顯示在calendar上. Student confirmed meetings to show on the calendar
     {
       meetingId: 1,
       title: "meeting 1",
@@ -238,7 +238,7 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
 
-  //切分metor的list，為了顯示，以防mentor不只6位，造成視窗超出
+  //切分metor的list，為了顯示，以防mentor不只6位，造成視窗超出. Divide the mentor list to show two columns
   const secondColumnStart = AllMentors.length / 2;
   const TotalNumberofMentor = AllMentors.length
 
@@ -248,7 +248,7 @@ const Calendar: React.FC<ICalendar> = () => {
     <ThemeProvider theme={theme}>
       <NavBar />
 
-      {role === "student" && ( //學生角色，頁面
+      {role === "student" && ( //學生角色，頁面, student page
         <>
           <Box sx={{ marginLeft: 5, display: 'flex' }} >
             <PageTitle content='Calendar' icon='5' />
@@ -307,7 +307,7 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
       {
-        role === "mentor" && (  //導師角色，頁面
+        role === "mentor" && (  //導師角色，頁面, mentor page
           <>
             <Box sx={{ marginLeft: 5, display: 'flex' }} >
               <PageTitle content='Calendar' icon='5' />
