@@ -8,11 +8,13 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 interface TitleProps {
   content: string;
-  // icon: 1/2/3/4
+  // icon: 1/2/3/4/5/6
   icon: string;
+  doSomething?: (params: any) => any;
 }
 
 
@@ -23,6 +25,7 @@ interface TitleProps {
 export default function PageTitle({
   content,
   icon,
+  doSomething,
   ...props
 }: TitleProps) {
 
@@ -76,7 +79,7 @@ export default function PageTitle({
       {
         icon === '5' && (
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-            <Fab style={{ backgroundColor: '#6a0dad' }} aria-label="delete recording" size="medium">
+            <Fab style={{ backgroundColor: '#FD346E' }} aria-label="delete recording" size="medium">
               <CalendarMonthIcon style={{ fontSize: 30, color: '#ffffff' }} />
             </Fab>
             <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} >
@@ -85,7 +88,17 @@ export default function PageTitle({
           </Box>
         )}
 
-
+      {
+        icon === '6' && (
+          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+            <Fab onClick={doSomething} style={{ backgroundColor: '#FD346E' }} aria-label="delete recording" size="medium">
+              <ArrowBackIcon style={{ fontSize: 30, color: '#ffffff' }} />
+            </Fab>
+            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} >
+              {content}
+            </Typography>
+          </Box>
+        )}
 
 
 
