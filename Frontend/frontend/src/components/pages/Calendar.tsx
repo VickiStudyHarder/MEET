@@ -31,19 +31,11 @@ export default function Calendar({
   */
 
 
-
 /*export default function Calendar({
   // role: student/mentor
   role = 'student',
   ...props
 }: ICalendar) {*/
-
-interface ICalendar {
-  ID?: string;
-  // role: student/mentor
-  role?: string;
-}
-
 
 
 /* 測試接口用 ->尚未成功
@@ -56,10 +48,6 @@ interface studentdata_test {
 
 
 */
-
-
-//切換導師和學生不同頁面
-let role = "student"
 
 
 /* 測試接口用->尚未成功
@@ -75,6 +63,23 @@ useEffect(() => {
 
 }, [setSelectedMentor]);
 */
+
+
+
+interface ICalendar {
+  ID?: string;
+  // role: student/mentor
+  role?: string;
+}
+
+
+
+
+//切換導師和學生不同頁面 student/mentor
+let role = "student"
+
+
+
 
 const Calendar: React.FC<ICalendar> = () => {
 
@@ -98,48 +103,48 @@ const Calendar: React.FC<ICalendar> = () => {
       meetingId: "2",
       start: "",
       end: "",
-      date: { day: "01", month: "DEC", year: "2022" },
-      title: "name 2",
-      time: "14:00 - 15:00",
+      date: { day: "02", month: "DEC", year: "2022" },
+      title: "Meeting name 2",
+      time: "14:30 - 15:00",
     },
     {
       meetingId: "3",
       start: "",
       end: "",
-      date: { day: "01", month: "DEC", year: "2022" },
-      title: "name 3",
+      date: { day: "04", month: "DEC", year: "2022" },
+      title: "Meeting name 3",
       time: "14:00 - 15:30",
     },
     {
       meetingId: "4",
       start: "",
       end: "",
-      date: { day: "01", month: "DEC", year: "2022" },
-      title: "name 4",
+      date: { day: "05", month: "Jan", year: "2023" },
+      title: "Meeting name 4",
       time: "11:00 - 12:00",
     },
     {
       meetingId: "5",
       start: "",
       end: "",
-      date: { day: "01", month: "DEC", year: "2022" },
-      title: "name 5",
+      date: { day: "06", month: "Feb", year: "2022" },
+      title: "Meeting name 5",
       time: "14:00 - 16:00",
     },
     {
       meetingId: "6",
       start: "",
       end: "",
-      date: { day: "01", month: "DEC", year: "2022" },
-      title: "name 6",
+      date: { day: "07", month: "Mar", year: "2022" },
+      title: "Meeting name 6",
       time: "14:00 - 15:00",
     },
     {
       meetingId: "7",
       start: "",
       end: "",
-      date: { day: "01", month: "DEC", year: "2022" },
-      title: "name 7",
+      date: { day: "08", month: "Apr", year: "2022" },
+      title: "Meeting name 7",
       time: "15:00 - 17:00",
     },
   ];
@@ -149,82 +154,71 @@ const Calendar: React.FC<ICalendar> = () => {
   //選中的導師
   const selectedMentor = [
     {
-      mentorname: "hi1",
+      mentorname: "Mentor Name",
       mentorRole: 'mentor',
       rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      avator: './calendar_avator.jpg'
     }
   ];
 
 
 
   //Mentor選單，所有mentor的列表
-  const mentorlistdata = [
+  const AllMentors = [
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "1",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 1"
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "2",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 2"
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "3",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 3"
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "4",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 4"
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "5",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 5"
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "6",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 6"
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "7",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 7"
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "8",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 8"
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "9",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 9"
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "10",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 10"
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "11",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 11"
     },
   ];
 
@@ -253,7 +247,6 @@ const Calendar: React.FC<ICalendar> = () => {
   ]
 
 
-
   const StudentBookedMeetings = [//學生確定的會議，給顯示在calender上
     {
       meetingId: 1,
@@ -280,8 +273,10 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
   //切分metor的list，為了顯示，以防mentor不只6位，造成視窗超出
-  const secondColumnStart = mentorlistdata.length / 2;
-  const TotalNumberofMentor = mentorlistdata.length
+  const secondColumnStart = AllMentors.length / 2;
+  const TotalNumberofMentor = AllMentors.length
+
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -307,20 +302,20 @@ const Calendar: React.FC<ICalendar> = () => {
                   <Grid container direction="column">
                     <Grid container direction="row" >
                       <Grid item sx={{ width: 200 }}>
-                        {mentorlistdata.slice(0, secondColumnStart + 1).map((item) => (
+                        {AllMentors.slice(0, secondColumnStart + 1).map((item) => (
                           <Button><CalendarUserCardMini
-                            name={item?.mentorname}
-                            avator={item?.avator}
+                            name={item?.name}
+                            avator={item?.avatar}
                           /></Button>
                         ))}
                       </Grid>
 
                       <Grid item sx={{ width: 200 }}>
-                        {mentorlistdata.slice(secondColumnStart + 1, TotalNumberofMentor).map((item) => (
+                        {AllMentors.slice(secondColumnStart + 1, TotalNumberofMentor).map((item) => (
 
                           <Button><CalendarUserCardMini
-                            name={item?.mentorname}
-                            avator={item?.avator}
+                            name={item?.name}
+                            avator={item?.avatar}
 
                           /></Button>
                         ))}
@@ -376,7 +371,6 @@ const Calendar: React.FC<ICalendar> = () => {
           </>
         )
       }
-
     </ThemeProvider >
   );
 
