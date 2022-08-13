@@ -19,54 +19,6 @@ import PageTitle from '../../stories/PageTiltle';
 const theme = createTheme();
 
 
-/*
-export default function Calendar({
-  // role: student/mentor
-  role: 'student';
-  meetingID: "";
-  pic: ""
-  description: '',
-  ...props
-}: ICalendar) {
-
-  */
-
-
-/*export default function Calendar({
-  // role: student/mentor
-  role = 'student',
-  ...props
-}: ICalendar) {*/
-
-
-/* 測試接口用 ->尚未成功
-interface studentdata_test {
-  mentorId?: string,
-  name?: string,
-  rating?: number,
-  avatar?: string,
-}
-
-
-*/
-
-
-/* 測試接口用->尚未成功
-/*const { setAllMentors } = useContext(AppContext);
-const { setSelectedMentor } = useContext(AppContext);
-
-useEffect(() => {
-  studentdata_test.mentorId = setSelectedMentor.mentorId,
-    studentdata_test.name = setSelectedMentor.name,
-    studentdata_test.rating = setSelectedMentor.rating,
-    studentdata_test.avatar = setSelectedMentor.avator
-
-
-}, [setSelectedMentor]);
-*/
-
-
-
 interface ICalendar {
   ID?: string;
   // role: student/mentor
@@ -75,10 +27,8 @@ interface ICalendar {
 
 
 
-
 //切換導師和學生不同頁面 student/mentor
-let role = "student"
-
+let role = "mentor"
 
 
 
@@ -87,12 +37,6 @@ const Calendar: React.FC<ICalendar> = () => {
 
   const { futureMeetings: data } = useContext(AppContext);
   let metormeetings = JSON.parse(JSON.stringify(data))
-
-
-
-  //const { futureMeetings } = useContext(AppContext);
-  //useEffect(() => { }, [futureMeetings]);
-
 
 
 
