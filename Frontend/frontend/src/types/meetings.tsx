@@ -1,0 +1,34 @@
+export interface IMeeting {
+  id: number;
+  meetingStart: string;
+  meetingEnd: string;
+  summary: string;
+  description: string;
+  location: string;
+  attendee: string[];
+  toDoItems?: IToDoItem[];
+  notes?: INotes[];
+  attendees?: IMeetingAttendee[];
+}
+export interface IToDoItem {
+  id: number;
+  title: string;
+  dueDate: Date;
+  assigneeId: string;
+}
+export interface INotes {
+  id: number;
+  title: string;
+  details: string;
+  meetingId: number;
+}
+export interface IMeetingAttendee {
+  id: number;
+  userId: string;
+  attended: boolean;
+}
+ 
+export interface IMeetingResponse {
+  meeting: IMeeting
+}
+

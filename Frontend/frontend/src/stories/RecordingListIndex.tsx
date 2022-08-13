@@ -107,8 +107,6 @@ export default function RecordingListIndex({
               </Box>
             </Box>
           )}
-
-
       </ListItem>
       <Divider variant="middle" sx={{ marginTop: -3, marginBottom: -3 }} />
     </>

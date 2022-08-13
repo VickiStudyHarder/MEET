@@ -16,11 +16,10 @@ import Popover from '@mui/material/Popover';
 interface INavBar {}
 
 const options = [
-  { title: 'Home', url: '/home' },
+  { title: 'Upcoming Meetings', url: '/home' },
   { title: 'Calendar', url: '/calendar' },
-  { title: 'Agenda', url: '/agenda' },
-  { title: 'Notes', url: '/notes' },
-  { title: 'To Do Task', url: '/todo' },
+  { title: 'View/Edit Meetings', url: '/meetings' },
+  { title: 'To Dos', url: '/todo' },
   { title: 'Rating', url: '/rating' },
   { title: 'Recording', url: '/recording' },
   { title: 'Group', url: '/group' },
