@@ -7,6 +7,7 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 interface TitleProps {
   content: string;
@@ -71,6 +72,20 @@ export default function PageTitle({
             </Typography>
           </Box>
         )}
+
+      {
+        icon === '5' && (
+          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+            <Fab style={{ backgroundColor: '#6a0dad' }} aria-label="delete recording" size="medium">
+              <CalendarMonthIcon style={{ fontSize: 30, color: '#ffffff' }} />
+            </Fab>
+            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} >
+              {content}
+            </Typography>
+          </Box>
+        )}
+
+
 
 
 
