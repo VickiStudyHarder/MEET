@@ -13,13 +13,12 @@ import {
 import MeetingImage from '../../assets/MeetingImage.png';
 import { useParams } from 'react-router-dom';
 import { getMeetingById } from '../../api/meeting';
-import { IMeeting, INotes } from '../../types/meetings';
-import NotesRow from '../molecules/NotesRow';
-
+import { IMeeting, IToDoItem } from '../../types/meetings';
+import ToDoRow from '../molecules/ToDoRow';
 
 const theme = createTheme();
 
-const Notes: React.FC<{}> = () => {
+const ToDoHome: React.FC<{}> = () => {
   const { id } = useParams();
   const [meeting, setMeeting] = useState<null | IMeeting>(null);
   const [open, setOpen] = useState(false);
@@ -32,7 +31,6 @@ const Notes: React.FC<{}> = () => {
     const result = await getMeetingById(id || '');
     setMeeting(result);
   };
-
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -82,7 +80,7 @@ const Notes: React.FC<{}> = () => {
                 variant='h3'
                 sx={{ display: 'flex', flexGrow: 1, my: 'auto' }}
               >
-                Notes - {meeting?.summary}
+                To Do's - {meeting?.summary}
               </Typography>
               <Button
             onClick={handleClickOpen}
@@ -106,8 +104,8 @@ const Notes: React.FC<{}> = () => {
           <Divider variant='middle' sx={{ width: '100%' }} />
           <Box sx={{ width: '100%', m: 2 }}>
             {meeting &&
-              meeting?.notes?.map((note: INotes) => {
-                return <NotesRow note={note} />;
+              meeting?.toDoItem?.map((toDoItem: IToDoItem) => {
+                return <ToDoRow toDoItem={toDoItem} />;
               })}
           </Box>
         </Box>
@@ -116,4 +114,4 @@ const Notes: React.FC<{}> = () => {
   );
 };
 
-export default Notes;
+export default ToDoHome;

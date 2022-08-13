@@ -14,7 +14,8 @@ import {
   SignUp,
   LandingPage,
   GroupChat,
-  Meetings
+  Meetings,
+  ToDoHome
 } from "./components/pages";
 import GoogleAuth from "./components/organisms/Google/Google";
 import ProtectedRoute from "./hooks/ProtectedRoute";
@@ -39,6 +40,7 @@ function App() {
               <Route path="/group/:id" element={<GroupChat />} />
               <Route path="/meetings" element={<Meetings />} />
               <Route path="/todo" element={<ToDos />} />
+              <Route path="/todo/:id" element={<ToDoHome />} />
               <Route path="/notes/:id" element={<Notes />} />
               <Route path="/rating" element={<Rating />} />
               <Route path="/recording" element={<Recording />} />
