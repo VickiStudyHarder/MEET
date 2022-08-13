@@ -1,4 +1,4 @@
-import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider, Divider } from '@mui/material';
 import { useEffect, useContext } from 'react';
 import React from 'react';
 import NavBar from '../molecules/NavBar';
@@ -12,6 +12,7 @@ import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import AppContext from "../../contexts/AppContext";
+import PageTitle from '../../stories/PageTiltle';
 //import './Calendar.css';
 
 
@@ -284,8 +285,12 @@ const Calendar: React.FC<ICalendar> = () => {
 
       {role === "student" && ( //學生角色，頁面
         <>
+          <Box sx={{ marginLeft: 5, display: 'flex' }} >
+            <PageTitle content='Calendar' icon='5' />
+          </Box>
+          <Divider variant="middle" sx={{ marginTop: 3 }} />
           <Grid container direction="row" sx={{
-            alignItems: "center", justifyContent: "center"
+            alignItems: "center", justifyContent: "center", height: "70vh", width: '100vw'
           }}>
             <Grid item>
               <Grid container direction="column">
@@ -339,6 +344,10 @@ const Calendar: React.FC<ICalendar> = () => {
       {
         role === "mentor" && (  //導師角色，頁面
           <>
+            <Box sx={{ marginLeft: 5, display: 'flex' }} >
+              <PageTitle content='Calendar' icon='5' />
+            </Box>
+            <Divider variant="middle" sx={{ marginTop: 3 }} />
             <Grid container direction="row" sx={{
               justifyContent: "center"
             }}>
