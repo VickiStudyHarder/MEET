@@ -77,7 +77,7 @@ interface ICalendar {
 
 
 //切換導師和學生不同頁面 student/mentor
-let role = "student"
+let role = "mentor"
 
 
 
@@ -269,7 +269,7 @@ const Calendar: React.FC<ICalendar> = () => {
   ]
 
 
-  const StudentBookedMeetings = [//學生確定的會議，給顯示在calender上
+  const StudentBookedMeetings = [//學生確定的會議，給顯示在calendar上
     {
       meetingId: 1,
       title: "meeting 1",
@@ -329,7 +329,7 @@ const Calendar: React.FC<ICalendar> = () => {
                     <Grid container direction="row" >
                       <Grid item sx={{ width: 200 }}>
                         {AllMentors.slice(0, secondColumnStart + 1).map((item) => (
-                          <Button><CalendarUserCardMini
+                          <Button id={item?.mentorId}><CalendarUserCardMini
                             name={item?.name}
                             avator={item?.avatar}
                           /></Button>
@@ -382,7 +382,7 @@ const Calendar: React.FC<ICalendar> = () => {
                   width: 410,
                   bgcolor: '#FFFFF'
                 }}>
-                  {metormeetings.map((item: any, index: any) => (
+                  {metormeetings.map((item: any) => (
                     <CalendarMentorConfirmedMeetings
                       date={[item?.date?.day, item?.date?.month, item?.date?.year]}
                       meetingName={item?.title}

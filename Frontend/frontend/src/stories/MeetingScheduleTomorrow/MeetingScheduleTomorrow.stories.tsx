@@ -19,7 +19,7 @@ const Template: ComponentStory<typeof MeetingScheduleTommorrow> = (args) => (<Me
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  date: ['01','DEC','2022'],
-  meetingName:'Meeting name',
-  time:'12:00 - 13:00',
+  date: ['01', 'DEC', '2022'],
+  meetingName: 'Meeting name',
+  time: '12:00 - 13:00',
 };
