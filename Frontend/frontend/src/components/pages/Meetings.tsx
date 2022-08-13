@@ -13,11 +13,12 @@ import MeetingImage from '../../assets/MeetingImage.png';
 import AppContext from '../../contexts/AppContext';
 import { getMeetingsByUserId } from '../../api/meeting';
 import MeetingRow from '../molecules/MeetingRow';
+import { IMeetingResponse } from '../../types/meetings';
 
 const theme = createTheme();
 
 const Meetings = () => {
-  const [meetings, setMeetings] = useState<any>(null);
+  const [meetings, setMeetings] = useState<null | IMeetingResponse[]>(null);
   const { email } = useContext(AppContext);
 
   useEffect(() => {
@@ -75,10 +76,11 @@ const Meetings = () => {
             </Box>
           </Box>
           <Divider variant='middle' sx={{ width: '100%' }} />
-          <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-            {meetings && meetings.map((meeting: any) => {
-              return (<MeetingRow meeting={meeting} />);
-            })}
+          <Box sx={{ width: '100%', m:2 }}>
+            {meetings &&
+              meetings.map((meeting: IMeetingResponse) => {
+                return <MeetingRow meeting={meeting.meeting} />;
+              })}
           </Box>
         </Box>
       </Container>

@@ -33,13 +33,13 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="/agenda" element={<Agenda />} />
+              <Route path="/agenda/:id" element={<Agenda />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/group" element={<Group />} />
               <Route path="/group/:id" element={<GroupChat />} />
               <Route path="/meetings" element={<Meetings />} />
               <Route path="/todo" element={<ToDos />} />
-              <Route path="/notes" element={<Notes />} />
+              <Route path="/notes/:id" element={<Notes />} />
               <Route path="/rating" element={<Rating />} />
               <Route path="/recording" element={<Recording />} />
               <Route path="/todos" element={<ToDos />} />

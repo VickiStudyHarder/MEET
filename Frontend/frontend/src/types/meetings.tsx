@@ -9,15 +9,16 @@ export interface IMeeting {
   toDoItems?: IToDoItem[];
   notes?: INotes[];
   attendees?: IMeetingAttendee[];
+  agendas?: IAgenda[];
 }
 export interface IToDoItem {
-  id: number;
+  id?: number;
   title: string;
   dueDate: Date;
   assigneeId: string;
 }
 export interface INotes {
-  id: number;
+  id?: number;
   title: string;
   details: string;
   meetingId: number;
@@ -27,8 +28,11 @@ export interface IMeetingAttendee {
   userId: string;
   attended: boolean;
 }
- 
 export interface IMeetingResponse {
-  meeting: IMeeting
+  meeting: IMeeting;
 }
-
+export interface IAgenda {
+  id: number;
+  title: string;
+  details: string;
+}

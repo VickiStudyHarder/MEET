@@ -10,7 +10,7 @@ import {
   Menu,
   Avatar,
   Box,
-} from '@material-ui/core';
+} from '@mui/material';
 import Popover from '@mui/material/Popover';
 
 interface INavBar {}
@@ -30,7 +30,7 @@ const NavBar: React.FC<INavBar> = () => {
   const location = useLocation();
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', m: 4 }}>
       <Grid
         container
         spacing={4}
