@@ -77,20 +77,28 @@ interface ICalendar {
 
 
 //切換導師和學生不同頁面 student/mentor
-let role = "mentor"
+let role = "student"
 
 
 
 
 const Calendar: React.FC<ICalendar> = () => {
 
-  // const { calenderMentorConfirmedMeetings } = useContext(AppContext);
 
-  // useEffect(() => {}, [calenderMentorConfirmedMeetings]);
+  const { futureMeetings: data } = useContext(AppContext);
+  let metormeetings = JSON.parse(JSON.stringify(data))
+
+
+
+  //const { futureMeetings } = useContext(AppContext);
+  //useEffect(() => { }, [futureMeetings]);
+
 
 
 
   //導師模式，所有導師未來的meetings
+
+  /*
   const setFutureMeetings = [
     {
       meetingId: "1",
@@ -150,6 +158,7 @@ const Calendar: React.FC<ICalendar> = () => {
     },
   ];
 
+*/
 
 
   //選中的導師
@@ -239,19 +248,19 @@ const Calendar: React.FC<ICalendar> = () => {
     },
     {
       meetingId: 3,
-      title: "meeting 2",
+      title: "meeting 3",
       start: "2022-08-15T10:30:00+00:00",
       end: "2022-08-15T12:30:00+00:00"
     },
     {
       meetingId: 4,
-      title: "meeting 2",
+      title: "meeting 4",
       start: "2022-08-23T10:30:00+00:00",
       end: "2022-08-23T12:30:00+00:00"
     },
     {
       meetingId: 5,
-      title: "meeting 3",
+      title: "meeting 5",
       start: "2022-08-26T10:30:00+00:00",
       end: "2022-08-26T12:30:00+00:00"
     },
@@ -315,8 +324,8 @@ const Calendar: React.FC<ICalendar> = () => {
                     avator={selectedMentor?.[0]?.avator} />
                 </Grid>
                 <h3>Mentor List:</h3>
-                <Grid item sx={{ overflow: 'auto', maxHeight: 400 }}>
-                  <Grid container direction="column">
+                <Grid item sx={{ maxHeight: 400 }}>
+                  <Grid container direction="column" sx={{ maxHeight: 400, overflow: 'auto' }}>
                     <Grid container direction="row" >
                       <Grid item sx={{ width: 200 }}>
                         {AllMentors.slice(0, secondColumnStart + 1).map((item) => (
@@ -370,9 +379,10 @@ const Calendar: React.FC<ICalendar> = () => {
                 <Box sx={{
                   maxHeight: 720,
                   overflow: 'auto',
-                  width: 410
+                  width: 410,
+                  bgcolor: '#FFFFF'
                 }}>
-                  {setFutureMeetings.map((item) => (
+                  {metormeetings.map((item: any, index: any) => (
                     <CalendarMentorConfirmedMeetings
                       date={[item?.date?.day, item?.date?.month, item?.date?.year]}
                       meetingName={item?.title}
