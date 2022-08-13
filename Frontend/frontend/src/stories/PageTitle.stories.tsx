@@ -1,12 +1,12 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import NoteListIndex from './NoteListIndex';
+import PageTitle from './PageTiltle';
 
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'NoteListIndex',
-  component: NoteListIndex,
+  title: 'PageTitle',
+  component: PageTitle,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   // argTypes: {
   //   createdBy: 'Alan',
@@ -16,17 +16,13 @@ export default {
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof NoteListIndex>;
+} as ComponentMeta<typeof PageTitle>;
 
-const Template: ComponentStory<typeof NoteListIndex> = (args) => (<NoteListIndex {...args} />);
+const Template: ComponentStory<typeof PageTitle> = (args) => (<PageTitle {...args} />);
 
 export const Test = Template.bind({});
 Test.args = {
-  createdBy: 'Jack Wolf',
-  meetingName: 'meeting 1',
-  pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg',
-
-
-  numberOfNote: '10',
-  status: true,
+  content: 'Recording',
+  // 1/2/3/4
+  icon: '1',
 };
