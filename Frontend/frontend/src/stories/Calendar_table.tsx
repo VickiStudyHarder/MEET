@@ -73,7 +73,7 @@ export default function Calendar_table({
     <div className="FullCalendarPage">
       <FullCalendar
         editable={true}
-        height={800} // 此处高度为方便截图，可不设置
+        height={780} // 此处高度为方便截图，可不设置
         initialView="timeGridWeek"
         plugins={[dayGridPlugin, timeGridPlugin, momentPlugin]}
         allDaySlot={false}
