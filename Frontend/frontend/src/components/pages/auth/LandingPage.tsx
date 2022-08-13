@@ -31,10 +31,11 @@ export const LandingPage = (props: LandingPageProps) => {
         margin: 0,
         width: "100%",
         height: "auto",
-        backgroundSize: "cover",
+        backgroundSize: "100% 100%",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundImage: `url(${bgImgUrl})`,
+        overflow: "hidden"
       }}
     >
       <Box
