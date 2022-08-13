@@ -46,9 +46,7 @@ interface ICalendar {
 
 
 
-
-
-/* 測試接口用
+/* 測試接口用 ->尚未成功
 interface studentdata_test {
   mentorId?: string,
   name?: string,
@@ -64,7 +62,7 @@ interface studentdata_test {
 let role = "student"
 
 
-/* 測試接口用
+/* 測試接口用->尚未成功
 /*const { setAllMentors } = useContext(AppContext);
 const { setSelectedMentor } = useContext(AppContext);
 
