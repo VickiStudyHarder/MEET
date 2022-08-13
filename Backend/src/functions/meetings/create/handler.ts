@@ -41,11 +41,17 @@ const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
             data: meetingPayload.attendees || null,
           },
         },
+        agendas: {
+          createMany: {
+            data: meetingPayload.agendas || null,
+          }
+        }
       },
       include: {
         toDoItem: true,
         notes: true,
         meetingAttendee: true,
+        agendas: true
       },
     });
 

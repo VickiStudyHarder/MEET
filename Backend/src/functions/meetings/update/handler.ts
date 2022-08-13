@@ -7,7 +7,8 @@ import {
   IMeetingPayload,
   INotes,
   IToDoItem,
-} from '../create/handler';
+  IAgenda,
+} from '../../../types/meeting';
 
 import schema from './schema';
 
@@ -80,6 +81,26 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
           },
           data: {
             meetingAttendee: {
+              upsert: {
+                where: { id: item.id ? item.id : -1 },
+                create: item,
+                update: item,
+              },
+            },
+          },
+        });
+      })
+    );
+
+    console.log('attendees');
+    await Promise.all(
+      meeting.agendas.map(async (item: IAgenda) => {
+        return await prisma.meeting.update({
+          where: {
+            id: Number(event.pathParameters.id),
+          },
+          data: {
+            agendas: {
               upsert: {
                 where: { id: item.id ? item.id : -1 },
                 create: item,

@@ -18,12 +18,14 @@ export const updateMeeting = async (
 };
 
 export const getMeetingById = async (meetingId: string) => {
-  return await axiosClient.get(`meeting/${meetingId}`);
+  const result = await axiosClient.get(`meeting/${meetingId}`);
+  return result.data.body
 };
 
 export const getMeetingsByUserId = async (userId: string) => {
   try {
-    return await axiosClient.get(`meeting/${userId}/user`);
+    const result = await axiosClient.get(`meeting/${userId}/user`);
+    return result.data.body;
   } catch (err) {
     return null;
   }

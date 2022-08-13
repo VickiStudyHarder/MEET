@@ -12,7 +12,6 @@ export interface IStudentGroupCard {
   getAllGroups: any;
 }
 
-
 export interface IMessage {
   id?: number;
   groupId: number;
