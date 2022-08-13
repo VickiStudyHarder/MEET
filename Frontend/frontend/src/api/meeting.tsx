@@ -23,7 +23,8 @@ export const getMeetingById = async (meetingId: string) => {
 
 export const getMeetingsByUserId = async (userId: string) => {
   try {
-    return await axiosClient.get(`meeting/${userId}/user`);
+    const result = await axiosClient.get(`meeting/${userId}/user`);
+    return result.data.body;
   } catch (err) {
     return null;
   }
