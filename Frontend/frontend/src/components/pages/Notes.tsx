@@ -9,12 +9,14 @@ import {
   Divider,
   Box,
   Button,
+  Dialog,
 } from '@mui/material';
 import MeetingImage from '../../assets/MeetingImage.png';
 import { useParams } from 'react-router-dom';
 import { getMeetingById } from '../../api/meeting';
 import { IMeeting, INotes } from '../../types/meetings';
 import NotesRow from '../molecules/NotesRow';
+import CreateNoteForm from '../molecules/CreateNoteForm';
 
 const theme = createTheme();
 
@@ -105,10 +107,20 @@ const Notes: React.FC<{}> = () => {
           <Box sx={{ width: '100%', m: 2 }}>
             {meeting &&
               meeting?.notes?.map((note: INotes) => {
-                return <NotesRow note={note} />;
+                return <NotesRow note={note}handleGetMeeting={handleGetMeeting}/>;
               })}
           </Box>
         </Box>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+          sx={{ display: 'flex', flexGrow: 1 }}
+          maxWidth='lg'
+        >
+          {meeting && <CreateNoteForm setOpen={setOpen} meeting={meeting} handleGetMeeting={handleGetMeeting} handleClose={handleClose} />}
+        </Dialog>
       </Container>
     </ThemeProvider>
   );

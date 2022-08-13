@@ -4,14 +4,21 @@ import { Box, Button, Typography, Divider } from '@mui/material';
 import { INotes } from '../../types/meetings';
 import YourMeetingImage from '../../assets/YourMeetingImage.png';
 import MeetingsArrow from '../../assets/MeetingsArrow.png';
+import { deleteNote } from '../../api/meeting';
 
 export interface INotesRow {
   note: INotes;
+  handleGetMeeting: any;
 }
 
-const MeetingRow: React.FC<INotesRow> = ({ note }) => {
+const MeetingRow: React.FC<INotesRow> = ({ note, handleGetMeeting }) => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const handleDelete = async () => {
+    await deleteNote(note.id!);
+    await handleGetMeeting();
+  };
 
   return (
     <>
@@ -50,6 +57,7 @@ const MeetingRow: React.FC<INotesRow> = ({ note }) => {
           <Button
             sx={{ mx: 'auto', width: '100%' }}
             style={{ justifyContent: 'flex-end' }}
+            onClick={handleDelete}
           >
             <Typography sx={{ color: 'black', mr: 2 }}>Delete</Typography>
             <img
