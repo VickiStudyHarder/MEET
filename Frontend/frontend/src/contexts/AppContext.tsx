@@ -43,23 +43,25 @@ export type IAppContext = {
   setDateOfBirth: Dispatch<SetStateAction<Date | null>>;
   setGoogleAuthToken: Dispatch<SetStateAction<string>>;
   googleAuthToken: string;
-  selectedMentor:any;
-  selectedStudent:any;
-  allMentors:any;
-  studentBookedMeetings:any;
-  mentorAvailableMeetings:any;
-  mentorMeetings:any;
-  futureMeetings:any;
-  meetingRequests:any;
-  inMeetingAgenda:any;
-  inMeetingNote:any;
-  selectedAgenda:any;
-  meetingNotes:any;
-  selectedNote:any;
-  meetingTodos:any;
-  setMeetingTodos:any;
-  meetingRecordings:any;
-  selectedRecording:any
+  selectedMentor: any;
+  selectedStudent: any;
+  allMentors: any;
+  studentBookedMeetings: any;
+  mentorAvailableMeetings: any;
+  mentorMeetings: any;
+  futureMeetings: any;
+  meetingRequests: any;
+  inMeetingAgenda: any;
+  inMeetingNote: any;
+  selectedAgenda: any;
+  meetingNotes: any;
+  selectedNote: any;
+  meetingTodos: any;
+  setMeetingTodos: any;
+  meetingRecordings: any;
+  selectedRecording: any
+
+
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -84,34 +86,34 @@ const AppContextProvider = (props: any) => {
 
   // exposed vars
   const [selectedMentor, setSelectedMentor] = useState({}); //选中的导师
-  const [selectedStudent,setSelectedStudent] = useState({})
+  const [selectedStudent, setSelectedStudent] = useState({})
   const [allMentors, setAllMentors] = useState([{}]); //导师列表
   const [studentBookedMeetings, setStudentBookedMeetings] = useState([{}]); //学生模式下已被学生预定的当前老师的会议
   const [mentorAvailableMeetings, setMentorAvailableMeetings] =
-  useState([{}]); //学生模式下当前老师的可被预定会议
+    useState([{}]); //学生模式下当前老师的可被预定会议
   const [mentorMeetings, setMentorMeetings] = useState([{}]); //老师模式下自己的meeting
-  
+
   const [futureMeetings, setFutureMeetings] = useState<any>([{}]);  //老师模式下未来的会议
   const [meetingRequests, setMeetingsRequests] = useState<any>([
     {},
   ]); //老师模式下学生的所有入会请求
-  
+
   const [inMeetingAgenda, setInMeetingAgenda] = useState<any>({});
   const [inMeetingNote, setInMeetingNote] = useState<any>({});
 
-  const [selectedAgenda,setSeletedAgenda] = useState({})
-  
+  const [selectedAgenda, setSeletedAgenda] = useState({})
+
   const [meetingNotes, setMeetingNotes] = useState<any>([]);
   const [selectedNote, setSelectedNote] = useState<any>({});
-  
+
   const [meetingTodos, setMeetingTodos] = useState<any>([{}]);
-  
+
   const [meetingRecordings, setMeetingRecordings] = useState<any>([{}]);
   const [selectedRecording, setSelectedRecording] = useState<any>([{}]);
-  
-  
+
+
   // context local vars
-  
+
 
   const navigate = useNavigate();
 
@@ -165,10 +167,14 @@ const AppContextProvider = (props: any) => {
       { meetingId: "", title: "", start: "", end: "" },
     ]);
     setMentorAvailableMeetings([
-      { meetingId: "",  title: "", start: "", end: "" },
+      { meetingId: "", title: "", start: "", end: "" },
     ]);
-    setMentorMeetings([{ meetingId: "",  title: "", start: "", end: "" },])
-    setFutureMeetings([
+    setMentorMeetings([{ meetingId: "", title: "", start: "", end: "" },])
+
+
+    /*
+    setFutureMeetings template
+    [
       {
         meetingId: "",
         start:"",
@@ -177,12 +183,72 @@ const AppContextProvider = (props: any) => {
         title: "name 1",
         time: "12:00 - 13:00",
       },
-    ]);
+    ]
+    */
+    setFutureMeetings( //Fake Data for testing
+      [
+        {
+          meetingId: "1",
+          start: "",
+          end: "",
+          date: { day: "01", month: "DEC", year: "2022" },
+          title: "Meet From Context test",
+          time: "12:00 - 13:00",
+        },
+        {
+          meetingId: "2",
+          start: "",
+          end: "",
+          date: { day: "02", month: "DEC", year: "2022" },
+          title: "Meeting name 2",
+          time: "14:30 - 15:00",
+        },
+        {
+          meetingId: "3",
+          start: "",
+          end: "",
+          date: { day: "04", month: "DEC", year: "2022" },
+          title: "Meeting name 3",
+          time: "14:00 - 15:30",
+        },
+        {
+          meetingId: "4",
+          start: "",
+          end: "",
+          date: { day: "05", month: "Jan", year: "2023" },
+          title: "Meeting name 4",
+          time: "11:00 - 12:00",
+        },
+        {
+          meetingId: "5",
+          start: "",
+          end: "",
+          date: { day: "06", month: "Feb", year: "2022" },
+          title: "Meeting name 5",
+          time: "14:00 - 16:00",
+        },
+        {
+          meetingId: "6",
+          start: "",
+          end: "",
+          date: { day: "07", month: "Mar", year: "2022" },
+          title: "Meeting name 6",
+          time: "14:00 - 15:00",
+        },
+        {
+          meetingId: "7",
+          start: "",
+          end: "",
+          date: { day: "08", month: "Apr", year: "2022" },
+          title: "Meeting name 7",
+          time: "15:00 - 17:00",
+        },
+      ]);
     setMeetingsRequests([
       {
         requestId: "",
         meetingId: "",
-        userId:"",
+        userId: "",
         avatar: "",
         usreName: "",
         courseName: "",
@@ -271,7 +337,7 @@ const AppContextProvider = (props: any) => {
       note: [{ itemId: "", title: "", content: "" }],
     });
     setMeetingNotes([
-      { meetingId: "", userId: "",avatar:"", title: "", description: "" },
+      { meetingId: "", userId: "", avatar: "", title: "", description: "" },
     ]);
     setSelectedNote({
       meetingId: "",
@@ -289,12 +355,12 @@ const AppContextProvider = (props: any) => {
     getFutureMeetings("z3417347@gmail.com")
   }, []);
 
-  const getFutureMeetings = async (userId:string)=>{
+  const getFutureMeetings = async (userId: string) => {
     const resp = await getMeetingsByUserId(userId)
-    if(resp?.status === 200){
+    if (resp?.status === 200) {
       const meetings = resp?.data?.body as IMeeting[]
       console.log(meetings)
-    }else{
+    } else {
       console.error(resp?.data)
     }
   }

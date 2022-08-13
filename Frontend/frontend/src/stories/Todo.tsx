@@ -1,16 +1,18 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Input } from 'antd';
-import { Button } from '@mui/material';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import { CheckOutlined } from '@ant-design/icons';
-import Delicon from './assets/icon-del.png';
-import todoBackground from './assets/todoBackground.png';
-import CalendarUserCardMini from './CalendarUserCardMini/CalendarUserCardMini';
-import './Todo.css';
-import AppContext from '../contexts/AppContext';
+import React, { useState, useEffect, useContext } from 'react'
+import { Input } from 'antd'
+import { Button } from '@mui/material'
+import Modal from '@mui/material/Modal'
+import Box from '@mui/material/Box'
+import { CheckOutlined } from '@ant-design/icons'
+import Delicon from './assets/icon-del.png'
+import todoBackground from './assets/todoBackground.png'
+import CalendarUserCardPrimary from './CalendarUserCardPrimary/CalendarUserCardPrimary';
+import CalendarUserCardMini from './CalendarUserCardMini/CalendarUserCardMini'
+import './Todo.css'
+import { url } from 'inspector'
+import AppContext from '../contexts/AppContext'
 
-const { TextArea } = Input;
+const { TextArea } = Input
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -22,125 +24,194 @@ const style = {
   // border: '2px solid #000',
   boxShadow: 24,
   p: 4,
-};
-
-type User = {
-  name: string;
-};
-
-interface MeetingProps {
-  showAdd?: boolean;
 }
 
-const userInfo: { userName: string; userAvatar: string } = {
-  userName: 'Vicki Chen',
-  userAvatar:
-    'https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg',
-};
+type User = {
+  name: string
+}
 
-export const Todo: React.FC<{}> = () => {
-  const [user, setUser] = React.useState<User>();
+interface MeetingProps {
+  showAdd?: boolean
+}
+
+// const userInfo: { userName: string, userAvatar: string} = {
+//   userName: 'Vicki Chen',
+//   userAvatar: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg',
+// }
+
+// let list: any = [
+//   {
+//     option: {
+//       show: true,
+//       showAdd: true,
+//     },
+//     title: 'meeting 1',
+//     task: [
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//     ],
+//   },
+//   {
+//     option: {
+//       show: true,
+//       showAdd: true,
+//     },
+//     title: 'meeting 2',
+//     task: [
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//     ],
+//   },
+//   {
+//     option: {
+//       show: true,
+//       showAdd: true,
+//     },
+//     title: 'meeting 3',
+//     task: [
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: true, deled: false, isEdit: false },
+//     ],
+//   },
+//   {
+//     option: {
+//       show: true,
+//       showAdd: true,
+//     },
+//     title: 'Meeting 4',
+//     task: [],
+//   },
+//   {
+//     option: {
+//       show: true,
+//       showAdd: true,
+//     },
+//     title: 'Meeting 5',
+//     task: [
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: true, deled: false, isEdit: false },
+//     ],
+//   },
+//   {
+//     option: {
+//       show: true,
+//       showAdd: true,
+//     },
+//     title: 'Meeting 6',
+//     task: [
+//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
+//       { name: 'to do item', isdel: true, deled: false, isEdit: false },
+//     ],
+//   }
+// ]
+
+export const Todo: React.VFC = () => {
+  const [user, setUser] = React.useState<User>()
   // const [data, setData] = React.useState(list)
-  const { meetingTodos: data, setMeetingTodos: setData } =
-    useContext(AppContext);
+  const { meetingTodos:data, setMeetingTodos:setData } = useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
   const { selectedStudent } = useContext(AppContext);
   useEffect(() => {}, [selectedStudent]);
-  const [filter, setfilter] = React.useState(false);
-  const [isModalVisible, setisModalVisible] = React.useState(false);
+  const [filter, setfilter] = React.useState(false)
+  const [isModalVisible, setisModalVisible] = React.useState(false)
   const [modalCtx, setModalCtx] = React.useState({
     index: 0,
     idx: 0,
     name: '',
-  });
+  })
 
   const addTask = (item: any, index: any) => {
-    let meet = JSON.parse(JSON.stringify(data));
-    meet[index].option.showAdd = !meet[index].option.showAdd;
-    setData(meet);
-  };
+    let meet = JSON.parse(JSON.stringify(data))
+    meet[index].option.showAdd = !meet[index].option.showAdd
+    setData(meet)
+  }
 
   const enterTask = (item: any, index: any, e: any) => {
-    let val = e.target.value;
-    let meet = JSON.parse(JSON.stringify(data));
-    meet[index].option.showAdd = !meet[index].option.showAdd;
-    meet[index].task.push({ name: val });
-    setData(meet);
-  };
+    let val = e.target.value
+    let meet = JSON.parse(JSON.stringify(data))
+    meet[index].option.showAdd = !meet[index].option.showAdd
+    meet[index].task.push({ name: val })
+    setData(meet)
+  }
 
   const editTask = (index: any, idx: any, e: any) => {
-    let val = e.target.value;
-    let meet = JSON.parse(JSON.stringify(data));
-    meet[index].task[idx].name = val;
-    meet[index].task[idx].isEdit = false;
-    setData(meet);
-  };
+    let val = e.target.value
+    let meet = JSON.parse(JSON.stringify(data))
+    meet[index].task[idx].name = val
+    meet[index].task[idx].isEdit = false
+    setData(meet)
+  }
 
   const showModel = (index: any, itm: any, idx: any) => {
     let obj: any = {
       index,
       idx,
       name: itm.name,
-    };
-    setModalCtx(obj);
-    setisModalVisible(!isModalVisible);
-  };
+    }
+    setModalCtx(obj)
+    setisModalVisible(!isModalVisible)
+  }
 
   const ondel = (index: any, idx: any) => {
-    let meet = JSON.parse(JSON.stringify(data));
-    meet[index].task[idx].isdel = !meet[index].task[idx].isdel;
-    setData(meet);
-  };
+    let meet = JSON.parse(JSON.stringify(data))
+    meet[index].task[idx].isdel = !meet[index].task[idx].isdel
+    setData(meet)
+  }
 
   const delItem = () => {
-    let meet = JSON.parse(JSON.stringify(data));
-    meet[modalCtx.index].task[modalCtx.idx].deled = true;
-    setData(meet);
-    setisModalVisible(!isModalVisible);
-  };
+    let meet = JSON.parse(JSON.stringify(data))
+    meet[modalCtx.index].task[modalCtx.idx].deled = true
+    setData(meet)
+    setisModalVisible(!isModalVisible)
+  }
 
   const editItm = (index: any, idx: any) => {
-    let meet = JSON.parse(JSON.stringify(data));
-    meet[index].task[idx].isEdit = true;
-    setData(meet);
-  };
+    let meet = JSON.parse(JSON.stringify(data))
+    meet[index].task[idx].isEdit = true
+    setData(meet)
+  }
 
   const onFilter = () => {
-    let meet = JSON.parse(JSON.stringify(data));
+    let meet = JSON.parse(JSON.stringify(data))
     meet = meet.map((item: any) => {
       if (item.task.length === 0) {
-        item.option.show = !item.option.show;
+        item.option.show = !item.option.show
       }
-      return item;
-    });
-    setfilter(!filter);
-    setData(meet);
-  };
+      return item
+    })
+    setfilter(!filter)
+    setData(meet)
+  }
 
   return (
     <article>
-      <div className='meet-body'>
-        <div className='meet-head'>
+      <div className="meet-body">
+        <div className="meet-head">
           {filter ? (
-            <div className='meet-head-btn line-center' onClick={onFilter}>
+            <div className="meet-head-btn line-center" onClick={onFilter}>
               Display all to do list
             </div>
           ) : (
-            <div className='meet-head-btn' onClick={onFilter}>
+            <div className="meet-head-btn" onClick={onFilter}>
               Display to do list with to do item only
             </div>
           )}
         </div>
-        <div className='meet-userCard'>
-          <CalendarUserCardMini
+        <div className="meet-userCard">
+          <CalendarUserCardPrimary
             avator={selectedStudent?.avatar}
             name={selectedStudent?.name}
+            Rating={selectedStudent?.rating}
+            job={selectedStudent?.role}
           />
         </div>
-        <div className='meet-box'>
-          <img className='meet-box-bg' src={todoBackground} alt='' />
-          <div className='meet-box-scroll'>
-            <div className='flex'>
+        <div className="meet-box">
+          <img className="meet-box-bg" src={todoBackground} alt="" />
+          <div className="meet-box-scroll">
+            <div className="flex">
               {data &&
                 data.map((item: any, index: any) => {
                   return (
@@ -148,10 +219,10 @@ export const Todo: React.FC<{}> = () => {
                       style={{
                         display: item.option.show ? '' : 'none',
                       }}
-                      className='meet-from'
+                      className="meet-from"
                       key={index}
                     >
-                      <div className='form-title'>{item.title}</div>
+                      <div className="form-title">{item.title}</div>
                       {item.task &&
                         item.task.length > 0 &&
                         item.task.map((itm: any, idx: any) => {
@@ -159,14 +230,14 @@ export const Todo: React.FC<{}> = () => {
                             <div>
                               {itm.isEdit ? (
                                 <TextArea
-                                  className='from-area'
+                                  className="from-area"
                                   rows={4}
-                                  placeholder='Edit your to-do task...'
+                                  placeholder="Edit your to-do task..."
                                   onPressEnter={(e) => editTask(index, idx, e)}
                                 />
                               ) : (
                                 <div
-                                  className='form-info'
+                                  className="form-info"
                                   style={{
                                     display:
                                       itm.deled || itm.isEdit ? 'none' : '',
@@ -174,9 +245,9 @@ export const Todo: React.FC<{}> = () => {
                                   key={idx}
                                 >
                                   <input
-                                    className='radio_type'
-                                    type='radio'
-                                    name='type'
+                                    className="radio_type"
+                                    type="radio"
+                                    name="type"
                                     id={idx}
                                     onClick={() => ondel(index, idx)}
                                   />
@@ -187,10 +258,10 @@ export const Todo: React.FC<{}> = () => {
                                         : 'hidden',
                                     }}
                                     onClick={() => ondel(index, idx)}
-                                    className='Check-Outlined'
+                                    className="Check-Outlined"
                                   />
                                   <div
-                                    className='form-txt'
+                                    className="form-txt"
                                     style={{
                                       textDecoration: itm.isdel
                                         ? 'line-through'
@@ -201,33 +272,33 @@ export const Todo: React.FC<{}> = () => {
                                     {itm.name}
                                   </div>
                                   <img
-                                    alt=''
-                                    className='del-itm'
+                                    alt=""
+                                    className="del-itm"
                                     src={Delicon}
                                     onClick={() => showModel(index, itm, idx)}
                                   />
                                 </div>
                               )}
                             </div>
-                          );
+                          )
                         })}
                       {item.option.showAdd ? (
                         <div
-                          className='form-btn'
+                          className="form-btn"
                           onClick={() => addTask(item, index)}
                         >
                           + Add more task
                         </div>
                       ) : (
                         <TextArea
-                          className='from-area'
+                          className="from-area"
                           rows={4}
-                          placeholder='Enter your to-do task...'
+                          placeholder="Enter your to-do task..."
                           onPressEnter={(e) => enterTask(item, index, e)}
                         />
                       )}
                     </div>
-                  );
+                  )
                 })}
             </div>
           </div>
@@ -235,17 +306,17 @@ export const Todo: React.FC<{}> = () => {
         <Modal
           open={isModalVisible}
           onClose={setisModalVisible}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <div className='flex-box'>
-              <img alt='' className='close-CircleOutlined' src={Delicon} />
+            <div className="flex-box">
+              <img alt="" className="close-CircleOutlined" src={Delicon} />
               <div>Do you want to delete this {modalCtx.name}?</div>
             </div>
-            <div className='flex-box'>
+            <div className="flex-box">
               <Button
-                variant='contained'
+                variant="contained"
                 onClick={delItem}
                 style={{
                   backgroundColor: '#6001D3',
@@ -259,7 +330,7 @@ export const Todo: React.FC<{}> = () => {
               </Button>
               <Button
                 onClick={() => setisModalVisible(!isModalVisible)}
-                variant='contained'
+                variant="contained"
                 style={{
                   color: '#000000',
                   backgroundColor: '#FCDC00',
@@ -277,5 +348,5 @@ export const Todo: React.FC<{}> = () => {
         </Modal>
       </div>
     </article>
-  );
-};
+  )
+}
