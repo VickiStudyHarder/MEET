@@ -34,7 +34,7 @@ export interface IMeetingResponse {
   meeting: IMeeting;
 }
 export interface IAgenda {
-  id: number;
+  id?: number;
   title: string;
   details: string;
 }
