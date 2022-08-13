@@ -8,7 +8,7 @@ export interface IMeeting {
   attendee: string[];
   toDoItem?: IToDoItem[];
   notes?: INotes[];
-  attendees?: IMeetingAttendee[];
+  meetingAttendee?: IMeetingAttendee[];
   agendas?: IAgenda[];
 }
 export interface IToDoItem {
@@ -28,12 +28,23 @@ export interface IMeetingAttendee {
   id?: number;
   userId: string;
   attended: boolean;
+  user?: IUser;
 }
 export interface IMeetingResponse {
   meeting: IMeeting;
 }
 export interface IAgenda {
-  id: number;
+  id?: number;
   title: string;
   details: string;
+}
+
+export interface IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  role: string;
+  rating: number;
+  totalMeetings: number;
 }

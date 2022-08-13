@@ -7,7 +7,7 @@ export default {
     {
       http: {
         method: 'delete',
-        path: 'meeting/{id}',
+        path: 'todo/{id}',
         request: {
           schemas: {
             'application/json': schema,

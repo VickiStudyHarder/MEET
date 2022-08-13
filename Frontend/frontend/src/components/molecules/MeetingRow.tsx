@@ -16,9 +16,11 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
   return (
     <>
       <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
-        <Box sx={{ m: 4 }}>
-          <img src={YourMeetingImage} alt='YourMeetingImage' />
-        </Box>
+        <Button onClick={() => navigate(`/meeting/${meeting.id}`)}>
+          <Box sx={{ m: 4 }}>
+            <img src={YourMeetingImage} alt='YourMeetingImage' />
+          </Box>
+        </Button>
         <Box
           sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column', m: 4 }}
         >
@@ -85,7 +87,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
               height='40'
             />
           </Button>
-          <Button
+          {/* <Button
             sx={{ mx: 'auto', width: '100%' }}
             style={{ justifyContent: 'flex-end' }}
             onClick={() => {
@@ -99,7 +101,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
               width='40'
               height='40'
             />
-          </Button>
+          </Button> */}
         </Box>
       </Box>
       <Divider variant='middle' sx={{ width: '100%' }} />
