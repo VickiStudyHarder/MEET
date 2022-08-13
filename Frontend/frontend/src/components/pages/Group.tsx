@@ -20,7 +20,7 @@ import StudentGroupCard from '../../stories/StudentGroupCard';
 import AppContext from '../../contexts/AppContext';
 import StudyGroupIcon from '../../assets/StudyGroupIcon.png';
 
-interface IGroup {}
+interface IGroup { }
 
 const theme = createTheme();
 

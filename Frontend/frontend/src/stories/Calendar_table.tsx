@@ -34,6 +34,9 @@ interface CalendarProps {
    */
   onClick?: () => void;
   defaultView?: string;
+
+
+  events?: Array<Object>;
 }
 
 /**
@@ -45,16 +48,26 @@ export default function Calendar_table({
   backgroundColor,
   label,
   defaultView,
+  events,
   ...props
 }: CalendarProps) {
-  const events = [{
+  /*const events = [{
     title: "Meeting",
     color: "#6001D3",//事件块的颜色
     start: "2022-07-23T10:30:00+00:00",
     end: "2022-07-23T12:30:00+00:00"
 
   },
+  {
+    title: "Meeting2",
+    color: "#6001D3",//事件块的颜色
+    start: "2022-07-24T10:30:00+00:00",
+    end: "2022-07-24T12:30:00+00:00"
+
+  },
+
   ]
+  */
   console.log(JSON.stringify(events))
   return (
     <div className="FullCalendarPage">

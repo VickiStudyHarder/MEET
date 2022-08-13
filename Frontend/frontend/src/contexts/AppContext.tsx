@@ -335,7 +335,7 @@ const AppContextProvider = (props: any) => {
                 Authorization: token,
               },
               ...session,
-              ...attributes,
+              ...attributes, 
             });
           }
         });
