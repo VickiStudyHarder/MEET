@@ -77,7 +77,7 @@ interface ICalendar {
 
 
 //切換導師和學生不同頁面 student/mentor
-let role = "mentor"
+let role = "student"
 
 
 
@@ -379,7 +379,7 @@ const Calendar: React.FC<ICalendar> = () => {
                 <Box sx={{
                   maxHeight: 720,
                   overflow: 'auto',
-                  width: 410,
+                  width: 400,
                   bgcolor: '#FFFFF'
                 }}>
                   {metormeetings.map((item: any) => (
