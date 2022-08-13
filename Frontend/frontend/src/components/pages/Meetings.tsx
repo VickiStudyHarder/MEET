@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import NavBar from '../molecules/NavBar';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Container,
   createTheme,
@@ -7,39 +6,28 @@ import {
   ThemeProvider,
   Typography,
   Divider,
-  Box,
-  Button
 } from '@mui/material';
+import NavBar from '../molecules/NavBar';
+import Box from '@mui/material/Box';
 import MeetingImage from '../../assets/MeetingImage.png';
-import { useParams } from 'react-router-dom';
-import { getMeetingById } from '../../api/meeting';
-import { IMeeting, INotes } from '../../types/meetings';
-import NotesRow from '../molecules/NotesRow';
-
+import AppContext from '../../contexts/AppContext';
+import { getMeetingsByUserId } from '../../api/meeting';
+import MeetingRow from '../molecules/MeetingRow';
+import { IMeetingResponse } from '../../types/meetings';
 
 const theme = createTheme();
 
-const Notes: React.FC<{}> = () => {
-  const { id } = useParams();
-  const [meeting, setMeeting] = useState<null | IMeeting>(null);
-  const [open, setOpen] = useState(false);
+const Meetings = () => {
+  const [meetings, setMeetings] = useState<null | IMeetingResponse[]>(null);
+  const { email } = useContext(AppContext);
 
   useEffect(() => {
-    handleGetMeeting();
+    getAllMeetings();
   }, []);
 
-  const handleGetMeeting = async () => {
-    const result = await getMeetingById(id || '');
-    setMeeting(result);
-  };
-
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  const getAllMeetings = async () => {
+    const data = await getMeetingsByUserId(email);
+    setMeetings(data);
   };
 
   return (
@@ -66,6 +54,7 @@ const Notes: React.FC<{}> = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
+                px: 10,
                 py: 2,
                 maxHeight: 140,
               }}
@@ -82,32 +71,15 @@ const Notes: React.FC<{}> = () => {
                 variant='h3'
                 sx={{ display: 'flex', flexGrow: 1, my: 'auto' }}
               >
-                Notes - {meeting?.summary}
+                Your Meetings
               </Typography>
-              <Button
-            onClick={handleClickOpen}
-            sx={{
-              minWidth: '100px',
-              minHeight: '40px',
-              maxHeight: '40px',
-              maxWidth: '100px',
-              borderRadius: 5,
-              backgroundColor: '#6001D3',
-              color: '#FFFFFF',
-              fontSize: 12,
-              my: 'auto',
-            }}
-            variant='contained'
-          >
-            +Add
-          </Button>
             </Box>
           </Box>
           <Divider variant='middle' sx={{ width: '100%' }} />
-          <Box sx={{ width: '100%', m: 2 }}>
-            {meeting &&
-              meeting?.notes?.map((note: INotes) => {
-                return <NotesRow note={note} />;
+          <Box sx={{ width: '100%', m:2 }}>
+            {meetings &&
+              meetings.map((meeting: IMeetingResponse) => {
+                return <MeetingRow meeting={meeting.meeting} />;
               })}
           </Box>
         </Box>
@@ -116,4 +88,4 @@ const Notes: React.FC<{}> = () => {
   );
 };
 
-export default Notes;
+export default Meetings;

@@ -7,6 +7,8 @@ import DateRangeIcon from '@mui/icons-material/DateRange';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import CommentIcon from '@mui/icons-material/Comment';
+import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 
 interface TitleProps {
   content: string;
@@ -65,6 +67,18 @@ export default function PageTitle({
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
             <Fab style={{ backgroundColor: '#6001D3' }} aria-label="delete recording" size="medium">
               <AttachFileIcon style={{ fontSize: 30, color: '#ffffff' }} />
+            </Fab>
+            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} >
+              {content}
+            </Typography>
+          </Box>
+        )}
+
+      {
+        icon === '5' && (
+          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+            <Fab style={{ backgroundColor: '#6001D3' }} aria-label="delete recording" size="medium">
+              <WorkspacePremiumIcon style={{ fontSize: 33, color: '#ffffff' }} />
             </Fab>
             <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} >
               {content}

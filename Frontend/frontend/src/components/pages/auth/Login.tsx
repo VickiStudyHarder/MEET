@@ -14,7 +14,7 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import './Login.scss';
 import CustomInput from '../../../stories/Input';

@@ -42,6 +42,7 @@ model Meeting {
   meetingAttendee MeetingAttendee[]
   toDoItem        ToDoItem[]
   notes           Notes[]
+  agendas Agendas[]
 }
 
 model MeetingAttendee {
@@ -72,6 +73,14 @@ model Notes {
   meetingId Int
   user       User     @relation(fields: [creatingUserId], references: [id], onDelete: Cascade)
   creatingUserId String
+}
+
+model Agendas {
+  id        Int     @id @default(autoincrement())
+  title     String
+  details   String
+  meeting   Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  meetingId Int
 }
 
 model Group {
