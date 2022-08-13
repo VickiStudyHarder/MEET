@@ -6,7 +6,7 @@ export interface IMeeting {
   description: string;
   location: string;
   attendee: string[];
-  toDoItems?: IToDoItem[];
+  toDoItem?: IToDoItem[];
   notes?: INotes[];
   attendees?: IMeetingAttendee[];
   agendas?: IAgenda[];

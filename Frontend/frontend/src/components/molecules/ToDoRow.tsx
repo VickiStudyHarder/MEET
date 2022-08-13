@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Typography, Divider } from '@mui/material';
-import { INotes } from '../../types/meetings';
+import { IToDoItem } from '../../types/meetings';
 import YourMeetingImage from '../../assets/YourMeetingImage.png';
 import MeetingsArrow from '../../assets/MeetingsArrow.png';
 
-export interface INotesRow {
-  note: INotes;
+export interface IToDoItemRow {
+  toDoItem: IToDoItem;
 }
 
-const MeetingRow: React.FC<INotesRow> = ({ note }) => {
+const ToDoRow: React.FC<IToDoItemRow> = ({ toDoItem }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const date = new Date(toDoItem.dueDate).toLocaleString('en-AU', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+  });
 
   return (
     <>
@@ -22,9 +30,11 @@ const MeetingRow: React.FC<INotesRow> = ({ note }) => {
         <Box
           sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column', m: 4 }}
         >
-          <Typography>{note.title}</Typography>
+          <Typography>
+            <>Due Date: {date}</>
+          </Typography>
           <Typography variant='h4' sx={{ mt: 6 }}>
-            {note.details}
+            {toDoItem.title}
           </Typography>
         </Box>
         <Box
@@ -66,4 +76,4 @@ const MeetingRow: React.FC<INotesRow> = ({ note }) => {
   );
 };
 
-export default MeetingRow;
+export default ToDoRow;

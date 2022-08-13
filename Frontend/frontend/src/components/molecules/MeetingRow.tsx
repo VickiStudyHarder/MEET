@@ -74,7 +74,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
             sx={{ mx: 'auto', width: '100%' }}
             style={{ justifyContent: 'flex-end' }}
             onClick={() => {
-              navigate(`/todos/${meeting.id}`);
+              navigate(`/todo/${meeting.id}`);
             }}
           >
             <Typography sx={{ color: 'black', mr: 2 }}>To Dos</Typography>
