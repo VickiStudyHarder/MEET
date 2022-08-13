@@ -1,5 +1,5 @@
 export interface IMeeting {
-  id: number;
+  id?: number;
   meetingStart: string;
   meetingEnd: string;
   summary: string;
@@ -21,10 +21,11 @@ export interface INotes {
   id?: number;
   title: string;
   details: string;
-  meetingId: number;
+  meetingId?: number;
+  creatingUserId?: string;
 }
 export interface IMeetingAttendee {
-  id: number;
+  id?: number;
   userId: string;
   attended: boolean;
 }
