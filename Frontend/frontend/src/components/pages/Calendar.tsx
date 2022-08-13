@@ -314,7 +314,7 @@ const Calendar: React.FC<ICalendar> = () => {
             </Box>
             <Divider variant="middle" sx={{ marginTop: 3 }} />
             <Grid container direction="row" sx={{
-              justifyContent: "center"
+              alignItems: "center", justifyContent: "center", width: '100vw'
             }}>
               <Grid item sx={{
                 mx: "auto", alignItems: "center"
