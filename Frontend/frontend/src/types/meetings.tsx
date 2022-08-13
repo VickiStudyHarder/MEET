@@ -1,5 +1,5 @@
 export interface IMeeting {
-  id: number;
+  id?: number;
   meetingStart: string;
   meetingEnd: string;
   summary: string;
@@ -8,7 +8,7 @@ export interface IMeeting {
   attendee: string[];
   toDoItem?: IToDoItem[];
   notes?: INotes[];
-  attendees?: IMeetingAttendee[];
+  meetingAttendee?: IMeetingAttendee[];
   agendas?: IAgenda[];
 }
 export interface IToDoItem {
@@ -21,18 +21,30 @@ export interface INotes {
   id?: number;
   title: string;
   details: string;
-  meetingId: number;
+  meetingId?: number;
+  creatingUserId?: string;
 }
 export interface IMeetingAttendee {
-  id: number;
+  id?: number;
   userId: string;
   attended: boolean;
+  user?: IUser;
 }
 export interface IMeetingResponse {
   meeting: IMeeting;
 }
 export interface IAgenda {
-  id: number;
+  id?: number;
   title: string;
   details: string;
+}
+
+export interface IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  role: string;
+  rating: number;
+  totalMeetings: number;
 }

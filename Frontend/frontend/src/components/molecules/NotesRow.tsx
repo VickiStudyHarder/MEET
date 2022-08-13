@@ -1,17 +1,30 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Box, Button, Typography, Divider } from '@mui/material';
+import { Box, Button, Typography, Divider, Dialog } from '@mui/material';
 import { INotes } from '../../types/meetings';
 import YourMeetingImage from '../../assets/YourMeetingImage.png';
 import MeetingsArrow from '../../assets/MeetingsArrow.png';
+import { deleteNote } from '../../api/meeting';
+import EditNoteForm from './EditNoteForm';
 
 export interface INotesRow {
   note: INotes;
+  handleGetMeeting: any;
 }
 
-const MeetingRow: React.FC<INotesRow> = ({ note }) => {
+const MeetingRow: React.FC<INotesRow> = ({ note, handleGetMeeting }) => {
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const handleDelete = async () => {
+    await deleteNote(note.id!);
+    await handleGetMeeting();
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <>
@@ -38,6 +51,9 @@ const MeetingRow: React.FC<INotesRow> = ({ note }) => {
           <Button
             sx={{ mx: 'auto', width: '100%' }}
             style={{ justifyContent: 'flex-end' }}
+            onClick={() => {
+              setOpen(true);
+            }}
           >
             <Typography sx={{ color: 'black', mr: 2 }}>Edit</Typography>
             <img
@@ -50,6 +66,7 @@ const MeetingRow: React.FC<INotesRow> = ({ note }) => {
           <Button
             sx={{ mx: 'auto', width: '100%' }}
             style={{ justifyContent: 'flex-end' }}
+            onClick={handleDelete}
           >
             <Typography sx={{ color: 'black', mr: 2 }}>Delete</Typography>
             <img
@@ -62,6 +79,21 @@ const MeetingRow: React.FC<INotesRow> = ({ note }) => {
         </Box>
       </Box>
       <Divider variant='middle' sx={{ width: '100%' }} />
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
+        sx={{ display: 'flex', flexGrow: 1 }}
+        maxWidth='lg'
+      >
+        <EditNoteForm
+          setOpen={setOpen}
+          handleGetMeeting={handleGetMeeting}
+          handleClose={handleClose}
+          note={note}
+        />
+      </Dialog>
     </>
   );
 };

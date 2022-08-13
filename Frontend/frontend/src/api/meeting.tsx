@@ -1,8 +1,9 @@
+import { IMeeting } from '../types/meetings';
 import axiosClient from './client';
 
 //These have not been tested
 
-export const createMeeting = async (data: IMeetingPayload) => {
+export const createMeeting = async (data: IMeeting) => {
   return await axiosClient.post('/meeting', JSON.stringify(data));
 };
 
@@ -11,7 +12,7 @@ export const deleteMeeting = async (id: string) => {
 };
 
 export const updateMeeting = async (
-  data: Partial<IMeetingPayload>,
+  data: Partial<IMeeting>,
   id: string
 ) => {
   return await axiosClient.put(`meeting/${id}`, JSON.stringify(data));
@@ -31,33 +32,13 @@ export const getMeetingsByUserId = async (userId: string) => {
   }
 };
 
-export interface IMeetingPayload {
-  id: number;
-  meetingStart: string;
-  meetingEnd: string;
-  summary: string;
-  description: string;
-  location: string;
-  attendee: string[];
-  toDoItems?: IToDoItem[];
-  notes?: INotes[];
-  attendees?: IMeetingAttendee[];
-}
-export interface IToDoItem {
-  id: number;
-  title: string;
-  dueDate: Date;
-  assigneeId: string;
-}
-export interface INotes {
-  id: number;
-  title: string;
-  details: string;
-  meetingId: number;
-  creatingUserId: string;
-}
-export interface IMeetingAttendee {
-  id: number;
-  userId: string;
-  attended: boolean;
-}
+export const deleteNote = async (id: number) => {
+  const result = await axiosClient.delete(`note/${id}`);
+  return result.data.body
+};
+
+export const deleteToDoItem = async (id: number) => {
+  const result = await axiosClient.delete(`todo/${id}`);
+  return result.data.body
+};
+

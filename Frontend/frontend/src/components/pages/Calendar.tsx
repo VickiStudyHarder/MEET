@@ -39,10 +39,6 @@ const Calendar: React.FC<ICalendar> = () => {
   let metormeetings = JSON.parse(JSON.stringify(data))
 
 
-  const { selectedMentor: selectedMentor_data } = useContext(AppContext);
-  let select_Mentor = JSON.parse(JSON.stringify(data))
-
-
 
   //導師模式，所有導師未來的meetings. Mentor page, showing all the mentor confirmed meetings
 
@@ -110,7 +106,6 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
   //選中的導師, selected mentor
-  /*
   const selectedMentor = [
     {
       mentorname: "Mentor Name",
@@ -119,7 +114,7 @@ const Calendar: React.FC<ICalendar> = () => {
       avator: './calendar_avator.jpg'
     }
   ];
-*/
+
 
 
   //Mentor選單，所有mentor的列表, all the mentor list
@@ -243,21 +238,6 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
 
-  const [modalCtx, setModalCtx] = React.useState({
-    index: 0,
-    idx: 0,
-    name: '',
-  });
-
-  const show_select_metor = (item: any, index: any, e: any) => {
-    let val = e.target.mentorId;
-    let select_mentor = JSON.parse(JSON.stringify(data));
-    select_mentor[index].option.mentorId = item.mentorId;
-    selectedMentor_data(select_mentor);
-  };
-
-
-
   //切分metor的list，為了顯示，以防mentor不只6位，造成視窗超出. Divide the mentor list to show two columns
   const secondColumnStart = AllMentors.length / 2;
   const TotalNumberofMentor = AllMentors.length
@@ -282,10 +262,10 @@ const Calendar: React.FC<ICalendar> = () => {
                 <Grid item >
                   <h1>Chosen Mentor:</h1>
                   <CalendarUserCardPrimary
-                    name={selectedMentor_data?.[0]?.mentorname}
-                    job={selectedMentor_data?.[0]?.mentorRole}
-                    Rating={selectedMentor_data?.[0]?.rating}
-                    avator={selectedMentor_data?.[0]?.avator} />
+                    name={selectedMentor?.[0]?.mentorname}
+                    job={selectedMentor?.[0]?.mentorRole}
+                    Rating={selectedMentor?.[0]?.rating}
+                    avator={selectedMentor?.[0]?.avator} />
                 </Grid>
                 <h3>Mentor List:</h3>
                 <Grid item sx={{ maxHeight: 400 }}>
@@ -293,7 +273,7 @@ const Calendar: React.FC<ICalendar> = () => {
                     <Grid container direction="row" >
                       <Grid item sx={{ width: 200 }}>
                         {AllMentors.slice(0, secondColumnStart + 1).map((item) => (
-                          <Button id={item?.mentorId} onClick={(e) => show_select_metor(item, index, e)}><CalendarUserCardMini
+                          <Button id={item?.mentorId}><CalendarUserCardMini
                             name={item?.name}
                             avator={item?.avatar}
                           /></Button>

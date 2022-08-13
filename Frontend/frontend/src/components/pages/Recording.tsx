@@ -15,11 +15,14 @@ const theme = createTheme();
 
 const Recording: React.FC<IRecording> = () => {
   // change role
+
+
   const role = 'mentor'
 
+  // const { meetingRecordings: data } = useContext(AppContext)
   // data
   const data = [{
-    meetingId: '1', userId:'1', meetingName: 'meeting 1', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
+    meetingId: '1', userId: '1', meetingName: 'meeting 1', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
     recordingList: [
       { recordingId: '1', recordingDescription: 'this is recording 1', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
       { recordingId: '2', recordingDescription: 'this is recording 2', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
@@ -28,12 +31,12 @@ const Recording: React.FC<IRecording> = () => {
       { recordingId: '5', recordingDescription: 'this is recording 5', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' }]
   },
   {
-    meetingId: '2', userId:'1', meetingName: 'meeting 2', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
+    meetingId: '2', userId: '1', meetingName: 'meeting 2', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
     recordingList: [
     ]
   },
   {
-    meetingId: '3', userId:'1', meetingName: 'meeting 3', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
+    meetingId: '3', userId: '1', meetingName: 'meeting 3', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
     recordingList: [
       { recordingId: '1', recordingDescription: 'this is recording 1', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
       { recordingId: '2', recordingDescription: 'this is recording 2', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
@@ -42,7 +45,7 @@ const Recording: React.FC<IRecording> = () => {
       { recordingId: '5', recordingDescription: 'this is recording 5', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' }]
   },
   {
-    meetingId: '4', userId:'1', meetingName: 'meeting 4', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
+    meetingId: '4', userId: '1', meetingName: 'meeting 4', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
     recordingList: [
       { recordingId: '1', recordingDescription: 'this is recording 1', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
       { recordingId: '2', recordingDescription: 'this is recording 2', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
@@ -51,7 +54,7 @@ const Recording: React.FC<IRecording> = () => {
       { recordingId: '5', recordingDescription: 'this is recording 5', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' }]
   },
   {
-    meetingId: '5', userId:'1', meetingName: 'meeting 5', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
+    meetingId: '5', userId: '1', meetingName: 'meeting 5', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
     recordingList: [
     ]
   }]
@@ -86,13 +89,18 @@ const Recording: React.FC<IRecording> = () => {
           <Box sx={{ margin: 10, display: 'flex', flexDirection: 'column' }}>
             <Box sx={{ marginLeft: 3, display: 'flex' }} >
               <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', width: '100%' }}>
-                <PageTitle content={`${mname} - Recording list`} icon='1' />
+                <PageTitle content={`${mname} - Recording list`} icon='6' doSomething={() => closeList()} />
                 <Box marginTop={2} marginRight={2} >
-                  <RecordingModal
-                    pic={mpic}
-                    meetingName={mname}
-                    doSomething={() => aFunction()}
-                    type='add' />
+                  {
+                    role === 'mentor' && (
+                      <RecordingModal
+                        pic={mpic}
+                        meetingName={mname}
+                        doSomething={() => aFunction()}
+                        type='add' />
+                    )
+                  }
+
                 </Box>
               </Box>
 
