@@ -11,6 +11,7 @@ export interface IMeetingPayload {
   toDoItems?: IToDoItem[];
   notes?: INotes[];
   attendees?: IMeetingAttendee[];
+  agendas?: IAgenda[];
 }
 export interface IToDoItem {
   id: number;
@@ -29,3 +30,10 @@ export interface IMeetingAttendee {
   userId: string;
   attended: boolean;
 }
+
+export interface IAgenda {
+  id: number;
+  title: string;
+  details: string;
+}
+

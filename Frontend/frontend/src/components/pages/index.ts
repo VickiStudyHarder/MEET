@@ -5,6 +5,7 @@ export { default as Notes } from './Notes';
 export { default as Rating } from './Rating';
 export { default as Recording } from './Recording';
 export { default as ToDos } from './ToDos';
+export { default as ToDoHome } from './ToDoHome';
 export { default as GroupChat } from './GroupChat';
 export { default as Home } from './Home';
 export { default as Meetings } from './Meetings';

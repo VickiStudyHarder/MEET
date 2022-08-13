@@ -10,7 +10,7 @@ import {
   Menu,
   Avatar,
   Box,
-} from '@material-ui/core';
+} from '@mui/material';
 import Popover from '@mui/material/Popover';
 
 interface INavBar {}
@@ -18,8 +18,8 @@ interface INavBar {}
 const options = [
   { title: 'Upcoming Meetings', url: '/home' },
   { title: 'Calendar', url: '/calendar' },
-  { title: 'View/Edit Meetings', url: '/meetings' },
-  { title: 'To Dos', url: '/todo' },
+  { title: 'All Meetings', url: '/meetings' },
+  { title: 'All To Dos', url: '/todo' },
   { title: 'Rating', url: '/rating' },
   { title: 'Recording', url: '/recording' },
   { title: 'Group', url: '/group' },
@@ -30,7 +30,7 @@ const NavBar: React.FC<INavBar> = () => {
   const location = useLocation();
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', m: 4 }}>
       <Grid
         container
         spacing={4}

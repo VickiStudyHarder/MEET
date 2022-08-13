@@ -6,7 +6,7 @@ import Box from '@mui/material/Box'
 import { CheckOutlined } from '@ant-design/icons'
 import Delicon from './assets/icon-del.png'
 import todoBackground from './assets/todoBackground.png'
-import CalendarUserCardMini from './CalendarUserCardMini/CalendarUserCardMini';
+import CalendarUserCardMini from './CalendarUserCardMini/CalendarUserCardMini'
 import './Todo.css'
 import { url } from 'inspector'
 import AppContext from '../contexts/AppContext'
