@@ -6,6 +6,7 @@ import Box from '@mui/material/Box'
 import { CheckOutlined } from '@ant-design/icons'
 import Delicon from './assets/icon-del.png'
 import todoBackground from './assets/todoBackground.png'
+import CalendarUserCardPrimary from './CalendarUserCardPrimary/CalendarUserCardPrimary';
 import CalendarUserCardMini from './CalendarUserCardMini/CalendarUserCardMini'
 import './Todo.css'
 import { url } from 'inspector'
@@ -33,10 +34,10 @@ interface MeetingProps {
   showAdd?: boolean
 }
 
-const userInfo: { userName: string, userAvatar: string} = {
-  userName: 'Vicki Chen',
-  userAvatar: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg',
-}
+// const userInfo: { userName: string, userAvatar: string} = {
+//   userName: 'Vicki Chen',
+//   userAvatar: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg',
+// }
 
 // let list: any = [
 //   {
@@ -200,9 +201,11 @@ export const Todo: React.VFC = () => {
           )}
         </div>
         <div className="meet-userCard">
-          <CalendarUserCardMini 
+          <CalendarUserCardPrimary
             avator={selectedStudent?.avatar}
             name={selectedStudent?.name}
+            Rating={selectedStudent?.rating}
+            job={selectedStudent?.role}
           />
         </div>
         <div className="meet-box">

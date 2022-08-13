@@ -84,7 +84,7 @@ const AppContextProvider = (props: any) => {
 
   // exposed vars
   const [selectedMentor, setSelectedMentor] = useState({}); //选中的导师
-  const [selectedStudent,setSelectedStudent] = useState({})
+  const [selectedStudent,setSelectedStudent] = useState({})//todo usercard
   const [allMentors, setAllMentors] = useState([{}]); //导师列表
   const [studentBookedMeetings, setStudentBookedMeetings] = useState([{}]); //学生模式下已被学生预定的当前老师的会议
   const [mentorAvailableMeetings, setMentorAvailableMeetings] =
@@ -158,6 +158,8 @@ const AppContextProvider = (props: any) => {
     setSelectedStudent({
       userId: "",
       name: "Vicki Chen",
+      role: "Student",
+      rating: 4,
       avatar: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg",
     })
     setAllMentors([{ mentorId: "", avatar: "", name: "" }]);
