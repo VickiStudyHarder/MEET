@@ -82,6 +82,7 @@ export default function Calendar_table({
         scrollTime={'08:00:00'}
         contentHeight='600'
         events={events}
+        timeZone={'UTC-8'}
       />
     </div>
   );

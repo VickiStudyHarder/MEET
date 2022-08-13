@@ -1,4 +1,4 @@
-import { createTheme, CssBaseline, ThemeProvider, Divider } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider, Divider, Typography } from '@mui/material';
 import { useEffect, useContext } from 'react';
 import React from 'react';
 import NavBar from '../molecules/NavBar';
@@ -77,7 +77,7 @@ interface ICalendar {
 
 
 //切換導師和學生不同頁面 student/mentor
-let role = "student"
+let role = "mentor"
 
 
 
@@ -234,11 +234,23 @@ const Calendar: React.FC<ICalendar> = () => {
     {
       meetingId: 2,
       title: "meeting 2",
+      start: "2022-08-13T05:00:00+00:00",
+      end: "2022-08-13T12:30:00+00:00"
+    },
+    {
+      meetingId: 3,
+      title: "meeting 2",
+      start: "2022-08-15T10:30:00+00:00",
+      end: "2022-08-15T12:30:00+00:00"
+    },
+    {
+      meetingId: 4,
+      title: "meeting 2",
       start: "2022-08-23T10:30:00+00:00",
       end: "2022-08-23T12:30:00+00:00"
     },
     {
-      meetingId: 3,
+      meetingId: 5,
       title: "meeting 3",
       start: "2022-08-26T10:30:00+00:00",
       end: "2022-08-26T12:30:00+00:00"
@@ -288,9 +300,9 @@ const Calendar: React.FC<ICalendar> = () => {
           <Box sx={{ marginLeft: 5, display: 'flex' }} >
             <PageTitle content='Calendar' icon='5' />
           </Box>
-          <Divider variant="middle" sx={{ marginTop: 3 }} />
+          <Divider variant="middle" sx={{ marginTop: 2 }} />
           <Grid container direction="row" sx={{
-            alignItems: "center", justifyContent: "center", height: "70vh", width: '100vw'
+            alignItems: "center", justifyContent: "center", width: '100vw'
           }}>
             <Grid item>
               <Grid container direction="column">
@@ -302,7 +314,7 @@ const Calendar: React.FC<ICalendar> = () => {
                     Rating={selectedMentor?.[0]?.rating}
                     avator={selectedMentor?.[0]?.avator} />
                 </Grid>
-                <h1>Mentor List:</h1>
+                <h3>Mentor List:</h3>
                 <Grid item sx={{ overflow: 'auto', maxHeight: 400 }}>
                   <Grid container direction="column">
                     <Grid container direction="row" >
