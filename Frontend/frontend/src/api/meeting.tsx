@@ -37,3 +37,8 @@ export const deleteNote = async (id: number) => {
   return result.data.body
 };
 
+export const deleteToDoItem = async (id: number) => {
+  const result = await axiosClient.delete(`todo/${id}`);
+  return result.data.body
+};
+

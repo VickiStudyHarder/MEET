@@ -34,9 +34,9 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     }
 
     console.log('toDoItems');
-    if (meeting?.toDoItems) {
-      await Promise.all(
-        meeting.toDoItems.map(async (item: IToDoItem) => {
+    if (meeting?.toDoItem) {
+      const res = await Promise.all(
+        meeting.toDoItem.map(async (item: IToDoItem) => {
           return await prisma.meeting.update({
             where: {
               id: Number(event.pathParameters.id),
@@ -53,6 +53,9 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
           });
         })
       );
+      console.log('1')
+      console.log({res})
+      console.log('2')
     }
 
     console.log('notes');

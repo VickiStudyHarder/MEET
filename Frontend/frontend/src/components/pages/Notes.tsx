@@ -107,7 +107,9 @@ const Notes: React.FC<{}> = () => {
           <Box sx={{ width: '100%', m: 2 }}>
             {meeting &&
               meeting?.notes?.map((note: INotes) => {
-                return <NotesRow note={note}handleGetMeeting={handleGetMeeting}/>;
+                return (
+                  <NotesRow note={note} handleGetMeeting={handleGetMeeting} />
+                );
               })}
           </Box>
         </Box>
@@ -119,7 +121,14 @@ const Notes: React.FC<{}> = () => {
           sx={{ display: 'flex', flexGrow: 1 }}
           maxWidth='lg'
         >
-          {meeting && <CreateNoteForm setOpen={setOpen} meeting={meeting} handleGetMeeting={handleGetMeeting} handleClose={handleClose} />}
+          {meeting && (
+            <CreateNoteForm
+              setOpen={setOpen}
+              meeting={meeting}
+              handleGetMeeting={handleGetMeeting}
+              handleClose={handleClose}
+            />
+          )}
         </Dialog>
       </Container>
     </ThemeProvider>
