@@ -14,10 +14,12 @@ interface IRecording { }
 const theme = createTheme();
 
 const Recording: React.FC<IRecording> = () => {
+  // change role
   const role = 'mentor'
 
+  // data
   const data = [{
-    meetingId: '1', meetingName: 'meeting 1', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
+    meetingId: '1', userId:'1', meetingName: 'meeting 1', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
     recordingList: [
       { recordingId: '1', recordingDescription: 'this is recording 1', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
       { recordingId: '2', recordingDescription: 'this is recording 2', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
@@ -26,12 +28,12 @@ const Recording: React.FC<IRecording> = () => {
       { recordingId: '5', recordingDescription: 'this is recording 5', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' }]
   },
   {
-    meetingId: '2', meetingName: 'meeting 2', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
+    meetingId: '2', userId:'1', meetingName: 'meeting 2', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
     recordingList: [
     ]
   },
   {
-    meetingId: '3', meetingName: 'meeting 3', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
+    meetingId: '3', userId:'1', meetingName: 'meeting 3', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
     recordingList: [
       { recordingId: '1', recordingDescription: 'this is recording 1', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
       { recordingId: '2', recordingDescription: 'this is recording 2', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
@@ -40,7 +42,7 @@ const Recording: React.FC<IRecording> = () => {
       { recordingId: '5', recordingDescription: 'this is recording 5', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' }]
   },
   {
-    meetingId: '4', meetingName: 'meeting 4', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
+    meetingId: '4', userId:'1', meetingName: 'meeting 4', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
     recordingList: [
       { recordingId: '1', recordingDescription: 'this is recording 1', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
       { recordingId: '2', recordingDescription: 'this is recording 2', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
@@ -49,7 +51,7 @@ const Recording: React.FC<IRecording> = () => {
       { recordingId: '5', recordingDescription: 'this is recording 5', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' }]
   },
   {
-    meetingId: '5', meetingName: 'meeting 5', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
+    meetingId: '5', userId:'1', meetingName: 'meeting 5', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
     recordingList: [
     ]
   }]

@@ -18,6 +18,7 @@ import ChatWindow from '../organisms/ChatWindow/ChatWindow';
 import { getGroups } from '../../api/groupChat';
 import StudentGroupCard from '../../stories/StudentGroupCard';
 import AppContext from '../../contexts/AppContext';
+import StudyGroupIcon from '../../assets/StudyGroupIcon.png';
 
 interface IGroup { }
 
@@ -77,23 +78,61 @@ const Group: React.FC<IGroup> = () => {
             flexDirection: 'row',
             px: 10,
             py: 2,
+            maxHeight: 140
           }}
         >
-          <Typography sx={{ display: 'flex', flexGrow: 1 }}>
+          <Box sx={{ my: 'auto', mr: 2 }}>
+            <img
+              src={StudyGroupIcon}
+              height='120'
+              width='120'
+              alt='study-group-icon'
+            />
+          </Box>
+          <Typography
+            variant='h3'
+            sx={{ display: 'flex', flexGrow: 1, my: 'auto' }}
+          >
             All Study Groups
           </Typography>
-          <Button onClick={handleClickOpen} variant='contained'>
+          <Button
+            onClick={handleClickOpen}
+            sx={{
+              minWidth: '100px',
+              minHeight: '40px',
+              maxHeight: '40px',
+              maxWidth: '100px',
+              borderRadius: 5,
+              backgroundColor: '#6001D3',
+              color: '#FFFFFF',
+              fontSize: 12,
+              my: 'auto',
+            }}
+            variant='contained'
+          >
             +Add
           </Button>
         </Box>
       </Box>
       <Divider variant='middle' sx={{ width: '100%' }} />
-      <Box sx={{ display: 'flex', flexDirection: 'row', p: 6 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          p: 6,
+          alignItems: 'flex-start',
+        }}
+      >
         <Box sx={{ height: '100%', m: 2 }}>
           <StudentGroupNameCard myGroups={myGroups} />
         </Box>
         <Container
-          sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            flexShrink: 1,
+          }}
         >
           <Box sx={{ display: 'flex', flexGrow: 1, m: 2, width: '100%' }}>
             <Grid container spacing={2}>

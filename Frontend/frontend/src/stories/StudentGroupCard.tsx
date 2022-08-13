@@ -9,6 +9,7 @@ import AppContext from '../contexts/AppContext';
 import { joinGroup, leaveGroup } from '../api/groupChat';
 import { IStudentGroupCard } from '../types/groups';
 import { useNavigate } from 'react-router-dom';
+import GroupImage from '../assets/GroupImage.png';
 
 const StudentGroupCard: React.FC<IStudentGroupCard> = ({
   id,
@@ -54,63 +55,41 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
         m: 2,
       }}
     >
-      <Card sx={{ display: 'flex', flexGrow: 1, borderRadius: 5 }}>
-        <CardActionArea>
-          <CardContent
-            sx={{ display: 'flex', flexDirection: 'row', flexGrow: 1, p: 8 }}
+      <Card
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          flexGrow: 1,
+          borderRadius: 5,
+          p: 4,
+        }}
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            flexGrow: 1,
+            flexDirection: 'row',
+            height: '50%',
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flex: 1,
+              flexDirection: 'row',
+            }}
           >
-            <Box
-              sx={{
-                display: 'flex',
-                flex: 1,
-                flexDirection: 'column',
-                my: 'auto',
-              }}
-            >
-              <Box
-                sx={{
-                  display: 'flex',
-                  flex: 1,
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  my: 'auto',
-                }}
-              >
-                <Avatar
-                  alt='Remy Sharp'
-                  src='https://live.staticflickr.com/65535/52235254195_e710148a39_t.jpg'
-                  sx={{ width: 85, height: 85, m: 2 }}
-                />
-              </Box>
-              <Typography
-                variant='body1'
-                component='h1'
-                sx={{
-                  m: 2,
-                  fontSize: '1.5rem',
-                  fontWeight: 600,
-                }}
-              >
-                {name}
-              </Typography>
-              <Typography
-                variant='body1'
-                component='h2'
-                sx={{
-                  m: 2,
-                  color: '#70798B',
-                  fontSize: 14,
-                }}
-              >
-                {groupParticipant.length} Members
-              </Typography>
+            <Box sx={{ m: 'auto' }}>
+              <img src={GroupImage} alt='GroupImage' height='100' width='100' />
             </Box>
+          </Box>
+          <Box sx={{ display: 'flex', flexGrow: 1 }}>
             {userIsParticipant ? (
               <Box
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  my: 'auto',
+                  m: 'auto',
                 }}
               >
                 <Box sx={{ display: 'flex', flexDirection: 'row' }}>
@@ -119,14 +98,24 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
                       navigate(`/group/${id}`);
                     }}
                   >
-                    <Typography variant='body1'>Revisit</Typography>
-                    <ArrowRightAltOutlinedIcon />
+                    <Typography variant='body1' color='black'>
+                      Revisit
+                    </Typography>
+                    <ArrowRightAltOutlinedIcon
+                      style={{ color: 'black' }}
+                      sx={{ ml: 2 }}
+                    />
                   </Button>
                 </Box>
                 <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                   <Button onClick={handleLeaveGroup}>
-                    <Typography variant='body1'>Leave</Typography>
-                    <ArrowRightAltOutlinedIcon />
+                    <Typography variant='body1' color='black'>
+                      Leave
+                    </Typography>
+                    <ArrowRightAltOutlinedIcon
+                      style={{ color: 'black' }}
+                      sx={{ ml: 2 }}
+                    />
                   </Button>
                 </Box>
               </Box>
@@ -135,19 +124,61 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
-                  my: 'auto',
+                  m: 'auto',
                 }}
               >
                 <Button onClick={handleJoinGroup}>
-                  <Typography variant='body1' sx={{ m: 'auto' }}>
+                  <Typography variant='body1' color='black' sx={{ m: 'auto' }}>
                     Join
                   </Typography>
-                  <ArrowRightAltOutlinedIcon />
+                  <ArrowRightAltOutlinedIcon
+                    style={{ color: 'black' }}
+                    sx={{ ml: 2 }}
+                  />
                 </Button>
               </Box>
             )}
-          </CardContent>
-        </CardActionArea>
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            height: '50%',
+            alignaItems: 'flex-start',
+            py: 2,
+          }}
+        >
+          <Box sx={{ width: '50%', pl: 2 }}>
+            <Typography
+              variant='body1'
+              component='h1'
+              sx={{
+                mx: 'auto',
+                my:2,
+                fontSize: '1.5rem',
+                fontWeight: 600,
+                textAlign: 'left',
+              }}
+            >
+              {name}
+            </Typography>
+            <Typography
+              variant='body1'
+              component='h2'
+              sx={{
+                mx: 'auto',
+                my:2,
+                color: '#70798B',
+                fontSize: 14,
+                textAlign: 'left',
+              }}
+            >
+              {groupParticipant.length} Members
+            </Typography>
+          </Box>
+        </Box>
       </Card>
     </Box>
   );
