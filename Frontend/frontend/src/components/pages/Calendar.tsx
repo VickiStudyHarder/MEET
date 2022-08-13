@@ -154,7 +154,7 @@ const Calendar: React.FC<ICalendar> = () => {
   //選中的導師
   const selectedMentor = [
     {
-      mentorname: "hi1",
+      mentorname: "Mentor Name",
       mentorRole: 'mentor',
       rating: 4,
       avator: './calendar_avator.jpg'
@@ -211,14 +211,14 @@ const Calendar: React.FC<ICalendar> = () => {
       name: "Name 9"
     },
     {
-      mentorId: "1",
+      mentorId: "10",
       avatar: "./calendar_avator.jpg",
-      name: "Name 1"
+      name: "Name 10"
     },
     {
-      mentorId: "1",
+      mentorId: "11",
       avatar: "./calendar_avator.jpg",
-      name: "Name 1"
+      name: "Name 11"
     },
   ];
 
