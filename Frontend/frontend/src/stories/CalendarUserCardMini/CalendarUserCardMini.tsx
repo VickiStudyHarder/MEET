@@ -34,3 +34,4 @@ export default function PostingCard(props: CalendarUserCardMiniInfo) {
     </Box>
   );
 }
+

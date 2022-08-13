@@ -10,6 +10,7 @@ import UserPool from "../utils/auth/UserPool";
 import { useNavigate } from "react-router-dom";
 import { getMeetingsByUserId } from "../api/meeting";
 import { array } from "prop-types";
+import { IMeeting } from "../types/types";
 
 export type users = "student" | "mentor" | "";
 
@@ -56,6 +57,7 @@ export type IAppContext = {
   meetingNotes:any;
   selectedNote:any;
   meetingTodos:any;
+  setMeetingTodos:any;
   meetingRecordings:any;
   selectedRecording:any
 };
@@ -153,6 +155,11 @@ const AppContextProvider = (props: any) => {
       rating: 5,
       avatar: "",
     });
+    setSelectedStudent({
+      userId: "",
+      name: "Vicki Chen",
+      avatar: "https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg",
+    })
     setAllMentors([{ mentorId: "", avatar: "", name: "" }]);
     setStudentBookedMeetings([
       { meetingId: "", title: "", start: "", end: "" },
@@ -190,32 +197,12 @@ const AppContextProvider = (props: any) => {
           show: true,
           showAdd: true,
         },
-        title: "meeting 1",
+        title: 'Meeting 1',
         task: [
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
         ],
       },
       {
@@ -223,26 +210,11 @@ const AppContextProvider = (props: any) => {
           show: true,
           showAdd: true,
         },
-        title: "meeting 2",
+        title: 'Meeting 2',
         task: [
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
         ],
       },
       {
@@ -250,20 +222,10 @@ const AppContextProvider = (props: any) => {
           show: true,
           showAdd: true,
         },
-        title: "meeting 3",
+        title: 'Meeting 3',
         task: [
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: true,
-            isEditing: false,
-          },
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: true, deled: false, isEdit: false },
         ],
       },
       {
@@ -271,9 +233,31 @@ const AppContextProvider = (props: any) => {
           show: true,
           showAdd: true,
         },
-        title: "Meeting 4",
+        title: 'Meeting 4',
         task: [],
       },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: 'Meeting 5',
+        task: [
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: true, deled: false, isEdit: false },
+        ],
+      },
+      {
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: 'Meeting 6',
+        task: [
+          { name: 'to do item', isdel: false, deled: false, isEdit: false },
+          { name: 'to do item', isdel: true, deled: false, isEdit: false },
+        ],
+      }
     ]);
     setInMeetingAgenda({
       meetingId: "",
@@ -302,7 +286,18 @@ const AppContextProvider = (props: any) => {
         ],
       },
     ]);
+    getFutureMeetings("z3417347@gmail.com")
   }, []);
+
+  const getFutureMeetings = async (userId:string)=>{
+    const resp = await getMeetingsByUserId(userId)
+    if(resp?.status === 200){
+      const meetings = resp?.data?.body as IMeeting[]
+      console.log(meetings)
+    }else{
+      console.error(resp?.data)
+    }
+  }
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {
@@ -340,7 +335,7 @@ const AppContextProvider = (props: any) => {
                 Authorization: token,
               },
               ...session,
-              ...attributes,
+              ...attributes, 
             });
           }
         });
@@ -393,6 +388,7 @@ const AppContextProvider = (props: any) => {
       navigate("/login");
     }
   };
+
   return (
     <AppContext.Provider
       value={{
@@ -438,6 +434,7 @@ const AppContextProvider = (props: any) => {
         meetingNotes,
         selectedNote,
         meetingTodos,
+        setMeetingTodos,
         meetingRecordings,
         selectedRecording,
       }}

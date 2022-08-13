@@ -1,29 +1,24 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import AgendaList from './AgendaList'
+import { Todo } from './Todo';
 
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Example/AgendaList',
-  component: AgendaList,
+  title: 'Example/Meeting',
+  component: Todo,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof AgendaList>;
+} as ComponentMeta<typeof Todo>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof AgendaList> = (args) => (<AgendaList {...args} />);
+const Template: ComponentStory<typeof Todo> = (args) => (<Todo {...args}/>);
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  agendaList:[{
-    name: 'General Concept',
-    description: 'grow familiar indescribablegrow familiar indescribable'
-  },{
-    name: 'General Concept2',
-    description: 'grow familiar indescribablegrow familiar indescribable'
-  }],
+  primary: true,
+  label: 'Meeting',
 };

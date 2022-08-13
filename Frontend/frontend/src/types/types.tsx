@@ -1,16 +1,14 @@
 export interface IMeeting {
-  meetingId?: string;
-  ownerId?: string;
-  title?: string;
+  id?: string;
+  summary?: string;
   description?: string;
-  startDate?: Date;
-  endDate?: Date;
-  zoom?: string;
-  requests?: IMeetingRequest[];
-  attendees?: IMeetingAttendee[];
+  startTime?: string;
+  endTime?: string;
+  location?: string;
+  meetingAttendees?: IMeetingAttendee[];
   notes?: INote[];
-  todos?: IToDoItem[];
-  recordings?: IRecordingItem[];
+  toDoItem?: IToDoItem[];
+  // recordings?: IRecordingItem[];
 }
 
 export interface IMeetingRequest {
@@ -20,9 +18,10 @@ export interface IMeetingRequest {
 }
 
 export interface IMeetingAttendee {
-  userId: string;
+  id: string;
   meetingId?: string;
   attended: boolean;
+  googleCalendarId:string;
 }
 
 export interface INote {
