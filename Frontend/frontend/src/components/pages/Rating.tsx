@@ -4,10 +4,22 @@ import React from 'react';
 import PageTitle from '../../stories/PageTiltle';
 import NavBar from '../molecules/NavBar';
 import RatingCardMentor from '../../stories/RatingCardMentor'
+import RatingCard from "../../stories/RatingCard";
 
 interface IRating {}
 
 const theme = createTheme();
+
+const Ratingdata = [
+  { 
+    imageUrl: "https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg",
+    userName: "Jack",
+    courseName: "comp9323",
+    Rating: 4,
+    UserType: "student",
+    Part_rate: 80
+  }
+]
 
 const Rating: React.FC<IRating> = () => {
   const data = {
@@ -31,13 +43,14 @@ const Rating: React.FC<IRating> = () => {
             </Box>
             <Divider variant="middle" sx={{ marginTop: 3 }} />
             <Box sx={{ maxHeight: '75vh', display:'flex', justifyContent:'center', alignItems:'center', marginTop: 20   }}>
-            <RatingCardMentor 
-            imageUrl={data.pic}
-            userName={data.name}
-            doSomething={submitRating}
-            />
+            <RatingCard userName={Ratingdata?.[0]?.userName} 
+              imageUrl={Ratingdata?.[0]?.imageUrl}
+              courseName={Ratingdata?.[0]?.courseName} 
+              Rating={Ratingdata?.[0]?.Rating}
+              UserType={Ratingdata?.[0]?.UserType}
+              Part_rate={Ratingdata?.[0]?.Part_rate}
+              />
             </Box>
-
           </Box>
     </ThemeProvider>
   );
