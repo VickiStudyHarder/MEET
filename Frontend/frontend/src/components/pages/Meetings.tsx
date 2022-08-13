@@ -6,6 +6,7 @@ import {
   ThemeProvider,
   Typography,
   Divider,
+  Button,
 } from '@mui/material';
 import NavBar from '../molecules/NavBar';
 import Box from '@mui/material/Box';
@@ -20,6 +21,7 @@ const theme = createTheme();
 const Meetings = () => {
   const [meetings, setMeetings] = useState<null | IMeetingResponse[]>(null);
   const { email } = useContext(AppContext);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     getAllMeetings();
@@ -28,6 +30,15 @@ const Meetings = () => {
   const getAllMeetings = async () => {
     const data = await getMeetingsByUserId(email);
     setMeetings(data);
+  };
+
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -54,7 +65,6 @@ const Meetings = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'row',
-                px: 10,
                 py: 2,
                 maxHeight: 140,
               }}
@@ -73,6 +83,23 @@ const Meetings = () => {
               >
                 Your Meetings
               </Typography>
+              <Button
+                onClick={handleClickOpen}
+                sx={{
+                  minWidth: '100px',
+                  minHeight: '40px',
+                  maxHeight: '40px',
+                  maxWidth: '100px',
+                  borderRadius: 5,
+                  backgroundColor: '#6001D3',
+                  color: '#FFFFFF',
+                  fontSize: 12,
+                  my: 'auto',
+                }}
+                variant='contained'
+              >
+                +Add
+              </Button>
             </Box>
           </Box>
           <Divider variant='middle' sx={{ width: '100%' }} />
