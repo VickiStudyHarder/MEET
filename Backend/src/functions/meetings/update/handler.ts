@@ -8,6 +8,7 @@ import {
   INotes,
   IToDoItem,
   IAgenda,
+  IRecording,
 } from '../../../types/meeting';
 
 import schema from './schema';
@@ -53,9 +54,9 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
           });
         })
       );
-      console.log('1')
-      console.log({res})
-      console.log('2')
+      console.log('1');
+      console.log({ res });
+      console.log('2');
     }
 
     console.log('notes');
@@ -125,9 +126,31 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       );
     }
 
+    console.log('recordings');
+    if (meeting?.recordings) {
+      const res = await Promise.all(
+        meeting.recordings.map(async (item: IRecording) => {
+          return await prisma.meeting.update({
+            where: {
+              id: Number(event.pathParameters.id),
+            },
+            data: {
+              recordings: {
+                upsert: {
+                  create: item,
+                  update: item,
+                  where: { id: item.id ? item.id : -1 },
+                },
+              },
+            },
+          });
+        })
+      );
+    }
+
     return formatJSONResponse({
       status: 200,
-      message: ``,
+      message: `Success`,
       event,
       body: result,
     });
