@@ -61,16 +61,17 @@ const IOSSwitch = styled((props: SwitchProps) => (
 export interface MeetingTimeInfo {
   desc?: string;
   timeArr: Array<object>;
+  open:boolean;
+  setOpen:any;
 }
 
 export default function MeetingTime(props:MeetingTimeInfo) {
-  const [open, setOpen] = React.useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => props.setOpen(true);
+  const handleClose = () => props.setOpen(false);
   return (
     <div>
       <Modal 
-        open={open} 
+        open={props.open} 
         onClose={handleClose}
         className="meeting-time-pop"
       >
