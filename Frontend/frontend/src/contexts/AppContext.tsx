@@ -62,7 +62,7 @@ export type IAppContext = {
   selectedMentor: any;
   selectedStudent: any;
   allMentors: any;
-  studentBookedMeetings: any;
+  mentorBookedMeetings: any;
   mentorAvailableMeetings: any;
   mentorMeetings: any;
   futureMeetings: any;
@@ -79,11 +79,26 @@ export type IAppContext = {
   getAllMentors: any;
   getSelectedMentor: any;
   getSelectedStudent: any;
-  getStudentBookedMeetings: any;
+  getMentorBookedMeetings: any;
   getMentorAvailableMeetings: any;
   getMentorMeetings: any;
   getMeetingTodos: any;
-  setMeetingTodos: any;
+  getInMeetingAgenda: any;
+  getInMeetingNote: any;
+  getSelectedNotes: any;
+  getMeetingRecordings: any;
+  getSelectedAgenda: any;
+  getSelectedRecording: any;
+  bookMeeting: any;
+  cancelMeeting: any;
+  addMeeting: any;
+  removeMeeting: any;
+  addAgenda: any;
+  removeAgenda: any;
+  addNote: any;
+  removeNote: any;
+  addRecording: any;
+  removeRecording: any;
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -624,11 +639,9 @@ const AppContextProvider = (props: any) => {
     getSelectedRecording(meetingId);
   };
 
-  const rate = async (mentorId:string, rating:number) => {};
+  const rate = async (mentorId: string, rating: number) => {};
 
-  const setTodo = async (todos:any) => {
-
-  };
+  const setTodo = async (todos: any) => {};
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {
@@ -754,7 +767,7 @@ const AppContextProvider = (props: any) => {
         selectedMentor,
         selectedStudent,
         allMentors,
-        studentBookedMeetings: mentorBookedMeetings,
+        mentorBookedMeetings,
         mentorAvailableMeetings,
         mentorMeetings,
         futureMeetings,
@@ -771,11 +784,26 @@ const AppContextProvider = (props: any) => {
         getAllMentors,
         getSelectedMentor,
         getSelectedStudent,
-        getStudentBookedMeetings: getMentorBookedMeetings,
+        getMentorBookedMeetings,
         getMentorAvailableMeetings,
         getMentorMeetings,
         getMeetingTodos,
-        setMeetingTodos
+        getInMeetingAgenda,
+        getInMeetingNote,
+        getSelectedNotes,
+        getMeetingRecordings,
+        getSelectedAgenda,
+        getSelectedRecording,
+        bookMeeting,
+        cancelMeeting,
+        addMeeting,
+        removeMeeting,
+        addAgenda,
+        removeAgenda,
+        addNote,
+        removeNote,
+        addRecording,
+        removeRecording,
       }}
     >
       {props.children}
