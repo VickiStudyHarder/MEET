@@ -147,6 +147,8 @@ const AppContextProvider = (props: any) => {
   const [meetingRecordings, setMeetingRecordings] = useState<any>([{}]);
   const [selectedRecording, setSelectedRecording] = useState<any>([{}]);
 
+  const [mentorAvailableTimeOfDay,setMentorAvailableTimeOfDay] = useState([])
+
   // context local vars
 
   const navigate = useNavigate();
@@ -428,6 +430,19 @@ const AppContextProvider = (props: any) => {
     }));
     setMentorMeetings(meetings);
   };
+
+  // const getMentorAvalableTimeOfDay = async (mentorId: string,date:Date) => {
+  //   let meetings = await getMeetingsByUserId(mentorId);
+  //   meetings = meetings.map((x: any) => ({
+  //     id: x.id,
+  //     startTime: Date.parse(x.startTime),
+  //     endTime: Date.parse(x.endTime),
+  //     title: x.title,
+  //     description: x.description,
+  //   }));
+  //   meetings = meetings.filter((x:any)=>{return x.startTime.getDay() === date.getDay()})
+  //   const []
+  // };
 
   const getMeetingTodos = async (userId: string) => {
     let meetings = await getMeetingsByUserId(userId);
