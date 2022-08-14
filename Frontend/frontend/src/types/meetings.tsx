@@ -9,6 +9,7 @@ export interface IMeeting {
   notes?: INotes[];
   meetingAttendee?: IMeetingAttendee[];
   agendas?: IAgenda[];
+  recordings?: IRecording[];
 }
 export interface IToDoItem {
   id?: number;
@@ -43,7 +44,14 @@ export interface IUser {
   firstName: string;
   lastName: string;
   dateOfBirth: string;
+  avatar: string;
   role: string;
   rating: number;
   totalMeetings: number;
+}
+
+export interface IRecording {
+  id?: number;
+  url: string;
+  description: string;
 }
