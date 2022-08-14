@@ -87,7 +87,7 @@ export default function MeetingTime(props:MeetingTimeInfo) {
             <input type="text" placeholder="Meeting name" />
           </Box>
           <Box className="time-box">
-            {props.timeArr.map((item) =>
+            {props.timeArr.map((item:any) =>
               <Box className="time-item">
                   <FormControlLabel
                   control={
