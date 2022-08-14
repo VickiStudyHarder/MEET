@@ -140,12 +140,12 @@ const Calendar: React.FC<ICalendar> = () => {
       name: "Name 3"
     },
     {
-      mentorId: "4",
+      mentorId: "user4",
       avatar: "./calendar_avator.jpg",
       name: "Name 4"
     },
     {
-      mentorId: "5",
+      mentorId: "user5",
       avatar: "./calendar_avator.jpg",
       name: "Name 5"
     },
@@ -242,6 +242,8 @@ const Calendar: React.FC<ICalendar> = () => {
   ]
 
 
+  const { getAllMentors: getAllMentors } = useContext(AppContext);
+
 
   //切分metor的list，為了顯示，以防mentor不只6位，造成視窗超出. Divide the mentor list to show two columns
   const secondColumnStart = AllMentors.length / 2;
@@ -252,6 +254,11 @@ const Calendar: React.FC<ICalendar> = () => {
 
   const { getSelectedMentor: set_mentor } = useContext(AppContext);
   const { selectedMentor: selectedMentor } = useContext(AppContext);
+
+
+
+
+
 
   //Get the selected mentor
   const onselect = (id_check: any) => {
@@ -276,16 +283,16 @@ const Calendar: React.FC<ICalendar> = () => {
                 <Grid item >
                   <h1>Chosen Mentor:</h1>
                   <CalendarUserCardPrimary
-                    name={selectedMentor?.[0]?.name}
-                    Rating={selectedMentor?.[0]?.rating}
-                    avator={selectedMentor?.[0]?.avator} />
+                    name={selectedMentor?.firstName + " " + selectedMentor?.lastName}
+                    Rating={selectedMentor?.rating}
+                    avator={selectedMentor?.avator} />
                 </Grid>
                 <h3>Mentor List:</h3>
                 <Grid item sx={{ maxHeight: 400 }}>
                   <Grid container direction="column" sx={{ maxHeight: 400, overflow: 'auto' }}>
                     <Grid container direction="row" >
                       <Grid item sx={{ width: 200 }}>
-                        {AllMentors.slice(0, secondColumnStart + 1).map((item) => (
+                        {AllMentors.slice(0, secondColumnStart + 1).map((item: any) => (
                           <Button id={item?.mentorId} onClick={() => onselect(item?.mentorId)}><CalendarUserCardMini
                             name={item?.name}
                             avator={item?.avatar}
