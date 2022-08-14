@@ -448,15 +448,22 @@ const AppContextProvider = (props: any) => {
         endTime: new Date("2011-10-10T15:00:00"),
       },
     ];
-    console.log("xx",meetings)
+    console.log("xx", meetings);
     meetings = meetings.filter((x: any) => {
       return x.startTime.getDay() === date.getDay();
     });
     const timeslots: any = Array.from(Array(16).keys()).map((x: any) => x + 5);
-    let timeArr = timeslots.map((t: any) => ({ hour: t, disabled: false,checked:false }));
+    let timeArr = timeslots.map((t: any) => ({
+      hour: t,
+      disabled: false,
+      checked: false,
+      date:date
+      // startTime: new Date(date.getFullYear(), date.getMonth(), date.getDay(),t,0,0,0),
+      // startTime: new Date(date.getFullYear(), date.getMonth(), date.getDay(),t,0,0,0),
+    }));
     meetings.forEach((m: any) => {
       timeArr.forEach((t: any) => {
-        console.log(m.startTime.getHours(),m.endTime.getHours())
+        console.log(m.startTime.getHours(), m.endTime.getHours());
         if (t.hour < m.startTime.getHours() || t.hour >= m.endTime.getHours()) {
           t.disabled = false;
         } else {
@@ -465,7 +472,7 @@ const AppContextProvider = (props: any) => {
         }
       });
     });
-    console.log("get time of day:",timeArr)
+    console.log("get time of day:", timeArr);
     setMentorTimeOfDay(timeArr);
   };
 
@@ -589,6 +596,7 @@ const AppContextProvider = (props: any) => {
     endTime: string,
     mentorId: string
   ) => {
+    console.log("create meeting payload:",title,desc,startTime,endTime,mentorId );
     const meeting = {
       meetingStart: startTime,
       meetingEnd: endTime,
@@ -683,11 +691,9 @@ const AppContextProvider = (props: any) => {
 
   const rate = async (mentorId: string, rating: number) => {};
 
-  const updateMeetingTodos = async (todos: any,userId:string) => {
-    let meetings = await getMeetingsByUserId(userId)
-    meetings.forEach((m:any)=>{
-      
-    })
+  const updateMeetingTodos = async (todos: any, userId: string) => {
+    let meetings = await getMeetingsByUserId(userId);
+    meetings.forEach((m: any) => {});
   };
 
   const getSession = async () =>

@@ -61,18 +61,33 @@ const IOSSwitch = styled((props: SwitchProps) => (
 
 export interface MeetingTimeInfo {
   desc?: string;
-  title?: string;
+  label?: string;
   timeArr: Array<object>;
+  open:any;
+  setOpen:any;
+  onConfirmCallback:any;
+  onDenyCallback:any;
+  selectedTimeArr:any;
+  setSelectedTimeArr:any;
+  setMeetingTitle:any;
 }
 
 export default function MeetingTime(props:MeetingTimeInfo) {
-  const [open, setOpen] = React.useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => props.setOpen(true);
+  const handleClose = () => props.setOpen(false);
+  const onChange = (item:any)=>{
+    const timeArr = props.selectedTimeArr.map((x:any)=>{
+      if(x.hour === item.hour){
+        x.checked = !x.checked
+      }
+      return x
+    })
+    props.setSelectedTimeArr(timeArr)
+  }
   return (
     <div>
       <Modal 
-        open={open} 
+        open={props.open} 
         onClose={handleClose}
         className="meeting-time-pop"
       >
@@ -82,11 +97,12 @@ export default function MeetingTime(props:MeetingTimeInfo) {
               <Box className="logo"></Box>
             </Box>
             <Box className="title">
-              {props.title}
+              {props.label}
             </Box>
           </Box>
           <Box className="search-box">
-            <input type="text" placeholder="Meeting name" />
+            <input type="text" placeholder="Meeting name" onChange={(e)=>{
+              props.setMeetingTitle(e.target.value)}} />
           </Box>
           <Box className="time-box">
             {props.timeArr.map((item:any) =>
@@ -97,6 +113,7 @@ export default function MeetingTime(props:MeetingTimeInfo) {
                       sx={{ m: 1 }} 
                       defaultChecked={item.checked}
                       disabled={item.disabled}
+                      onChange={()=>{onChange(item)}}
                       />
                     }
                     label={item.time}
@@ -105,8 +122,11 @@ export default function MeetingTime(props:MeetingTimeInfo) {
             )}
           </Box>
           <Box className="btn-box">
-            <Button className="btn-l">Confirm</Button>
-            <Button className="btn-r" onClick={handleClose}>Cancel</Button>
+            <Button className="btn-l" onClick={()=>{props.onConfirmCallback()}}>Confirm</Button>
+            <Button className="btn-r" onClick={()=>{
+              handleClose();
+              props.onDenyCallback()
+            }}>Cancel</Button>
           </Box>
         </Box>
       </Modal>
