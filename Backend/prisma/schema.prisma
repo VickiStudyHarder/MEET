@@ -18,6 +18,7 @@ model User {
   role             String
   rating           Int
   totalMeetings    Int
+  avatar String
   meetingAttendee  MeetingAttendee[]
   toDoItem         ToDoItem[]
   tokens           Tokens?
