@@ -73,6 +73,7 @@ export type IAppContext = {
   getMentorAvailableMeetings: any;
   getMentorMeetings: any;
   getMeetingTodos: any;
+  setMeetingTodos: any;
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -722,6 +723,7 @@ const AppContextProvider = (props: any) => {
         getMentorAvailableMeetings,
         getMentorMeetings,
         getMeetingTodos,
+        setMeetingTodos
       }}
     >
       {props.children}
