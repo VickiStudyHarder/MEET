@@ -154,7 +154,10 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
             </Box>
             <Box sx={{ display: 'flex' }}>
               {meeting && meeting.agendas && (
-                <AgendaList agendaList={meeting.agendas} />
+                <AgendaList
+                  agendaList={meeting.agendas}
+                  handleGetMeeting={handleGetMeeting}
+                />
               )}
             </Box>
           </Box>
