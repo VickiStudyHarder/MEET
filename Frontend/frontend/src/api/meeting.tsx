@@ -6,15 +6,15 @@ export const createMeeting = async (data: any) => {
   return await axiosClient.post('/meeting', JSON.stringify(data));
 };
 
-export const deleteMeeting = async (id: string) => {
+export const deleteMeeting = async (id: number) => {
   return await axiosClient.delete(`meeting/${id}`);
 };
 
-export const updateMeeting = async (data: any, id: string) => {
+export const updateMeeting = async (data: any, id: number) => {
   return await axiosClient.put(`meeting/${id}`, JSON.stringify(data));
 };
 
-export const getMeetingById = async (meetingId: string) => {
+export const getMeetingById = async (meetingId: number) => {
   return await axiosClient.get(`meeting/${meetingId}`);
 };
 
