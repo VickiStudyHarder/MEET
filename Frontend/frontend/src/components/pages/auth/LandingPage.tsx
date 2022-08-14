@@ -29,12 +29,13 @@ const LandingPage = (props: LandingPageProps) => {
     <Container
       sx={{
         margin: 0,
-        width: '100%',
-        height: 'auto',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
+        width: "100%",
+        height: "auto",
+        backgroundSize: "100% 100%",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
         backgroundImage: `url(${bgImgUrl})`,
+        overflow: "hidden"
       }}
     >
       <Box
