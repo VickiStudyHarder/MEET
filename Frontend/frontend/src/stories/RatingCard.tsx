@@ -1,106 +1,96 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import Rating from "@mui/material/Rating";
-import { Avatar, CardActionArea } from "@mui/material";
-import Grid from "@mui/material/Grid";
-
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Rating from '@mui/material/Rating';
+import { Avatar, CardActionArea } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import { IUser } from '../types/meetings';
+import CalendarAvatar from '../assets/calendar_avator.jpg';
 
 export interface IRatingCard {
-  imageUrl?: string;
-  userName?: string;
-  courseName?: string;
-  Rating?: number;
-  UserType?: string;
-  Part_rate?: number
+  user: IUser;
 }
 
-export default function RatingCard(props: IRatingCard) {
+const RatingCard: React.FC<IRatingCard> = ({ user }) => {
+  const formattedRole = user.role.charAt(0).toUpperCase() + user.role.slice(1)
   return (
-    <Box sx={{ width: 662, height: 610}}>
+    <Box sx={{ width: 662, height: 610 }}>
       <Avatar
         sx={{
           width: 188,
           height: 188,
           borderRadius: 94,
-          mx: "auto"
+          mx: 'auto',
         }}
-        variant="rounded"
-        src={props.imageUrl}
+        variant='rounded'
+        src={CalendarAvatar}
       />
-
-
-      <Card sx={{
-          width: 662, 
-          height: 518, 
-          borderRadius: 5, 
-          marginTop: -12
-          }}>
-
-        <Grid container 
+      <Card
+        sx={{
+          width: 662,
+          height: 518,
+          borderRadius: 5,
+          marginTop: -12,
+        }}
+      >
+        <Grid
+          container
           sx={{
-            justifyContent: "center", 
-            alignItems: "center", 
-            direction: "column"
-            }}>
+            justifyContent: 'center',
+            alignItems: 'center',
+            direction: 'column',
+          }}
+        >
           <Grid item>
-          <CardContent sx={{borderRadius: 5, marginTop:15}}>
-          <Typography 
-            component="legend" 
-            variant="h3" 
-            sx={{
-              marginTop: 1, 
-              mx: "auto"
-              }}>
-            {props.userName}
-          </Typography>
-          
-          
-          <Typography variant="body1" component="h2">
-            {props.courseName}
-          </Typography>
-          <Typography 
-            component="legend" 
-            sx={{
-              mx: "auto" , 
-              marginTop: 1, 
-              color:"#617181"
-              }}>
-                {props.UserType}
-          </Typography>
-          <Typography 
-            variant="h5" 
-            component="legend" 
-            sx={{
-              mx: "auto", 
-              marginTop: 6, 
-              fontSize : "2rem", 
-              color:"#ABAFC7"}}
+            <CardContent sx={{ borderRadius: 5, marginTop: 15 }}>
+              <Typography
+                component='legend'
+                variant='h3'
+                sx={{
+                  my: 2,
+                  mx: 'auto',
+                }}
               >
-                Achievement
-          </Typography>
-
-          <div><Rating 
-            name="read-only" 
-            size="large" 
-            value={props.Rating} 
-            sx={{
-              marginleft: 100, 
-              marginTop: 5, 
-              fontSize : "3rem", 
-              color:"#FF054D"}} 
-              readOnly />
-          </div>
-
-          </CardContent>
+                {`${user.firstName} ${user.lastName}`}
+              </Typography>
+              <Typography
+                component='legend'
+                sx={{
+                  mx: 'auto',
+                  my: 2,
+                  color: '#617181',
+                }}
+                variant='h4'
+              >
+                {formattedRole}
+              </Typography>
+              <Typography
+                variant='h5'
+                component='legend'
+                sx={{
+                  mx: 'auto',
+                  marginTop: 6,
+                  fontSize: '2rem',
+                  color: '#ABAFC7',
+                }}
+              >
+                Your Rating
+              </Typography>
+              <Rating
+                name='read-only'
+                size='large'
+                value={user.rating}
+                sx={{ display: 'flex', justifyContent: 'center', mx: 'auto', my: 4, width: '100%' }}
+                readOnly
+              />
+            </CardContent>
           </Grid>
         </Grid>
-          
-          
       </Card>
- 
     </Box>
   );
-}
+};
+
+export default RatingCard;
