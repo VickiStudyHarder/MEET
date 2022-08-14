@@ -43,6 +43,7 @@ const CurrentMeetingCard: React.FC<ICurrentMeetingCard> = ({ meeting }) => {
         <Box className='meeting-box'>
           <Box className='name'>{meeting.summary}</Box>
           <Box className='line'></Box>
+          <Box sx={{display: 'flex', flexDirection: 'row'}}>
           <Box className='time'>
             <Typography variant='subtitle2'>
               <b>Start: </b> {start}
@@ -52,8 +53,9 @@ const CurrentMeetingCard: React.FC<ICurrentMeetingCard> = ({ meeting }) => {
               {end}
             </Typography>
           </Box>
+          <Button className='btn' onClick={() => navigate(`/meeting/${meeting.id}`)}>Start</Button>
+          </Box>
         </Box>
-        <Button className='btn' onClick={() => navigate(`/meeting/${meeting.id}`)}>Start</Button>
       </Box>
     </Box>
   );

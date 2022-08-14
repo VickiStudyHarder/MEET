@@ -44,10 +44,6 @@ const UpcomingMeetingCard: React.FC<IUpcomingMeeingCard> = ({ meeting }) => {
             {end}
           </Typography>
         </Box>
-        {/* <Box className='txt'>
-          <span>Agenda</span>
-          <span>→</span>
-        </Box> */}
       </Box>
       <Box className='r'>
         <span className='d-1'>{new Date(meeting.meetingStart).getDay()}</span>

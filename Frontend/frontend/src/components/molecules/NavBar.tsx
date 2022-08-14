@@ -23,7 +23,7 @@ const options = [
   { title: 'All Meetings', url: '/meetings' },
   { title: 'All To Dos', url: '/todo' },
   { title: 'Rating', url: '/rating' },
-  { title: 'Recording', url: '/recording' },
+  // { title: 'Recording', url: '/recording' },
   { title: 'Group', url: '/group' },
 ];
 
