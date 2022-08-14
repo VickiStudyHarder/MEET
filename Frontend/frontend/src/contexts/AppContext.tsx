@@ -683,7 +683,12 @@ const AppContextProvider = (props: any) => {
 
   const rate = async (mentorId: string, rating: number) => {};
 
-  const updateMeetingTodos = async (todos: any) => {};
+  const updateMeetingTodos = async (todos: any,userId:string) => {
+    let meetings = await getMeetingsByUserId(userId)
+    meetings.forEach((m:any)=>{
+      
+    })
+  };
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {
