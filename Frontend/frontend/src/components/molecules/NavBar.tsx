@@ -12,6 +12,8 @@ import {
   Box,
 } from '@mui/material';
 import Popover from '@mui/material/Popover';
+import LogoImg from '../../stories/LogoImg'
+import AvaterMeun from '../../stories/AvatarMenu'
 
 interface INavBar {}
 
@@ -29,6 +31,10 @@ const NavBar: React.FC<INavBar> = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const changeAvatar = () => {};
+  const img = 'https://uploads.codesandbox.io/uploads/user/3e41a372-fc65-4387-bca0-70a050914db8/VIR9-logo.jpg'
+
+
   return (
     <Box sx={{ display: 'flex', m: 4 }}>
       <Grid
@@ -41,18 +47,24 @@ const NavBar: React.FC<INavBar> = () => {
           marginBottom: '10px',
         }}
       >
-        <Toolbar>
-          {options.map((option) => {
+        <Toolbar sx={{display:'flex', justifyContent:'space-between', width:'100%'}}>
+
+          <Box sx={{display:'flex', marginLeft:5}}>
+            <LogoImg title='MEET' content='is all you need' />  
+          </Box>
+          <Box sx={{display:'flex'}}>
+             {options.map((option) => {
             return (
               <Button
                 color='inherit'
+                sx = {{color:'#70798B', marginRight: 2}}
                 onClick={(e) => {
                   navigate(option.url);
                 }}
                 key={option.title}
               >
                 {location.pathname === option.url ? (
-                  <Typography style={{ fontWeight: 600 }}>
+                  <Typography style={{ fontWeight: 600, color:'#000000' }}>
                     {option.title}
                   </Typography>
                 ) : (
@@ -60,12 +72,13 @@ const NavBar: React.FC<INavBar> = () => {
                 )}
               </Button>
             );
-          })}
+          })}          
           <Grid>
-            <Button>
-              <Avatar src='https://uploads.codesandbox.io/uploads/user/3e41a372-fc65-4387-bca0-70a050914db8/VIR9-logo.jpg' />
-            </Button>
+          <AvaterMeun pic={img} changeFunc={changeAvatar} logoutFunc={(e) => navigate('/login')} />
           </Grid>
+          </Box>
+         
+
         </Toolbar>
       </Grid>
     </Box>
