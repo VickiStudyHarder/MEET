@@ -236,6 +236,8 @@ const Calendar: React.FC<ICalendar> = () => {
     selectedMentor,
     mentorTimeOfDay,
     getMentorTimeOfDay,
+    addMeeting,
+    email,
   } = useContext(AppContext);
 
   //切分metor的list，為了顯示，以防mentor不只6位，造成視窗超出. Divide the mentor list to show two columns
@@ -246,18 +248,74 @@ const Calendar: React.FC<ICalendar> = () => {
     getAllMentors();
   }, []);
 
-  useEffect(() => {
-    console.log("calender:", allMentors);
-  }, [allMentors]);
-
   //Get the selected mentor
   const onselect = (id_check: any) => {
     getSelectedMentor(id_check);
   };
 
   const [open, setOpen] = useState(false);
-  const [selectedTimeArr, setSelectedTimeArr] = useState(false);
+  const [selectedTimeArr, setSelectedTimeArr] = useState<any[]>([]);
+  const [meetingTitle, setMeetingTitle] = useState<any>("New Meeting");
   const [minCard, setMinCard] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
+  useEffect(() => {
+    console.log("calender:", allMentors);
+  }, [allMentors]);
+
+  useEffect(() => {
+    // console.log("selectedTimeArr:", selectedTimeArr);
+  }, [selectedTimeArr]);
+
+  useEffect(() => {
+    setSelectedTimeArr(mentorTimeOfDay);
+  }, [mentorTimeOfDay]);
+  useEffect(() => {
+    console.log("Meeting title", meetingTitle);
+  }, [meetingTitle]);
+
+  const onConfirmCallback = () => {
+    console.log("selectedTimeArr:", selectedTimeArr);
+    let times = selectedTimeArr.filter((x: any) => {
+      return x.checked === true && x.disabled === false;
+    });
+    times = times.sort((a: any, b: any) => {
+      return a.hour - b.hour;
+    });
+    const len = times.length;
+    if (len > 0) {
+      let prevT = times[0].hour;
+      let flag = false;
+      times.forEach((t: any) => {
+        if (t.hour - prevT > 1) {
+          flag = true;
+        }
+      });
+      if (flag === false) {
+        const date = times[0].date
+        const startHr = times[0].hour
+        const endHr = times[len-1].hour
+        const startTime = new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDay(),
+          startHr,
+          0,0,0
+        );
+        const endTime = new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDay(),
+          endHr+1,
+          0,0,0
+        );
+        addMeeting(meetingTitle, "",startTime,endTime,email);
+      }else{
+        alert("Selected time slots should be consecutive!")
+      }
+    }
+  };
+
+  const onDenyCallback = () => {};
 
   return (
     <ThemeProvider theme={theme}>
@@ -298,12 +356,21 @@ const Calendar: React.FC<ICalendar> = () => {
               +Add
             </Button>
             <MeetingTime
-              timeArr={mentorTimeOfDay}
+              timeArr={mentorTimeOfDay.map((x: any) => ({
+                date: x.date,
+                hour: x.hour,
+                time: `${x.hour}:00-${x.hour + 1}:00`,
+                checked: x.checked,
+                disabled: x.disabled,
+              }))}
+              label={"Create Meeting"}
               open={open}
               setOpen={setOpen}
-              onConfirmCallback={null}
-              onDenyCallback={null}
+              onConfirmCallback={onConfirmCallback}
+              onDenyCallback={onDenyCallback}
+              selectedTimeArr={selectedTimeArr}
               setSelectedTimeArr={setSelectedTimeArr}
+              setMeetingTitle={setMeetingTitle}
             ></MeetingTime>
           </div>
           <CalendarTable events={mentorMeetings} hegiht="90vh" />
