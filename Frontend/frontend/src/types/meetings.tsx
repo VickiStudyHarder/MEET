@@ -28,6 +28,7 @@ export interface IMeetingAttendee {
   id?: number;
   userId: string;
   attended: boolean;
+  googleCalendarId: string;
   user?: IUser;
 }
 export interface IMeetingResponse {

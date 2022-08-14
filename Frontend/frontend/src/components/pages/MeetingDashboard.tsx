@@ -12,16 +12,19 @@ import {
 import NavBar from '../molecules/NavBar';
 import Box from '@mui/material/Box';
 import MeetingImage from '../../assets/MeetingImage.png';
-import { getMeetingById } from '../../api/meeting';
+import { getMeetingById, updateMeeting} from '../../api/meeting';
 import { useParams } from 'react-router-dom';
-import { IMeeting, INotes, IAgenda, IToDoItem } from '../../types/meetings';
+import { IMeeting, INotes, IAgenda, IToDoItem, IMeetingAttendee } from '../../types/meetings';
 import AgendaList from '../../stories/AgendaList/AgendaList';
 import MeetingBox from '../../stories/Meeting_Box';
+import AppContext from '../../contexts/AppContext';
 
 const theme = createTheme();
 
 const MeetingDasboard: React.FC<{}> = ({}) => {
   const [meeting, setMeeting] = useState<IMeeting | null>(null);
+  const [user, setUser] = useState<any>(null)
+  const { email } = useContext(AppContext)
   const { id } = useParams();
 
   useEffect(() => {
@@ -30,8 +33,36 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
 
   const handleGetMeeting = async () => {
     const result = await getMeetingById(Number(id));
+    console.log(result)
     setMeeting(result);
+    const currentUser = await result.meetingAttendee.filter((attendee: IMeetingAttendee) => attendee?.user?.id === email)
+    console.log(currentUser)
+    setUser(currentUser[0])
+    console.log({currentUser})
+    console.log({user})
   };
+
+  const handleMarkAsAttended = async () => {
+    if (!user) {
+      const currentUser = meeting?.meetingAttendee?.filter((attendee: IMeetingAttendee) => attendee?.user?.id === email)
+      setUser(currentUser)
+    }
+    const meetingAttendeeList: IMeetingAttendee[] = [];
+    meetingAttendeeList.push({
+      id: user.id,
+      userId: email,
+      attended: true,
+      googleCalendarId: ""
+    });
+    
+
+    const meetingUpdate = {
+      meetingAttendee: meetingAttendeeList,
+    };
+    console.log({ meetingUpdate });
+    await updateMeeting(meetingUpdate, Number(id));
+    await handleGetMeeting()
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -77,7 +108,7 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                   {meeting.summary}
                 </Typography>
               )}
-               <Button
+              {user && user.attended ? <Button
                 sx={{
                   minWidth: '200px',
                   minHeight: '40px',
@@ -91,8 +122,26 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                 }}
                 variant='contained'
               >
-                Complete This Meeting
-              </Button>
+                Attended
+              </Button> : <Button
+                sx={{
+                  minWidth: '200px',
+                  minHeight: '40px',
+                  maxHeight: '40px',
+                  maxWidth: '100px',
+                  borderRadius: 5,
+                  backgroundColor: '#ffd11a',
+                  color: '#FFFFFF',
+                  fontSize: 12,
+                  fontWeight: 800,
+                  my: 'auto',
+                }}
+                variant='contained'
+                onClick={handleMarkAsAttended}
+              >
+                Mark As Attended
+              </Button> 
+              }
             </Box>
           </Box>
           <Divider variant='middle' sx={{ width: '100%' }} />

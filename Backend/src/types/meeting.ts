@@ -10,7 +10,7 @@ export interface IMeetingPayload {
   attendee: string[];
   toDoItem?: IToDoItem[];
   notes?: INotes[];
-  attendees?: IMeetingAttendee[];
+  meetingAttendee?: IMeetingAttendee[];
   agendas?: IAgenda[];
   recordings?: IRecording[]
 }
@@ -30,6 +30,7 @@ export interface IMeetingAttendee {
   id: number;
   userId: string;
   attended: boolean;
+  googleCalendarId: string;
 }
 
 export interface IAgenda {
