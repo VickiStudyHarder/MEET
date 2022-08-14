@@ -66,12 +66,13 @@ export interface MeetingTimeInfo {
 }
 
 export default function MeetingTime(props:MeetingTimeInfo) {
-  const handleOpen = () => props.setOpen(true);
-  const handleClose = () => props.setOpen(false);
+  const [open, setOpen] = React.useState(true);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   return (
     <div>
       <Modal 
-        open={props.open} 
+        open={open} 
         onClose={handleClose}
         className="meeting-time-pop"
       >
