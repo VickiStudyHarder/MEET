@@ -99,6 +99,7 @@ export type IAppContext = {
   removeNote: any;
   addRecording: any;
   removeRecording: any;
+  setMeetingTodos: any;
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -639,9 +640,9 @@ const AppContextProvider = (props: any) => {
     getSelectedRecording(meetingId);
   };
 
-  const rate = async (mentorId: string, rating: number) => {};
+  const rate = async (mentorId: string, rating: number) => { };
 
-  const setTodo = async (todos: any) => {};
+  const setTodo = async (todos: any) => { };
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {
@@ -804,6 +805,7 @@ const AppContextProvider = (props: any) => {
         removeNote,
         addRecording,
         removeRecording,
+        setMeetingTodos
       }}
     >
       {props.children}
