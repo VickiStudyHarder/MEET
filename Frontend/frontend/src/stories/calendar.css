@@ -1,6 +1,5 @@
 .FullCalendarPage{
-    background-color: rgb(255, 253, 253);
-    padding: 20px;
+    /* background-color: rgb(255, 253, 253); */
 }
 .fc .fc-timegrid-slot-minor{
     border-top-style: hidden;
