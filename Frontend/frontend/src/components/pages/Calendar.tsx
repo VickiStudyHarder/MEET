@@ -1,23 +1,27 @@
-import { createTheme, CssBaseline, ThemeProvider, Divider, Typography } from '@mui/material';
-import { useEffect, useContext } from 'react';
-import React from 'react';
-import NavBar from '../molecules/NavBar';
-import Exist_StuGro_box from '../../stories/Exist_StuGro_box';
-import CalendarUserCardMini from '../../stories/CalendarUserCardMini/CalendarUserCardMini';
-import CalendarUserCardPrimary from '../../stories/CalendarUserCardPrimary/CalendarUserCardPrimary';
-import Calendar_table from '../../stories/Calendar_table';
-import CalendarMentorConfirmedMeetings from '../../stories/CalendarMentorConfirmedMeetings/CalendarMentorConfirmedMeetings';
+import {
+  createTheme,
+  CssBaseline,
+  ThemeProvider,
+  Divider,
+  Typography,
+} from "@mui/material";
+import { useEffect, useContext } from "react";
+import React from "react";
+import NavBar from "../molecules/NavBar";
+import Exist_StuGro_box from "../../stories/Exist_StuGro_box";
+import CalendarUserCardMini from "../../stories/CalendarUserCardMini/CalendarUserCardMini";
+import CalendarUserCardPrimary from "../../stories/CalendarUserCardPrimary/CalendarUserCardPrimary";
+import Calendar_table from "../../stories/Calendar_table";
+import CalendarMentorConfirmedMeetings from "../../stories/CalendarMentorConfirmedMeetings/CalendarMentorConfirmedMeetings";
 import Grid from "@mui/material/Grid";
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import AppContext from "../../contexts/AppContext";
-import PageTitle from '../../stories/PageTiltle';
+import PageTitle from "../../stories/PageTiltle";
 //import './Calendar.css';
 
-
 const theme = createTheme();
-
 
 interface ICalendar {
   ID?: string;
@@ -25,23 +29,12 @@ interface ICalendar {
   role?: string;
 }
 
-
-
 //切換導師和學生不同頁面 student/mentor different page depending on role
-let role = "student"
-
-
+let role = "student";
 
 const Calendar: React.FC<ICalendar> = () => {
-
-
   const { futureMeetings: data } = useContext(AppContext);
-  let metormeetings = JSON.parse(JSON.stringify(data))
-
-
-
-
-
+  let metormeetings = JSON.parse(JSON.stringify(data));
 
   //導師模式，所有導師未來的meetings. Mentor page, showing all the mentor confirmed meetings
 
@@ -107,7 +100,6 @@ const Calendar: React.FC<ICalendar> = () => {
 
 */
 
-
   //選中的導師, selected mentor
   /*
   const selectedMentor = [
@@ -120,144 +112,140 @@ const Calendar: React.FC<ICalendar> = () => {
   ];
   */
 
-
-
   //Mentor選單，所有mentor的列表, all the mentor list
   const AllMentors = [
     {
       mentorId: "user1",
       avatar: "./calendar_avator.jpg",
-      name: "Name 1"
+      name: "Name 1",
     },
     {
       mentorId: "2",
       avatar: "./calendar_avator.jpg",
-      name: "Name 2"
+      name: "Name 2",
     },
     {
       mentorId: "3",
       avatar: "./calendar_avator.jpg",
-      name: "Name 3"
+      name: "Name 3",
     },
     {
       mentorId: "user4",
       avatar: "./calendar_avator.jpg",
-      name: "Name 4"
+      name: "Name 4",
     },
     {
       mentorId: "user5",
       avatar: "./calendar_avator.jpg",
-      name: "Name 5"
+      name: "Name 5",
     },
     {
       mentorId: "6",
       avatar: "./calendar_avator.jpg",
-      name: "Name 6"
+      name: "Name 6",
     },
     {
       mentorId: "7",
       avatar: "./calendar_avator.jpg",
-      name: "Name 7"
+      name: "Name 7",
     },
     {
       mentorId: "8",
       avatar: "./calendar_avator.jpg",
-      name: "Name 8"
+      name: "Name 8",
     },
     {
       mentorId: "9",
       avatar: "./calendar_avator.jpg",
-      name: "Name 9"
+      name: "Name 9",
     },
     {
       mentorId: "10",
       avatar: "./calendar_avator.jpg",
-      name: "Name 10"
+      name: "Name 10",
     },
     {
       mentorId: "11",
       avatar: "./calendar_avator.jpg",
-      name: "Name 11"
+      name: "Name 11",
     },
   ];
 
-
-  const mentorMeetings = [ //導師確定的會議，給顯示在calender上, showing all the mentor meetings on calendar
+  const mentorMeetings = [
+    //導師確定的會議，給顯示在calender上, showing all the mentor meetings on calendar
     {
       meetingId: 1,
       title: "meeting 1",
       start: "2022-07-23T10:30:00+00:00",
-      end: "2022-07-23T12:30:00+00:00"
+      end: "2022-07-23T12:30:00+00:00",
     },
     {
       meetingId: 2,
       title: "meeting 2",
       start: "2022-08-13T05:00:00+00:00",
-      end: "2022-08-13T12:30:00+00:00"
+      end: "2022-08-13T12:30:00+00:00",
     },
     {
       meetingId: 3,
       title: "meeting 3",
       start: "2022-08-15T10:30:00+00:00",
-      end: "2022-08-15T12:30:00+00:00"
+      end: "2022-08-15T12:30:00+00:00",
     },
     {
       meetingId: 4,
       title: "meeting 4",
       start: "2022-08-23T10:30:00+00:00",
-      end: "2022-08-23T12:30:00+00:00"
+      end: "2022-08-23T12:30:00+00:00",
     },
     {
       meetingId: 5,
       title: "meeting 5",
       start: "2022-08-26T10:30:00+00:00",
-      end: "2022-08-26T12:30:00+00:00"
+      end: "2022-08-26T12:30:00+00:00",
     },
+  ];
 
-
-  ]
-
-
-  const StudentBookedMeetings = [//學生確定的會議，給顯示在calendar上. Student confirmed meetings to show on the calendar
+  const StudentBookedMeetings = [
+    //學生確定的會議，給顯示在calendar上. Student confirmed meetings to show on the calendar
     {
       meetingId: 1,
       title: "meeting 1",
       start: "2022-07-23T10:30:00+00:00",
-      end: "2022-07-23T12:30:00+00:00"
+      end: "2022-07-23T12:30:00+00:00",
     },
     {
       meetingId: 2,
       title: "meeting 2",
       start: "2022-08-23T10:30:00+00:00",
-      end: "2022-08-23T12:30:00+00:00"
+      end: "2022-08-23T12:30:00+00:00",
     },
     {
       meetingId: 3,
       title: "meeting 3",
       start: "2022-08-26T10:30:00+00:00",
-      end: "2022-08-26T12:30:00+00:00"
+      end: "2022-08-26T12:30:00+00:00",
     },
+  ];
 
-
-  ]
-
-
-  const { allMentors,getAllMentors,getSelectedMentor,selectedMentor } = useContext(AppContext);
-
+  const { allMentors, getAllMentors, getSelectedMentor, selectedMentor } =
+    useContext(AppContext);
 
   //切分metor的list，為了顯示，以防mentor不只6位，造成視窗超出. Divide the mentor list to show two columns
   const secondColumnStart = AllMentors.length / 2;
-  const TotalNumberofMentor = AllMentors.length
+  const TotalNumberofMentor = AllMentors.length;
 
-  useEffect(()=>{
-    getAllMentors()
-  },[])
+  useEffect(() => {
+    getAllMentors();
+  }, []);
 
+  useEffect(() => {
+    console.log("calender:", allMentors);
+  }, [allMentors]);
 
   //Get the selected mentor
   const onselect = (id_check: any) => {
-    getSelectedMentor(id_check)
-  }
+    getSelectedMentor(id_check);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -265,44 +253,69 @@ const Calendar: React.FC<ICalendar> = () => {
 
       {role === "student" && ( //學生角色，頁面, student page
         <>
-          <Box sx={{ marginLeft: 5, display: 'flex' }} >
-            <PageTitle content='Calendar' icon='5' />
+          <Box sx={{ marginLeft: 5, display: "flex" }}>
+            <PageTitle content="Calendar" icon="5" />
           </Box>
           <Divider variant="middle" sx={{ marginTop: 2 }} />
-          <Grid container direction="row" sx={{
-            alignItems: "center", justifyContent: "center", width: '100vw'
-          }}>
+          <Grid
+            container
+            direction="row"
+            sx={{
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100vw",
+            }}
+          >
             <Grid item>
               <Grid container direction="column">
-                <Grid item >
+                <Grid item>
                   <h1>Chosen Mentor:</h1>
                   <CalendarUserCardPrimary
-                    name={selectedMentor?.firstName + " " + selectedMentor?.lastName}
+                    name={
+                      selectedMentor?.firstName + " " + selectedMentor?.lastName
+                    }
                     Rating={selectedMentor?.rating}
-                    avator={selectedMentor?.avator} />
+                    avator={selectedMentor?.avator}
+                  />
                 </Grid>
                 <h3>Mentor List:</h3>
                 <Grid item sx={{ maxHeight: 400 }}>
-                  <Grid container direction="column" sx={{ maxHeight: 400, overflow: 'auto' }}>
-                    <Grid container direction="row" >
+                  <Grid
+                    container
+                    direction="column"
+                    sx={{ maxHeight: 400, overflow: "auto" }}
+                  >
+                    <Grid container direction="row">
                       <Grid item sx={{ width: 200 }}>
-                        {AllMentors.slice(0, secondColumnStart + 1).map((item: any) => (
-                          <Button id={item?.mentorId} onClick={() => onselect(item?.mentorId)}><CalendarUserCardMini
-                            name={item?.name}
-                            avator={item?.avatar}
-                          /></Button>
-                        ))}
+                        {allMentors
+                          .slice(0, secondColumnStart + 1)
+                          .map((item: any) => (
+                            <Button
+                              id={item?.mentorId}
+                              onClick={() => onselect(item?.id)}
+                            >
+                              <CalendarUserCardMini
+                                name={item?.firstName + " " + item?.lastName}
+                                avator={item?.avatar}
+                              />
+                            </Button>
+                          ))}
                       </Grid>
 
                       <Grid item sx={{ width: 200 }}>
-                        {AllMentors.slice(secondColumnStart + 1, TotalNumberofMentor).map((item) => (
-
-                          <Button id={item?.mentorId} onClick={() => onselect(item?.mentorId)}><CalendarUserCardMini
-                            name={item?.name}
-                            avator={item?.avatar}
-
-                          /></Button>
-                        ))}
+                        {allMentors
+                          .slice(secondColumnStart + 1, TotalNumberofMentor)
+                          .map((item: any) => (
+                            <Button
+                              id={item?.mentorId}
+                              onClick={() => onselect(item?.id)}
+                            >
+                              <CalendarUserCardMini
+                                name={item?.firstName + " " + item?.lastName}
+                                avator={item?.avatar}
+                              />
+                            </Button>
+                          ))}
                       </Grid>
                     </Grid>
                   </Grid>
@@ -315,54 +328,69 @@ const Calendar: React.FC<ICalendar> = () => {
             <CssBaseline />
           </Grid>
         </>
-      )
-      }
+      )}
 
-
-
-      {
-        role === "mentor" && (  //導師角色，頁面, mentor page
-          <>
-            <Box sx={{ marginLeft: 5, display: 'flex' }} >
-              <PageTitle content='Calendar' icon='5' />
-            </Box>
-            <Divider variant="middle" sx={{ marginTop: 3 }} />
-            <Grid container direction="row" sx={{
-              alignItems: "center", justifyContent: "center", width: '100vw'
-            }}>
-              <Grid item sx={{
-                mx: "auto", alignItems: "center"
-              }}>
-                <h1>Upcoming Meetings</h1>
-                <Box sx={{
-                  maxHeight: 720,
-                  overflow: 'auto',
-                  width: 400,
-                  bgcolor: '#FFFFF'
-                }}>
-                  {metormeetings.map((item: any) => (
-                    <CalendarMentorConfirmedMeetings
-                      date={[item?.date?.day, item?.date?.month, item?.date?.year]}
-                      meetingName={item?.title}
-                      time={item?.time}
-                    />
-                  ))}
-                </Box>
-              </Grid>
-              <Grid item
+      {role === "mentor" && ( //導師角色，頁面, mentor page
+        <>
+          <Box sx={{ marginLeft: 5, display: "flex" }}>
+            <PageTitle content="Calendar" icon="5" />
+          </Box>
+          <Divider variant="middle" sx={{ marginTop: 3 }} />
+          <Grid
+            container
+            direction="row"
+            sx={{
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100vw",
+            }}
+          >
+            <Grid
+              item
+              sx={{
+                mx: "auto",
+                alignItems: "center",
+              }}
+            >
+              <h1>Upcoming Meetings</h1>
+              <Box
                 sx={{
-                  width: 1200, alignItems: "center", mx: "auto", justifyContent: "center"
-                }}>
-                <Calendar_table events={mentorMeetings} />
-              </Grid>
-              <CssBaseline />
+                  maxHeight: 720,
+                  overflow: "auto",
+                  width: 400,
+                  bgcolor: "#FFFFF",
+                }}
+              >
+                {metormeetings.map((item: any) => (
+                  <CalendarMentorConfirmedMeetings
+                    date={[
+                      item?.date?.day,
+                      item?.date?.month,
+                      item?.date?.year,
+                    ]}
+                    meetingName={item?.title}
+                    time={item?.time}
+                  />
+                ))}
+              </Box>
             </Grid>
-          </>
-        )
-      }
-    </ThemeProvider >
+            <Grid
+              item
+              sx={{
+                width: 1200,
+                alignItems: "center",
+                mx: "auto",
+                justifyContent: "center",
+              }}
+            >
+              <Calendar_table events={mentorMeetings} />
+            </Grid>
+            <CssBaseline />
+          </Grid>
+        </>
+      )}
+    </ThemeProvider>
   );
-
 };
 
 export default Calendar;
