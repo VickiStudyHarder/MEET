@@ -20,6 +20,8 @@ const getByUserId: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
           include: {
             notes: true,
             toDoItem: true,
+            agendas: true,
+            recordings: true,
             meetingAttendee: {
               include: {
                 user: true,

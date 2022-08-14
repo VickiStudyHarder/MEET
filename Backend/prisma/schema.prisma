@@ -43,6 +43,7 @@ model Meeting {
   toDoItem        ToDoItem[]
   notes           Notes[]
   agendas Agendas[]
+  recordings Recordings[]
 }
 
 model MeetingAttendee {
@@ -79,6 +80,15 @@ model Agendas {
   id        Int     @id @default(autoincrement())
   title     String
   details   String
+  meeting   Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
+  meetingId Int
+}
+
+ 
+model Recordings {
+  id        Int     @id @default(autoincrement())
+  description     String
+  url   String
   meeting   Meeting @relation(fields: [meetingId], references: [id], onDelete: Cascade)
   meetingId Int
 }

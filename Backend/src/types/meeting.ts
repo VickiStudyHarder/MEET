@@ -12,6 +12,7 @@ export interface IMeetingPayload {
   notes?: INotes[];
   attendees?: IMeetingAttendee[];
   agendas?: IAgenda[];
+  recordings?: IRecording[]
 }
 export interface IToDoItem {
   id: number;
@@ -35,5 +36,11 @@ export interface IAgenda {
   id: number;
   title: string;
   details: string;
+}
+
+export interface IRecording {
+  id: number;
+  url: string;
+  description: string;
 }
 
