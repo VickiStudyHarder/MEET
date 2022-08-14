@@ -45,7 +45,7 @@ function App() {
               <Route path="/todo/:id" element={<ToDoHome />} />
               <Route path="/notes/:id" element={<Notes />} />
               <Route path="/rating" element={<Rating />} />
-              <Route path="/recording" element={<Recording />} />
+              <Route path="/recording/:id" element={<Recording />} />
               <Route path="/todos" element={<ToDos />} />
               <Route path="/login1" element={<LandingPage />} />
               <Route path="/api" element={<API />} />

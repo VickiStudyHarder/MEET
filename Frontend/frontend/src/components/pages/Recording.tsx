@@ -1,161 +1,143 @@
-import { ThemeProvider } from '@emotion/react';
-import { Box, createTheme, CssBaseline, Divider, List, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavBar from '../molecules/NavBar';
-import PageTitle from '../../stories/PageTiltle'
-import RecordingListIndex from '../../stories/RecordingListIndex'
-import RecordingList from '../../stories/RecordingList';
-import { Link } from 'react-router-dom'
-import RecordingModal from '../../stories/RecordingModal';
-
-
-interface IRecording { }
+import {
+  Container,
+  createTheme,
+  CssBaseline,
+  ThemeProvider,
+  Typography,
+  Divider,
+  Box,
+  Button,
+  Dialog,
+} from '@mui/material';
+import MeetingImage from '../../assets/MeetingImage.png';
+import { useParams } from 'react-router-dom';
+import { getMeetingById } from '../../api/meeting';
+import { IMeeting, IToDoItem, IRecording } from '../../types/meetings';
+import RecordingRow from '../molecules/RecordingRow';
+import CreateToDoForm from '../molecules/CreateToDoForm';
+import CreateRecordingForm from '../molecules/CreateRecordingForm';
 
 const theme = createTheme();
 
-const Recording: React.FC<IRecording> = () => {
-  // change role
+const Recording: React.FC<{}> = () => {
+  const { id } = useParams();
+  const [meeting, setMeeting] = useState<null | IMeeting>(null);
+  const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    handleGetMeeting();
+  }, []);
 
-  const role = 'mentor'
+  const handleGetMeeting = async () => {
+    const result = await getMeetingById(Number(id));
+    setMeeting(result);
+  };
 
-  // const { meetingRecordings: data } = useContext(AppContext)
-  // data
-  const data = [{
-    meetingId: '1', userId: '1', meetingName: 'meeting 1', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
-    recordingList: [
-      { recordingId: '1', recordingDescription: 'this is recording 1', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
-      { recordingId: '2', recordingDescription: 'this is recording 2', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
-      { recordingId: '3', recordingDescription: 'this is recording 3', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
-      { recordingId: '4', recordingDescription: 'this is recording 4', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
-      { recordingId: '5', recordingDescription: 'this is recording 5', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' }]
-  },
-  {
-    meetingId: '2', userId: '1', meetingName: 'meeting 2', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
-    recordingList: [
-    ]
-  },
-  {
-    meetingId: '3', userId: '1', meetingName: 'meeting 3', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
-    recordingList: [
-      { recordingId: '1', recordingDescription: 'this is recording 1', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
-      { recordingId: '2', recordingDescription: 'this is recording 2', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
-      { recordingId: '3', recordingDescription: 'this is recording 3', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
-      { recordingId: '4', recordingDescription: 'this is recording 4', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
-      { recordingId: '5', recordingDescription: 'this is recording 5', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' }]
-  },
-  {
-    meetingId: '4', userId: '1', meetingName: 'meeting 4', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
-    recordingList: [
-      { recordingId: '1', recordingDescription: 'this is recording 1', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
-      { recordingId: '2', recordingDescription: 'this is recording 2', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
-      { recordingId: '3', recordingDescription: 'this is recording 3', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
-      { recordingId: '4', recordingDescription: 'this is recording 4', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' },
-      { recordingId: '5', recordingDescription: 'this is recording 5', playingUrl: 'https://www.youtube.com/watch?v=Ke90Tje7VS0' }]
-  },
-  {
-    meetingId: '5', userId: '1', meetingName: 'meeting 5', pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg', createBy: 'jack',
-    recordingList: [
-    ]
-  }]
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-  const [showList, setShowList] = useState(false)
-  const [mid, setMid] = useState('')
-  const [mname, setMname] = useState('')
-  const [mpic, setMpic] = useState('')
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-  const openList = (id: string, name: string, url: string) => {
-    setShowList(true);
-    setMname(name)
-    setMid(id)
-    setMpic(url)
-  }
-
-  // delete function
-  const dFunction = () => { }
-  // edit function
-  const eFunction = () => { }
-  // add function
-  const aFunction = () => { }
-
-  const closeList = () => setShowList(false)
-  console.log('meetingId:', mid)
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <NavBar />
-      {
-        showList && (
-          <Box sx={{ margin: 10, display: 'flex', flexDirection: 'column' }}>
-            <Box sx={{ marginLeft: 3, display: 'flex' }} >
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', flexDirection: 'row', width: '100%' }}>
-                <PageTitle content={`${mname} - Recording list`} icon='6' doSomething={() => closeList()} />
-                <Box marginTop={2} marginRight={2} >
-                  {
-                    role === 'mentor' && (
-                      <RecordingModal
-                        pic={mpic}
-                        meetingName={mname}
-                        doSomething={() => aFunction()}
-                        type='add' />
-                    )
-                  }
-
-                </Box>
+      <Container maxWidth='xl' sx={{ display: 'flex', flexGrow: 1 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: 1,
+            width: '100%',
+          }}
+        >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                py: 2,
+                maxHeight: 140,
+              }}
+            >
+              <Box sx={{ my: 'auto', mr: 2 }}>
+                <img
+                  src={MeetingImage}
+                  height='120'
+                  width='120'
+                  alt='study-group-icon'
+                />
               </Box>
-
-            </Box>
-            <Divider variant="middle" sx={{ marginTop: 3 }} />
-
-            <Box sx={{ maxHeight: '75vh', overflow: 'auto' }}>
-              <List >
-                {data.map(item => (item.meetingId == mid) && (item.recordingList.map(each => (
-                  <RecordingList
-                    createdBy={item.createBy}
-                    meetingName={item.meetingName}
-                    pic={item.pic}
-                    role={role}
-                    description={each.recordingDescription}
-                    playFunc={() => window.open(each.playingUrl)}
-
-                    deleteFunc={() => dFunction()}
-                    editFunc={() => eFunction()}
-
-                  />
-                )))
-                )
-                }
-              </List>
-            </Box>
-
-          </Box>
-        )}
-
-      {
-        !showList && (
-          <Box sx={{ margin: 10, display: 'flex', flexDirection: 'column' }}>
-            <Box sx={{ marginLeft: 3, display: 'flex' }} >
-              <PageTitle content='Recording' icon='1' />
-            </Box>
-            <Divider variant="middle" sx={{ marginTop: 3 }} />
-
-            <Box sx={{ maxHeight: '75vh', overflow: 'auto' }}>
-              <List >
-                {data.map(item => (
-                  <RecordingListIndex createdBy={item?.createBy}
-                    meetingName={item?.meetingName}
-                    pic={item?.pic}
-                    role={role}
-                    status={item.recordingList.length ? true : false}
-                    numberOfRecording={item.recordingList.length.toString() ? item.recordingList.length.toString() : '0'}
-                    doSomething={() => openList(item.meetingId, item.meetingName, item.pic)} />
-                ))
-                }
-              </List>
+              <Typography
+                variant='h3'
+                sx={{ display: 'flex', flexGrow: 1, my: 'auto' }}
+              >
+                Recordings - {meeting?.summary}
+              </Typography>
+              <Button
+                onClick={handleClickOpen}
+                sx={{
+                  minWidth: '100px',
+                  minHeight: '40px',
+                  maxHeight: '40px',
+                  maxWidth: '100px',
+                  borderRadius: 5,
+                  backgroundColor: '#6001D3',
+                  color: '#FFFFFF',
+                  fontSize: 12,
+                  my: 'auto',
+                }}
+                variant='contained'
+              >
+                +Add
+              </Button>
             </Box>
           </Box>
-        )}
-
+          <Divider variant='middle' sx={{ width: '100%' }} />
+          <Box sx={{ width: '100%', m: 2 }}>
+            {meeting &&
+              meeting?.recordings?.map((recording: IRecording) => {
+                return (
+                  <div>
+                    <RecordingRow
+                      recording={recording}
+                      handleGetMeeting={handleGetMeeting}
+                      meeting={meeting}
+                    />
+                  </div>
+                );
+              })}
+          </Box>
+        </Box>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+          sx={{ display: 'flex', flexGrow: 1 }}
+          maxWidth='lg'
+        >
+          {meeting && (
+            <CreateRecordingForm
+              setOpen={setOpen}
+              meeting={meeting}
+              handleGetMeeting={handleGetMeeting}
+              handleClose={handleClose}
+            />
+          )}
+        </Dialog>
+      </Container>
     </ThemeProvider>
   );
 };

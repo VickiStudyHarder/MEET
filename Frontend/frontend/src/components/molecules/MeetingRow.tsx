@@ -87,7 +87,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
               height='40'
             />
           </Button>
-          {/* <Button
+          <Button
             sx={{ mx: 'auto', width: '100%' }}
             style={{ justifyContent: 'flex-end' }}
             onClick={() => {
@@ -101,7 +101,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
               width='40'
               height='40'
             />
-          </Button> */}
+          </Button>
         </Box>
       </Box>
       <Divider variant='middle' sx={{ width: '100%' }} />
