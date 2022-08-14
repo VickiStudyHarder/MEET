@@ -125,7 +125,7 @@ const Calendar: React.FC<ICalendar> = () => {
   //Mentor選單，所有mentor的列表, all the mentor list
   const AllMentors = [
     {
-      mentorId: "1",
+      mentorId: "user1",
       avatar: "./calendar_avator.jpg",
       name: "Name 1"
     },
@@ -250,11 +250,10 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
 
-
   const { getSelectedMentor: set_mentor } = useContext(AppContext);
   const { selectedMentor: selectedMentor } = useContext(AppContext);
 
-
+  //Get the selected mentor
   const onselect = (id_check: any) => {
     set_mentor(id_check)
   }
