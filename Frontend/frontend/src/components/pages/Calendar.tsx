@@ -38,6 +38,9 @@ const Calendar: React.FC<ICalendar> = () => {
   const { futureMeetings: data } = useContext(AppContext);
   let metormeetings = JSON.parse(JSON.stringify(data))
 
+  const { setSelectedMentor: data_select_mentor, setSelectedMentor: set_mentor } = useContext(AppContext);
+
+
 
 
   //導師模式，所有導師未來的meetings. Mentor page, showing all the mentor confirmed meetings
@@ -108,8 +111,8 @@ const Calendar: React.FC<ICalendar> = () => {
   //選中的導師, selected mentor
   const selectedMentor = [
     {
-      mentorname: "Mentor Name",
-      mentorRole: 'mentor',
+      mentorId: 4,
+      name: "Mentor Name",
       rating: 4,
       avator: './calendar_avator.jpg'
     }
@@ -244,6 +247,21 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
 
+
+
+  const { setSelectedMentor: data_select_mentor, setSelectedMentor: set_mentor } = useContext(AppContext);
+
+  const onselect = (id_check: any) => {
+    let mentor_data = JSON.parse(JSON.stringify(data_select_mentor))
+    mentor_data = mentor_data.map((item: any) => {
+      if (item.mentorId === id_check) {
+        set_mentor(mentor_data)
+      }
+
+    })
+
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
@@ -262,8 +280,7 @@ const Calendar: React.FC<ICalendar> = () => {
                 <Grid item >
                   <h1>Chosen Mentor:</h1>
                   <CalendarUserCardPrimary
-                    name={selectedMentor?.[0]?.mentorname}
-                    job={selectedMentor?.[0]?.mentorRole}
+                    name={selectedMentor?.[0]?.name}
                     Rating={selectedMentor?.[0]?.rating}
                     avator={selectedMentor?.[0]?.avator} />
                 </Grid>
@@ -273,7 +290,7 @@ const Calendar: React.FC<ICalendar> = () => {
                     <Grid container direction="row" >
                       <Grid item sx={{ width: 200 }}>
                         {AllMentors.slice(0, secondColumnStart + 1).map((item) => (
-                          <Button id={item?.mentorId}><CalendarUserCardMini
+                          <Button id={item?.mentorId} onClick={() => onselect(item?.mentorId)}><CalendarUserCardMini
                             name={item?.name}
                             avator={item?.avatar}
                           /></Button>
