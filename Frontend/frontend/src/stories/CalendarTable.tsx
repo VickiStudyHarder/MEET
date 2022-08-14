@@ -42,7 +42,7 @@ interface CalendarProps {
 /**
  * Primary UI component for user interaction
  */
-export default function Calendar_table({
+export default function CalendarTable({
   primary = false,
   size = "medium",
   backgroundColor,

@@ -11,7 +11,7 @@ import NavBar from "../molecules/NavBar";
 import Exist_StuGro_box from "../../stories/Exist_StuGro_box";
 import CalendarUserCardMini from "../../stories/CalendarUserCardMini/CalendarUserCardMini";
 import CalendarUserCardPrimary from "../../stories/CalendarUserCardPrimary/CalendarUserCardPrimary";
-import Calendar_table from "../../stories/CalendarTable";
+import CalendarTable from "../../stories/CalendarTable";
 import CalendarMentorConfirmedMeetings from "../../stories/CalendarMentorConfirmedMeetings/CalendarMentorConfirmedMeetings";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -323,7 +323,7 @@ const Calendar: React.FC<ICalendar> = () => {
               </Grid>
             </Grid>
             <Grid item sx={{ width: 1200, marginLeft: 10 }}>
-              <Calendar_table events={StudentBookedMeetings} />
+              <CalendarTable events={StudentBookedMeetings} />
             </Grid>
             <CssBaseline />
           </Grid>
@@ -383,7 +383,7 @@ const Calendar: React.FC<ICalendar> = () => {
                 justifyContent: "center",
               }}
             >
-              <Calendar_table events={mentorMeetings} />
+              <CalendarTable events={mentorMeetings} />
             </Grid>
             <CssBaseline />
           </Grid>
