@@ -1,20 +1,20 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import Calendar_table from './Calendar_table';
+import CalendarTable from './CalendarTable';
 
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
   title: 'Example/Calendar_table',
-  component: Calendar_table,
+  component: CalendarTable,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof Calendar_table>;
+} as ComponentMeta<typeof CalendarTable>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Calendar_table> = (args) => (<Calendar_table {...args} />);
+const Template: ComponentStory<typeof CalendarTable> = (args) => (<CalendarTable {...args} />);
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args

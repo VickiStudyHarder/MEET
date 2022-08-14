@@ -11,7 +11,7 @@ import NavBar from "../molecules/NavBar";
 import Exist_StuGro_box from "../../stories/Exist_StuGro_box";
 import CalendarUserCardMini from "../../stories/CalendarUserCardMini/CalendarUserCardMini";
 import CalendarUserCardPrimary from "../../stories/CalendarUserCardPrimary/CalendarUserCardPrimary";
-import Calendar_table from "../../stories/Calendar_table";
+import Calendar_table from "../../stories/CalendarTable";
 import CalendarMentorConfirmedMeetings from "../../stories/CalendarMentorConfirmedMeetings/CalendarMentorConfirmedMeetings";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
