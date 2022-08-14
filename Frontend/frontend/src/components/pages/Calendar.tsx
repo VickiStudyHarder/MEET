@@ -5,7 +5,7 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import './Calendar.css'
+import "./Calendar.css";
 import { useEffect, useContext, useState } from "react";
 import React from "react";
 import NavBar from "../molecules/NavBar";
@@ -256,51 +256,57 @@ const Calendar: React.FC<ICalendar> = () => {
   };
 
   const [open, setOpen] = useState(false);
+  const [selectedTimeArr, setSelectedTimeArr] = useState(false);
   const [minCard, setMinCard] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
   return (
     <ThemeProvider theme={theme}>
-
       <div className="flex">
         <div className="leftContent">
-          <div style={{ marginTop: '20px' }}>
+          <div style={{ marginTop: "20px" }}>
             <CalendarUserCardPrimary />
             <div className="minCardContent">
-              {
-                minCard.map((item, index) => {
-                  return (
-                    <div className="minCard">
-                      <CalendarUserCardMini />
-                    </div>
-                  )
-                })
-              }
+              {minCard.map((item, index) => {
+                return (
+                  <div className="minCard">
+                    <CalendarUserCardMini />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
         <div className="rightContent">
           <div className="add">
-          <Button
-                sx={{
-                  minWidth: '100px',
-                  minHeight: '50px',
-                  maxHeight: '50px',
-                  maxWidth: '100px',
-                  borderRadius: 8,
-                  backgroundColor: '#6001D3',
-                  color: '#fff',
-                  fontSize: 12,
-                }}
-                variant='contained'
-                onClick={() => {
-                  setOpen(true);
+            <Button
+              sx={{
+                minWidth: "100px",
+                minHeight: "50px",
+                maxHeight: "50px",
+                maxWidth: "100px",
+                borderRadius: 8,
+                backgroundColor: "#6001D3",
+                color: "#fff",
+                fontSize: 12,
+              }}
+              variant="contained"
+              onClick={() => {
+                setOpen(true);
                 getMentorTimeOfDay("", new Date("2011-10-10T14:00:00"));
-                }}
-              >
-                +Add
-              </Button>
+              }}
+            >
+              +Add
+            </Button>
+            <MeetingTime
+              timeArr={mentorTimeOfDay}
+              open={open}
+              setOpen={setOpen}
+              onConfirmCallback={null}
+              onDenyCallback={null}
+              setSelectedTimeArr={setSelectedTimeArr}
+            ></MeetingTime>
           </div>
-          <CalendarTable events={mentorMeetings} hegiht='90vh' />
+          <CalendarTable events={mentorMeetings} hegiht="90vh" />
         </div>
       </div>
     </ThemeProvider>
