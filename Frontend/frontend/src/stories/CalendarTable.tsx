@@ -79,6 +79,8 @@ export default function CalendarTable({
         allDaySlot={false}
         slotLabelFormat="HH:mm"
         slotDuration={'00:60:00'}
+        slotMinTime={"05:00:00"}
+        slotMaxTime={"22:00:00"}
         scrollTime={'08:00:00'}
         contentHeight='600'
         events={events}
