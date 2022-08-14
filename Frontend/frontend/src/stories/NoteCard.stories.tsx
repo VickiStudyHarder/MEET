@@ -23,7 +23,7 @@ const Template: ComponentStory<typeof NoteCard> = (args) => (<NoteCard {...args}
 
 export const Test = Template.bind({});
 Test.args = {
-  pic: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/List-Icon.svg/1200px-List-Icon.svg.png',
+  pic: 'https://cdn.britannica.com/41/9641-004-A8DD825D/Yorkshire-boar.jpg',
   title: 'Customer Support',
-  numberOfNotes: '15', 
+  numberOfNotes: '15',
 };

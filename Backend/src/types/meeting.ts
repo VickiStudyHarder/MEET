@@ -8,9 +8,10 @@ export interface IMeetingPayload {
   description: string;
   location: string;
   attendee: string[];
-  toDoItems?: IToDoItem[];
+  toDoItem?: IToDoItem[];
   notes?: INotes[];
   attendees?: IMeetingAttendee[];
+  agendas?: IAgenda[];
 }
 export interface IToDoItem {
   id: number;
@@ -29,3 +30,10 @@ export interface IMeetingAttendee {
   userId: string;
   attended: boolean;
 }
+
+export interface IAgenda {
+  id: number;
+  title: string;
+  details: string;
+}
+

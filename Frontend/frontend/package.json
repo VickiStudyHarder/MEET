@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@devexpress/dx-react-core": "^3.0.4",
     "@devexpress/dx-react-scheduler": "^3.0.4",
     "@devexpress/dx-react-scheduler-material-ui": "^3.0.4",
@@ -35,6 +36,7 @@
     "agora-rtc-sdk": "^3.6.11",
     "agora-rtc-sdk-ng": "^4.12.2",
     "amazon-cognito-identity-js": "^5.2.9",
+    "antd": "^4.22.4",
     "axios": "^0.27.2",
     "date-fns": "^2.29.1",
     "dotenv": "^16.0.1",
