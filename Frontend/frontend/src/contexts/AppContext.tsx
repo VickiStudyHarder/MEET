@@ -184,10 +184,10 @@ const AppContextProvider = (props: any) => {
 
   useEffect(() => {
     setSelectedMentor({
-      id: "",
-      name: "",
+      id: "user4",
+      name: "test",
       rating: 5,
-      avatar: "",
+      avatar: "./calendar_avator.jpg",
     });
     setSelectedStudent({
       id: "",
