@@ -77,11 +77,42 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                   {meeting.summary}
                 </Typography>
               )}
+               <Button
+                sx={{
+                  minWidth: '200px',
+                  minHeight: '40px',
+                  maxHeight: '40px',
+                  maxWidth: '100px',
+                  borderRadius: 5,
+                  backgroundColor: '#00b300',
+                  color: '#FFFFFF',
+                  fontSize: 12,
+                  my: 'auto',
+                }}
+                variant='contained'
+              >
+                Complete This Meeting
+              </Button>
             </Box>
           </Box>
           <Divider variant='middle' sx={{ width: '100%' }} />
           <Box sx={{ display: 'flex', flexGrow: 1, flexDirection: 'row' }}>
             <Box>
+              <Box sx={{ display: 'flex', flexGrow: 1, m: 4 }}>
+                {meeting?.agendas && (
+                  <Grid container spacing={2}>
+                    {meeting?.agendas?.map((agenda: IAgenda) => {
+                      return (
+                        <MeetingBox
+                          boxName='Agenda Item'
+                          meetingName1={agenda.title}
+                          meetingName2={agenda.details}
+                        />
+                      );
+                    })}
+                  </Grid>
+                )}
+              </Box>
               <Box sx={{ display: 'flex', flexGrow: 1, m: 4 }}>
                 {meeting?.notes && (
                   <Grid container spacing={2}>
@@ -112,14 +143,6 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                   </Grid>
                 )}
               </Box>
-            </Box>
-            <Box sx={{ display: 'flex' }}>
-              {meeting && meeting.agendas && (
-                <AgendaList
-                  agendaList={meeting.agendas}
-                  handleGetMeeting={handleGetMeeting}
-                />
-              )}
             </Box>
           </Box>
         </Box>

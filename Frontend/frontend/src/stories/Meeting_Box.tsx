@@ -9,11 +9,12 @@ import Grid from '@mui/material/Grid';
 
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import NotesIcon from '@mui/icons-material/Notes';
-import { green, pink, blue } from '@mui/material/colors';
+import BallotIcon from '@mui/icons-material/Ballot';
+import { pink, blue, purple } from '@mui/material/colors';
 import GroupsIcon from '@mui/icons-material/Groups';
 
 export interface IMeetingBox {
-  boxName: 'To Do' | 'Meeting Note';
+  boxName: 'To Do' | 'Meeting Note' | 'Agenda Item';
   meetingName1: string;
   meetingName2: string;
 }
@@ -35,12 +36,25 @@ export default function MeetingBox(props: IMeetingBox) {
       <Card sx={{ width: 260, height: 210, borderRadius: 5 }}>
         <CardActionArea>
           <CardContent sx={{ pt: 4 }}>
-            <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', m:2 }}>
-              {props.boxName === 'To Do' ? (
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100%',
+                m: 2,
+              }}
+            >
+              {props.boxName === 'Agenda Item' && (
+                <Avatar sx={{ bgcolor: purple[500], m: 'auto' }}>
+                  <BallotIcon />
+                </Avatar>
+              )}
+              {props.boxName === 'To Do' && (
                 <Avatar sx={{ bgcolor: blue[500], m: 'auto' }}>
                   <NotesIcon />
                 </Avatar>
-              ) : (
+              )}
+              {props.boxName === 'Meeting Note' && (
                 <Avatar sx={{ bgcolor: pink[500], m: 'auto' }}>
                   <AssignmentIcon />
                 </Avatar>
@@ -66,7 +80,7 @@ export default function MeetingBox(props: IMeetingBox) {
                 display: 'flex',
                 flexDirection: 'row',
                 width: '100%',
-                m:2
+                m: 2,
               }}
             >
               <GroupsIcon sx={{ mr: 2 }} />
@@ -88,7 +102,7 @@ export default function MeetingBox(props: IMeetingBox) {
                 display: 'flex',
                 flexDirection: 'row',
                 width: '100%',
-                m:2
+                m: 2,
               }}
             >
               <GroupsIcon sx={{ mr: 2 }} />
