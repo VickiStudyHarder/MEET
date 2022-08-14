@@ -46,7 +46,7 @@ const EditNoteForm: React.FC<IEditNoteForm> = ({
     const meetingUpdate = {
       notes: notesList,
     };
-    await updateMeeting(meetingUpdate, id!);
+    await updateMeeting(meetingUpdate, Number(id));
     handleGetMeeting();
     handleClose();
   };

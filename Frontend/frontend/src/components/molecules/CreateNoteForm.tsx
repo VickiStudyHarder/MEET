@@ -40,7 +40,7 @@ const CreateNoteForm: React.FC<ICreateNoteForm> = ({ setOpen, meeting, handleGet
     const meetingUpdate = {
       notes: notesList,
     };
-    await updateMeeting(meetingUpdate, id!);
+    await updateMeeting(meetingUpdate, Number(id));
     handleGetMeeting()
     handleClose()
 

@@ -35,7 +35,7 @@ const Agenda: React.FC<IAgenda> = () => {
   }, [start, end, diff]);
 
   const handleGetMeeting = async () => {
-    const result = await getMeetingById(id || '');
+    const result = await getMeetingById(Number(id));
     setMeeting(result);
     if (meeting) {
       const start = new Date(meeting.meetingStart).toLocaleString('en-AU', {
