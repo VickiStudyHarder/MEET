@@ -3,12 +3,14 @@ import Box from '@mui/material/Box';
 import './MeetingScheduleToday.scss';
 import { Button, Typography } from '@mui/material';
 import { IMeeting } from '../../types/meetings';
+import { useNavigate } from 'react-router-dom';
 
 export interface ICurrentMeetingCard {
   meeting: IMeeting;
 }
 
 const CurrentMeetingCard: React.FC<ICurrentMeetingCard> = ({ meeting }) => {
+  const navigate = useNavigate()
   const start = new Date(meeting.meetingStart).toLocaleString('en-AU', {
     year: 'numeric',
     month: '2-digit',
@@ -51,7 +53,7 @@ const CurrentMeetingCard: React.FC<ICurrentMeetingCard> = ({ meeting }) => {
             </Typography>
           </Box>
         </Box>
-        <Button className='btn'>Start</Button>
+        <Button className='btn' onClick={() => navigate(`/meeting/${meeting.id}`)}>Start</Button>
       </Box>
     </Box>
   );
