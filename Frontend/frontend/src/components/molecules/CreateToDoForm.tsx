@@ -57,7 +57,7 @@ const CreateToDoForm: React.FC<ICreateToDoForm> = ({
       toDoItem: toDoList,
     };
     console.log({meetingUpdate})
-    await updateMeeting(meetingUpdate, id!);
+    await updateMeeting(meetingUpdate, Number(id));
     handleGetMeeting();
     handleClose();
   };

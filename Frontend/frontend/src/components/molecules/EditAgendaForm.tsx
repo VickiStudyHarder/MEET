@@ -44,7 +44,7 @@ const EditAgendaForm: React.FC<IEditAgendaForm> = ({
     const meetingUpdate = {
       agendas: agendaList,
     };
-    await updateMeeting(meetingUpdate, id!);
+    await updateMeeting(meetingUpdate, Number(id));
     handleGetMeeting();
     handleClose();
   };

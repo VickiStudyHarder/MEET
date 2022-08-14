@@ -60,7 +60,7 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
       toDoItem: toDoList,
     };
     console.log({ meetingUpdate });
-    await updateMeeting(meetingUpdate, id!);
+    await updateMeeting(meetingUpdate, Number(id));
     handleGetMeeting();
     handleClose();
   };

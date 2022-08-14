@@ -41,7 +41,7 @@ const CreateAgendaItemForm: React.FC<ICreateAgendaItemForm> = ({
     const meetingUpdate = {
       agendas: agenda,
     };
-    await updateMeeting(meetingUpdate, id!);
+    await updateMeeting(meetingUpdate, Number(id));
     handleGetMeeting();
     handleClose();
   };

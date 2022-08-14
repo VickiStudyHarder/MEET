@@ -30,7 +30,7 @@ const Notes: React.FC<{}> = () => {
   }, []);
 
   const handleGetMeeting = async () => {
-    const result = await getMeetingById(id || '');
+    const result = await getMeetingById(Number(id));
     setMeeting(result);
   };
 
