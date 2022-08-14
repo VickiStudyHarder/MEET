@@ -9,16 +9,16 @@ import { styled } from '@mui/material/styles';
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
 ))(({ theme }) => ({
-  width: 50,
-  height: 26,
+  width: 32,
+  height: 16,
   padding: 0,
-  borderRadius: '18px',
+  borderRadius: '12px',
   '& .MuiSwitch-switchBase': {
     padding: 0,
     margin: 2,
     transitionDuration: '300ms',
     '&.Mui-checked': {
-      transform: 'translateX(24px)',
+      transform: 'translateX(15px)',
       color: '#fff',
       '& + .MuiSwitch-track': {
         backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#6001D3',
@@ -45,8 +45,8 @@ const IOSSwitch = styled((props: SwitchProps) => (
   },
   '& .MuiSwitch-thumb': {
     boxSizing: 'border-box',
-    width: 22,
-    height: 22,
+    width: 12,
+    height: 12,
   },
   '& .MuiSwitch-track': {
     borderRadius: 26 / 2,
@@ -56,11 +56,14 @@ const IOSSwitch = styled((props: SwitchProps) => (
       duration: 500,
     }),
   },
+  
 }));
 
 export interface MeetingTimeInfo {
   desc?: string;
+  title?: string;
   timeArr: Array<object>;
+
 }
 
 export default function MeetingTime(props:MeetingTimeInfo) {
@@ -80,7 +83,7 @@ export default function MeetingTime(props:MeetingTimeInfo) {
               <Box className="logo"></Box>
             </Box>
             <Box className="title">
-              Schedule a meeting on 12/Jul?
+              {props.title}
             </Box>
           </Box>
           <Box className="search-box">
@@ -104,7 +107,7 @@ export default function MeetingTime(props:MeetingTimeInfo) {
           </Box>
           <Box className="btn-box">
             <Button className="btn-l">Confirm</Button>
-            <Button className="btn-r">Cancel</Button>
+            <Button className="btn-r" onClick={handleClose}>Cancel</Button>
           </Box>
         </Box>
       </Modal>

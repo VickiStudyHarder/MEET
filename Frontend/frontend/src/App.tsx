@@ -19,6 +19,7 @@ import GoogleAuth from "./components/organisms/Google/Google";
 import ProtectedRoute from "./hooks/ProtectedRoute";
 import API from "./components/pages/API";
 import { AppContextProvider } from "./contexts/AppContext";
+import "./assets/font/font.css";
 
 function App() {
   return (
