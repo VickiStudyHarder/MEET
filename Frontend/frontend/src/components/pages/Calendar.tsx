@@ -5,7 +5,7 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import React from "react";
 import NavBar from "../molecules/NavBar";
 import Exist_StuGro_box from "../../stories/Exist_StuGro_box";
@@ -19,6 +19,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AppContext from "../../contexts/AppContext";
 import PageTitle from "../../stories/PageTiltle";
+import MeetingTime from "../../stories/MeetingTime/MeetingTime";
 //import './Calendar.css';
 
 const theme = createTheme();
@@ -247,17 +248,48 @@ const Calendar: React.FC<ICalendar> = () => {
     getSelectedMentor(id_check);
   };
 
+  const [open, setOpen] = useState(false);
+
   return (
     <ThemeProvider theme={theme}>
       <NavBar />
 
+      <Button variant="contained" onClick={()=>{setOpen(true)}}>+Add</Button>
+      <MeetingTime
+        timeArr={[
+          { time: "5:00-6:00", disabled: false, checked: false },
+          { time: "6:00-7:00", disabled: false, checked: false },
+          { time: "5:00-6:00", disabled: false, checked: false },
+          { time: "5:00-6:00", disabled: false, checked: false },
+          { time: "5:00-6:00", disabled: false, checked: false },
+          { time: "5:00-6:00", disabled: false, checked: false },
+          { time: "5:00-6:00", disabled: true, checked: false },
+          { time: "5:00-6:00", disabled: false, checked: false },
+          { time: "5:00-6:00", disabled: false, checked: false },
+          { time: "5:00-6:00", disabled: false, checked: false },
+          { time: "5:00-6:00", disabled: false, checked: false },
+          { time: "5:00-6:00", disabled: false, checked: false },
+          { time: "5:00-6:00", disabled: false, checked: false },
+          { time: "5:00-6:00", disabled: false, checked: false },
+          { time: "5:00-6:00", disabled: false, checked: false },
+          { time: "5:00-6:00", disabled: false, checked: false },
+        ]}
+        open={open}
+        setOpen={setOpen}
+      ></MeetingTime>
       {role === "student" && ( //學生角色，頁面, student page
         <>
           <Box sx={{ marginLeft: 5, display: "flex" }}>
             <PageTitle content="Calendar" icon="5" />
           </Box>
           <Divider variant="middle" sx={{ marginTop: 2 }} />
-          <Grid
+          <Box sx={{ width: 1200, marginLeft: 10 }}>
+            <CalendarTable
+              events={StudentBookedMeetings}
+              backgroundColor={"#000000"}
+            />
+          </Box>
+          {/* <Grid
             container
             direction="row"
             sx={{
@@ -291,7 +323,7 @@ const Calendar: React.FC<ICalendar> = () => {
                           .slice(0, secondColumnStart + 1)
                           .map((item: any) => (
                             <Button
-                              id={item?.mentorId}
+                              id={item?.id}
                               onClick={() => onselect(item?.id)}
                             >
                               <CalendarUserCardMini
@@ -307,7 +339,7 @@ const Calendar: React.FC<ICalendar> = () => {
                           .slice(secondColumnStart + 1, TotalNumberofMentor)
                           .map((item: any) => (
                             <Button
-                              id={item?.mentorId}
+                              id={item?.id}
                               onClick={() => onselect(item?.id)}
                             >
                               <CalendarUserCardMini
@@ -322,11 +354,8 @@ const Calendar: React.FC<ICalendar> = () => {
                 </Grid>
               </Grid>
             </Grid>
-            <Grid item sx={{ width: 1200, marginLeft: 10 }}>
-              <CalendarTable events={StudentBookedMeetings} />
-            </Grid>
             <CssBaseline />
-          </Grid>
+          </Grid> */}
         </>
       )}
 
