@@ -44,6 +44,7 @@ export interface IUser {
   firstName: string;
   lastName: string;
   dateOfBirth: string;
+  avatar: string;
   role: string;
   rating: number;
   totalMeetings: number;
