@@ -1,4 +1,4 @@
-import { createTheme, CssBaseline, ThemeProvider, Divider } from '@mui/material';
+import { createTheme, CssBaseline, ThemeProvider, Divider, Typography } from '@mui/material';
 import { useEffect, useContext } from 'react';
 import React from 'react';
 import NavBar from '../molecules/NavBar';
@@ -19,54 +19,6 @@ import PageTitle from '../../stories/PageTiltle';
 const theme = createTheme();
 
 
-/*
-export default function Calendar({
-  // role: student/mentor
-  role: 'student';
-  meetingID: "";
-  pic: ""
-  description: '',
-  ...props
-}: ICalendar) {
-
-  */
-
-
-/*export default function Calendar({
-  // role: student/mentor
-  role = 'student',
-  ...props
-}: ICalendar) {*/
-
-
-/* 測試接口用 ->尚未成功
-interface studentdata_test {
-  mentorId?: string,
-  name?: string,
-  rating?: number,
-  avatar?: string,
-}
-
-
-*/
-
-
-/* 測試接口用->尚未成功
-/*const { setAllMentors } = useContext(AppContext);
-const { setSelectedMentor } = useContext(AppContext);
-
-useEffect(() => {
-  studentdata_test.mentorId = setSelectedMentor.mentorId,
-    studentdata_test.name = setSelectedMentor.name,
-    studentdata_test.rating = setSelectedMentor.rating,
-    studentdata_test.avatar = setSelectedMentor.avator
-
-
-}, [setSelectedMentor]);
-*/
-
-
-
 interface ICalendar {
   ID?: string;
   // role: student/mentor
@@ -75,22 +27,22 @@ interface ICalendar {
 
 
 
-
-//切換導師和學生不同頁面 student/mentor
+//切換導師和學生不同頁面 student/mentor different page depending on role
 let role = "student"
-
 
 
 
 const Calendar: React.FC<ICalendar> = () => {
 
-  // const { calenderMentorConfirmedMeetings } = useContext(AppContext);
 
-  // useEffect(() => {}, [calenderMentorConfirmedMeetings]);
+  const { futureMeetings: data } = useContext(AppContext);
+  let metormeetings = JSON.parse(JSON.stringify(data))
 
 
 
-  //導師模式，所有導師未來的meetings
+  //導師模式，所有導師未來的meetings. Mentor page, showing all the mentor confirmed meetings
+
+  /*
   const setFutureMeetings = [
     {
       meetingId: "1",
@@ -150,9 +102,10 @@ const Calendar: React.FC<ICalendar> = () => {
     },
   ];
 
+*/
 
 
-  //選中的導師
+  //選中的導師, selected mentor
   const selectedMentor = [
     {
       mentorname: "Mentor Name",
@@ -164,7 +117,7 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
 
-  //Mentor選單，所有mentor的列表
+  //Mentor選單，所有mentor的列表, all the mentor list
   const AllMentors = [
     {
       mentorId: "1",
@@ -224,7 +177,43 @@ const Calendar: React.FC<ICalendar> = () => {
   ];
 
 
-  const mentorMeetings = [ //導師確定的會議，給顯示在calender上
+  const mentorMeetings = [ //導師確定的會議，給顯示在calender上, showing all the mentor meetings on calendar
+    {
+      meetingId: 1,
+      title: "meeting 1",
+      start: "2022-07-23T10:30:00+00:00",
+      end: "2022-07-23T12:30:00+00:00"
+    },
+    {
+      meetingId: 2,
+      title: "meeting 2",
+      start: "2022-08-13T05:00:00+00:00",
+      end: "2022-08-13T12:30:00+00:00"
+    },
+    {
+      meetingId: 3,
+      title: "meeting 3",
+      start: "2022-08-15T10:30:00+00:00",
+      end: "2022-08-15T12:30:00+00:00"
+    },
+    {
+      meetingId: 4,
+      title: "meeting 4",
+      start: "2022-08-23T10:30:00+00:00",
+      end: "2022-08-23T12:30:00+00:00"
+    },
+    {
+      meetingId: 5,
+      title: "meeting 5",
+      start: "2022-08-26T10:30:00+00:00",
+      end: "2022-08-26T12:30:00+00:00"
+    },
+
+
+  ]
+
+
+  const StudentBookedMeetings = [//學生確定的會議，給顯示在calendar上. Student confirmed meetings to show on the calendar
     {
       meetingId: 1,
       title: "meeting 1",
@@ -248,32 +237,8 @@ const Calendar: React.FC<ICalendar> = () => {
   ]
 
 
-  const StudentBookedMeetings = [//學生確定的會議，給顯示在calender上
-    {
-      meetingId: 1,
-      title: "meeting 1",
-      start: "2022-07-23T10:30:00+00:00",
-      end: "2022-07-23T12:30:00+00:00"
-    },
-    {
-      meetingId: 2,
-      title: "meeting 2",
-      start: "2022-08-23T10:30:00+00:00",
-      end: "2022-08-23T12:30:00+00:00"
-    },
-    {
-      meetingId: 3,
-      title: "meeting 3",
-      start: "2022-08-26T10:30:00+00:00",
-      end: "2022-08-26T12:30:00+00:00"
-    },
 
-
-  ]
-
-
-
-  //切分metor的list，為了顯示，以防mentor不只6位，造成視窗超出
+  //切分metor的list，為了顯示，以防mentor不只6位，造成視窗超出. Divide the mentor list to show two columns
   const secondColumnStart = AllMentors.length / 2;
   const TotalNumberofMentor = AllMentors.length
 
@@ -283,14 +248,14 @@ const Calendar: React.FC<ICalendar> = () => {
     <ThemeProvider theme={theme}>
       <NavBar />
 
-      {role === "student" && ( //學生角色，頁面
+      {role === "student" && ( //學生角色，頁面, student page
         <>
           <Box sx={{ marginLeft: 5, display: 'flex' }} >
             <PageTitle content='Calendar' icon='5' />
           </Box>
-          <Divider variant="middle" sx={{ marginTop: 3 }} />
+          <Divider variant="middle" sx={{ marginTop: 2 }} />
           <Grid container direction="row" sx={{
-            alignItems: "center", justifyContent: "center", height: "70vh", width: '100vw'
+            alignItems: "center", justifyContent: "center", width: '100vw'
           }}>
             <Grid item>
               <Grid container direction="column">
@@ -302,13 +267,13 @@ const Calendar: React.FC<ICalendar> = () => {
                     Rating={selectedMentor?.[0]?.rating}
                     avator={selectedMentor?.[0]?.avator} />
                 </Grid>
-                <h1>Mentor List:</h1>
-                <Grid item sx={{ overflow: 'auto', maxHeight: 400 }}>
-                  <Grid container direction="column">
+                <h3>Mentor List:</h3>
+                <Grid item sx={{ maxHeight: 400 }}>
+                  <Grid container direction="column" sx={{ maxHeight: 400, overflow: 'auto' }}>
                     <Grid container direction="row" >
                       <Grid item sx={{ width: 200 }}>
                         {AllMentors.slice(0, secondColumnStart + 1).map((item) => (
-                          <Button><CalendarUserCardMini
+                          <Button id={item?.mentorId}><CalendarUserCardMini
                             name={item?.name}
                             avator={item?.avatar}
                           /></Button>
@@ -342,14 +307,14 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
       {
-        role === "mentor" && (  //導師角色，頁面
+        role === "mentor" && (  //導師角色，頁面, mentor page
           <>
             <Box sx={{ marginLeft: 5, display: 'flex' }} >
               <PageTitle content='Calendar' icon='5' />
             </Box>
             <Divider variant="middle" sx={{ marginTop: 3 }} />
             <Grid container direction="row" sx={{
-              justifyContent: "center"
+              alignItems: "center", justifyContent: "center", width: '100vw'
             }}>
               <Grid item sx={{
                 mx: "auto", alignItems: "center"
@@ -358,9 +323,10 @@ const Calendar: React.FC<ICalendar> = () => {
                 <Box sx={{
                   maxHeight: 720,
                   overflow: 'auto',
-                  width: 410
+                  width: 400,
+                  bgcolor: '#FFFFF'
                 }}>
-                  {setFutureMeetings.map((item) => (
+                  {metormeetings.map((item: any) => (
                     <CalendarMentorConfirmedMeetings
                       date={[item?.date?.day, item?.date?.month, item?.date?.year]}
                       meetingName={item?.title}
