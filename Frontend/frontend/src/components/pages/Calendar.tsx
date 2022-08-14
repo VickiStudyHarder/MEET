@@ -242,27 +242,21 @@ const Calendar: React.FC<ICalendar> = () => {
   ]
 
 
-  const { getAllMentors: getAllMentors } = useContext(AppContext);
+  const { allMentors,getAllMentors,getSelectedMentor,selectedMentor } = useContext(AppContext);
 
 
   //切分metor的list，為了顯示，以防mentor不只6位，造成視窗超出. Divide the mentor list to show two columns
   const secondColumnStart = AllMentors.length / 2;
   const TotalNumberofMentor = AllMentors.length
 
-
-
-
-  const { getSelectedMentor: set_mentor } = useContext(AppContext);
-  const { selectedMentor: selectedMentor } = useContext(AppContext);
-
-
-
-
+  useEffect(()=>{
+    getAllMentors()
+  },[])
 
 
   //Get the selected mentor
   const onselect = (id_check: any) => {
-    set_mentor(id_check)
+    getSelectedMentor(id_check)
   }
 
   return (
