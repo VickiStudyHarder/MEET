@@ -100,7 +100,9 @@ export type IAppContext = {
   removeNote: any;
   addRecording: any;
   removeRecording: any;
-  updateMeetingTodos:any;
+  updateMeetingTodos: any;
+  mentorTimeOfDay: any;
+  getMentorTimeOfDay: any;
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -147,7 +149,7 @@ const AppContextProvider = (props: any) => {
   const [meetingRecordings, setMeetingRecordings] = useState<any>([{}]);
   const [selectedRecording, setSelectedRecording] = useState<any>([{}]);
 
-  const [mentorAvailableTimeOfDay,setMentorAvailableTimeOfDay] = useState([])
+  const [mentorTimeOfDay, setMentorTimeOfDay] = useState([]);
 
   // context local vars
 
@@ -431,18 +433,40 @@ const AppContextProvider = (props: any) => {
     setMentorMeetings(meetings);
   };
 
-  // const getMentorAvalableTimeOfDay = async (mentorId: string,date:Date) => {
-  //   let meetings = await getMeetingsByUserId(mentorId);
-  //   meetings = meetings.map((x: any) => ({
-  //     id: x.id,
-  //     startTime: Date.parse(x.startTime),
-  //     endTime: Date.parse(x.endTime),
-  //     title: x.title,
-  //     description: x.description,
-  //   }));
-  //   meetings = meetings.filter((x:any)=>{return x.startTime.getDay() === date.getDay()})
-  //   const []
-  // };
+  const getMentorTimeOfDay = async (mentorId: string, date: Date) => {
+    // let meetings = await getMeetingsByUserId(mentorId);
+    // meetings = meetings.map((x: any) => ({
+    //   id: x.id,
+    //   startTime: Date.parse(x.startTime),
+    //   endTime: Date.parse(x.endTime),
+    //   title: x.title,
+    //   description: x.description,
+    // }));
+    let meetings = [
+      {
+        startTime: new Date("2011-10-10T14:00:00"),
+        endTime: new Date("2011-10-10T15:00:00"),
+      },
+    ];
+    console.log("xx",meetings)
+    meetings = meetings.filter((x: any) => {
+      return x.startTime.getDay() === date.getDay();
+    });
+    const timeslots: any = Array.from(Array(16).keys()).map((x: any) => x + 5);
+    let timeArr = timeslots.map((t: any) => ({ hour: t, disabled: false }));
+    meetings.forEach((m: any) => {
+      timeArr.forEach((t: any) => {
+        console.log(m.startTime.getHours(),m.endTime.getHours())
+        if (t.hour < m.startTime.getHours() || t.hour >= m.endTime.getHours()) {
+          t.disabled = false;
+        } else {
+          t.disabled = true;
+        }
+      });
+    });
+    console.log("get time of day:",timeArr)
+    setMentorTimeOfDay(timeArr);
+  };
 
   const getMeetingTodos = async (userId: string) => {
     let meetings = await getMeetingsByUserId(userId);
@@ -823,6 +847,8 @@ const AppContextProvider = (props: any) => {
         addRecording,
         removeRecording,
         updateMeetingTodos,
+        mentorTimeOfDay,
+        getMentorTimeOfDay,
       }}
     >
       {props.children}

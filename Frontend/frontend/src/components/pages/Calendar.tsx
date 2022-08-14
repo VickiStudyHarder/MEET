@@ -228,8 +228,14 @@ const Calendar: React.FC<ICalendar> = () => {
     },
   ];
 
-  const { allMentors, getAllMentors, getSelectedMentor, selectedMentor } =
-    useContext(AppContext);
+  const {
+    allMentors,
+    getAllMentors,
+    getSelectedMentor,
+    selectedMentor,
+    mentorTimeOfDay,
+    getMentorTimeOfDay,
+  } = useContext(AppContext);
 
   //切分metor的list，為了顯示，以防mentor不只6位，造成視窗超出. Divide the mentor list to show two columns
   const secondColumnStart = AllMentors.length / 2;
@@ -254,26 +260,22 @@ const Calendar: React.FC<ICalendar> = () => {
     <ThemeProvider theme={theme}>
       <NavBar />
 
-      <Button variant="contained" onClick={()=>{setOpen(true)}}>+Add</Button>
+      <Button
+        variant="contained"
+        onClick={() => {
+          setOpen(true);
+          getMentorTimeOfDay("", new Date("2011-10-10T14:00:00"));
+        }}
+      >
+        +Add
+      </Button>
       <MeetingTime
-        timeArr={[
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "6:00-7:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: true, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-        ]}
+        timeArr={mentorTimeOfDay.map((t: any) => ({
+          hour: t.hour,
+          time: `${t.hour}:00-${t.hour + 1}:00`,
+          disabled: t.disabled,
+          checked: false,
+        }))}
         open={open}
         setOpen={setOpen}
       ></MeetingTime>
