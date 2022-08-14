@@ -16,6 +16,7 @@ import { getMeetingById } from '../../api/meeting';
 import { useParams } from 'react-router-dom';
 import { IMeeting, INotes, IAgenda, IToDoItem } from '../../types/meetings';
 import AgendaList from '../../stories/AgendaList/AgendaList';
+import MeetingBox from '../../stories/Meeting_Box';
 
 const theme = createTheme();
 
@@ -86,31 +87,11 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                   <Grid container spacing={2}>
                     {meeting?.toDoItem?.map((todo: IToDoItem) => {
                       return (
-                        <Box
-                          sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            minWidth: 200,
-                            width: 200,
-                            minHeight: 200,
-                            height: 200,
-                            border: 1,
-                            borderRadius: 2,
-                            m: 2,
-                          }}
-                        >
-                          <Box sx={{ m: 'auto' }}>
-                            <Typography variant='h5' align='center'>
-                              Agenda Item
-                            </Typography>
-                            <Typography variant='subtitle2' align='center'>
-                              {JSON.stringify(todo.dueDate)}
-                            </Typography>
-                            <Typography variant='subtitle2' align='center'>
-                              {todo.title}
-                            </Typography>
-                          </Box>
-                        </Box>
+                        <MeetingBox
+                          boxName='To Do'
+                          meetingName1={todo.dueDate.toString()}
+                          meetingName2={todo.title}
+                        />
                       );
                     })}
                   </Grid>
@@ -121,31 +102,11 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                   <Grid container spacing={2}>
                     {meeting?.notes?.map((note: INotes) => {
                       return (
-                        <Box
-                          sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            minWidth: 200,
-                            width: 200,
-                            minHeight: 200,
-                            height: 200,
-                            border: 1,
-                            borderRadius: 2,
-                            m: 2,
-                          }}
-                        >
-                          <Box sx={{ m: 'auto' }}>
-                            <Typography variant='h5' align='center'>
-                              Meeting Note
-                            </Typography>
-                            <Typography variant='subtitle2' align='center'>
-                              {note.title}
-                            </Typography>
-                            <Typography variant='subtitle2' align='center'>
-                              {note.details}
-                            </Typography>
-                          </Box>
-                        </Box>
+                        <MeetingBox
+                          boxName='Meeting Note'
+                          meetingName1={note.title}
+                          meetingName2={note.details}
+                        />
                       );
                     })}
                   </Grid>
