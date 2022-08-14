@@ -155,7 +155,7 @@ const EditNoteForm: React.FC<IEditNoteForm> = ({
                 variant='contained'
                 onClick={handleEdit}
               >
-                Create
+                Edit
               </Button>
               <Button
                 sx={{

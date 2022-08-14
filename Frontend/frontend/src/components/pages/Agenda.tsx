@@ -185,7 +185,12 @@ const Agenda: React.FC<IAgenda> = () => {
                 </Box>
               </Box>
             </Box>
-            {meeting.agendas && <AgendaList agendaList={meeting.agendas} />}
+            {meeting.agendas && (
+              <AgendaList
+                agendaList={meeting.agendas}
+                handleGetMeeting={handleGetMeeting}
+              />
+            )}
           </Box>
           <Dialog
             open={open}
