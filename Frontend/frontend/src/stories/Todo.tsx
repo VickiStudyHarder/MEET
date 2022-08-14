@@ -122,6 +122,7 @@ export const Todo: React.VFC = () => {
     idx: 0,
     name: '',
   })
+  useEffect(() => {console.log(data)}, [data]);
 
   const addTask = (item: any, index: any) => {
     let meet = JSON.parse(JSON.stringify(data))

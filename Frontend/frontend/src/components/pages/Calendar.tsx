@@ -5,6 +5,7 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
+import './Calendar.css'
 import { useEffect, useContext, useState } from "react";
 import React from "react";
 import NavBar from "../molecules/NavBar";
@@ -228,8 +229,14 @@ const Calendar: React.FC<ICalendar> = () => {
     },
   ];
 
-  const { allMentors, getAllMentors, getSelectedMentor, selectedMentor } =
-    useContext(AppContext);
+  const {
+    allMentors,
+    getAllMentors,
+    getSelectedMentor,
+    selectedMentor,
+    mentorTimeOfDay,
+    getMentorTimeOfDay,
+  } = useContext(AppContext);
 
   //切分metor的list，為了顯示，以防mentor不只6位，造成視窗超出. Divide the mentor list to show two columns
   const secondColumnStart = AllMentors.length / 2;
@@ -249,175 +256,53 @@ const Calendar: React.FC<ICalendar> = () => {
   };
 
   const [open, setOpen] = useState(false);
+  const [minCard, setMinCard] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
   return (
     <ThemeProvider theme={theme}>
-      <NavBar />
 
-      <Button variant="contained" onClick={()=>{setOpen(true)}}>+Add</Button>
-      <MeetingTime
-        timeArr={[
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "6:00-7:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: true, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-          { time: "5:00-6:00", disabled: false, checked: false },
-        ]}
-        open={open}
-        setOpen={setOpen}
-      ></MeetingTime>
-      {role === "student" && ( //學生角色，頁面, student page
-        <>
-          <Box sx={{ marginLeft: 5, display: "flex" }}>
-            <PageTitle content="Calendar" icon="5" />
-          </Box>
-          <Divider variant="middle" sx={{ marginTop: 2 }} />
-          <Box sx={{ width: 1200, marginLeft: 10 }}>
-            <CalendarTable
-              events={StudentBookedMeetings}
-              backgroundColor={"#000000"}
-            />
-          </Box>
-          {/* <Grid
-            container
-            direction="row"
-            sx={{
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100vw",
-            }}
-          >
-            <Grid item>
-              <Grid container direction="column">
-                <Grid item>
-                  <h1>Chosen Mentor:</h1>
-                  <CalendarUserCardPrimary
-                    name={
-                      selectedMentor?.firstName + " " + selectedMentor?.lastName
-                    }
-                    Rating={selectedMentor?.rating}
-                    avator={selectedMentor?.avator}
-                  />
-                </Grid>
-                <h3>Mentor List:</h3>
-                <Grid item sx={{ maxHeight: 400 }}>
-                  <Grid
-                    container
-                    direction="column"
-                    sx={{ maxHeight: 400, overflow: "auto" }}
-                  >
-                    <Grid container direction="row">
-                      <Grid item sx={{ width: 200 }}>
-                        {allMentors
-                          .slice(0, secondColumnStart + 1)
-                          .map((item: any) => (
-                            <Button
-                              id={item?.id}
-                              onClick={() => onselect(item?.id)}
-                            >
-                              <CalendarUserCardMini
-                                name={item?.firstName + " " + item?.lastName}
-                                avator={item?.avatar}
-                              />
-                            </Button>
-                          ))}
-                      </Grid>
-
-                      <Grid item sx={{ width: 200 }}>
-                        {allMentors
-                          .slice(secondColumnStart + 1, TotalNumberofMentor)
-                          .map((item: any) => (
-                            <Button
-                              id={item?.id}
-                              onClick={() => onselect(item?.id)}
-                            >
-                              <CalendarUserCardMini
-                                name={item?.firstName + " " + item?.lastName}
-                                avator={item?.avatar}
-                              />
-                            </Button>
-                          ))}
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-            <CssBaseline />
-          </Grid> */}
-        </>
-      )}
-
-      {role === "mentor" && ( //導師角色，頁面, mentor page
-        <>
-          <Box sx={{ marginLeft: 5, display: "flex" }}>
-            <PageTitle content="Calendar" icon="5" />
-          </Box>
-          <Divider variant="middle" sx={{ marginTop: 3 }} />
-          <Grid
-            container
-            direction="row"
-            sx={{
-              alignItems: "center",
-              justifyContent: "center",
-              width: "100vw",
-            }}
-          >
-            <Grid
-              item
-              sx={{
-                mx: "auto",
-                alignItems: "center",
-              }}
-            >
-              <h1>Upcoming Meetings</h1>
-              <Box
+      <div className="flex">
+        <div className="leftContent">
+          <div style={{ marginTop: '20px' }}>
+            <CalendarUserCardPrimary />
+            <div className="minCardContent">
+              {
+                minCard.map((item, index) => {
+                  return (
+                    <div className="minCard">
+                      <CalendarUserCardMini />
+                    </div>
+                  )
+                })
+              }
+            </div>
+          </div>
+        </div>
+        <div className="rightContent">
+          <div className="add">
+          <Button
                 sx={{
-                  maxHeight: 720,
-                  overflow: "auto",
-                  width: 400,
-                  bgcolor: "#FFFFF",
+                  minWidth: '100px',
+                  minHeight: '50px',
+                  maxHeight: '50px',
+                  maxWidth: '100px',
+                  borderRadius: 8,
+                  backgroundColor: '#6001D3',
+                  color: '#fff',
+                  fontSize: 12,
+                }}
+                variant='contained'
+                onClick={() => {
+                  setOpen(true);
+                getMentorTimeOfDay("", new Date("2011-10-10T14:00:00"));
                 }}
               >
-                {metormeetings.map((item: any) => (
-                  <CalendarMentorConfirmedMeetings
-                    date={[
-                      item?.date?.day,
-                      item?.date?.month,
-                      item?.date?.year,
-                    ]}
-                    meetingName={item?.title}
-                    time={item?.time}
-                  />
-                ))}
-              </Box>
-            </Grid>
-            <Grid
-              item
-              sx={{
-                width: 1200,
-                alignItems: "center",
-                mx: "auto",
-                justifyContent: "center",
-              }}
-            >
-              <CalendarTable events={mentorMeetings} />
-            </Grid>
-            <CssBaseline />
-          </Grid>
-        </>
-      )}
+                +Add
+              </Button>
+          </div>
+          <CalendarTable events={mentorMeetings} hegiht='90vh' />
+        </div>
+      </div>
     </ThemeProvider>
   );
 };
