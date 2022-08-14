@@ -5,7 +5,6 @@ export interface IMeeting {
   summary: string;
   description: string;
   location: string;
-  ownerId: string;
   toDoItem?: IToDoItem[];
   notes?: INotes[];
   meetingAttendee?: IMeetingAttendee[];
@@ -40,7 +39,7 @@ export interface IAgenda {
 }
 
 export interface IUser {
-  id?: string;
+  id: string;
   firstName: string;
   lastName: string;
   dateOfBirth: string;
