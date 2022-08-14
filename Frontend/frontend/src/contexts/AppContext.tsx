@@ -513,7 +513,7 @@ const AppContextProvider = (props: any) => {
     mentorId: string
   ) => {
     const attendee = { id: meetingId, userId: studentId, attended: false };
-    let meeting: any = await (await getMeetingById(meetingId))?.data?.body;
+    let meeting: any = await getMeetingById(meetingId);
     if (meeting?.attendees) {
       meeting.attendees.push(attendee);
       const ret = await updateMeeting(meeting, meetingId);
@@ -528,7 +528,7 @@ const AppContextProvider = (props: any) => {
     studentId: string,
     mentorId: string
   ) => {
-    let meeting: any = await (await getMeetingById(meetingId))?.data?.body;
+    let meeting: any = await getMeetingById(meetingId);
     if (meeting?.attendees) {
       meeting.attendees = meeting.attendees.filter((x: any) => {
         return x.userId !== studentId;
