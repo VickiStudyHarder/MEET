@@ -73,6 +73,7 @@ export type IAppContext = {
   meetingNotes: any;
   selectedNote: any;
   meetingTodos: any;
+  setMeetingTodos: any;
   meetingRecordings: any;
   selectedRecording: any;
   getFutureMeetings: any;
@@ -99,7 +100,7 @@ export type IAppContext = {
   removeNote: any;
   addRecording: any;
   removeRecording: any;
-  setMeetingTodos: any;
+  updateMeetingTodos:any;
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -185,10 +186,10 @@ const AppContextProvider = (props: any) => {
 
   useEffect(() => {
     setSelectedMentor({
-      id: "user4",
-      name: "test",
+      id: "",
+      name: "",
       rating: 5,
-      avatar: "./calendar_avator.jpg",
+      avatar: "",
     });
     setSelectedStudent({
       id: "",
@@ -640,9 +641,9 @@ const AppContextProvider = (props: any) => {
     getSelectedRecording(meetingId);
   };
 
-  const rate = async (mentorId: string, rating: number) => { };
+  const rate = async (mentorId: string, rating: number) => {};
 
-  const setTodo = async (todos: any) => { };
+  const updateMeetingTodos = async (todos: any) => {};
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {
@@ -779,6 +780,7 @@ const AppContextProvider = (props: any) => {
         meetingNotes,
         selectedNote,
         meetingTodos,
+        setMeetingTodos,
         meetingRecordings,
         selectedRecording,
         getFutureMeetings,
@@ -805,7 +807,7 @@ const AppContextProvider = (props: any) => {
         removeNote,
         addRecording,
         removeRecording,
-        setMeetingTodos
+        updateMeetingTodos,
       }}
     >
       {props.children}
