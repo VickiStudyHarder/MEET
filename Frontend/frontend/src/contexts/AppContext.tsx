@@ -433,141 +433,141 @@ const AppContextProvider = (props: any) => {
     }
   };
 
-  const getInMeetingAgenda = async (meetingId: number) => {
-    const resp = await getMeetingById(meetingId);
-    if (resp?.status === 200) {
-      let meeting = resp?.data?.body;
-      const agenda = {
-        meetingId: meeting,
-        agenda: meeting.agendas.map((x: any) => ({
-          itemId: x.id,
-          title: x.title,
-          content: x.content,
-        })),
-      };
-      setInMeetingAgenda(agenda);
-    } else {
-      console.error(resp?.data);
-    }
-  };
+  // const getInMeetingAgenda = async (meetingId: number) => {
+  //   const resp = await getMeetingById(meetingId);
+  //   if (resp?.status === 200) {
+  //     let meeting = resp?.data?.body;
+  //     const agenda = {
+  //       meetingId: meeting,
+  //       agenda: meeting.agendas.map((x: any) => ({
+  //         itemId: x.id,
+  //         title: x.title,
+  //         content: x.content,
+  //       })),
+  //     };
+  //     setInMeetingAgenda(agenda);
+  //   } else {
+  //     console.error(resp?.data);
+  //   }
+  // };
 
-  const getInMeetingNote = async (meetingId: number) => {
-    const resp = await getMeetingById(meetingId);
-    if (resp?.status === 200) {
-      let meeting = resp?.data?.body;
-      const note = {
-        meetingId: meeting,
-        note: meeting.notes.map((x: any) => ({
-          itemId: x.id,
-          title: x.title,
-          content: x.details,
-        })),
-      };
-      setInMeetingNote(note);
-    } else {
-      console.error(resp?.data);
-    }
-  };
+  // const getInMeetingNote = async (meetingId: number) => {
+  //   const resp = await getMeetingById(meetingId);
+  //   if (resp?.status === 200) {
+  //     let meeting = resp?.data?.body;
+  //     const note = {
+  //       meetingId: meeting,
+  //       note: meeting.notes.map((x: any) => ({
+  //         itemId: x.id,
+  //         title: x.title,
+  //         content: x.details,
+  //       })),
+  //     };
+  //     setInMeetingNote(note);
+  //   } else {
+  //     console.error(resp?.data);
+  //   }
+  // };
 
-  const getMeetingNotes = async (meetingId: number, userId: string) => {
-    const resp = await getMeetingById(meetingId);
-    if (resp?.status === 200) {
-      let meeting = resp?.data?.body;
-      const note = meeting.notes.filter((x: any) => {
-        return x.userId === userId;
-      });
-      setInMeetingNote(note);
-    } else {
-      console.error(resp?.data);
-    }
-  };
+  // const getMeetingNotes = async (meetingId: number, userId: string) => {
+  //   const resp = await getMeetingById(meetingId);
+  //   if (resp?.status === 200) {
+  //     let meeting = resp?.data?.body;
+  //     const note = meeting.notes.filter((x: any) => {
+  //       return x.userId === userId;
+  //     });
+  //     setInMeetingNote(note);
+  //   } else {
+  //     console.error(resp?.data);
+  //   }
+  // };
 
-  const getMeetingRecordings = async (meetingId: number) => {
-    const resp = await getMeetingById(meetingId);
-    if (resp?.status === 200) {
-      let meeting = resp?.data?.body;
-      const recordings = {
-        meetingId: meetingId,
-        recordings: meeting.recordings.map((x: any) => ({
-          id: x.id,
-          title: x.title,
-          cover: "",
-          file: x.file,
-        })),
-      };
-      setMeetingRecordings(recordings);
-    } else {
-      console.error(resp?.data);
-    }
-  };
+  // const getMeetingRecordings = async (meetingId: number) => {
+  //   const resp = await getMeetingById(meetingId);
+  //   if (resp?.status === 200) {
+  //     let meeting = resp?.data?.body;
+  //     const recordings = {
+  //       meetingId: meetingId,
+  //       recordings: meeting.recordings.map((x: any) => ({
+  //         id: x.id,
+  //         title: x.title,
+  //         cover: "",
+  //         file: x.file,
+  //       })),
+  //     };
+  //     setMeetingRecordings(recordings);
+  //   } else {
+  //     console.error(resp?.data);
+  //   }
+  // };
 
-  const bookMeeting = async (meetingId: number, userId: string) => {
-    const attendee = { id: meetingId, userId: userId, attended: false };
-      let meeting: any = await (await getMeetingById(meetingId))?.data?.body;
-      if (meeting?.attendees) {
-        meeting.attendees.push(attendee);
-        const ret = await updateMeeting(meeting, meetingId);
-        console.log("book meeting", ret);
-      }
-  };
+  // const bookMeeting = async (meetingId: number, userId: string) => {
+  //   const attendee = { id: meetingId, userId: userId, attended: false };
+  //     let meeting: any = await (await getMeetingById(meetingId))?.data?.body;
+  //     if (meeting?.attendees) {
+  //       meeting.attendees.push(attendee);
+  //       const ret = await updateMeeting(meeting, meetingId);
+  //       console.log("book meeting", ret);
+  //     }
+  // };
 
-  const cancelMeeting = async (meetingId: number, userId: string) => {
-      let meeting: any = await (await getMeetingById(meetingId))?.data?.body;
-      if (meeting?.attendees) {
-        meeting.attendees = meeting.attendees.filter((x: any) => {
-          return x.userId !== userId;
-        });
-        const ret = await updateMeeting(meeting, meetingId);
-        console.log("cancel meeting", ret);
-      }
-  };
+  // const cancelMeeting = async (meetingId: number, userId: string) => {
+  //     let meeting: any = await (await getMeetingById(meetingId))?.data?.body;
+  //     if (meeting?.attendees) {
+  //       meeting.attendees = meeting.attendees.filter((x: any) => {
+  //         return x.userId !== userId;
+  //       });
+  //       const ret = await updateMeeting(meeting, meetingId);
+  //       console.log("cancel meeting", ret);
+  //     }
+  // };
 
-  const addMeeting = async (
-    title: string,
-    desc: string,
-    startTime: any,
-    endTime: any,
-    userId: string
-  ) => {
-    const meeting = {
-      startTime: startTime,
-      endTime: endTime,
-      summary: title,
-      description: desc,
-      location: "",
-      attendees: [{ userId: userId, attended: false }],
-      toDoItems: [],
-      notes: [],
-    };
-    const ret = await createMeeting(meeting);
-    console.log("create meeting:", ret);
-  };
+  // const addMeeting = async (
+  //   title: string,
+  //   desc: string,
+  //   startTime: any,
+  //   endTime: any,
+  //   userId: string
+  // ) => {
+  //   const meeting = {
+  //     startTime: startTime,
+  //     endTime: endTime,
+  //     summary: title,
+  //     description: desc,
+  //     location: "",
+  //     attendees: [{ userId: userId, attended: false }],
+  //     toDoItems: [],
+  //     notes: [],
+  //   };
+  //   const ret = await createMeeting(meeting);
+  //   console.log("create meeting:", ret);
+  // };
 
-  const deleteMeeting = async (meetingId: number) => {
-    const ret = await deleteMeeting(meetingId);
-    console.log("delete meeting", ret);
-  };
+  // const deleteMeeting = async (meetingId: number) => {
+  //   const ret = await deleteMeeting(meetingId);
+  //   console.log("delete meeting", ret);
+  // };
 
-  const createAgenda = async (title:string, content:string,meetingId:number) => {
-    let meeting: any = await (await getMeetingById(meetingId))?.data?.body;
-      if (meeting?.attendees) {
-        meeting.attendees = meeting.attendees.filter((x: any) => {
-          return x.userId !== userId;
-        });
-        const ret = await updateMeeting(meeting, meetingId);
-        console.log("cancel meeting", ret);
-      }
-  };
+  // const createAgenda = async (title:string, content:string,meetingId:number) => {
+  //   let meeting: any = await (await getMeetingById(meetingId))?.data?.body;
+  //     if (meeting?.attendees) {
+  //       meeting.attendees = meeting.attendees.filter((x: any) => {
+  //         return x.userId !== userId;
+  //       });
+  //       const ret = await updateMeeting(meeting, meetingId);
+  //       console.log("cancel meeting", ret);
+  //     }
+  // };
 
-  const deleteAgenda = async (agendaId) => {};
+  // const deleteAgenda = async (agendaId) => {};
 
-  const deleteNote = async (noteId) => {};
+  // const deleteNote = async (noteId) => {};
 
-  const createNote = async (title, desc) => {};
+  // const createNote = async (title, desc) => {};
 
-  const rate = async (mentorId, rating) => {};
+  // const rate = async (mentorId, rating) => {};
 
-  const setTodo = async (todos) => {};
+  // const setTodo = async (todos) => {};
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {
