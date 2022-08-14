@@ -203,9 +203,9 @@ export const Todo: React.VFC = () => {
         </div>
         <div className="meet-userCard">
           <CalendarUserCardPrimary
-            avator={selectedStudent?.avatar}
+            avatar={selectedStudent?.avatar}
             name={selectedStudent?.name}
-            Rating={selectedStudent?.rating}
+            rating={selectedStudent?.rating}
             job={selectedStudent?.role}
           />
         </div>

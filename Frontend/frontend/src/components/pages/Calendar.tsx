@@ -291,26 +291,36 @@ const Calendar: React.FC<ICalendar> = () => {
         }
       });
       if (flag === false) {
-        const date = times[0].date
-        const startHr = times[0].hour
-        const endHr = times[len-1].hour
+        const date = times[0].date;
+        const startHr = times[0].hour;
+        const endHr = times[len - 1].hour;
         const startTime = new Date(
           date.getFullYear(),
           date.getMonth(),
           date.getDay(),
           startHr,
-          0,0,0
+          0,
+          0,
+          0
         );
         const endTime = new Date(
           date.getFullYear(),
           date.getMonth(),
           date.getDay(),
-          endHr+1,
-          0,0,0
+          endHr + 1,
+          0,
+          0,
+          0
         );
-        addMeeting(meetingTitle, "",startTime,endTime,email);
-      }else{
-        alert("Selected time slots should be consecutive!")
+        addMeeting(
+          meetingTitle,
+          "",
+          startTime.toISOString(),
+          endTime.toISOString(),
+          email
+        );
+      } else {
+        alert("Selected time slots should be consecutive!");
       }
     }
   };
@@ -322,13 +332,23 @@ const Calendar: React.FC<ICalendar> = () => {
       <div className="flex">
         <div className="leftContent">
           <div style={{ marginTop: "20px" }}>
-            <CalendarUserCardPrimary />
+            <CalendarUserCardPrimary
+              name={`${selectedMentor.lastName} ${selectedMentor.firstName}`}
+              rating={selectedMentor.rating} avatar={selectedMentor.avatar}
+            />
             <div className="minCardContent">
-              {minCard.map((item, index) => {
+              {allMentors.map((item: any, index: any) => {
                 return (
-                  <div className="minCard">
-                    <CalendarUserCardMini />
-                  </div>
+                  <Box
+                    className="minCard"
+                    onClick={() => {
+                      getSelectedMentor(item.id);
+                    }}
+                  >
+                    <CalendarUserCardMini
+                      name={`${item.lastName} ${item.firstName}`} avator={item.avatar}
+                    />
+                  </Box>
                 );
               })}
             </div>

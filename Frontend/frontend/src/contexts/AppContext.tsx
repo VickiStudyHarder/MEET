@@ -126,7 +126,7 @@ const AppContextProvider = (props: any) => {
   const [googleAuthToken, setGoogleAuthToken] = useState("");
 
   // exposed vars
-  const [selectedMentor, setSelectedMentor] = useState({}); //选中的导师
+  const [selectedMentor, setSelectedMentor] = useState<any>({firstName:"",lastName:"",rating:0}); //选中的导师
   const [selectedStudent, setSelectedStudent] = useState({});
   const [allMentors, setAllMentors] = useState([{}]); //导师列表
   const [mentorBookedMeetings, setMentorBookedMeetings] = useState([{}]); //学生模式下已被学生预定的当前老师的会议
@@ -189,12 +189,6 @@ const AppContextProvider = (props: any) => {
   }, [email]);
 
   useEffect(() => {
-    setSelectedMentor({
-      id: "",
-      name: "",
-      rating: 5,
-      avatar: "",
-    });
     setSelectedStudent({
       id: "",
       name: "",
@@ -349,6 +343,7 @@ const AppContextProvider = (props: any) => {
       firstName: item.firstName,
       lastName: item.lastName,
       rating: item.rating,
+      avatar:item.avatar || "./avatars/10.png"
     }));
     setAllMentors(mentors);
   };
@@ -360,6 +355,7 @@ const AppContextProvider = (props: any) => {
       firstName: mentor.firstName,
       lastName: mentor.lastName,
       rating: mentor.rating,
+      avatar:mentor.avatar || "./avatars/10.png"
     };
     setSelectedMentor(mentor);
   };
@@ -371,6 +367,7 @@ const AppContextProvider = (props: any) => {
       firstName: student.firstName,
       lastName: student.lastName,
       rating: student.rating,
+      avatar:student.avatar || "./avatars/10.png"
     };
     setSelectedStudent(student);
   };
@@ -596,7 +593,6 @@ const AppContextProvider = (props: any) => {
     endTime: string,
     mentorId: string
   ) => {
-    console.log("create meeting payload:",title,desc,startTime,endTime,mentorId );
     const meeting = {
       meetingStart: startTime,
       meetingEnd: endTime,
@@ -604,7 +600,12 @@ const AppContextProvider = (props: any) => {
       description: desc,
       location: "",
       meetingAttendees: [{ userId: mentorId, attended: false }],
+      toDoItem:[],
+      notes:[],
+      agendas:[],
+      recordings:[]
     } as IMeeting;
+    console.log("create meeting payload:",JSON.stringify(meeting));
     const ret = await createMeeting(meeting);
     console.log("create meeting:", ret);
     getMentorMeetings(mentorId);

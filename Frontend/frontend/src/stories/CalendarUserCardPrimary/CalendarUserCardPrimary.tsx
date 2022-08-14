@@ -18,8 +18,8 @@ import Star from '../assets/Calender/star.png';
 export interface CalendarUserCardPrimaryInfo {
   name?: string;
   job?: string;
-  Rating?: number;
-  avator?: string;
+  rating?: number;
+  avatar?: string;
 }
 
 export default function CalendarUserCardPrimary(props: CalendarUserCardPrimaryInfo) {
@@ -39,13 +39,13 @@ export default function CalendarUserCardPrimary(props: CalendarUserCardPrimaryIn
           <Rating
             name="read-only"
             size="small"
-            value={props.Rating}
+            value={props.rating}
             readOnly
           />
         </Box>
       </Box>
       <Box className="r">
-        <Avatar className="avator" src={props.avator} />
+        <Avatar className="avator" src={props.avatar} />
       </Box>
     </Box>
   );
