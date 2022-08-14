@@ -18,7 +18,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 ) => {
   const prisma = new PrismaClient();
   const meeting: IMeetingPayload = event.body as unknown as IMeetingPayload;
-  console.log(meeting);
+  console.log({meeting});
   try {
     const result = await prisma.meeting.findUnique({
       where: {
@@ -83,9 +83,10 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     }
 
     console.log('attendees');
-    if (meeting?.attendees) {
+    console.log(event.body)
+    if (meeting?.meetingAttendee) {
       await Promise.all(
-        meeting.attendees.map(async (item: IMeetingAttendee) => {
+        meeting.meetingAttendee.map(async (item: IMeetingAttendee) => {
           return await prisma.meeting.update({
             where: {
               id: Number(event.pathParameters.id),
