@@ -38,7 +38,7 @@ const Calendar: React.FC<ICalendar> = () => {
   const { futureMeetings: data } = useContext(AppContext);
   let metormeetings = JSON.parse(JSON.stringify(data))
 
-  const { setSelectedMentor: data_select_mentor, setSelectedMentor: set_mentor } = useContext(AppContext);
+
 
 
 
@@ -109,6 +109,7 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
   //選中的導師, selected mentor
+  /*
   const selectedMentor = [
     {
       mentorId: 4,
@@ -117,6 +118,7 @@ const Calendar: React.FC<ICalendar> = () => {
       avator: './calendar_avator.jpg'
     }
   ];
+  */
 
 
 
@@ -249,17 +251,12 @@ const Calendar: React.FC<ICalendar> = () => {
 
 
 
-  const { setSelectedMentor: data_select_mentor, setSelectedMentor: set_mentor } = useContext(AppContext);
+  const { getSelectedMentor: set_mentor } = useContext(AppContext);
+  const { selectedMentor: selectedMentor } = useContext(AppContext);
+
 
   const onselect = (id_check: any) => {
-    let mentor_data = JSON.parse(JSON.stringify(data_select_mentor))
-    mentor_data = mentor_data.map((item: any) => {
-      if (item.mentorId === id_check) {
-        set_mentor(mentor_data)
-      }
-
-    })
-
+    set_mentor(id_check)
   }
 
   return (
@@ -300,7 +297,7 @@ const Calendar: React.FC<ICalendar> = () => {
                       <Grid item sx={{ width: 200 }}>
                         {AllMentors.slice(secondColumnStart + 1, TotalNumberofMentor).map((item) => (
 
-                          <Button><CalendarUserCardMini
+                          <Button id={item?.mentorId} onClick={() => onselect(item?.mentorId)}><CalendarUserCardMini
                             name={item?.name}
                             avator={item?.avatar}
 
