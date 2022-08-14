@@ -723,7 +723,7 @@ const AppContextProvider = (props: any) => {
         getMentorAvailableMeetings,
         getMentorMeetings,
         getMeetingTodos,
-        setMeetingTodos,
+        setMeetingTodos
       }}
     >
       {props.children}
