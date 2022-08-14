@@ -83,23 +83,6 @@ const Meetings = () => {
               >
                 Your Meetings
               </Typography>
-              <Button
-                onClick={handleClickOpen}
-                sx={{
-                  minWidth: '100px',
-                  minHeight: '40px',
-                  maxHeight: '40px',
-                  maxWidth: '100px',
-                  borderRadius: 5,
-                  backgroundColor: '#6001D3',
-                  color: '#FFFFFF',
-                  fontSize: 12,
-                  my: 'auto',
-                }}
-                variant='contained'
-              >
-                +Add
-              </Button>
             </Box>
           </Box>
           <Divider variant='middle' sx={{ width: '100%' }} />

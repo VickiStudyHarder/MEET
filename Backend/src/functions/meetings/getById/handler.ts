@@ -23,7 +23,8 @@ const getById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
             user: true
           }
         },
-        agendas: true
+        agendas: true,
+        recordings: true
       }
     })
     return formatJSONResponse({
