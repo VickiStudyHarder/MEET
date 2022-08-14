@@ -42,3 +42,9 @@ export const deleteToDoItem = async (id: number) => {
   return result.data.body
 };
 
+export const deleteAgendaItem = async (id: number) => {
+  const result = await axiosClient.delete(`agenda/${id}`);
+  return result.data.body
+};
+
+

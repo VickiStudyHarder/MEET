@@ -16,7 +16,8 @@ import {
   getById,
   getByUserId,
   removeNote,
-  removeToDo
+  removeToDo,
+  removeAgenda,
 } from '@functions/meetings';
 
 import {
@@ -76,7 +77,8 @@ const serverlessConfiguration: AWS = {
     getAllGroups,
     sendMessage,
     removeNote,
-    removeToDo
+    removeToDo,
+    removeAgenda,
   },
   package: { individually: true },
   custom: {

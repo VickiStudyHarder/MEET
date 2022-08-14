@@ -10,60 +10,24 @@ import './AgendaList.scss';
 import { IAgenda } from '../../types/meetings';
 import MeetingsArrow from '../../assets/MeetingsArrow.png';
 import { useEffect } from 'react';
+import AgendaListItem from '../../components/molecules/AgendaListItem';
+import { AnyRecordWithTtl } from 'dns';
 
 export interface IAgendaList {
   agendaList: IAgenda[];
+  handleGetMeeting: any;
 }
 
-const AgendaList: React.FC<IAgendaList> = ({ agendaList }) => {
+const AgendaList: React.FC<IAgendaList> = ({ agendaList, handleGetMeeting }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <Box className='agenda-list-wrap' sx={{ height: '100%' }}>
       <Box className='title'>Agenda list</Box>
       <Box className='box'>
-        {agendaList.map((item: IAgenda, index) => (
-          <Box className='item' key={index}>
-            <Box className='l'>{index + 1}</Box>
-            <Box className='r'>
-              <Box className='tit'>{item.title}</Box>
-              <Box className='desc'>{item.details} </Box>
-            </Box>
-            <Box>
-              <Button
-                sx={{ mx: 'auto', width: '100%' }}
-                style={{ justifyContent: 'flex-end' }}
-                onClick={() => {
-                  setOpen(true);
-                }}
-              >
-                <Typography variant='subtitle2' sx={{ color: 'black', mr: 2 }}>
-                  Edit
-                </Typography>
-                <img
-                  src={MeetingsArrow}
-                  alt='meeting-arrow'
-                  width='30'
-                  height='30'
-                />
-              </Button>
-              <Button
-                sx={{ mx: 'auto', width: '100%' }}
-                style={{ justifyContent: 'flex-end' }}
-              >
-                <Typography variant='subtitle2' sx={{ color: 'black', mr: 2 }}>
-                  Delete
-                </Typography>
-                <img
-                  src={MeetingsArrow}
-                  alt='meeting-arrow'
-                  width='30'
-                  height='30'
-                />
-              </Button>
-            </Box>
-          </Box>
-        ))}
+        {agendaList.map((item: IAgenda, index) => {
+          return <AgendaListItem item={item} index={index} handleGetMeeting={handleGetMeeting}/>;
+        })}
       </Box>
     </Box>
   );

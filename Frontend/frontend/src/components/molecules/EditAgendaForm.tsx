@@ -1,12 +1,5 @@
 import React, { Dispatch, useContext, useState } from 'react';
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  SelectChangeEvent,
-} from '@mui/material';
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -14,52 +7,43 @@ import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { IToDoItem, INotes, IMeeting, IMeetingAttendee } from '../../types/meetings';
+import { IAgenda, IMeeting, INotes } from '../../types/meetings';
 import { AppContext } from '../../contexts/AppContext';
 import { updateMeeting } from '../../api/meeting';
 import { useParams } from 'react-router-dom';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
-export interface IEditToDoForm {
+export interface IEditAgendaForm {
   setOpen: Dispatch<React.SetStateAction<boolean>>;
   handleGetMeeting: any;
   handleClose: any;
-  toDoItem: IToDoItem;
-  meeting: IMeeting;
+  agenda: IAgenda;
 }
 
-const EditToDoForm: React.FC<IEditToDoForm> = ({
+const EditAgendaForm: React.FC<IEditAgendaForm> = ({
   setOpen,
   handleGetMeeting,
   handleClose,
-  toDoItem,
-  meeting
+  agenda,
 }) => {
   const { id } = useParams();
   const { email } = useContext(AppContext);
-  const [title, setTitle] = useState(toDoItem.title);
-  const [dueDate, setDueDate] = useState<Date | null>(toDoItem.dueDate);
-  const [assigneeId, setAssigneeId] = useState(toDoItem.assigneeId);
+  const [title, setTitle] = useState(agenda.title || '');
+  const [details, setDetails] = useState(agenda.details || '');
 
-  const handleCreate = async (e: any) => {
+  const handleEdit = async (e: any) => {
     e.preventDefault();
     console.log(title);
-
-    const toDoList: IToDoItem[] = [];
-    toDoList.push({
-      id: toDoItem.id,
+    console.log(details);
+    const agendaList: IAgenda[] = [];
+    agendaList.push({
+      id: agenda.id!,
       title: title,
-      dueDate: dueDate || new Date(),
-      assigneeId: assigneeId,
+      details: details,
     });
-    console.log(toDoList);
 
     const meetingUpdate = {
-      toDoItem: toDoList,
+      agendas: agendaList,
     };
-    console.log({ meetingUpdate });
     await updateMeeting(meetingUpdate, id!);
     handleGetMeeting();
     handleClose();
@@ -70,8 +54,8 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
     setTitle(event.target.value);
   };
 
-  const handleAssigneeChange = (event: SelectChangeEvent) => {
-    setAssigneeId(event.target.value as string);
+  const handleDetailsChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDetails(event.target.value);
   };
 
   return (
@@ -114,72 +98,37 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
                   variant='body1'
                   sx={{ fontSize: 40, mx: 2, my: 'auto' }}
                 >
-                  Create To Do
+                  Edit Agenda
                 </Typography>
               </Grid>
             </Grid>
-            <Grid
-              item
-              sx={{
-                m: 2,
-              }}
-            >
+
+            <Grid item>
               <TextField
                 id='title'
                 fullWidth
                 label='title'
                 variant='filled'
+                sx={{
+                  marginTop: 5,
+                }}
                 value={title}
                 onChange={handleTitleChange}
               />
             </Grid>
-            <Grid
-              item
-              sx={{
-                m: 2,
-              }}
-            >
-              <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
-                  label='Date Of Birth'
-                  inputFormat='MM/dd/yyyy'
-                  value={dueDate}
-                  onChange={(value: Date | null) => setDueDate(value)}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </LocalizationProvider>
+            <Grid item>
+              <TextField
+                id='details'
+                fullWidth
+                label='details'
+                variant='filled'
+                sx={{
+                  marginTop: 6,
+                }}
+                value={details}
+                onChange={handleDetailsChange}
+              />
             </Grid>
-            <Grid
-              item
-              sx={{
-                m: 2,
-              }}
-            >
-              <FormControl fullWidth>
-                <InputLabel id='demo-simple-select-label'>Assignee</InputLabel>
-                <Select
-                  labelId='demo-simple-select-label'
-                  id='demo-simple-select'
-                  value={toDoItem.assigneeId}
-                  label='Assignee'
-                  onChange={handleAssigneeChange}
-                >
-                  {meeting?.meetingAttendee &&
-                    meeting.meetingAttendee &&
-                    meeting.meetingAttendee.map(
-                      (attendee: IMeetingAttendee) => {
-                        return (
-                          <MenuItem value={attendee.userId}>
-                            {attendee?.user?.firstName}{' '}
-                            {attendee?.user?.lastName}
-                          </MenuItem>
-                        );
-                      }
-                    )}
-                </Select>
-              </FormControl>
-            </Grid>
-
             <Grid
               item
               container
@@ -202,7 +151,7 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
                   fontSize: 12,
                 }}
                 variant='contained'
-                onClick={handleCreate}
+                onClick={handleEdit}
               >
                 Edit
               </Button>
@@ -232,4 +181,4 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
   );
 };
 
-export default EditToDoForm;
+export default EditAgendaForm;
