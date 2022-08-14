@@ -65,6 +65,14 @@ export type IAppContext = {
   meetingTodos: any;
   meetingRecordings: any;
   selectedRecording: any;
+  getFutureMeetings: any;
+  getAllMentors: any;
+  getSelectedMentor: any;
+  getSelectedStudent: any;
+  getStudentBookedMeetings: any;
+  getMentorAvailableMeetings: any;
+  getMentorMeetings: any;
+  getMeetingTodos: any;
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -706,6 +714,14 @@ const AppContextProvider = (props: any) => {
         meetingTodos,
         meetingRecordings,
         selectedRecording,
+        getFutureMeetings,
+        getAllMentors,
+        getSelectedMentor,
+        getSelectedStudent,
+        getStudentBookedMeetings,
+        getMentorAvailableMeetings,
+        getMentorMeetings,
+        getMeetingTodos,
       }}
     >
       {props.children}
