@@ -453,7 +453,7 @@ const AppContextProvider = (props: any) => {
       return x.startTime.getDay() === date.getDay();
     });
     const timeslots: any = Array.from(Array(16).keys()).map((x: any) => x + 5);
-    let timeArr = timeslots.map((t: any) => ({ hour: t, disabled: false }));
+    let timeArr = timeslots.map((t: any) => ({ hour: t, disabled: false,checked:false }));
     meetings.forEach((m: any) => {
       timeArr.forEach((t: any) => {
         console.log(m.startTime.getHours(),m.endTime.getHours())
@@ -461,6 +461,7 @@ const AppContextProvider = (props: any) => {
           t.disabled = false;
         } else {
           t.disabled = true;
+          t.checked = true;
         }
       });
     });

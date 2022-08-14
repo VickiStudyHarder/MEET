@@ -274,7 +274,7 @@ const Calendar: React.FC<ICalendar> = () => {
           hour: t.hour,
           time: `${t.hour}:00-${t.hour + 1}:00`,
           disabled: t.disabled,
-          checked: false,
+          checked: t.checked,
         }))}
         open={open}
         setOpen={setOpen}
