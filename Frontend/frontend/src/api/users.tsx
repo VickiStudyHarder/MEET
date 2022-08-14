@@ -12,6 +12,7 @@ export const deleteUser = (id: string) => {
 
 export const getUser = async (id: string) => {
   const resp = await axiosClient.get(`/user/${id}`);
+  console.log(`getUser:${id}`,resp)
   return resp.data.body;
 };
 
