@@ -1,48 +1,28 @@
-import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
-import React from 'react';
-import NavBar from '../molecules/NavBar';
-import Exist_StuGro_box from '../../stories/Exist_StuGro_box';
-import CalendarUserCardMini from '../../stories/CalendarUserCardMini/CalendarUserCardMini';
-import CalendarUserCardPrimary from '../../stories/CalendarUserCardPrimary/CalendarUserCardPrimary';
-import Calendar_table from '../../stories/Calendar_table';
-import CalendarMentorConfirmedMeetings from '../../stories/CalendarMentorConfirmedMeetings/CalendarMentorConfirmedMeetings';
+import {
+  createTheme,
+  CssBaseline,
+  ThemeProvider,
+  Divider,
+  Typography,
+} from "@mui/material";
+import { useEffect, useContext, useState } from "react";
+import React from "react";
+import NavBar from "../molecules/NavBar";
+import Exist_StuGro_box from "../../stories/Exist_StuGro_box";
+import CalendarUserCardMini from "../../stories/CalendarUserCardMini/CalendarUserCardMini";
+import CalendarUserCardPrimary from "../../stories/CalendarUserCardPrimary/CalendarUserCardPrimary";
+import CalendarTable from "../../stories/CalendarTable";
+import CalendarMentorConfirmedMeetings from "../../stories/CalendarMentorConfirmedMeetings/CalendarMentorConfirmedMeetings";
 import Grid from "@mui/material/Grid";
-import Paper from '@mui/material/Paper';
-import Box from '@mui/material/Box';
+import Paper from "@mui/material/Paper";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import AppContext from "../../contexts/AppContext";
+import PageTitle from "../../stories/PageTiltle";
+import MeetingTime from "../../stories/MeetingTime/MeetingTime";
 //import './Calendar.css';
 
-
-
-
-
-
 const theme = createTheme();
-
-
-
-
-
-
-
-/*
-export default function Calendar({
-  // role: student/mentor
-  role: 'student';
-  meetingID: "";
-  pic: ""
-  description: '',
-  ...props
-}: ICalendar) {
-
-  */
-
-
-
-/*export default function Calendar({
-  // role: student/mentor
-  role = 'student',
-  ...props
-}: ICalendar) {*/
 
 interface ICalendar {
   ID?: string;
@@ -50,305 +30,398 @@ interface ICalendar {
   role?: string;
 }
 
-
-//test trial the role: student/mentor
-let role = "mentor"
-
-
+//切換導師和學生不同頁面 student/mentor different page depending on role
+let role = "student";
 
 const Calendar: React.FC<ICalendar> = () => {
+  const { futureMeetings: data } = useContext(AppContext);
+  let metormeetings = JSON.parse(JSON.stringify(data));
 
-  // const { calenderMentorConfirmedMeetings } = useContext(AppContext);
+  //導師模式，所有導師未來的meetings. Mentor page, showing all the mentor confirmed meetings
 
-  // useEffect(() => {}, [calenderMentorConfirmedMeetings]);
-
-  //fake data for testing
-  const data = [
+  /*
+  const setFutureMeetings = [
     {
-      date: ["01", "DEC", "2022"],
-      meetingName: "Meeting name 1",
+      meetingId: "1",
+      start: "",
+      end: "",
+      date: { day: "01", month: "DEC", year: "2022" },
+      title: "Meeting name 1",
       time: "12:00 - 13:00",
     },
     {
-      date: ["02", "DEC", "2022"],
-      meetingName: "name 2",
-      time: "14:00 - 15:00",
+      meetingId: "2",
+      start: "",
+      end: "",
+      date: { day: "02", month: "DEC", year: "2022" },
+      title: "Meeting name 2",
+      time: "14:30 - 15:00",
     },
     {
-      date: ["02", "DEC", "2022"],
-      meetingName: "name 3",
+      meetingId: "3",
+      start: "",
+      end: "",
+      date: { day: "04", month: "DEC", year: "2022" },
+      title: "Meeting name 3",
       time: "14:00 - 15:30",
     },
     {
-      date: ["10", "DEC", "2022"],
-      meetingName: "name 4",
+      meetingId: "4",
+      start: "",
+      end: "",
+      date: { day: "05", month: "Jan", year: "2023" },
+      title: "Meeting name 4",
       time: "11:00 - 12:00",
     },
     {
-      date: ["19", "DEC", "2022"],
-      meetingName: "name 5",
+      meetingId: "5",
+      start: "",
+      end: "",
+      date: { day: "06", month: "Feb", year: "2022" },
+      title: "Meeting name 5",
       time: "14:00 - 16:00",
     },
     {
-      date: ["20", "DEC", "2022"],
-      meetingName: "name 6",
+      meetingId: "6",
+      start: "",
+      end: "",
+      date: { day: "07", month: "Mar", year: "2022" },
+      title: "Meeting name 6",
       time: "14:00 - 15:00",
     },
     {
-      date: ["28", "DEC", "2022"],
-      meetingName: "name 7",
+      meetingId: "7",
+      start: "",
+      end: "",
+      date: { day: "08", month: "Apr", year: "2022" },
+      title: "Meeting name 7",
       time: "15:00 - 17:00",
     },
   ];
 
-  const studentdata = [
+*/
+
+  //選中的導師, selected mentor
+  /*
+  const selectedMentor = [
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
+      mentorId: 4,
+      name: "Mentor Name",
       rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      avator: './calendar_avator.jpg'
     }
   ];
+  */
 
-
-  const mentorlistdata = [
+  //Mentor選單，所有mentor的列表, all the mentor list
+  const AllMentors = [
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "user1",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 1",
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "2",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 2",
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "3",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 3",
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "user4",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 4",
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "user5",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 5",
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "6",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 6",
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "7",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 7",
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "8",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 8",
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "9",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 9",
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "10",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 10",
     },
     {
-      mentorname: "hi1",
-      mentorRole: 'mentor',
-      rating: 4,
-      avator: 'https://live.staticflickr.com/65535/52235219796_6d0b0362ab_q.jpg'
+      mentorId: "11",
+      avatar: "./calendar_avator.jpg",
+      name: "Name 11",
     },
   ];
 
-  const secondColumnStart = mentorlistdata.length / 2;
-  const TotalNumberofMentor = mentorlistdata.length
+  const mentorMeetings = [
+    //導師確定的會議，給顯示在calender上, showing all the mentor meetings on calendar
+    {
+      meetingId: 1,
+      title: "meeting 1",
+      start: "2022-07-23T10:30:00+00:00",
+      end: "2022-07-23T12:30:00+00:00",
+    },
+    {
+      meetingId: 2,
+      title: "meeting 2",
+      start: "2022-08-13T05:00:00+00:00",
+      end: "2022-08-13T12:30:00+00:00",
+    },
+    {
+      meetingId: 3,
+      title: "meeting 3",
+      start: "2022-08-15T10:30:00+00:00",
+      end: "2022-08-15T12:30:00+00:00",
+    },
+    {
+      meetingId: 4,
+      title: "meeting 4",
+      start: "2022-08-23T10:30:00+00:00",
+      end: "2022-08-23T12:30:00+00:00",
+    },
+    {
+      meetingId: 5,
+      title: "meeting 5",
+      start: "2022-08-26T10:30:00+00:00",
+      end: "2022-08-26T12:30:00+00:00",
+    },
+  ];
+
+  const StudentBookedMeetings = [
+    //學生確定的會議，給顯示在calendar上. Student confirmed meetings to show on the calendar
+    {
+      meetingId: 1,
+      title: "meeting 1",
+      start: "2022-07-23T10:30:00+00:00",
+      end: "2022-07-23T12:30:00+00:00",
+    },
+    {
+      meetingId: 2,
+      title: "meeting 2",
+      start: "2022-08-23T10:30:00+00:00",
+      end: "2022-08-23T12:30:00+00:00",
+    },
+    {
+      meetingId: 3,
+      title: "meeting 3",
+      start: "2022-08-26T10:30:00+00:00",
+      end: "2022-08-26T12:30:00+00:00",
+    },
+  ];
+
+  const {
+    allMentors,
+    getAllMentors,
+    getSelectedMentor,
+    selectedMentor,
+    mentorTimeOfDay,
+    getMentorTimeOfDay,
+  } = useContext(AppContext);
+
+  //切分metor的list，為了顯示，以防mentor不只6位，造成視窗超出. Divide the mentor list to show two columns
+  const secondColumnStart = AllMentors.length / 2;
+  const TotalNumberofMentor = AllMentors.length;
+
+  useEffect(() => {
+    getAllMentors();
+  }, []);
+
+  useEffect(() => {
+    console.log("calender:", allMentors);
+  }, [allMentors]);
+
+  //Get the selected mentor
+  const onselect = (id_check: any) => {
+    getSelectedMentor(id_check);
+  };
+
+  const [open, setOpen] = useState(false);
 
   return (
-
     <ThemeProvider theme={theme}>
       <NavBar />
-      {role === "student" && (
+
+      <Button
+        variant="contained"
+        onClick={() => {
+          setOpen(true);
+          getMentorTimeOfDay("", new Date("2011-10-10T14:00:00"));
+        }}
+      >
+        +Add
+      </Button>
+      <MeetingTime
+        timeArr={mentorTimeOfDay.map((t: any) => ({
+          hour: t.hour,
+          time: `${t.hour}:00-${t.hour + 1}:00`,
+          disabled: t.disabled,
+          checked: t.checked,
+        }))}
+        open={open}
+        setOpen={setOpen}
+      ></MeetingTime>
+      {role === "student" && ( //學生角色，頁面, student page
         <>
-          <Grid container direction="row" sx={{
-            alignItems: "center", justifyContent: "center"
-          }}>
+          <Box sx={{ marginLeft: 5, display: "flex" }}>
+            <PageTitle content="Calendar" icon="5" />
+          </Box>
+          <Divider variant="middle" sx={{ marginTop: 2 }} />
+          <Box sx={{ width: 1200, marginLeft: 10 }}>
+            <CalendarTable
+              events={StudentBookedMeetings}
+              backgroundColor={"#000000"}
+            />
+          </Box>
+          {/* <Grid
+            container
+            direction="row"
+            sx={{
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100vw",
+            }}
+          >
             <Grid item>
               <Grid container direction="column">
-                <Grid item >
+                <Grid item>
                   <h1>Chosen Mentor:</h1>
                   <CalendarUserCardPrimary
-                    name={studentdata?.[0]?.mentorname}
-                    job={studentdata?.[0]?.mentorRole}
-                    Rating={studentdata?.[0]?.rating}
-                    avator={studentdata?.[0]?.avator} />
+                    name={
+                      selectedMentor?.firstName + " " + selectedMentor?.lastName
+                    }
+                    Rating={selectedMentor?.rating}
+                    avator={selectedMentor?.avator}
+                  />
                 </Grid>
-
-                <h1>Mentor List:</h1>
-                <Grid item sx={{ overflow: 'auto', height: 400 }}>
-                  <Grid container direction="column">
-                    <Grid container direction="row" >
+                <h3>Mentor List:</h3>
+                <Grid item sx={{ maxHeight: 400 }}>
+                  <Grid
+                    container
+                    direction="column"
+                    sx={{ maxHeight: 400, overflow: "auto" }}
+                  >
+                    <Grid container direction="row">
                       <Grid item sx={{ width: 200 }}>
-
-
-                        {mentorlistdata.slice(0, secondColumnStart + 1).map((item) => (
-
-                          <CalendarUserCardMini
-                            name={item?.mentorname}
-                            avator={item?.avator}
-
-                          />
-                        ))}
+                        {allMentors
+                          .slice(0, secondColumnStart + 1)
+                          .map((item: any) => (
+                            <Button
+                              id={item?.id}
+                              onClick={() => onselect(item?.id)}
+                            >
+                              <CalendarUserCardMini
+                                name={item?.firstName + " " + item?.lastName}
+                                avator={item?.avatar}
+                              />
+                            </Button>
+                          ))}
                       </Grid>
 
-                      <Grid item sx={{ overflow: 'auto' }}>
-                        {mentorlistdata.slice(secondColumnStart + 1, TotalNumberofMentor).map((item) => (
-
-                          <CalendarUserCardMini
-                            name={item?.mentorname}
-                            avator={item?.avator}
-
-                          />
-                        ))}
-
+                      <Grid item sx={{ width: 200 }}>
+                        {allMentors
+                          .slice(secondColumnStart + 1, TotalNumberofMentor)
+                          .map((item: any) => (
+                            <Button
+                              id={item?.id}
+                              onClick={() => onselect(item?.id)}
+                            >
+                              <CalendarUserCardMini
+                                name={item?.firstName + " " + item?.lastName}
+                                avator={item?.avatar}
+                              />
+                            </Button>
+                          ))}
                       </Grid>
                     </Grid>
                   </Grid>
                 </Grid>
-
-
               </Grid>
-
-
-
-            </Grid>
-            <Grid item sx={{ width: 1200, marginLeft: 10 }}>
-              <Calendar_table />
             </Grid>
             <CssBaseline />
+          </Grid> */}
+        </>
+      )}
 
-
-
+      {role === "mentor" && ( //導師角色，頁面, mentor page
+        <>
+          <Box sx={{ marginLeft: 5, display: "flex" }}>
+            <PageTitle content="Calendar" icon="5" />
+          </Box>
+          <Divider variant="middle" sx={{ marginTop: 3 }} />
+          <Grid
+            container
+            direction="row"
+            sx={{
+              alignItems: "center",
+              justifyContent: "center",
+              width: "100vw",
+            }}
+          >
+            <Grid
+              item
+              sx={{
+                mx: "auto",
+                alignItems: "center",
+              }}
+            >
+              <h1>Upcoming Meetings</h1>
+              <Box
+                sx={{
+                  maxHeight: 720,
+                  overflow: "auto",
+                  width: 400,
+                  bgcolor: "#FFFFF",
+                }}
+              >
+                {metormeetings.map((item: any) => (
+                  <CalendarMentorConfirmedMeetings
+                    date={[
+                      item?.date?.day,
+                      item?.date?.month,
+                      item?.date?.year,
+                    ]}
+                    meetingName={item?.title}
+                    time={item?.time}
+                  />
+                ))}
+              </Box>
+            </Grid>
+            <Grid
+              item
+              sx={{
+                width: 1200,
+                alignItems: "center",
+                mx: "auto",
+                justifyContent: "center",
+              }}
+            >
+              <CalendarTable events={mentorMeetings} />
+            </Grid>
+            <CssBaseline />
           </Grid>
         </>
-
-      )
-      }
-
-
-
-      {
-        role === "mentor" && (
-          <>
-            <Grid container direction="row" sx={{
-              justifyContent: "center"
-            }}>
-              <Grid item sx={{
-                mx: "auto", alignItems: "center"
-              }}>
-                <h1>Upcoming Meetings</h1>
-                <Box sx={{
-                  maxHeight: 720,
-                  overflow: 'auto',
-                  width: 410
-
-
-                }}>
-                  {data.map((item) => (
-
-                    <CalendarMentorConfirmedMeetings
-                      date={item?.date}
-                      meetingName={item?.meetingName}
-                      time={item?.time}
-
-                    />
-                  ))}
-
-
-
-
-                </Box>
-
-              </Grid>
-              <Grid item
-                sx={{
-                  width: 1200, alignItems: "center", mx: "auto", justifyContent: "center"
-                }}>
-                <Calendar_table />
-              </Grid>
-              <CssBaseline />
-
-
-
-            </Grid>
-          </>
-
-        )
-      }
-
-    </ThemeProvider >
-
-
-
-
-
+      )}
+    </ThemeProvider>
   );
-
-
-
-
-
-
-  /*
-  return (
-    <>
-        {
-          role === 'mentor' && (
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <NavBar />
-              <Exist_StuGro_box />
-              <div>Calendar1</div>
-            </ThemeProvider>
- 
- 
-          )
-        }
-        {
-          role === 'student' && (
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <NavBar />
-              <Exist_StuGro_box />
-              <div>Calendar</div>
-            </ThemeProvider>
- 
- 
-          )
- 
-        }
-      </>
-  );
-  */
 };
 
 export default Calendar;

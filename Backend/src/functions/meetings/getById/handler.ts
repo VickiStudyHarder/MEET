@@ -18,7 +18,12 @@ const getById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       include : {
         notes: true,
         toDoItem: true,
-        meetingAttendee: true
+        meetingAttendee: {
+          include: {
+            user: true
+          }
+        },
+        agendas: true
       }
     })
     return formatJSONResponse({

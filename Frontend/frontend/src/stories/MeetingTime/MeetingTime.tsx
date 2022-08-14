@@ -63,17 +63,15 @@ export interface MeetingTimeInfo {
   desc?: string;
   title?: string;
   timeArr: Array<object>;
-
 }
 
 export default function MeetingTime(props:MeetingTimeInfo) {
-  const [open, setOpen] = React.useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => props.setOpen(true);
+  const handleClose = () => props.setOpen(false);
   return (
     <div>
       <Modal 
-        open={open} 
+        open={props.open} 
         onClose={handleClose}
         className="meeting-time-pop"
       >
@@ -90,7 +88,7 @@ export default function MeetingTime(props:MeetingTimeInfo) {
             <input type="text" placeholder="Meeting name" />
           </Box>
           <Box className="time-box">
-            {props.timeArr.map((item) =>
+            {props.timeArr.map((item:any) =>
               <Box className="time-item">
                   <FormControlLabel
                   control={

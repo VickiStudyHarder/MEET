@@ -13,23 +13,29 @@ const getByUserId: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   try {
     const result = await prisma.meetingAttendee.findMany({
       where: {
-        userId: event.pathParameters.userId
+        userId: event.pathParameters.userId,
       },
-      select : {
+      select: {
         meeting: {
           include: {
             notes: true,
             toDoItem: true,
-            meetingAttendee: true
-          }
-        }
-      } 
-    })
-    console.log(result)
+            agendas: true,
+            recordings: true,
+            meetingAttendee: {
+              include: {
+                user: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    console.log(result);
     return formatJSONResponse({
       statusCode: 200,
       message: `${event}`,
-      body: result
+      body: result,
     });
   } catch (e) {
     return formatJSONResponse({

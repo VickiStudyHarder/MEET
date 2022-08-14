@@ -84,6 +84,7 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
       firstName: 'test',
       lastName: 'test',
       dateOfBirth: new Date(),
+      avatar: '1',
       role: 'student',
       rating: 0,
       totalMeetings: 0,

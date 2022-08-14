@@ -14,10 +14,11 @@ import {
   ThemeProvider,
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import './Login.scss';
 import CustomInput from '../../../stories/Input';
+import LogoImg from '../../../stories/LogoImg'
 
 const theme = createTheme();
 
@@ -53,13 +54,14 @@ const SignUp = () => {
               <Typography component="h1" variant="h5">
                 Sign in
               </Typography> */}
-          <Box className='title'>
+          {/* <Box className='title'>
             <Box className='l'></Box>
             <Box className='r'>
               <Box className='txt-1'>MEET</Box>
               <Box className='txt-2'>is all you need</Box>
             </Box>
-          </Box>
+          </Box> */}
+          <LogoImg title='MEET' content='is all you need' />
           <Box component='form' onSubmit={onSubmit} noValidate>
             <CustomInput
               margin='normal'

@@ -15,6 +15,9 @@ import {
   update,
   getById,
   getByUserId,
+  removeNote,
+  removeToDo,
+  removeAgenda,
 } from '@functions/meetings';
 
 import {
@@ -23,7 +26,7 @@ import {
   leaveGroup,
   getGroupById,
   getAllGroups,
-  sendMessage
+  sendMessage,
 } from '@functions/groups';
 
 import { createCalendarEvent } from '@functions/google';
@@ -72,7 +75,10 @@ const serverlessConfiguration: AWS = {
     leaveGroup,
     getGroupById,
     getAllGroups,
-    sendMessage
+    sendMessage,
+    removeNote,
+    removeToDo,
+    removeAgenda,
   },
   package: { individually: true },
   custom: {
