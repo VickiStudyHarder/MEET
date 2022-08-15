@@ -110,10 +110,10 @@ interface MeetingProps {
 export const Todo: React.VFC = () => {
   const [user, setUser] = React.useState<User>()
   // const [data, setData] = React.useState(list)
-  const { meetingTodos: data, setMeetingTodos: setData, getMeetingTodos, email } = useContext(AppContext);
+  const { meetingTodos: data, setMeetingTodos: setData,getUserInfo,userInfo, getMeetingTodos, email } = useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
-  const { selectedStudent } = useContext(AppContext);
-  useEffect(() => { }, [selectedStudent]);
+  // const { selectedStudent } = useContext(AppContext);
+  // useEffect(() => { }, [selectedStudent]);
   const [filter, setfilter] = React.useState(false)
   const [isModalVisible, setisModalVisible] = React.useState(false)
   const [modalCtx, setModalCtx] = React.useState({
@@ -125,10 +125,9 @@ export const Todo: React.VFC = () => {
 
   // useEffect(() => {console.log(getMeetingTodos(email))}, []);
 
-  // useEffect(() => {
-  //   console.log("navbar:email=", email);
-  //   getUserInfo(email);
-  // }, []);
+  useEffect(() => {
+    getUserInfo(email);
+  }, []);
 
   // useEffect(() => {
   //   console.log("navbar:userinfo=", userInfo);
@@ -191,7 +190,7 @@ export const Todo: React.VFC = () => {
   const onFilter = () => {
     let meet = JSON.parse(JSON.stringify(data))
     meet = meet.map((item: any) => {
-      if (false === item.task.deled) {
+      if (0 === item.task.length) {
         item.option.show = !item.option.show
       }
       return item
@@ -200,7 +199,6 @@ export const Todo: React.VFC = () => {
     setData(meet)
   }
 
-  console.log(data)
 
   return (
     <article>
@@ -218,10 +216,10 @@ export const Todo: React.VFC = () => {
         </div>
         <div className="meet-userCard">
           <CalendarUserCardPrimary
-            avatar={data?.avatar}
-            name={data?.name}
-            rating={data?.rating}
-            job={data?.role}
+            avatar={`./avatars/${userInfo?.avatar || "0"}.png`}
+            name={userInfo?(userInfo.firstName +' ' +userInfo.lastName):''}
+            rating={userInfo?.rating}
+            job={userInfo?.role}
           />
         </div>
         <div className="meet-box">

@@ -331,15 +331,17 @@ const AppContextProvider = (props: any) => {
 
   const getMeetingTodos = async (userId: string) => {
     let meetings = await getMeetingsByUserId(userId);
-    console.log("getMeetingTodos", meetings);
+    console.log("getMeeting", meetings);
+    console.log("meetingtodo",meetingTodos)
     if (meetings) {
-      meetings = meetings.map((m: any) => ({
+      if (meetingTodos.length === 0) {
+        meetings = meetings.map((m: any) => ({
         meetingId: m.meeting.id,
         option: {
           show: true,
           showAdd: true,
         },
-        title: m.meeting.title,
+        title: m.meeting.summary,
         task: m.meeting.toDoItem.map((td: any) => ({
           id: td.id,
           name: td.title,
@@ -349,6 +351,10 @@ const AppContextProvider = (props: any) => {
         })),
       }));
       setMeetingTodos(meetings);
+      } else {
+        setMeetingTodos(meetingTodos);
+      }
+      
     }
   };
 

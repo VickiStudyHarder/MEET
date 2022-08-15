@@ -15,6 +15,7 @@ export interface IRatingCard {
 
 const RatingCard: React.FC<IRatingCard> = ({ user }) => {
   const formattedRole = user.role.charAt(0).toUpperCase() + user.role.slice(1)
+  console.log("rating", user)
   return (
     <Box sx={{ width: 662, height: 610 }}>
       <Avatar
@@ -25,7 +26,7 @@ const RatingCard: React.FC<IRatingCard> = ({ user }) => {
           mx: 'auto',
         }}
         variant='rounded'
-        src={CalendarAvatar}
+        src={`./avatars/${user?.avatar || "0"}.png`}
       />
       <Card
         sx={{
