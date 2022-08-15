@@ -111,10 +111,10 @@ interface MeetingProps {
 export const Todo: React.VFC = () => {
   const [user, setUser] = React.useState<User>()
   // const [data, setData] = React.useState(list)
-  const { meetingTodos:data, setMeetingTodos:setData, getMeetingTodos,email,userInfo, getUserInfo } = useContext(AppContext);
+  const { meetingTodos: data, setMeetingTodos: setData, getMeetingTodos, email } = useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
   const { selectedStudent } = useContext(AppContext);
-  useEffect(() => {}, [selectedStudent]);
+  useEffect(() => { }, [selectedStudent]);
   const [filter, setfilter] = React.useState(false)
   const [isModalVisible, setisModalVisible] = React.useState(false)
   const [modalCtx, setModalCtx] = React.useState({
@@ -122,18 +122,21 @@ export const Todo: React.VFC = () => {
     idx: 0,
     name: '',
   })
-  useEffect(() => {console.log(data)}, [data]);
+  useEffect(() => { console.log(data) }, [data]);
 
   // useEffect(() => {console.log(getMeetingTodos(email))}, []);
 
-  useEffect(() => {
-    console.log("navbar:email=", email);
-    getUserInfo(email);
-  }, []);
+  // useEffect(() => {
+  //   console.log("navbar:email=", email);
+  //   getUserInfo(email);
+  // }, []);
 
-  useEffect(() => {
-    console.log("navbar:userinfo=", userInfo);
-  }, [userInfo]);
+  // useEffect(() => {
+  //   console.log("navbar:userinfo=", userInfo);
+  // }, [userInfo]);
+
+  useEffect(() => { getMeetingTodos(email) }, [email]);
+  
 
   const addTask = (item: any, index: any) => {
     let meet = JSON.parse(JSON.stringify(data))
@@ -216,10 +219,10 @@ export const Todo: React.VFC = () => {
         </div>
         <div className="meet-userCard">
           <CalendarUserCardPrimary
-            avatar={userInfo?.avatar}
-            name={userInfo?(userInfo.firstName + userInfo.lastName):''}
-            rating={userInfo?.rating}
-            job={userInfo?.role}
+            avatar={data?.avatar}
+            name={data?.name}
+            rating={data?.rating}
+            job={data?.role}
           />
         </div>
         <div className="meet-box">
