@@ -332,13 +332,13 @@ const AppContextProvider = (props: any) => {
   const getMeetingTodos = async (userId: string) => {
     let meetings = await getMeetingsByUserId(userId);
     meetings = meetings.map((m: any) => ({
-      meetingId: m.id,
+      meetingId: m.meeting.id,
       option: {
         show: true,
         showAdd: true,
       },
-      title: m.title,
-      task: m.toDoItems.map((td: any) => ({
+      title: m.meeting.title,
+      task: m.meeting.toDoItems.map((td: any) => ({
         id: td.id,
         name: td.title,
         isCompleted: false,
@@ -346,7 +346,7 @@ const AppContextProvider = (props: any) => {
         isEditing: false,
       })),
     }));
-    setMentorMeetings(meetings);
+    setAllMeetings(meetings);
   };
 
   const getInMeetingAgenda = async (meetingId: number) => {
