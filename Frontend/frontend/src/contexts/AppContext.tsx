@@ -297,9 +297,9 @@ const AppContextProvider = (props: any) => {
   };
 
   const getMentorTimeOfDay = async (mentorId: string, date: Date) => {
-    console.log("getMentorTimeOfDay:params", mentorId, date);
+    // console.log("getMentorTimeOfDay:params", mentorId, date);
     let meetings = await getMeetingsByUserId(mentorId);
-    console.log("getMentorTimeOfDay:raw meetings", meetings);
+    // console.log("getMentorTimeOfDay:raw meetings", meetings);
     meetings = meetings.map((x: any) => ({
       id: x.meeting.id,
       startTime: new Date(x.meeting.meetingStart),
@@ -307,16 +307,16 @@ const AppContextProvider = (props: any) => {
       title: x.meeting.summary,
       description: x.meeting.description,
     }));
-    console.log("getMentorTimeOfDay:mapped meetings", meetings);
+    // console.log("getMentorTimeOfDay:mapped meetings", meetings);
     meetings = meetings.filter((x: any) => {
       const start = new Date(x.startTime.getTime());
       const comp = new Date(date.getTime());
       start.setHours(0, 0, 0, 0);
       comp.setHours(0, 0, 0, 0);
-      console.log(start.getTime(), comp.getTime());
+      // console.log(start.getTime(), comp.getTime());
       return start.getTime() === comp.getTime();
     });
-    console.log("getMentorTimeOfDay:filtered meetings", meetings);
+    // console.log("getMentorTimeOfDay:filtered meetings", meetings);
     const timeslots: any = Array.from(Array(16).keys()).map((x: any) => x + 5);
     let timeArr = timeslots.map((t: any) => ({
       hour: t,
@@ -336,7 +336,7 @@ const AppContextProvider = (props: any) => {
         }
       });
     });
-    console.log("get time of day:time arr", timeArr);
+    // console.log("get time of day:time arr", timeArr);
     setMentorTimeOfDay(timeArr);
   };
 

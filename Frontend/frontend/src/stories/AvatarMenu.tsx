@@ -94,7 +94,7 @@ export default function AccountMenu({
 
         <MenuItem onClick={logoutFunc}>
           <ListItemIcon>
-            <Logout fontSize="small" />
+            <Logout fontSize="small" fontFamily={"Quicksand"}/>
           </ListItemIcon>
           Logout
         </MenuItem>

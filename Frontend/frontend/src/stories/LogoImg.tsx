@@ -29,10 +29,10 @@ export default function Logo({
         <GroupsIcon style={{ fontSize: 33, color: '#ffffff' }} />
       </Box> */}
       <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft:1 }}>
-      <Typography variant="h6" component="div" fontWeight={'bold'} marginTop={-0.5} >
+      <Typography variant="h6" component="div" fontWeight={'bold'} marginTop={-0.5} fontFamily={"Quicksand"}>
                       {title}
       </Typography>
-      <Typography variant="body2" component="div"  >
+      <Typography variant="body2" component="div" fontFamily={"Quicksand"} >
                       {content}
       </Typography>
       </Box>

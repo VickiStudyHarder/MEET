@@ -27,7 +27,7 @@ export default function PostingCard(props: CalendarUserCardMiniInfo) {
         <Avatar className="avator" src={props.avator} />
       </Box>
       <Box className="main">
-        <Box className="name"> 
+        <Box className="name" style={{fontFamily:"Quicksand"}}> 
           {props.name}
         </Box>
       </Box>
