@@ -62,10 +62,8 @@ export type IAppContext = {
   selectedMentor: any;
   selectedStudent: any;
   allMentors: any;
-  mentorBookedMeetings: any;
-  mentorAvailableMeetings: any;
   mentorMeetings: any;
-  futureMeetings: any;
+  allMeetings: any;
   meetingRequests: any;
   inMeetingAgenda: any;
   inMeetingNote: any;
@@ -76,12 +74,10 @@ export type IAppContext = {
   setMeetingTodos: any;
   meetingRecordings: any;
   selectedRecording: any;
-  getFutureMeetings: any;
+  getAllMeetings: any;
   getAllMentors: any;
   getSelectedMentor: any;
   getSelectedStudent: any;
-  getMentorBookedMeetings: any;
-  getMentorAvailableMeetings: any;
   getMentorMeetings: any;
   getMeetingTodos: any;
   getInMeetingAgenda: any;
@@ -135,11 +131,9 @@ const AppContextProvider = (props: any) => {
   }); //选中的导师
   const [selectedStudent, setSelectedStudent] = useState({});
   const [allMentors, setAllMentors] = useState([{}]); //导师列表
-  const [mentorBookedMeetings, setMentorBookedMeetings] = useState([{}]); //学生模式下已被学生预定的当前老师的会议
-  const [mentorAvailableMeetings, setMentorAvailableMeetings] = useState([{}]); //学生模式下当前老师的可被预定会议
   const [mentorMeetings, setMentorMeetings] = useState([{}]); //老师模式下自己的meeting
 
-  const [futureMeetings, setFutureMeetings] = useState<any>([{}]); //老师模式下未来的会议
+  const [allMeetings, setAllMeetings] = useState<any>([{}]); //老师模式下未来的会议
   const [meetingRequests, setMeetingsRequests] = useState<any>([{}]); //老师模式下学生的所有入会请求
 
   const [inMeetingAgenda, setInMeetingAgenda] = useState<any>({});
@@ -203,10 +197,8 @@ const AppContextProvider = (props: any) => {
       avatar: "",
     });
     setAllMentors([{ id: "", avatar: "", name: "" }]);
-    setMentorBookedMeetings([{ id: "", title: "", start: "", end: "" }]);
-    setMentorAvailableMeetings([{ id: "", title: "", start: "", end: "" }]);
     setMentorMeetings([{ id: "", title: "", start: "", end: "" }]);
-    setFutureMeetings([
+    setAllMeetings([
       {
         id: "",
         start: "",
@@ -324,7 +316,7 @@ const AppContextProvider = (props: any) => {
         ],
       },
     ]);
-    getFutureMeetings("z3417347@gmail.com");
+    getAllMeetings("z3417347@gmail.com");
     getAllMentors();
   }, []);
 
@@ -340,19 +332,26 @@ const AppContextProvider = (props: any) => {
     setUserInfo(user);
   };
 
-  const getFutureMeetings = async (userId: string) => {
+  const getAllMeetings = async (userId: string) => {
     let meetings = await getMeetingsByUserId(userId);
     meetings = meetings.map((item: any) => ({
       id: item.id,
       startTime: Date.parse(item.startTime),
       endTime: Date.parse(item.endTime),
-      title: item.title,
+      title: item.summary,
       description: item.description,
+      expired:true
     }));
     meetings = meetings.sort((a: any, b: any) => {
       return a.startTime > b.startTime;
     });
-    setFutureMeetings(meetings);
+    meetings = meetings.map((m:any)=>{
+      if(m.startTime > Date.now()){
+        m.expired = false
+      }
+      return m
+    })
+    setAllMeetings(meetings);
   };
 
   const getAllMentors = async () => {
@@ -391,61 +390,23 @@ const AppContextProvider = (props: any) => {
     setSelectedStudent(student);
   };
 
-  const getMentorBookedMeetings = async (
-    studentId: string,
-    mentorId: string
-  ) => {
-    let meetings = await getMeetingsByUserId(studentId);
-    meetings = meetings.map((x: any) => ({
-      id: x.id,
-      startTime: Date.parse(x.startTime),
-      endTime: Date.parse(x.endTime),
-      title: x.title,
-      description: x.description,
-    }));
-    meetings = meetings.filter((x: any) => {
-      return (
-        x.startTime > Date.now() &&
-        x.meetingAttendee.some((y: any) => {
-          return y.userId === mentorId;
-        })
-      );
-    });
-    setMentorBookedMeetings(meetings);
-  };
-
-  const getMentorAvailableMeetings = async (
-    mentorId: string,
-    studentId: string
-  ) => {
+  const getMentorMeetings = async (mentorId: string,studentId: string) => {
     let meetings = await getMeetingsByUserId(mentorId);
     meetings = meetings.map((x: any) => ({
       id: x.id,
       startTime: Date.parse(x.startTime),
       endTime: Date.parse(x.endTime),
-      title: x.title,
+      title: x.summary,
       description: x.description,
+      booked:false
     }));
-    meetings = meetings.filter((x: any) => {
-      return (
-        x.startTime > Date.now() &&
-        x.meetingAttendee.some((y: any) => {
-          return y.userId === studentId;
-        })
-      );
-    });
-    setMentorAvailableMeetings(meetings);
-  };
-
-  const getMentorMeetings = async (mentorId: string) => {
-    let meetings = await getMeetingsByUserId(mentorId);
-    meetings = meetings.map((x: any) => ({
-      id: x.id,
-      startTime: Date.parse(x.startTime),
-      endTime: Date.parse(x.endTime),
-      title: x.title,
-      description: x.description,
-    }));
+    meetings = meetings.map((m:any)=>{
+      if(m.meetingAttendee.some((a: any) => {
+        return a.userId === studentId;
+      })){
+        m.booked = true
+      }
+    })
     setMentorMeetings(meetings);
   };
 
@@ -583,8 +544,7 @@ const AppContextProvider = (props: any) => {
       meeting.attendees.push(attendee);
       const ret = await updateMeeting(meeting, meetingId);
       console.log("book meeting", ret);
-      getMentorBookedMeetings(studentId, mentorId);
-      getMentorAvailableMeetings(mentorId, studentId);
+      getMentorMeetings(mentorId,studentId)
     }
   };
 
@@ -600,8 +560,7 @@ const AppContextProvider = (props: any) => {
       });
       const ret = await updateMeeting(meeting, meetingId);
       console.log("cancel meeting", ret);
-      getMentorBookedMeetings(studentId, mentorId);
-      getMentorAvailableMeetings(mentorId, studentId);
+      getMentorMeetings(mentorId,studentId)
     }
   };
 
@@ -618,7 +577,7 @@ const AppContextProvider = (props: any) => {
       summary: title,
       description: desc,
       location: "",
-      meetingAttendees: [{ userId: mentorId, attended: false }],
+      meetingAttendee: [{ userId: mentorId, attended: false,googleCalendarId:"" }],
       toDoItem: [],
       notes: [],
       agendas: [],
@@ -627,13 +586,13 @@ const AppContextProvider = (props: any) => {
     console.log("create meeting payload:", JSON.stringify(meeting));
     const ret = await createMeeting(meeting);
     console.log("create meeting:", ret);
-    getMentorMeetings(mentorId);
+    getAllMeetings(mentorId)
   };
 
   const removeMeeting = async (meetingId: number, mentorId: string) => {
     const ret = await deleteMeeting(meetingId);
     console.log("delete meeting", ret);
-    getMentorMeetings(mentorId);
+    getAllMeetings(mentorId)
   };
 
   const addAgenda = async (
@@ -840,10 +799,8 @@ const AppContextProvider = (props: any) => {
         selectedMentor,
         selectedStudent,
         allMentors,
-        mentorBookedMeetings,
-        mentorAvailableMeetings,
         mentorMeetings,
-        futureMeetings,
+        allMeetings,
         meetingRequests,
         inMeetingAgenda,
         inMeetingNote,
@@ -854,12 +811,10 @@ const AppContextProvider = (props: any) => {
         setMeetingTodos,
         meetingRecordings,
         selectedRecording,
-        getFutureMeetings,
+        getAllMeetings,
         getAllMentors,
         getSelectedMentor,
         getSelectedStudent,
-        getMentorBookedMeetings,
-        getMentorAvailableMeetings,
         getMentorMeetings,
         getMeetingTodos,
         getInMeetingAgenda,
