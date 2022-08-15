@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {
   CssBaseline,
   ThemeProvider,
@@ -11,14 +12,15 @@ import {
   Button,
   Dialog,
 } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../molecules/NavBar';
 import { getMeetingById } from '../../api/meeting';
 import { IMeeting } from '../../types/meetings';
 import AgendaList from '../../stories/AgendaList/AgendaList';
 import CreateAgendaItemForm from '../molecules/CreateAgendaItemForm';
+import PageTitle from '../../stories/PageTiltle';
 
-interface IAgenda {}
+interface IAgenda { }
 
 const theme = createTheme();
 
@@ -70,6 +72,7 @@ const Agenda: React.FC<IAgenda> = () => {
     }
   };
 
+  const navigate = useNavigate();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -84,36 +87,37 @@ const Agenda: React.FC<IAgenda> = () => {
       <NavBar />
       {meeting && (
         <Container
-          sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column' }}
+        maxWidth='xl' sx={{ display: 'flex', flexGrow: 1 }}
         >
           <Box
-            sx={{ display: 'flex', flexDirection: 'row', width: '100%', m: 2 }}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexGrow: 1,
+            width: '100%',
+          }}
+        >
+                    <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+            }}
           >
-            <Typography
-              sx={{ display: 'flex', flexGrow: 1 }}
-              variant='h4'
-              align='center'
-            >
-              Agenda - {meeting.summary}
-            </Typography>
-            <Button
-              onClick={handleClickOpen}
-              sx={{
-                minWidth: '100px',
-                minHeight: '40px',
-                maxHeight: '40px',
-                maxWidth: '100px',
-                borderRadius: 5,
-                backgroundColor: '#6001D3',
-                color: '#FFFFFF',
-                fontSize: 12,
-                my: 'auto',
-              }}
-              variant='contained'
-            >
-              +Add
+          <Box
+            sx={{ display: 'flex', flexDirection: 'row', width: '100%', m: 2, justifyContent: 'space-between' }}
+          >
+            <Box sx={{ marginLeft: 3 }}>
+              <PageTitle icon='6' content={`Agenda - ${meeting?.summary}`} doSomething={() => navigate(`/meetings/`)} />
+            </Box>
+
+            <Button onClick={handleClickOpen} variant="outlined" sx={{ borderColor: "#6001D3", color: "#6001D3" }} startIcon={<AddCircleOutlineIcon />}>
+              New
             </Button>
+
           </Box>
+          </Box>
+          <Divider variant='middle' sx={{ width: '100%' }} />
           <Box
             sx={{
               m: 2,
@@ -191,6 +195,7 @@ const Agenda: React.FC<IAgenda> = () => {
                 handleGetMeeting={handleGetMeeting}
               />
             )}
+          </Box>
           </Box>
           <Dialog
             open={open}

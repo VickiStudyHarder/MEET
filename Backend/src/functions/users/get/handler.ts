@@ -14,8 +14,25 @@ const getById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     const result = await prisma.user.findUnique({
       where: {
         id: event.pathParameters.id,
-      }
+      },
     });
+
+    if (result.role === 'student') {
+      const meetings = await prisma.meetingAttendee.findMany({
+        where: {
+          userId: event.pathParameters.id,
+        },
+      });
+
+      if (meetings.length !== 0 || meetings !== null) {
+        const attendedMeetings = meetings.filter(
+          (meeting) => meeting.attended === true
+        ).length;
+        const rating = ((attendedMeetings / meetings.length) * 100) / 20;
+        result.rating = rating;
+      }
+    }
+
     return formatJSONResponse({
       statusCode: 200,
       message: `Successfully retrieved user`,
@@ -27,8 +44,8 @@ const getById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       message: `${e.message}`,
       event,
     });
-  }  finally {
-    await prisma.$disconnect()
+  } finally {
+    await prisma.$disconnect();
   }
 };
 

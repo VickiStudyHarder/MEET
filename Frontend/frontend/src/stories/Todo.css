@@ -53,6 +53,7 @@
   height: 100%;
   position: absolute;
   border-radius: 20px;
+  object-fit: contain;
 
 }
 .meet-box-scroll {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {
   Container,
   createTheme,
@@ -15,6 +16,7 @@ import AppContext from '../../contexts/AppContext';
 import { getMeetingsByUserId } from '../../api/meeting';
 import MeetingRow from '../molecules/MeetingRow';
 import { IMeetingResponse } from '../../types/meetings';
+import PageTitle from '../../stories/PageTiltle';
 
 const theme = createTheme();
 
@@ -67,22 +69,13 @@ const Meetings = () => {
                 flexDirection: 'row',
                 py: 2,
                 maxHeight: 140,
+                justifyContent:'space-between'
               }}
             >
-              <Box sx={{ my: 'auto', mr: 2 }}>
-                <img
-                  src={MeetingImage}
-                  height='120'
-                  width='120'
-                  alt='study-group-icon'
-                />
-              </Box>
-              <Typography
-                variant='h3'
-                sx={{ display: 'flex', flexGrow: 1, my: 'auto' }}
-              >
-                Your Meetings
-              </Typography>
+            <Box sx={{marginLeft:3}}>
+              <PageTitle icon='5' content='Your meetings' />
+            </Box>
+
             </Box>
           </Box>
           <Divider variant='middle' sx={{ width: '100%' }} />

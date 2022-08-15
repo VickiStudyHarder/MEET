@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import NavBar from '../molecules/NavBar';
 import {
   Container,
@@ -12,11 +13,12 @@ import {
   Dialog,
 } from '@mui/material';
 import MeetingImage from '../../assets/MeetingImage.png';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getMeetingById } from '../../api/meeting';
 import { IMeeting, INotes } from '../../types/meetings';
 import NotesRow from '../molecules/NotesRow';
 import CreateNoteForm from '../molecules/CreateNoteForm';
+import PageTitle from '../../stories/PageTiltle';
 
 const theme = createTheme();
 
@@ -41,6 +43,8 @@ const Notes: React.FC<{}> = () => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const navigate = useNavigate();
 
   return (
     <ThemeProvider theme={theme}>
@@ -68,41 +72,20 @@ const Notes: React.FC<{}> = () => {
                 flexDirection: 'row',
                 py: 2,
                 maxHeight: 140,
+                justifyContent: 'space-between'
               }}
             >
-              <Box sx={{ my: 'auto', mr: 2 }}>
-                <img
-                  src={MeetingImage}
-                  height='120'
-                  width='120'
-                  alt='study-group-icon'
-                />
+              <Box sx={{marginLeft:3}}>
+                <PageTitle icon='6' content={`Notes - ${meeting?.summary}`} doSomething={() => navigate(`/meetings/`)}/>
               </Box>
-              <Typography
-                variant='h3'
-                sx={{ display: 'flex', flexGrow: 1, my: 'auto' }}
-              >
-                Notes - {meeting?.summary}
-              </Typography>
-              <Button
-                onClick={handleClickOpen}
-                sx={{
-                  minWidth: '100px',
-                  minHeight: '40px',
-                  maxHeight: '40px',
-                  maxWidth: '100px',
-                  borderRadius: 5,
-                  backgroundColor: '#6001D3',
-                  color: '#FFFFFF',
-                  fontSize: 12,
-                  my: 'auto',
-                }}
-                variant='contained'
-              >
-                +Add
-              </Button>
+              
+              <Button onClick={handleClickOpen} variant="outlined" sx={{ borderColor: "#6001D3", color: "#6001D3" }} startIcon={<AddCircleOutlineIcon />}>
+              New
+            </Button>
             </Box>
+            
           </Box>
+          
           <Divider variant='middle' sx={{ width: '100%' }} />
           <Box sx={{ width: '100%', m: 2 }}>
             {meeting &&
