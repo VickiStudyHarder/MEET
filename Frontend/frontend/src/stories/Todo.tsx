@@ -5,7 +5,6 @@ import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import { CheckOutlined } from '@ant-design/icons'
 import Delicon from './assets/icon-del.png'
-import todoBackground from '../../public/avatars/LandingPage'
 import CalendarUserCardPrimary from './CalendarUserCardPrimary/CalendarUserCardPrimary';
 import CalendarUserCardMini from './CalendarUserCardMini/CalendarUserCardMini'
 import './Todo.css'
@@ -226,8 +225,8 @@ export const Todo: React.VFC = () => {
           />
         </div>
         <div className="meet-box">
-          <img className="meet-box-bg" src={todoBackground} alt="" />
-          <div className="meet-box-scroll">
+          <img className="meet-box-bg" src={"./landing_page.jpg"} alt="" />
+          <div className="meet-box-scroll" style={{backdropFilter:"blur(8px)"}}>
             <div className="flex">
               {data &&
                 data.map((item: any, index: any) => {
