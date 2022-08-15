@@ -19,7 +19,8 @@
     "@prisma/client": "^4.1.1",
     "googleapis": "^105.0.0",
     "prisma": "^4.1.1",
-    "serverless-dynamodb-local": "^0.2.40"
+    "serverless-dynamodb-local": "^0.2.40",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@serverless/typescript": "^3.0.0",

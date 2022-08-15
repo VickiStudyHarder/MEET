@@ -4,13 +4,14 @@ import { middyfy } from '@libs/lambda';
 import { PrismaClient } from '@prisma/client';
 import oauth2Client from '@libs/oauth2-client';
 import { IMeetingPayload, IMeetingAttendee } from '../../../types/meeting';
+import { v4 as uuidv4 } from 'uuid';
 
 import schema from './schema';
 import { google } from 'googleapis';
 
 const prisma = new PrismaClient({
   log: ['query', 'info', 'warn', 'error'],
-})
+});
 
 const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
@@ -18,7 +19,7 @@ const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   const meetingPayload: IMeetingPayload =
     event.body as unknown as IMeetingPayload;
 
-    console.log(meetingPayload)
+  console.log(meetingPayload);
 
   try {
     const meeting = await prisma.meeting.create({
@@ -46,24 +47,28 @@ const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         agendas: {
           createMany: {
             data: meetingPayload.agendas || null,
-          }
+          },
         },
         recordings: {
           createMany: {
             data: meetingPayload.recordings || null,
-          }
-        }
+          },
+        },
       },
       include: {
         toDoItem: true,
         notes: true,
         meetingAttendee: true,
         agendas: true,
-        recordings: true
+        recordings: true,
       },
     });
 
-    //const result = await addGoogleMeeting(meetingPayload, meeting.id);
+    try {
+      const result = await addGoogleMeeting(meetingPayload, meeting.id);
+    } catch (e) {
+      console.error(e);
+    }
 
     return formatJSONResponse({
       status: 200,
@@ -85,49 +90,70 @@ const addGoogleMeeting = async (
   meetingPayload: IMeetingPayload,
   meetingId: number
 ) => {
-  const result = await Promise.all(
-    meetingPayload.attendees.map(async (attendee: IMeetingAttendee) => {
-      const token = await prisma.tokens.findUnique({
-        where: {
-          userId: attendee.userId,
-        },
-      });
-      oauth2Client.setCredentials({ refresh_token: token.refreshToken });
-      const calendar = google.calendar('v3');
-
-      const googleApiResponse = await calendar.events.insert({
-        auth: oauth2Client,
-        calendarId: 'primary',
-        requestBody: {
-          summary: meetingPayload.summary,
-          description: meetingPayload.description,
-          location: meetingPayload.location,
-          start: {
-            dateTime: new Date(meetingPayload.meetingStart),
-            timeZone: 'Australia/Sydney',
-          },
-          end: {
-            dateTime: new Date(meetingPayload.meetingEnd),
-            timeZone: 'Australia/Sydney',
-          },
-        },
-      });
-
-      const response = JSON.parse(JSON.stringify(googleApiResponse));
-
-      await prisma.meetingAttendee.updateMany({
-        where: {
-          userId: attendee.userId,
-          meetingId: meetingId,
-        },
-        data: {
-          googleCalendarId: response.data.id,
-        },
-      });
-      return googleApiResponse;
-    })
+  const attendees = meetingPayload.meetingAttendee.map(
+    (attendee: IMeetingAttendee) => {
+      return { email: attendee.userId };
+    }
   );
-  return result;
+
+  const attendee = meetingPayload.meetingAttendee[0];
+
+  const token = await prisma.tokens.findUnique({
+    where: {
+      userId: attendee.userId,
+    },
+  });
+
+  oauth2Client.setCredentials({ refresh_token: token.refreshToken });
+  const calendar = google.calendar('v3');
+
+  const requestId = uuidv4();
+
+  const googleApiResponse = await calendar.events.insert({
+    conferenceDataVersion: 1,
+    auth: oauth2Client,
+    calendarId: 'primary',
+    requestBody: {
+      summary: meetingPayload.summary,
+      description: meetingPayload.description,
+      location: meetingPayload.location,
+      start: {
+        dateTime: new Date(meetingPayload.meetingStart),
+        timeZone: 'Australia/Sydney',
+      },
+      end: {
+        dateTime: new Date(meetingPayload.meetingEnd),
+        timeZone: 'Australia/Sydney',
+      },
+      attendees: attendees,
+      conferenceData: {
+        createRequest: {
+          conferenceSolutionKey: {
+            type: 'hangoutsMeet',
+          },
+          requestId: requestId,
+        },
+      },
+    },
+  });
+
+  const response = JSON.parse(JSON.stringify(googleApiResponse));
+
+  meetingPayload.meetingAttendee.forEach(async (attendee: IMeetingAttendee) => {
+    await prisma.meetingAttendee.updateMany({
+      where: {
+        userId: attendee.userId,
+        meetingId: meetingId,
+      },
+      data: {
+        googleCalendarId: response.data.hangoutLink,
+        requestId: requestId,
+      },
+    });
+  });
+
+  console.log(googleApiResponse);
+  return googleApiResponse;
 };
 
 export const main = middyfy(create);

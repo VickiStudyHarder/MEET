@@ -55,6 +55,7 @@ model MeetingAttendee {
   userId           String
   attended         Boolean @default(false)
   googleCalendarId String  @default("")
+  requestId String @default("")
 }
 
 model ToDoItem {
