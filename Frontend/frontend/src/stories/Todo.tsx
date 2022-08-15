@@ -33,84 +33,10 @@ interface MeetingProps {
   showAdd?: boolean
 }
 
-// const userInfo: { userName: string, userAvatar: string} = {
-//   userName: 'Vicki Chen',
-//   userAvatar: 'https://upload.wikimedia.org/wikipedia/commons/a/a5/Red_Kitten_01.jpg',
-// }
-
-// let list: any = [
-//   {
-//     option: {
-//       show: true,
-//       showAdd: true,
-//     },
-//     title: 'meeting 1',
-//     task: [
-//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
-//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
-//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
-//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
-//     ],
-//   },
-//   {
-//     option: {
-//       show: true,
-//       showAdd: true,
-//     },
-//     title: 'meeting 2',
-//     task: [
-//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
-//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
-//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
-//     ],
-//   },
-//   {
-//     option: {
-//       show: true,
-//       showAdd: true,
-//     },
-//     title: 'meeting 3',
-//     task: [
-//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
-//       { name: 'to do item', isdel: true, deled: false, isEdit: false },
-//     ],
-//   },
-//   {
-//     option: {
-//       show: true,
-//       showAdd: true,
-//     },
-//     title: 'Meeting 4',
-//     task: [],
-//   },
-//   {
-//     option: {
-//       show: true,
-//       showAdd: true,
-//     },
-//     title: 'Meeting 5',
-//     task: [
-//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
-//       { name: 'to do item', isdel: true, deled: false, isEdit: false },
-//     ],
-//   },
-//   {
-//     option: {
-//       show: true,
-//       showAdd: true,
-//     },
-//     title: 'Meeting 6',
-//     task: [
-//       { name: 'to do item', isdel: false, deled: false, isEdit: false },
-//       { name: 'to do item', isdel: true, deled: false, isEdit: false },
-//     ],
-//   }
-// ]
-
 export const Todo: React.VFC = () => {
   const [user, setUser] = React.useState<User>()
   // const [data, setData] = React.useState(list)
-  const { meetingTodos: data, setMeetingTodos: setData,getUserInfo,userInfo, getMeetingTodos, email } = useContext(AppContext);
+  const { meetingTodos, setMeetingTodos,getUserInfo,userInfo, getMeetingTodos, email ,updateMeetingTodos} = useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
   // const { selectedStudent } = useContext(AppContext);
   // useEffect(() => { }, [selectedStudent]);
@@ -121,7 +47,7 @@ export const Todo: React.VFC = () => {
     idx: 0,
     name: '',
   })
-  useEffect(() => { console.log(data) }, [data]);
+  useEffect(() => { console.log(meetingTodos) }, [meetingTodos]);
 
   // useEffect(() => {console.log(getMeetingTodos(email))}, []);
 
@@ -137,25 +63,38 @@ export const Todo: React.VFC = () => {
   
 
   const addTask = (item: any, index: any) => {
-    let meet = JSON.parse(JSON.stringify(data))
-    meet[index].option.showAdd = !meet[index].option.showAdd
-    setData(meet)
+    const meet= meetingTodos.map((x:any,i:number)=>{
+      if(index === i){
+        x.option.showAdd = !x.option.showAdd
+      }
+      return x
+    })
+    setMeetingTodos(meet)
+    updateMeetingTodos(meet)
   }
-
+  
   const enterTask = (item: any, index: any, e: any) => {
     let val = e.target.value
-    let meet = JSON.parse(JSON.stringify(data))
-    meet[index].option.showAdd = !meet[index].option.showAdd
-    meet[index].task.push({ name: val })
-    setData(meet)
+    const meet= meetingTodos.map((x:any,i:number)=>{
+      if(index === i){
+        x.option.showAdd = !x.option.showAdd
+        x.task.push({name:val})
+      }
+    })
+    setMeetingTodos(meet)
+    updateMeetingTodos(meet)
   }
-
+  
   const editTask = (index: any, idx: any, e: any) => {
     let val = e.target.value
-    let meet = JSON.parse(JSON.stringify(data))
-    meet[index].task[idx].name = val
-    meet[index].task[idx].isEdit = false
-    setData(meet)
+    const meet= meetingTodos.map((x:any,i:number)=>{
+      if(index === i){
+        x.task[idx].name = val
+        x.task[idx].isEdit = false
+      }
+    })
+    setMeetingTodos(meet)
+    updateMeetingTodos(meet)
   }
 
   const showModel = (index: any, itm: any, idx: any) => {
@@ -169,34 +108,36 @@ export const Todo: React.VFC = () => {
   }
 
   const ondel = (index: any, idx: any) => {
-    let meet = JSON.parse(JSON.stringify(data))
-    meet[index].task[idx].isdel = !meet[index].task[idx].isdel
-    setData(meet)
+    // const meet= meetingTodos.map((x:any,i:number)=>{
+    //   if(index === i){
+    //     x.option.showAdd = !x.option.showAdd
+    //     x.task.push({name:val})
+    //   }
+    // })
+    // meet[index].task[idx].isdel = !meet[index].task[idx].isdel
+    // setMeetingTodos(meet)
   }
 
   const delItem = () => {
-    let meet = JSON.parse(JSON.stringify(data))
-    meet[modalCtx.index].task[modalCtx.idx].deled = true
-    setData(meet)
-    setisModalVisible(!isModalVisible)
+    // meet[modalCtx.index].task[modalCtx.idx].deled = true
+    // setMeetingTodos(meet)
+    // setisModalVisible(!isModalVisible)
   }
 
   const editItm = (index: any, idx: any) => {
-    let meet = JSON.parse(JSON.stringify(data))
-    meet[index].task[idx].isEdit = true
-    setData(meet)
+    // meet[index].task[idx].isEdit = true
+    // setMeetingTodos(meet)
   }
 
   const onFilter = () => {
-    let meet = JSON.parse(JSON.stringify(data))
-    meet = meet.map((item: any) => {
-      if (0 === item.task.length) {
-        item.option.show = !item.option.show
-      }
-      return item
-    })
-    setfilter(!filter)
-    setData(meet)
+    // meet = meet.map((item: any) => {
+    //   if (0 === item.task.length) {
+    //     item.option.show = !item.option.show
+    //   }
+    //   return item
+    // })
+    // setfilter(!filter)
+    // setMeetingTodos(meet)
   }
 
 
@@ -205,11 +146,11 @@ export const Todo: React.VFC = () => {
       <div className="meet-body">
         <div className="meet-head">
           {filter ? (
-            <div className="meet-head-btn line-center" onClick={onFilter}>
+            <div className="meet-head-btn line-center" onClick={onFilter} style={{borderRadius: 20,fontFamily:"Quicksand"}}>
               Display all to do list
             </div>
           ) : (
-            <div className="meet-head-btn" onClick={onFilter}>
+            <div className="meet-head-btn" onClick={onFilter} style={{borderRadius: 20,fontFamily:"Quicksand"}}>
               Display to do list with to do item only
             </div>
           )}
@@ -226,8 +167,8 @@ export const Todo: React.VFC = () => {
           <img className="meet-box-bg" src={"./landing_page.jpg"} alt="" />
           <div className="meet-box-scroll" style={{backdropFilter:"blur(8px)"}}>
             <div className="flex">
-              {data &&
-                data.map((item: any, index: any) => {
+              {meetingTodos &&
+                meetingTodos.map((item: any, index: any) => {
                   return (
                     <div
                       style={{
@@ -236,7 +177,7 @@ export const Todo: React.VFC = () => {
                       className="meet-from"
                       key={index}
                     >
-                      <div className="form-title">{item.title}</div>
+                      <div className="form-title" style={{fontFamily:"Quicksand"}}>{item.title}</div>
                       {item.task &&
                         item.task.length > 0 &&
                         item.task.map((itm: any, idx: any) => {
@@ -300,6 +241,7 @@ export const Todo: React.VFC = () => {
                         <div
                           className="form-btn"
                           onClick={() => addTask(item, index)}
+                          style={{fontFamily:"Quicksand"}}
                         >
                           + Add more task
                         </div>
@@ -309,6 +251,7 @@ export const Todo: React.VFC = () => {
                           rows={4}
                           placeholder="Enter your to-do task..."
                           onPressEnter={(e) => enterTask(item, index, e)}
+                          style={{fontFamily:"Quicksand"}}
                         />
                       )}
                     </div>
@@ -323,10 +266,10 @@ export const Todo: React.VFC = () => {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
+          <Box sx={style} style={{borderRadius: 20,}}>
             <div className="flex-box">
               <img alt="" className="close-CircleOutlined" src={Delicon} />
-              <div>Do you want to delete this {modalCtx.name}?</div>
+              <div style={{fontFamily:"Quicksand"}}>Do you want to delete this {modalCtx.name}?</div>
             </div>
             <div className="flex-box">
               <Button
@@ -338,8 +281,9 @@ export const Todo: React.VFC = () => {
                   width: 165,
                   height: 40,
                   marginTop: 15,
-                }}
-              >
+                  fontFamily:"Quicksand"
+                }} 
+                >
                 Yes
               </Button>
               <Button
@@ -353,6 +297,7 @@ export const Todo: React.VFC = () => {
                   height: 40,
                   marginLeft: 10,
                   marginTop: 15,
+                  fontFamily:"Quicksand"
                 }}
               >
                 No

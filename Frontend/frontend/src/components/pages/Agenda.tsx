@@ -36,6 +36,8 @@ const Agenda: React.FC<IAgenda> = () => {
     handleGetMeeting();
   }, [start, end, diff]);
 
+
+  
   const handleGetMeeting = async () => {
     const result = await getMeetingById(Number(id));
     setMeeting(result);
