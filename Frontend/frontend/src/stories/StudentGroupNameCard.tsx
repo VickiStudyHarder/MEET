@@ -8,15 +8,26 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import AppContext from '../contexts/AppContext';
 import UserImage from '../assets/UserImage.png';
+import { message } from 'antd';
 
 export interface IStudentGroupNameCard {
   myGroups?: any;
+  doSomething?: (params: any) => any;
+  inChat?: boolean;
+  groupName?: string
 }
 
 export const StudentGroupNameCard: React.FC<IStudentGroupNameCard> = ({
   myGroups,
+  doSomething,
+  inChat,
+  groupName,
 }) => {
-  const { firstName, lastName } = useContext(AppContext);
+  const { firstName, lastName, getUserInfo, userInfo, getMeetingTodos, email } = useContext(AppContext);
+  useEffect(() => {
+    getUserInfo(email);
+    console.log('userinfo=', userInfo)
+  }, []);
 
   return (
     <Box sx={{ width: 380, height: 666 }}>
@@ -28,59 +39,86 @@ export const StudentGroupNameCard: React.FC<IStudentGroupNameCard> = ({
           minHeight: 260,
           z: 40,
           mx: 'auto',
+          borderRadius: 8
         }}
         variant='rounded'
-        src={UserImage}
+        src={`../avatars/${userInfo?.avatar || "0"}.png`}
       />
       <Card
         sx={{
           width: 380,
           height: 610,
           marginTop: -25,
-          pt:30,
+          pt: 30,
           display: 'flex',
           flexDirection: 'column',
         }}
       >
-        <CardActionArea>
-          <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-            <Typography
-              variant='body1'
-              component='h2'
-              sx={{ textAlign: 'center', fontSize: '1.5rem' }}
-            >
-              {firstName} {lastName}
-            </Typography>
-            <Typography
-              variant='body1'
-              component='h2'
-              sx={{
-                textAlign: 'center',
-                fontSize: '0.8rem',
-                marginTop: 2,
-                color: '#70798B',
-              }}
-            ></Typography>
 
-            <Typography variant='h3' textAlign='center' sx={{ mx: 8 }}>
-              Your Groups
+        <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Typography
+            variant='h5'
+            sx={{ textAlign: 'center', fontWeight: 'bold' }}
+          >
+            {userInfo.firstName} {userInfo.lastName}
+          </Typography>
+          <Typography
+            variant='body1'
+            component='h2'
+            sx={{
+              textAlign: 'center',
+              fontSize: '1rem',
+              marginTop: 1,
+              color: '#70798B',
+              marginBottom: 3
+            }}
+          >
+            {userInfo.role}
+          </Typography>
+          {!inChat && (<Box sx={{ marginTop: 10 }}>
+            <Button onClick={doSomething} variant="contained" style={{ color: '#000000', backgroundColor: "#EEEEEE", borderRadius: 20, width: 200, height: 50, fontWeight: 'bold' }}>
+              My group
+            </Button>
+          </Box>)
+          }
+          {inChat && (
+            <Box sx={{display:'flex', flexDirection:'column'}}>
+            <Typography
+              variant='subtitle2'
+              sx={{ textAlign: 'center', marginTop:8, color:'gray' }}
+            >
+              Welcome to:
             </Typography>
-            {myGroups &&
-              myGroups.map((group: any) => {
-                return (
-                  <Typography
-                    sx={{
-                      width: '100%',
-                      m: 'auto',
-                      textAlign: 'center',
-                    }}
-                  >
-                    {group.name}
-                  </Typography>
-                );
-              })}
-          </CardContent>
-        </CardActionArea>
+            <Typography
+              variant='h2'
+              sx={{ textAlign: 'center' }}
+            >
+              {groupName}
+            </Typography>            
+            
+            </Box>
+
+          )
+
+          }
+
+
+          {myGroups &&
+            myGroups.map((group: any) => {
+              return (
+                <Typography
+                  sx={{
+                    width: '100%',
+                    m: 'auto',
+                    textAlign: 'center',
+                  }}
+                >
+                  {group.name}
+                </Typography>
+              );
+            })}
+        </CardContent>
+
       </Card>
     </Box>
   );
