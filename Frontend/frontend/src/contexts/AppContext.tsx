@@ -144,7 +144,7 @@ const AppContextProvider = (props: any) => {
   const [meetingNotes, setMeetingNotes] = useState<any>([]);
   const [selectedNote, setSelectedNote] = useState<any>({});
 
-  const [meetingTodos, setMeetingTodos] = useState<any>([{}]);
+  const [meetingTodos, setMeetingTodos] = useState<any>([]);
 
   const [meetingRecordings, setMeetingRecordings] = useState<any>([{}]);
   const [selectedRecording, setSelectedRecording] = useState<any>([{}]);
@@ -186,10 +186,10 @@ const AppContextProvider = (props: any) => {
   };
 
   useEffect(() => {
-    const email = localStorage.getItem("email")
-    if(email){
-      setEmail(email)
-      getUserInfo(email)
+    const email = localStorage.getItem("email");
+    if (email) {
+      setEmail(email);
+      getUserInfo(email);
     }
   }, []);
 
@@ -331,22 +331,26 @@ const AppContextProvider = (props: any) => {
 
   const getMeetingTodos = async (userId: string) => {
     let meetings = await getMeetingsByUserId(userId);
-    meetings = meetings.map((m: any) => ({
-      meetingId: m.meeting.id,
-      option: {
-        show: true,
-        showAdd: true,
-      },
-      title: m.meeting.title,
-      task: m.meeting.toDoItems.map((td: any) => ({
-        id: td.id,
-        name: td.title,
-        isCompleted: false,
-        isDeleted: false,
-        isEditing: false,
-      })),
-    }));
-    setAllMeetings(meetings);
+    if (meetings) {
+      console.log("getMeetingTodos111", meetings);
+      meetings = meetings.map((m: any) => ({
+        meetingId: m.meeting.id,
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: m.meeting.title,
+        task: m.meeting.toDoItem.map((td: any) => ({
+          id: td.id,
+          name: td.title,
+          isCompleted: false,
+          isDeleted: false,
+          isEditing: false,
+        })),
+      }));
+      console.log("getMeetingTodos", meetings);
+      setMeetingTodos(meetings);
+    }
   };
 
   const getInMeetingAgenda = async (meetingId: number) => {
