@@ -8,6 +8,9 @@ import {
   Divider,
   Button,
   Grid,
+  Dialog,
+  DialogContent,
+  Rating,
 } from '@mui/material';
 import NavBar from '../molecules/NavBar';
 import Box from '@mui/material/Box';
@@ -25,11 +28,13 @@ import AgendaList from '../../stories/AgendaList/AgendaList';
 import MeetingBox from '../../stories/Meeting_Box';
 import EmptyMeetingBox from '../../stories/EmptyMeetingBox';
 import AppContext from '../../contexts/AppContext';
+import MentorMeetingRow from '../molecules/MentorRatingRow';
 
 const theme = createTheme();
 
 const MeetingDasboard: React.FC<{}> = ({}) => {
   const [meeting, setMeeting] = useState<IMeeting | null>(null);
+  const [open, setOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const { email } = useContext(AppContext);
   const { id } = useParams();
@@ -37,6 +42,10 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
   useEffect(() => {
     handleGetMeeting();
   }, []);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleGetMeeting = async () => {
     const result = await getMeetingById(Number(id));
@@ -52,6 +61,10 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
   };
 
   const handleMarkAsAttended = async () => {
+    setOpen(true);
+  };
+
+  const handleCompleteMeeting = async () => {
     if (!user) {
       const currentUser = meeting?.meetingAttendee?.filter(
         (attendee: IMeetingAttendee) => attendee?.user?.id === email
@@ -69,9 +82,10 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
     const meetingUpdate = {
       meetingAttendee: meetingAttendeeList,
     };
-    console.log({ meetingUpdate });
+
     await updateMeeting(meetingUpdate, Number(id));
     await handleGetMeeting();
+    setOpen(false);
   };
 
   return (
@@ -217,6 +231,51 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
             </Box>
           </Box>
         </Box>
+        <Dialog open={open} onClose={handleClose} maxWidth='lg'>
+          <DialogContent
+            sx={{
+              width: 800,
+              height: 600,
+              display: 'flex',
+              flexGrow: 1,
+              flexDirection: 'column',
+            }}
+          >
+            <Typography variant='h3' align='center' sx={{ m: 4 }}>
+              Rate Your Mentors
+            </Typography>
+            <Divider variant='middle' />
+            {meeting &&
+              meeting?.meetingAttendee?.map((attendee: IMeetingAttendee) => {
+                if (attendee?.user?.role === 'mentor') {
+                  return <MentorMeetingRow attendee={attendee} />;
+                }
+              })}
+
+            <Box sx={{ m: 'auto', display: 'flex', flexDirection: 'column' }}>
+              <Button
+                sx={{
+                  minWidth: '200px',
+                  minHeight: '40px',
+                  maxHeight: '40px',
+                  maxWidth: '100px',
+                  borderRadius: 5,
+                  backgroundColor: '#00b300',
+                  color: '#FFFFFF',
+                  fontSize: 12,
+                  m: 'auto',
+                }}
+                variant='contained'
+                onClick={handleCompleteMeeting}
+              >
+                Complete Review
+              </Button>
+              <Typography sx={{ m: 2 }}>
+                Review Can Only Be Completed Once
+              </Typography>
+            </Box>
+          </DialogContent>
+        </Dialog>
       </Container>
     </ThemeProvider>
   );
