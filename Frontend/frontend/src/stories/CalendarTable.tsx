@@ -1,9 +1,10 @@
 import { func } from "prop-types";
-import React from "react";
-import FullCalendar from '@fullcalendar/react';
+import React, { useEffect, useState } from "react";
+import $, { data } from "jquery";
+import FullCalendar from "@fullcalendar/react";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import dayGridPlugin from '@fullcalendar/daygrid'
-import momentPlugin from '@fullcalendar/moment';
+import dayGridPlugin from "@fullcalendar/daygrid";
+import momentPlugin from "@fullcalendar/moment";
 // 必须引入的样式文件
 // import "@fullcalendar/core/main.css";
 // import "@fullcalendar/daygrid/main.css";
@@ -11,6 +12,7 @@ import momentPlugin from '@fullcalendar/moment';
 import "./calendar.css";
 import { callbackify } from "util";
 import { url } from "node:inspector";
+import { type } from "os";
 
 interface CalendarProps {
   /**
@@ -30,13 +32,13 @@ interface CalendarProps {
    */
   label?: string;
   height?: string;
-  width?:string;
+  width?: string;
   /**
    * Optional click handler
    */
-  eventClick: (e:any) => void;
+  eventClick: (e: any) => void;
+  headerClick: (e: any) => void;
   defaultView?: string;
-
 
   events?: Array<Object>;
 }
@@ -54,8 +56,10 @@ export default function CalendarTable({
   width,
   events,
   eventClick,
+  headerClick,
   ...props
 }: CalendarProps) {
+  const [date, setDate] = useState<any>();
   /*const events = [{
     id
     title: "Meeting",
@@ -74,24 +78,53 @@ export default function CalendarTable({
   ]
   */
   // console.log(JSON.stringify(events))
+
+  useEffect(() => {
+    $("#FullCalendar").bind("DOMNodeInserted", function (e) {
+      let dayElement = $(".fc-col-header-cell");
+      for (let i in dayElement) {
+        if (dayElement.hasOwnProperty(i)) {
+          if (typeof dayElement[i].nodeName === "string") {
+            dayElement[i].addEventListener(
+              "click",
+              (e) => {
+                e.stopPropagation();
+                setDate(dayElement[i]?.getAttribute("data-date"));
+                // console.log("e",dayElement[i]?.getAttribute("data-date"))
+              },
+              false
+            );
+          }
+        }
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    if (date) {
+      // console.log(date)
+      headerClick(date);
+    }
+  }, [date]);
+
   return (
-    <div className="FullCalendarPage">
+    <div className="FullCalendarPage" id="FullCalendar">
       <FullCalendar
         editable={true}
-        height={height}// 此处高度为方便截图，可不设置
+        height={height} // 此处高度为方便截图，可不设置
         initialView="timeGridWeek"
         plugins={[dayGridPlugin, timeGridPlugin, momentPlugin]}
         allDaySlot={false}
         slotLabelFormat="HH:mm"
-        slotDuration={'00:60:00'}
+        slotDuration={"00:60:00"}
         slotMinTime={"05:00:00"}
         slotMaxTime={"22:00:00"}
-        scrollTime={'08:00:00'}
-        contentHeight='600'
+        scrollTime={"05:00:00"}
+        contentHeight="600"
         events={events}
-        timeZone={'UTC-8'}
         eventClick={eventClick}
+        displayEventTime={false}
       />
     </div>
   );
-};
+}

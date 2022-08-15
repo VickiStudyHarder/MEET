@@ -38,7 +38,7 @@ export default function PageTitle({
             <Fab style={{ backgroundColor: '#FCDC00' }} aria-label="delete recording" size="medium">
               <LiveTvIcon style={{ fontSize: 30, color: '#ffffff' }} />
             </Fab>
-            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} >
+            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} fontStyle={"Quicksand"} >
               {content}
             </Typography>
           </Box>
@@ -49,7 +49,7 @@ export default function PageTitle({
             <Fab style={{ backgroundColor: '#0CD68A' }} aria-label="delete recording" size="medium">
               <GroupIcon style={{ fontSize: 33, color: '#ffffff' }} />
             </Fab>
-            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} >
+            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} fontStyle={"Quicksand"} >
               {content}
             </Typography>
           </Box>
@@ -60,7 +60,7 @@ export default function PageTitle({
             <Fab style={{ backgroundColor: '#FD346E' }} aria-label="delete recording" size="medium">
               <NotificationsIcon style={{ fontSize: 30, color: '#ffffff' }} />
             </Fab>
-            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} >
+            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} fontStyle={"Quicksand"} >
               {content}
             </Typography>
           </Box>
@@ -71,7 +71,7 @@ export default function PageTitle({
             <Fab style={{ backgroundColor: '#6001D3' }} aria-label="delete recording" size="medium">
               <StarRateIcon style={{ fontSize: 35, color: '#ffffff' }} />
             </Fab>
-            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} >
+            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }}fontStyle={"Quicksand"}  >
               {content}
             </Typography>
           </Box>
@@ -83,7 +83,7 @@ export default function PageTitle({
             <Fab style={{ backgroundColor: '#FD346E' }} aria-label="delete recording" size="medium">
               <CalendarMonthIcon style={{ fontSize: 30, color: '#ffffff' }} />
             </Fab>
-            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} >
+            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} fontStyle={"Quicksand"} >
               {content}
             </Typography>
           </Box>
@@ -95,7 +95,7 @@ export default function PageTitle({
             <Fab onClick={doSomething} style={{ backgroundColor: '#FD346E' }} aria-label="delete recording" size="medium">
               <ArrowBackIcon style={{ fontSize: 30, color: '#ffffff' }} />
             </Fab>
-            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} >
+            <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} fontStyle={"Quicksand"} >
               {content}
             </Typography>
           </Box>

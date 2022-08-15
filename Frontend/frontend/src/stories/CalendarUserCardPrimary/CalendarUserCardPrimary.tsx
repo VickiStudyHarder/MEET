@@ -26,11 +26,11 @@ export default function CalendarUserCardPrimary(props: CalendarUserCardPrimaryIn
   return (
     <Box className="calender-user-card-wrap">
       <Box className="l">
-        <Box className="name">
+        <Box className="name" style={{fontFamily:"Quicksand"}}>
           {props.name}
         </Box>
         <Box className="desc">
-          <Box className="txt">
+          <Box className="txt" style={{fontFamily:"Quicksand"}}>
             {props.job}
           </Box>
           <Box className="line"></Box>
