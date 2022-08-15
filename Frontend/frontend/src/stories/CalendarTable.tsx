@@ -56,11 +56,11 @@ export default function CalendarTable({
   ...props
 }: CalendarProps) {
   /*const events = [{
+    id
     title: "Meeting",
     color: "#6001D3",//事件块的颜色
     start: "2022-07-23T10:30:00+00:00",
     end: "2022-07-23T12:30:00+00:00"
-
   },
   {
     title: "Meeting2",
