@@ -20,6 +20,7 @@ import {
   removeToDo,
   removeAgenda,
   removeRecording,
+  removeMeetingAttendee
 } from '@functions/meetings';
 
 import {
@@ -83,6 +84,7 @@ const serverlessConfiguration: AWS = {
     removeAgenda,
     removeRecording,
     rateMentor,
+    removeMeetingAttendee
   },
   package: { individually: true },
   custom: {

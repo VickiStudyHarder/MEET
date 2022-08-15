@@ -7,4 +7,5 @@ export {default as removeNote} from './deleteNote'
 export {default as removeToDo} from './deleteToDo'
 export {default as removeAgenda} from './deleteAgenda'
 export {default as removeRecording} from './deleteRecording'
+export {default as removeMeetingAttendee} from './deleteMeetingAttendee'
 

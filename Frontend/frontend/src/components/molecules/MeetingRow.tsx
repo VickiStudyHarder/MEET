@@ -25,12 +25,12 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
           sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column', m: 4 }}
         >
           <Box sx={{ display: 'flex', flexDirection: 'row', mt: 2 }}>
-            <Typography sx={{ color: '#6001D3', mr: 4 }}>
+            <Typography sx={{ color: '#6001D3', mr: 4 }} style={{fontFamily:"Quicksand"}}>
               {meeting?.notes?.length ? meeting.notes.length : '0'} Notes
             </Typography>
-            <Typography>Hosted By</Typography>
+            <Typography style={{fontFamily:"Quicksand"}}>Hosted By</Typography>
           </Box>
-          <Typography variant='h4' sx={{ mt: 6 }}>
+          <Typography variant='h4' sx={{ mt: 6 }} style={{fontFamily:"Quicksand"}}>
             {meeting.summary}
           </Typography>
         </Box>
@@ -49,7 +49,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
               navigate(`/agenda/${meeting.id}`);
             }}
           >
-            <Typography sx={{ color: 'black', mr: 2 }}>Agenda</Typography>
+            <Typography sx={{ color: 'black', mr: 2 }} style={{fontFamily:"Quicksand"}}>Agenda</Typography>
             <img
               src={MeetingsArrow}
               alt='meeting-arrow'
@@ -64,7 +64,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
               navigate(`/notes/${meeting.id}`);
             }}
           >
-            <Typography sx={{ color: 'black', mr: 2 }}>Notes</Typography>
+            <Typography sx={{ color: 'black', mr: 2 }} style={{fontFamily:"Quicksand"}}>Notes</Typography>
             <img
               src={MeetingsArrow}
               alt='meeting-arrow'
@@ -79,7 +79,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
               navigate(`/todo/${meeting.id}`);
             }}
           >
-            <Typography sx={{ color: 'black', mr: 2 }}>To Dos</Typography>
+            <Typography sx={{ color: 'black', mr: 2 }} style={{fontFamily:"Quicksand"}}>To Dos</Typography>
             <img
               src={MeetingsArrow}
               alt='meeting-arrow'
@@ -94,7 +94,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
               navigate(`/recording/${meeting.id}`);
             }}
           >
-            <Typography sx={{ color: 'black', mr: 2 }}>Recording</Typography>
+            <Typography sx={{ color: 'black', mr: 2 }} style={{fontFamily:"Quicksand"}}>Recording</Typography>
             <img
               src={MeetingsArrow}
               alt='meeting-arrow'
