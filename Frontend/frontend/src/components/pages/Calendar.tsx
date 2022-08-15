@@ -8,7 +8,7 @@ import {
 import { func } from "prop-types";
 import { callbackify } from "util";
 import { url } from "node:inspector";
-import "./calendar.css";
+import "./Calendar.css";
 import { useEffect, useContext, useState } from "react";
 import React from "react";
 import NavBar from "../molecules/NavBar";
@@ -29,7 +29,7 @@ import CancelMeeting from "../../stories/CancelMeeting/CancelMeeting";
 import BookMeeting from "../../stories/BookMeeting/BookMeeting";
 import UpcomingMeetingCard from "../../stories/MeetingScheduleTomorrow/MeetingScheduleTomorrow";
 import { useNavigate } from "react-router-dom";
-//import './Calendar.css';
+// import './Calendar.css';
 
 const theme = createTheme();
 

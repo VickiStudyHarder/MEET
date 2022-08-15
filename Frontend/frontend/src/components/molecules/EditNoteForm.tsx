@@ -69,14 +69,14 @@ const EditNoteForm: React.FC<IEditNoteForm> = ({
       }}
     >
       <Card sx={{ display: 'flex', flexGrow: 1, p: 4 }}>
-        <CardContent>
+        <CardContent sx={{ marginRight: 3 }}>
           <Grid
             container
             direction='column'
             sx={{
               display: 'flex',
               flexGrow: 1,
-              marginLeft: 1,
+              // marginLeft: 1,
               marginTop: 2,
             }}
           >
