@@ -150,6 +150,14 @@ const Calendar: React.FC<ICalendar> = () => {
   const onBookConfirmCallback = async () => {
     if (userInfo.role === "student") {
       await bookMeeting(selectedEvent?.id, email, selectedMentor?.id);
+      setOpenBookingPanel(false)
+    }
+  };
+
+  const onCancelBookingConfirmCallback = async () => {
+    if (userInfo.role === "student") {
+      await cancelMeeting(selectedEvent?.id, email, selectedMentor?.id);
+      setOpenCancelPanel(false)
     }
   };
 
@@ -202,6 +210,7 @@ const Calendar: React.FC<ICalendar> = () => {
           ${yyyymmdd(selectedEvent?.end || new Date())}`}
         open={openCancelPanel}
         content={`Do you want to cancel your booking?`}
+        onConfirmCallback={onCancelBookingConfirmCallback}
         setOpen={setOpenCancelPanel}
       ></CancelMeeting>
       <CancelMeeting

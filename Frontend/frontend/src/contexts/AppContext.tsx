@@ -435,14 +435,15 @@ const AppContextProvider = (props: any) => {
     mentorId: string
   ) => {
     console.log("book meeting",meetingId,studentId,mentorId)
-    // const attendee = { id: meetingId, userId: studentId, attended: false };
-    // let meeting: any = await getMeetingById(meetingId);
-    // if (meeting?.attendees) {
-    //   meeting.attendees.push(attendee);
-    //   const ret = await updateMeeting(meeting, meetingId);
-    //   console.log("book meeting", ret);
-    //   getMentorMeetings(mentorId, studentId);
-    // }
+    const attendee = { id: meetingId, userId: studentId, attended: false,googleCalendarId:"" };
+    let meeting: any = await getMeetingById(meetingId);
+    if (meeting?.meetingAttendee) {
+      meeting.meetingAttendee.push(attendee);
+      console.log("book meeting:meeting",JSON.stringify(meeting))
+      const ret = await updateMeeting(meeting, meetingId);
+      console.log("book meeting", ret);
+      getMentorMeetings(mentorId, studentId);
+    }
   };
 
   const cancelMeeting = async (
