@@ -328,6 +328,7 @@ const AppContextProvider = (props: any) => {
       lastName: user.lastName,
       rating: user.rating,
       avatar: user.avatar,
+      role:user.role
     };
     setUserInfo(user);
   };
@@ -739,7 +740,10 @@ const AppContextProvider = (props: any) => {
           if (user) {
             const username = user.getUsername();
             setUsername(username);
-            setEmail(Username);
+            if(localStorage.getItem("email") !== undefined){
+              setEmail(Username);
+              localStorage.setItem("email",Username)
+            }
           }
           resolve(data);
         },
@@ -759,6 +763,7 @@ const AppContextProvider = (props: any) => {
   const logout = () => {
     const user = UserPool.getCurrentUser();
     if (user) {
+      localStorage.removeItem("email")
       user.signOut();
       setIsAuthenticated(false);
       navigate("/login");
