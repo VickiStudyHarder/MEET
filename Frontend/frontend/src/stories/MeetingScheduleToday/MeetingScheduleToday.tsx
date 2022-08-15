@@ -46,10 +46,10 @@ const CurrentMeetingCard: React.FC<ICurrentMeetingCard> = ({ meeting }) => {
           <Box sx={{display: 'flex', flexDirection: 'row'}}>
           <Box className='time'>
             <Typography variant='subtitle2'>
-              <b>Start: </b> {start}
+              <b style={{fontFamily:"Quicksand"}}>Start: </b> {start}
             </Typography>
             <Typography variant='subtitle2'>
-              <b>End: </b>
+              <b style={{fontFamily:"Quicksand"}}>End: </b>
               {end}
             </Typography>
           </Box>

@@ -79,11 +79,11 @@ const NavBar: React.FC<INavBar> = () => {
                   key={option.title}
                 >
                   {location.pathname === option.url ? (
-                    <Typography style={{ fontWeight: 600, color: "#000000" }}>
+                    <Typography style={{ fontWeight: 600, color: "#000000" }} fontFamily={"Quicksand"}>
                       {option.title}
                     </Typography>
                   ) : (
-                    <Typography>{option.title}</Typography>
+                    <Typography fontFamily={"Quicksand"}>{option.title}</Typography>
                   )}
                 </Button>
               );

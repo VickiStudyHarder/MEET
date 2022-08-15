@@ -5,6 +5,9 @@ import {
   Divider,
   Typography,
 } from "@mui/material";
+import { func } from "prop-types";
+import { callbackify } from "util";
+import { url } from "node:inspector";
 import "./Calendar.css";
 import { useEffect, useContext, useState } from "react";
 import React from "react";
@@ -22,7 +25,11 @@ import AppContext from "../../contexts/AppContext";
 import PageTitle from "../../stories/PageTiltle";
 import MeetingTime from "../../stories/MeetingTime/MeetingTime";
 import { userInfo } from "node:os";
-//import './Calendar.css';
+import CancelMeeting from "../../stories/CancelMeeting/CancelMeeting";
+import BookMeeting from "../../stories/BookMeeting/BookMeeting";
+import UpcomingMeetingCard from "../../stories/MeetingScheduleTomorrow/MeetingScheduleTomorrow";
+import { useNavigate } from "react-router-dom";
+// import './Calendar.css';
 
 const theme = createTheme();
 
@@ -46,6 +53,9 @@ const Calendar: React.FC<ICalendar> = () => {
     userInfo,
     getAllMeetings,
     getMentorMeetings,
+    removeMeeting,
+    bookMeeting,
+    cancelMeeting,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -61,23 +71,17 @@ const Calendar: React.FC<ICalendar> = () => {
   const [openDeletePanel, setOpenDeletePanel] = useState(false);
   const [openCancelPanel, setOpenCancelPanel] = useState(false);
   const [openBookingPanel, setOpenBookingPanel] = useState(false);
-  const [selectedTimeArr, setSelectedTimeArr] = useState<any[]>([]);
-  const [meetingTitle, setMeetingTitle] = useState<any>("New Meeting");
+  const [creatingPanelTitle, setCreatingPanelTitle] =
+    useState<any>("Create Meeting");
+  const [selectedEvent, setSelectedEvent] = useState<any>();
 
   useEffect(() => {
     console.log("all mentors:", allMentors);
   }, [allMentors]);
 
   useEffect(() => {
-    // console.log("selectedTimeArr:", selectedTimeArr);
-  }, [selectedTimeArr]);
-
-  useEffect(() => {
-    setSelectedTimeArr(mentorTimeOfDay);
-  }, [mentorTimeOfDay]);
-  useEffect(() => {
-    console.log("Meeting title", meetingTitle);
-  }, [meetingTitle]);
+    console.log("Meeting title", creatingPanelTitle);
+  }, [creatingPanelTitle]);
 
   useEffect(() => {
     if (userInfo.role === "mentor") {
@@ -89,14 +93,18 @@ const Calendar: React.FC<ICalendar> = () => {
     console.log("all meetings", allMeetings);
   }, [allMeetings]);
 
-  const onConfirmCallback = async () => {
-    console.log("selectedTimeArr:", selectedTimeArr);
-    let times = selectedTimeArr.filter((x: any) => {
+  useEffect(() => {
+    console.log("mentor meetings", mentorMeetings);
+  }, [mentorMeetings]);
+
+  const onCreatingConfirmCallback = async () => {
+    let times = mentorTimeOfDay.filter((x: any) => {
       return x.checked === true && x.disabled === false;
     });
     times = times.sort((a: any, b: any) => {
       return a.hour - b.hour;
     });
+    console.log("calendar:creating", times);
     const len = times.length;
     if (len > 0) {
       let prevT = times[0].hour;
@@ -105,34 +113,22 @@ const Calendar: React.FC<ICalendar> = () => {
         if (t.hour - prevT > 1) {
           flag = true;
         }
+        prevT = t.hour;
       });
       if (flag === false) {
         const date = times[0].date;
+        console.log("calendar:creating:times[0].date", date);
+
         const startHr = times[0].hour;
-        const endHr = times[len - 1].hour;
-        const startTime = new Date(
-          date.getFullYear(),
-          date.getMonth(),
-          date.getDay(),
-          startHr,
-          0,
-          0,
-          0
-        );
-        const endTime = new Date(
-          date.getFullYear(),
-          date.getMonth(),
-          date.getDay(),
-          endHr + 1,
-          0,
-          0,
-          0
-        );
+        const endHr = times[len - 1].hour + 1;
+        const startTime = new Date(new Date(date.getTime()).setHours(startHr));
+        const endTime = new Date(new Date(date.getTime()).setHours(endHr));
+        console.log("calendar:creating meeting", startTime, endTime);
         await addMeeting(
-          meetingTitle,
+          creatingPanelTitle,
           "",
-          startTime.toISOString(),
-          endTime.toISOString(),
+          startTime.toString(),
+          endTime.toString(),
           email
         );
         setOpenCreatingPanel(false);
@@ -142,44 +138,167 @@ const Calendar: React.FC<ICalendar> = () => {
     }
   };
 
-  const onDenyCallback = () => {};
+  const onCreatingDenyCallback = () => {};
 
-  const eventClick = (e:any) => {
-    console.log(e);
+  const onDeleteConfirmCallback = async () => {
+    if (userInfo.role === "mentor") {
+      await removeMeeting(selectedEvent?.id, email);
+      setOpenDeletePanel(false);
+    }
   };
 
+  const onBookConfirmCallback = async () => {
+    if (userInfo.role === "student") {
+      await bookMeeting(selectedEvent?.id, email, selectedMentor?.id);
+      setOpenBookingPanel(false)
+    }
+  };
+
+  const onCancelBookingConfirmCallback = async () => {
+    if (userInfo.role === "student") {
+      await cancelMeeting(selectedEvent?.id, email, selectedMentor?.id);
+      setOpenCancelPanel(false)
+    }
+  };
+
+  const eventClick = (e: any) => {
+    const event = e.event;
+    console.log(event);
+    if (!event.extendedProps.expired) {
+      setSelectedEvent(event);
+      if (userInfo.role === "mentor") {
+        setOpenDeletePanel(true);
+      } else {
+        if (event.extendedProps.booked) {
+          setOpenCancelPanel(true);
+        } else {
+          setOpenBookingPanel(true);
+        }
+      }
+    }
+  };
+
+  const headerClick = (e: any) => {
+    if (userInfo.role === "mentor") {
+      let splits = e.split("-");
+      splits = splits.map((s: any) => Number(s));
+      const date = new Date(splits[0], splits[1] - 1, splits[2], 0, 0, 0, 0);
+      if(date > new Date()){
+        setOpenCreatingPanel(true);
+        getMentorTimeOfDay(email, date);
+      }
+    } else {
+    }
+  };
+
+  function yyyymmdd(date: any) {
+    var y = date.getFullYear().toString();
+    var m = (date.getMonth() + 1).toString();
+    var d = date.getDate().toString();
+    var h = date.getHours();
+    d.length == 1 && (d = "0" + d);
+    m.length == 1 && (m = "0" + m);
+    h.length == 1 && (h = "0" + h);
+    return `${y}/${m}/${d} ${h}:00:00`;
+  }
+  const navigate = useNavigate();
   return (
     <ThemeProvider theme={theme}>
       <NavBar></NavBar>
+      <CancelMeeting
+        name={"Cancel Booking"}
+        desc={selectedEvent?.title}
+        time={`${yyyymmdd(selectedEvent?.start || new Date())}-
+          ${yyyymmdd(selectedEvent?.end || new Date())}`}
+        open={openCancelPanel}
+        content={`Do you want to cancel your booking?`}
+        onConfirmCallback={onCancelBookingConfirmCallback}
+        setOpen={setOpenCancelPanel}
+      ></CancelMeeting>
+      <CancelMeeting
+        name={`Delete Meeting`}
+        desc={selectedEvent?.title || ""}
+        time={`${yyyymmdd(selectedEvent?.start || new Date())}-
+          ${yyyymmdd(selectedEvent?.end || new Date())}`}
+        open={openDeletePanel}
+        content={`Do you really want to delete your meeting?`}
+        setOpen={setOpenDeletePanel}
+        onConfirmCallback={onDeleteConfirmCallback}
+        onDenyCallback={() => {}}
+        ></CancelMeeting>
+      <BookMeeting
+        name={"Book Meeting"}
+        desc={selectedEvent?.title}
+        time={`${yyyymmdd(selectedEvent?.start || new Date())}-
+        ${yyyymmdd(selectedEvent?.end || new Date())}`}
+        open={openBookingPanel}
+        content={`Book this meeting?`}
+        setOpen={setOpenBookingPanel}
+        onConfirmCallback={onBookConfirmCallback}
+        onDenyCallback={() => {}}
+      ></BookMeeting>
+      <MeetingTime
+        label={`Create Meeting ${mentorTimeOfDay[0]?.date}`}
+        open={openCreatingPanel}
+        setOpen={setOpenCreatingPanel}
+        onConfirmCallback={onCreatingConfirmCallback}
+        onDenyCallback={onCreatingDenyCallback}
+        setMeetingTitle={setCreatingPanelTitle}
+      ></MeetingTime>
       <div className="flex">
         <div className="leftContent">
-          <div style={{ marginTop: "20px" }}>
-            <CalendarUserCardPrimary
-              name={`${selectedMentor.lastName} ${selectedMentor.firstName}`}
-              rating={selectedMentor.rating}
-              avatar={`./avatars/${selectedMentor?.avatar || "0"}.png`}
-            />
-            <div className="minCardContent">
-              {allMentors.map((item: any, index: any) => {
-                return (
-                  <Box
-                    className="minCard"
-                    onClick={() => {
-                      getSelectedMentor(item.id);
-                    }}
-                  >
-                    <CalendarUserCardMini
-                      name={`${item.lastName} ${item.firstName}`}
-                      avator={`./avatars/${item?.avatar || "0"}.png`}
-                    />
-                  </Box>
-                );
-              })}
+          {userInfo.role === "student" && (
+            <div style={{ marginTop: "20px" }}>
+              <CalendarUserCardPrimary
+                name={`${selectedMentor.lastName} ${selectedMentor.firstName}`}
+                rating={selectedMentor.rating}
+                avatar={`./avatars/${selectedMentor?.avatar || "0"}.png`}
+              />
+              <div className="minCardContent">
+                {allMentors.map((item: any, index: any) => {
+                  return (
+                    <Box
+                      className="minCard"
+                      onClick={() => {
+                        console.log("calendar:mini card", item.id, email);
+                        getSelectedMentor(item.id);
+                        getMentorMeetings(item.id, email);
+                      }}
+                    >
+                      <CalendarUserCardMini
+                        name={`${item.lastName} ${item.firstName}`}
+                        avator={`./avatars/${item?.avatar || "0"}.png`}
+                      />
+                    </Box>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
+          {userInfo.role === "mentor" && (
+            <Grid container spacing={2} sx={{ m: 2 }}>
+              {allMeetings.map((m: any) => {
+                if (!m.expired) {
+                  return (
+                    <Button onClick={() => navigate(`/meeting/${m.id}`)}>
+                      <UpcomingMeetingCard
+                        meeting={{
+                          ...m,
+                          id: m.id,
+                          meetingStart: m.startTime,
+                          meetingEnd: m.endTime,
+                          summary: m.title,
+                        }}
+                      />
+                    </Button>
+                  );
+                }
+              })}
+            </Grid>
+          )}
         </div>
         <div className="rightContent">
-          {userInfo.role === "mentor" && (
+          {/* {userInfo.role === "mentor" && (
             <div className="add">
               <Button
                 sx={{
@@ -194,31 +313,13 @@ const Calendar: React.FC<ICalendar> = () => {
                 }}
                 variant="contained"
                 onClick={() => {
-                  setOpenCreatingPanel(true);
-                  getMentorTimeOfDay("", new Date("2011-10-10T14:00:00"));
+                  
                 }}
               >
                 +Add
               </Button>
-              <MeetingTime
-                timeArr={mentorTimeOfDay.map((x: any) => ({
-                  date: x.date,
-                  hour: x.hour,
-                  time: `${x.hour}:00-${x.hour + 1}:00`,
-                  checked: x.checked,
-                  disabled: x.disabled,
-                }))}
-                label={"Create Meeting"}
-                open={openCreatingPanel}
-                setOpen={setOpenCreatingPanel}
-                onConfirmCallback={onConfirmCallback}
-                onDenyCallback={onDenyCallback}
-                selectedTimeArr={selectedTimeArr}
-                setSelectedTimeArr={setSelectedTimeArr}
-                setMeetingTitle={setMeetingTitle}
-              ></MeetingTime>
             </div>
-          )}
+          )} */}
 
           <div>
             {userInfo.role === "mentor" && (
@@ -230,10 +331,11 @@ const Calendar: React.FC<ICalendar> = () => {
                   title: m.title,
                   start: m.startTime,
                   end: m.endTime,
-                  color:m.expired?"#70798B":"#FD346E",
+                  color: m.expired ? "#70798B" : "#FD346E",
                   extendedProps: { expired: m.expired },
                 }))}
                 eventClick={eventClick}
+                headerClick={headerClick}
               ></CalendarTable>
             )}
             {userInfo.role === "student" && (
@@ -245,9 +347,15 @@ const Calendar: React.FC<ICalendar> = () => {
                   title: m.title,
                   start: m.startTime,
                   end: m.endTime,
-                  extendedProps: { booked: m.booked },
+                  color: m.expired
+                    ? "#70798B"
+                    : m.booked
+                    ? "#83B297"
+                    : "#FD346E",
+                  extendedProps: { booked: m.booked, expired: m.expired },
                 }))}
                 eventClick={eventClick}
+                headerClick={headerClick}
               ></CalendarTable>
             )}
           </div>

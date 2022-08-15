@@ -158,7 +158,7 @@ const Group: React.FC<IGroup> = () => {
         onClose={handleClose}
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'
-        sx={{ display: 'flex', flexGrow: 1 }}
+        // sx={{ display: 'flex', flexGrow: 1 }}
         maxWidth='lg'
       >
         <CreateStudentGroupForm setOpen={setOpen} getAllGroups={getAllGroups} />
