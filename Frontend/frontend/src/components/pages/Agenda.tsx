@@ -12,6 +12,8 @@ import {
   Button,
   Dialog,
 } from '@mui/material';
+import AlarmIcon from '@mui/icons-material/Alarm';
+import GroupsIcon from '@mui/icons-material/Groups';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../molecules/NavBar';
 import { getMeetingById } from '../../api/meeting';
@@ -36,6 +38,8 @@ const Agenda: React.FC<IAgenda> = () => {
     handleGetMeeting();
   }, [start, end, diff]);
 
+
+  
   const handleGetMeeting = async () => {
     const result = await getMeetingById(Number(id));
     setMeeting(result);
@@ -130,14 +134,16 @@ const Agenda: React.FC<IAgenda> = () => {
             <Box sx={{ display: 'flex', flexGrow: 1, height: '100%' }}>
               <Box
                 sx={{
-                  boxShadow: '2px 2px 2px 2px lightGray',
+                  boxShadow: '5px 5px 5px 5px lightGray',
                   width: 800,
                   height: 350,
-                  mt: 6,
-                  borderRadius: 1,
+                  mt: 30,
+                  borderRadius: 10,
                   display: 'flex',
                   flexDirection: 'row',
                   p: 4,
+                  background: '#F3F4F6',
+                  // border:,
                 }}
               >
                 <Box
@@ -148,16 +154,22 @@ const Agenda: React.FC<IAgenda> = () => {
                     maxWidth: '40%',
                   }}
                 >
+                  <GroupsIcon
+                  sx={{color:'#6001D3',fontSize:60}}
+                  >
+                  </GroupsIcon>
                   <Typography
-                    variant='h3'
+                    
                     align='center'
-                    sx={{ mx: 'auto', my: 2 }}
+                    // color='#6001D3'
+                    sx={{fontSize:50, mx: 'auto',}}
                   >
                     {meeting.summary}
                   </Typography>
                   <Typography
                     variant='subtitle1'
                     align='center'
+                    
                     sx={{ mx: 'auto', my: 2 }}
                   >
                     {start}
@@ -165,6 +177,7 @@ const Agenda: React.FC<IAgenda> = () => {
                   <Typography
                     variant='subtitle1'
                     align='center'
+                    // color='white'
                     sx={{ mx: 'auto', mb: 2 }}
                   >
                     {end}
@@ -173,6 +186,7 @@ const Agenda: React.FC<IAgenda> = () => {
                 <Divider
                   variant='middle'
                   orientation='vertical'
+                  
                   sx={{ width: '10%', display: 'flex', mx: 4 }}
                 />
                 <Box
@@ -183,7 +197,14 @@ const Agenda: React.FC<IAgenda> = () => {
                     maxWidth: '40%',
                   }}
                 >
-                  <Typography variant='h2' sx={{ m: 'auto', fontWeight: 500 }}>
+                  <AlarmIcon
+                  sx={{color:'#6001D3',fontSize:60}}
+                  >
+                  </AlarmIcon>
+                  <Typography 
+                    // variant='h2' 
+                    // color='#6001D3'
+                    sx={{ mx:'auto',fontWeight: 500, fontSize:70, my:4 }}>
                     {diff}
                   </Typography>
                 </Box>

@@ -41,7 +41,7 @@ const NavBar: React.FC<INavBar> = () => {
   }, []);
 
   useEffect(() => {
-    console.log("navbar:userinfo=", userInfo);
+    console.log("userinfo=", userInfo);
   }, [userInfo]);
 
   return (

@@ -30,6 +30,7 @@ const GroupChat: React.FC<IGroupChat> = () => {
   const { email } = useContext(AppContext);
   const { id } = useParams();
   const [messages, setMessages] = useState<any>(null);
+  const [GroupName, setGroupName] = useState('');
   const navigate = useNavigate();
   useEffect(() => {
     const timer = setInterval(getMessages, 3000);
@@ -38,6 +39,7 @@ const GroupChat: React.FC<IGroupChat> = () => {
 
   const getMessages = async () => {
     const messages = await getGroupById(Number(id));
+    setGroupName(messages.name)
     setMessages(messages.messageHistory);
     console.log(messages);
   };
@@ -70,7 +72,7 @@ const GroupChat: React.FC<IGroupChat> = () => {
       <Divider variant='middle' sx={{ width: '100%' }} />
       <Box sx={{ display: 'flex', flexDirection: 'row', p: 6 }}>
         <Box sx={{ height: '100%', m: 2 }}>
-          <StudentGroupNameCard />
+          <StudentGroupNameCard inChat={true} groupName={GroupName} />
         </Box>
         <Container
           sx={{ display: 'flex', flexDirection: 'column', width: '100%'}}
