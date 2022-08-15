@@ -57,10 +57,12 @@ const Calendar: React.FC<ICalendar> = () => {
     getSelectedMentor(id_check);
   };
 
-  const [open, setOpen] = useState(false);
+  const [openCreatingPanel, setOpenCreatingPanel] = useState(false);
+  const [openDeletePanel, setOpenDeletePanel] = useState(false);
+  const [openCancelPanel, setOpenCancelPanel] = useState(false);
+  const [openBookingPanel, setOpenBookingPanel] = useState(false);
   const [selectedTimeArr, setSelectedTimeArr] = useState<any[]>([]);
   const [meetingTitle, setMeetingTitle] = useState<any>("New Meeting");
-  const [minCard, setMinCard] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
   useEffect(() => {
     console.log("all mentors:", allMentors);
@@ -133,7 +135,7 @@ const Calendar: React.FC<ICalendar> = () => {
           endTime.toISOString(),
           email
         );
-        setOpen(false);
+        setOpenCreatingPanel(false);
       } else {
         alert("Selected time slots should be consecutive!");
       }
@@ -177,7 +179,7 @@ const Calendar: React.FC<ICalendar> = () => {
           </div>
         </div>
         <div className="rightContent">
-          {userInfo.role == "mentor" && (
+          {userInfo.role === "mentor" && (
             <div className="add">
               <Button
                 sx={{
@@ -192,7 +194,7 @@ const Calendar: React.FC<ICalendar> = () => {
                 }}
                 variant="contained"
                 onClick={() => {
-                  setOpen(true);
+                  setOpenCreatingPanel(true);
                   getMentorTimeOfDay("", new Date("2011-10-10T14:00:00"));
                 }}
               >
@@ -207,8 +209,8 @@ const Calendar: React.FC<ICalendar> = () => {
                   disabled: x.disabled,
                 }))}
                 label={"Create Meeting"}
-                open={open}
-                setOpen={setOpen}
+                open={openCreatingPanel}
+                setOpen={setOpenCreatingPanel}
                 onConfirmCallback={onConfirmCallback}
                 onDenyCallback={onDenyCallback}
                 selectedTimeArr={selectedTimeArr}
