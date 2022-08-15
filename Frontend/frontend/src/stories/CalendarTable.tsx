@@ -29,7 +29,8 @@ interface CalendarProps {
    * Button contents
    */
   label?: string;
-  hegiht?: string;
+  height?: string;
+  width?:string;
   /**
    * Optional click handler
    */
@@ -49,7 +50,8 @@ export default function CalendarTable({
   backgroundColor,
   label,
   defaultView,
-  hegiht,
+  height,
+  width,
   events,
   ...props
 }: CalendarProps) {
@@ -70,12 +72,12 @@ export default function CalendarTable({
 
   ]
   */
-  console.log(JSON.stringify(events))
+  // console.log(JSON.stringify(events))
   return (
     <div className="FullCalendarPage">
       <FullCalendar
         editable={true}
-        height={hegiht}// 此处高度为方便截图，可不设置
+        height={height}// 此处高度为方便截图，可不设置
         initialView="timeGridWeek"
         plugins={[dayGridPlugin, timeGridPlugin, momentPlugin]}
         allDaySlot={false}

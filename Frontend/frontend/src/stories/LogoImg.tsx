@@ -5,6 +5,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { useNavigate } from "react-router-dom";
 import { Height } from "@mui/icons-material";
 import GroupsIcon from '@mui/icons-material/Groups';
+import Brand from "./Brand";
 
 interface ListProps {
   title?: string,
@@ -23,9 +24,10 @@ export default function Logo({
 }: ListProps) {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row' }} >
-      <Box sx={{ backgroundColor: '#6001D3', width: 45, height: 45, borderRadius: 3, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Brand></Brand>
+      {/* <Box sx={{ backgroundColor: '#6001D3', width: 45, height: 45, borderRadius: 3, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <GroupsIcon style={{ fontSize: 33, color: '#ffffff' }} />
-      </Box>
+      </Box> */}
       <Box sx={{ display: 'flex', flexDirection: 'column', marginLeft:1 }}>
       <Typography variant="h6" component="div" fontWeight={'bold'} marginTop={-0.5} >
                       {title}

@@ -259,7 +259,7 @@ const Calendar: React.FC<ICalendar> = () => {
   const [minCard, setMinCard] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
   useEffect(() => {
-    console.log("calender:", allMentors);
+    console.log("all mentors:", allMentors);
   }, [allMentors]);
 
   useEffect(() => {
@@ -329,12 +329,13 @@ const Calendar: React.FC<ICalendar> = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <NavBar></NavBar>
       <div className="flex">
         <div className="leftContent">
           <div style={{ marginTop: "20px" }}>
             <CalendarUserCardPrimary
               name={`${selectedMentor.lastName} ${selectedMentor.firstName}`}
-              rating={selectedMentor.rating} avatar={selectedMentor.avatar}
+              rating={selectedMentor.rating} avatar={`./avatars/${selectedMentor?.avatar || "0"}.png`}
             />
             <div className="minCardContent">
               {allMentors.map((item: any, index: any) => {
@@ -346,7 +347,7 @@ const Calendar: React.FC<ICalendar> = () => {
                     }}
                   >
                     <CalendarUserCardMini
-                      name={`${item.lastName} ${item.firstName}`} avator={item.avatar}
+                      name={`${item.lastName} ${item.firstName}`} avator={`./avatars/${item?.avatar || "0"}.png`}
                     />
                   </Box>
                 );
@@ -393,7 +394,7 @@ const Calendar: React.FC<ICalendar> = () => {
               setMeetingTitle={setMeetingTitle}
             ></MeetingTime>
           </div>
-          <CalendarTable events={mentorMeetings} hegiht="90vh" />
+          <CalendarTable events={mentorMeetings} height="80vh" width="60vh" />
         </div>
       </div>
     </ThemeProvider>
