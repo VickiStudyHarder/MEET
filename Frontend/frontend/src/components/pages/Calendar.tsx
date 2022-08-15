@@ -183,8 +183,10 @@ const Calendar: React.FC<ICalendar> = () => {
       let splits = e.split("-");
       splits = splits.map((s: any) => Number(s));
       const date = new Date(splits[0], splits[1] - 1, splits[2], 0, 0, 0, 0);
-      setOpenCreatingPanel(true);
-      getMentorTimeOfDay(email, date);
+      if(date > new Date()){
+        setOpenCreatingPanel(true);
+        getMentorTimeOfDay(email, date);
+      }
     } else {
     }
   };
