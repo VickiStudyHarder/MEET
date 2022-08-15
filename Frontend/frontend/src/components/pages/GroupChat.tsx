@@ -18,8 +18,9 @@ import ChatWindow from '../organisms/ChatWindow/ChatWindow';
 import { getGroupById, getGroups } from '../../api/groupChat';
 import AppContext from '../../contexts/AppContext';
 import StudentGroupCard from '../../stories/StudentGroupCard';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import StudyGroupIcon from '../../assets/StudyGroupIcon.png';
+import PageTitle from '../../stories/PageTiltle';
 
 interface IGroupChat {}
 
@@ -29,7 +30,7 @@ const GroupChat: React.FC<IGroupChat> = () => {
   const { email } = useContext(AppContext);
   const { id } = useParams();
   const [messages, setMessages] = useState<any>(null);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const timer = setInterval(getMessages, 3000);
     return () => clearInterval(timer);
@@ -61,20 +62,9 @@ const GroupChat: React.FC<IGroupChat> = () => {
             maxHeight: 140,
           }}
         >
-          <Box sx={{ my: 'auto', mr: 2 }}>
-            <img
-              src={StudyGroupIcon}
-              height='120'
-              width='120'
-              alt='study-group-icon'
-            />
-          </Box>
-          <Typography
-            variant='h3'
-            sx={{ display: 'flex', flexGrow: 1, my: 'auto' }}
-          >
-            All Study Groups
-          </Typography>
+            <Box sx={{ marginLeft: 3 }}>
+              <PageTitle icon='6' content='All my group' doSomething={() => navigate(`/group`)} />
+            </Box>
         </Box>
       </Box>
       <Divider variant='middle' sx={{ width: '100%' }} />
