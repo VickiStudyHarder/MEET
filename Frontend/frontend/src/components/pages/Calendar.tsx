@@ -73,15 +73,6 @@ const Calendar: React.FC<ICalendar> = () => {
   const [openBookingPanel, setOpenBookingPanel] = useState(false);
   const [creatingPanelTitle, setCreatingPanelTitle] =
     useState<any>("Create Meeting");
-  const [deletePanelTitle, setDeletePanelTitle] =
-    useState<any>("Delete Meeting");
-  const [deletePanelDuration, setDeletePanelDuration] = useState<any>({
-    start: new Date(),
-    end: new Date(),
-  });
-  const [bookingPanelTitle, setBookingPanelTitle] =
-    useState<any>("Book Meeting");
-  const [cancelPanelTitle, setCancelPanelTitle] = useState<any>("Book Meeting");
   const [selectedEvent, setSelectedEvent] = useState<any>();
 
   useEffect(() => {
@@ -101,6 +92,10 @@ const Calendar: React.FC<ICalendar> = () => {
   useEffect(() => {
     console.log("all meetings", allMeetings);
   }, [allMeetings]);
+
+  useEffect(() => {
+    console.log("mentor meetings", mentorMeetings);
+  }, [mentorMeetings]);
 
   const onCreatingConfirmCallback = async () => {
     let times = mentorTimeOfDay.filter((x: any) => {
@@ -154,17 +149,23 @@ const Calendar: React.FC<ICalendar> = () => {
 
   const onBookConfirmCallback = async () => {
     if (userInfo.role === "student") {
+      await bookMeeting(selectedEvent?.id, email, selectedMentor?.id);
     }
   };
 
   const eventClick = (e: any) => {
     const event = e.event;
-    console.log("calendar:event click", event);
+    console.log(event);
     if (!event.extendedProps.expired) {
+      setSelectedEvent(event);
       if (userInfo.role === "mentor") {
-        setSelectedEvent(event);
         setOpenDeletePanel(true);
       } else {
+        if (event.extendedProps.booked) {
+          setOpenCancelPanel(true);
+        } else {
+          setOpenBookingPanel(true);
+        }
       }
     }
   };
@@ -196,8 +197,11 @@ const Calendar: React.FC<ICalendar> = () => {
       <NavBar></NavBar>
       <CancelMeeting
         name={"Cancel Booking"}
-        desc={cancelPanelTitle}
+        desc={selectedEvent?.title}
+        time={`${yyyymmdd(selectedEvent?.start || new Date())}-
+          ${yyyymmdd(selectedEvent?.end || new Date())}`}
         open={openCancelPanel}
+        content={`Do you want to cancel your booking?`}
         setOpen={setOpenCancelPanel}
       ></CancelMeeting>
       <CancelMeeting
@@ -209,12 +213,18 @@ const Calendar: React.FC<ICalendar> = () => {
         content={`Do you really want to delete your meeting?`}
         setOpen={setOpenDeletePanel}
         onConfirmCallback={onDeleteConfirmCallback}
-      ></CancelMeeting>
+        onDenyCallback={() => {}}
+        ></CancelMeeting>
       <BookMeeting
         name={"Book Meeting"}
-        desc={bookingPanelTitle}
+        desc={selectedEvent?.title}
+        time={`${yyyymmdd(selectedEvent?.start || new Date())}-
+        ${yyyymmdd(selectedEvent?.end || new Date())}`}
         open={openBookingPanel}
+        content={`Book this meeting?`}
         setOpen={setOpenBookingPanel}
+        onConfirmCallback={onBookConfirmCallback}
+        onDenyCallback={() => {}}
       ></BookMeeting>
       <MeetingTime
         label={`Create Meeting ${mentorTimeOfDay[0]?.date}`}
@@ -239,7 +249,9 @@ const Calendar: React.FC<ICalendar> = () => {
                     <Box
                       className="minCard"
                       onClick={() => {
+                        console.log("calendar:mini card", item.id, email);
                         getSelectedMentor(item.id);
+                        getMentorMeetings(item.id, email);
                       }}
                     >
                       <CalendarUserCardMini
@@ -258,7 +270,15 @@ const Calendar: React.FC<ICalendar> = () => {
                 if (!m.expired) {
                   return (
                     <Button onClick={() => navigate(`/meeting/${m.id}`)}>
-                      <UpcomingMeetingCard meeting={{...m,id:m.id,meetingStart:m.startTime,meetingEnd:m.endTime,summary:m.title}} />
+                      <UpcomingMeetingCard
+                        meeting={{
+                          ...m,
+                          id: m.id,
+                          meetingStart: m.startTime,
+                          meetingEnd: m.endTime,
+                          summary: m.title,
+                        }}
+                      />
                     </Button>
                   );
                 }
@@ -316,7 +336,12 @@ const Calendar: React.FC<ICalendar> = () => {
                   title: m.title,
                   start: m.startTime,
                   end: m.endTime,
-                  extendedProps: { booked: m.booked },
+                  color: m.expired
+                    ? "#70798B"
+                    : m.booked
+                    ? "#83B297"
+                    : "#FD346E",
+                  extendedProps: { booked: m.booked, expired: m.expired },
                 }))}
                 eventClick={eventClick}
                 headerClick={headerClick}

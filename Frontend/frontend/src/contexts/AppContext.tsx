@@ -266,7 +266,9 @@ const AppContextProvider = (props: any) => {
   };
 
   const getMentorMeetings = async (mentorId: string, studentId: string) => {
+    console.log("getMentorMeetings",mentorId,studentId)
     let meetings = await getMeetingsByUserId(mentorId);
+    console.log("getMentorMeetings:raw meetings",meetings)
     meetings = meetings.map((x: any) => ({
       id: x.meeting.id,
       startTime: new Date(x.meeting.meetingStart),
@@ -274,16 +276,23 @@ const AppContextProvider = (props: any) => {
       title: x.meeting.summary,
       description: x.meeting.description,
       booked: false,
+      expired:true,
+      attendees:x.meeting.meetingAttendee
     }));
     meetings = meetings.map((m: any) => {
       if (
-        m.meetingAttendee.some((a: any) => {
+        m.attendees.some((a: any) => {
           return a.userId === studentId;
         })
-      ) {
+        ) {
         m.booked = true;
       }
+      if (m.startTime > Date.now()) {
+        m.expired = false;
+      }
+      return m
     });
+    console.log("getMentorMeetings:filtered meetings",meetings)
     setMentorMeetings(meetings);
   };
 
@@ -425,14 +434,15 @@ const AppContextProvider = (props: any) => {
     studentId: string,
     mentorId: string
   ) => {
-    const attendee = { id: meetingId, userId: studentId, attended: false };
-    let meeting: any = await getMeetingById(meetingId);
-    if (meeting?.attendees) {
-      meeting.attendees.push(attendee);
-      const ret = await updateMeeting(meeting, meetingId);
-      console.log("book meeting", ret);
-      getMentorMeetings(mentorId, studentId);
-    }
+    console.log("book meeting",meetingId,studentId,mentorId)
+    // const attendee = { id: meetingId, userId: studentId, attended: false };
+    // let meeting: any = await getMeetingById(meetingId);
+    // if (meeting?.attendees) {
+    //   meeting.attendees.push(attendee);
+    //   const ret = await updateMeeting(meeting, meetingId);
+    //   console.log("book meeting", ret);
+    //   getMentorMeetings(mentorId, studentId);
+    // }
   };
 
   const cancelMeeting = async (
