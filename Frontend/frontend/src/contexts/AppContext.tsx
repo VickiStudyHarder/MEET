@@ -99,8 +99,8 @@ export type IAppContext = {
   updateMeetingTodos: any;
   mentorTimeOfDay: any;
   getMentorTimeOfDay: any;
-  userInfo:any;
-  getUserInfo:any;
+  userInfo: any;
+  getUserInfo: any;
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -186,141 +186,14 @@ const AppContextProvider = (props: any) => {
   };
 
   useEffect(() => {
-    getMeeting(email);
-  }, [email]);
-
-  useEffect(() => {
-    setSelectedStudent({
-      id: "",
-      name: "",
-      rating: 5,
-      avatar: "",
-    });
-    setAllMentors([{ id: "", avatar: "", name: "" }]);
-    setMentorMeetings([{ id: "", title: "", start: "", end: "" }]);
-    setAllMeetings([
-      {
-        id: "",
-        start: "",
-        end: "",
-        date: { day: "01", month: "DEC", year: "2022" },
-        title: "name 1",
-        time: "12:00 - 13:00",
-      },
-    ]);
-    setMeetingsRequests([
-      {
-        requestId: "",
-        meetingId: "",
-        userId: "",
-        avatar: "",
-        usreName: "",
-        courseName: "",
-        title: "",
-        rating: 5,
-        meetingTime: "",
-      },
-    ]);
-    setMeetingTodos([
-      {
-        meetingId: "",
-        option: {
-          show: true,
-          showAdd: true,
-        },
-        title: "meeting 1",
-        task: [
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-        ],
-      },
-      {
-        meetingId: "",
-        option: {
-          show: true,
-          showAdd: true,
-        },
-        title: "meeting 2",
-        task: [
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-          {
-            name: "to do item",
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          },
-        ],
-      },
-    ]);
-    setInMeetingAgenda({
-      meetingId: "",
-      agenda: [
-        { itemId: "", title: "", content: "" },
-        { itemId: "", title: "", content: "" },
-      ],
-    });
-    setInMeetingNote({
-      meetingId: "",
-      note: [{ itemId: "", title: "", content: "" }],
-    });
-    setMeetingNotes([
-      { meetingId: "", userId: "", avatar: "", title: "", description: "" },
-    ]);
-    setSelectedNote({
-      meetingId: "",
-      note: [{ id: "", title: "", content: "" }],
-    });
-    setSeletedAgenda({
-      meetingId: "",
-      items: [{ id: "", title: "", content: "" }],
-    });
-    setMeetingRecordings([
-      {
-        meetingId: "",
-        recording: [
-          { id: "", title: "", cover: "", file: "" },
-          { id: "", title: "", cover: "", file: "" },
-        ],
-      },
-    ]);
-    getAllMeetings("z3417347@gmail.com");
-    getAllMentors();
+    const email = localStorage.getItem("email")
+    if(email){
+      setEmail(email)
+      getUserInfo(email)
+    }
   }, []);
 
-  const getUserInfo = async (userId:string) => {
+  const getUserInfo = async (userId: string) => {
     let user = await getUser(userId);
     user = {
       id: user.id,
@@ -328,7 +201,7 @@ const AppContextProvider = (props: any) => {
       lastName: user.lastName,
       rating: user.rating,
       avatar: user.avatar,
-      role:user.role
+      role: user.role,
     };
     setUserInfo(user);
   };
@@ -341,17 +214,17 @@ const AppContextProvider = (props: any) => {
       endTime: Date.parse(item.endTime),
       title: item.summary,
       description: item.description,
-      expired:true
+      expired: true,
     }));
     meetings = meetings.sort((a: any, b: any) => {
       return a.startTime > b.startTime;
     });
-    meetings = meetings.map((m:any)=>{
-      if(m.startTime > Date.now()){
-        m.expired = false
+    meetings = meetings.map((m: any) => {
+      if (m.startTime > Date.now()) {
+        m.expired = false;
       }
-      return m
-    })
+      return m;
+    });
     setAllMeetings(meetings);
   };
 
@@ -391,7 +264,7 @@ const AppContextProvider = (props: any) => {
     setSelectedStudent(student);
   };
 
-  const getMentorMeetings = async (mentorId: string,studentId: string) => {
+  const getMentorMeetings = async (mentorId: string, studentId: string) => {
     let meetings = await getMeetingsByUserId(mentorId);
     meetings = meetings.map((x: any) => ({
       id: x.id,
@@ -399,15 +272,17 @@ const AppContextProvider = (props: any) => {
       endTime: Date.parse(x.endTime),
       title: x.summary,
       description: x.description,
-      booked:false
+      booked: false,
     }));
-    meetings = meetings.map((m:any)=>{
-      if(m.meetingAttendee.some((a: any) => {
-        return a.userId === studentId;
-      })){
-        m.booked = true
+    meetings = meetings.map((m: any) => {
+      if (
+        m.meetingAttendee.some((a: any) => {
+          return a.userId === studentId;
+        })
+      ) {
+        m.booked = true;
       }
-    })
+    });
     setMentorMeetings(meetings);
   };
 
@@ -545,7 +420,7 @@ const AppContextProvider = (props: any) => {
       meeting.attendees.push(attendee);
       const ret = await updateMeeting(meeting, meetingId);
       console.log("book meeting", ret);
-      getMentorMeetings(mentorId,studentId)
+      getMentorMeetings(mentorId, studentId);
     }
   };
 
@@ -561,7 +436,7 @@ const AppContextProvider = (props: any) => {
       });
       const ret = await updateMeeting(meeting, meetingId);
       console.log("cancel meeting", ret);
-      getMentorMeetings(mentorId,studentId)
+      getMentorMeetings(mentorId, studentId);
     }
   };
 
@@ -578,7 +453,9 @@ const AppContextProvider = (props: any) => {
       summary: title,
       description: desc,
       location: "",
-      meetingAttendee: [{ userId: mentorId, attended: false,googleCalendarId:"" }],
+      meetingAttendee: [
+        { userId: mentorId, attended: false, googleCalendarId: "" },
+      ],
       toDoItem: [],
       notes: [],
       agendas: [],
@@ -587,13 +464,13 @@ const AppContextProvider = (props: any) => {
     console.log("create meeting payload:", JSON.stringify(meeting));
     const ret = await createMeeting(meeting);
     console.log("create meeting:", ret);
-    getAllMeetings(mentorId)
+    getAllMeetings(mentorId);
   };
 
   const removeMeeting = async (meetingId: number, mentorId: string) => {
     const ret = await deleteMeeting(meetingId);
     console.log("delete meeting", ret);
-    getAllMeetings(mentorId)
+    getAllMeetings(mentorId);
   };
 
   const addAgenda = async (
@@ -740,10 +617,9 @@ const AppContextProvider = (props: any) => {
           if (user) {
             const username = user.getUsername();
             setUsername(username);
-            if(localStorage.getItem("email") !== undefined){
-              setEmail(Username);
-              localStorage.setItem("email",Username)
-            }
+            setEmail(Username);
+            getUserInfo(Username);
+            localStorage.setItem("email", Username);
           }
           resolve(data);
         },
@@ -763,7 +639,7 @@ const AppContextProvider = (props: any) => {
   const logout = () => {
     const user = UserPool.getCurrentUser();
     if (user) {
-      localStorage.removeItem("email")
+      localStorage.removeItem("email");
       user.signOut();
       setIsAuthenticated(false);
       navigate("/login");
