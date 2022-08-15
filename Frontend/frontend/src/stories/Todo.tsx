@@ -5,7 +5,7 @@ import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import { CheckOutlined } from '@ant-design/icons'
 import Delicon from './assets/icon-del.png'
-import todoBackground from './assets/todoBackground.png'
+import todoBackground from '../../public/avatars/LandingPage'
 import CalendarUserCardPrimary from './CalendarUserCardPrimary/CalendarUserCardPrimary';
 import CalendarUserCardMini from './CalendarUserCardMini/CalendarUserCardMini'
 import './Todo.css'
