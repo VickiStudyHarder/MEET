@@ -111,7 +111,7 @@ interface MeetingProps {
 export const Todo: React.VFC = () => {
   const [user, setUser] = React.useState<User>()
   // const [data, setData] = React.useState(list)
-  const { meetingTodos:data, setMeetingTodos:setData } = useContext(AppContext);
+  const { meetingTodos:data, setMeetingTodos:setData, getMeetingTodos,email,userInfo, getUserInfo } = useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
   const { selectedStudent } = useContext(AppContext);
   useEffect(() => {}, [selectedStudent]);
@@ -123,6 +123,13 @@ export const Todo: React.VFC = () => {
     name: '',
   })
   useEffect(() => {console.log(data)}, [data]);
+
+  useEffect(() => {console.log(getMeetingTodos(email))}, []);
+  
+  useEffect(() => {
+    console.log("navbar:email=", email);
+    getUserInfo(email);
+  }, []);
 
   const addTask = (item: any, index: any) => {
     let meet = JSON.parse(JSON.stringify(data))
@@ -178,7 +185,7 @@ export const Todo: React.VFC = () => {
   const onFilter = () => {
     let meet = JSON.parse(JSON.stringify(data))
     meet = meet.map((item: any) => {
-      if (item.task.length === 0) {
+      if (false === item.task.deled) {
         item.option.show = !item.option.show
       }
       return item
@@ -187,6 +194,8 @@ export const Todo: React.VFC = () => {
     setData(meet)
   }
 
+  console.log(data)
+  console.log(getMeetingTodos(email))
   return (
     <article>
       <div className="meet-body">
