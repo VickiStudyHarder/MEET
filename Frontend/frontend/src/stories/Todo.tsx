@@ -124,12 +124,16 @@ export const Todo: React.VFC = () => {
   })
   useEffect(() => {console.log(data)}, [data]);
 
-  useEffect(() => {console.log(getMeetingTodos(email))}, []);
-  
+  // useEffect(() => {console.log(getMeetingTodos(email))}, []);
+
   useEffect(() => {
     console.log("navbar:email=", email);
     getUserInfo(email);
   }, []);
+
+  useEffect(() => {
+    console.log("navbar:userinfo=", userInfo);
+  }, [userInfo]);
 
   const addTask = (item: any, index: any) => {
     let meet = JSON.parse(JSON.stringify(data))
@@ -195,7 +199,7 @@ export const Todo: React.VFC = () => {
   }
 
   console.log(data)
-  console.log(getMeetingTodos(email))
+
   return (
     <article>
       <div className="meet-body">
@@ -212,10 +216,10 @@ export const Todo: React.VFC = () => {
         </div>
         <div className="meet-userCard">
           <CalendarUserCardPrimary
-            avatar={selectedStudent?.avatar}
-            name={selectedStudent?.name}
-            rating={selectedStudent?.rating}
-            job={selectedStudent?.role}
+            avatar={userInfo?.avatar}
+            name={userInfo?(userInfo.firstName + userInfo.lastName):''}
+            rating={userInfo?.rating}
+            job={userInfo?.role}
           />
         </div>
         <div className="meet-box">
