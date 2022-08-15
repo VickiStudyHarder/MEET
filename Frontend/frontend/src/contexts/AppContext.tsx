@@ -266,7 +266,9 @@ const AppContextProvider = (props: any) => {
   };
 
   const getMentorMeetings = async (mentorId: string, studentId: string) => {
+    console.log("getMentorMeetings", mentorId, studentId);
     let meetings = await getMeetingsByUserId(mentorId);
+    console.log("getMentorMeetings:raw meetings", meetings);
     meetings = meetings.map((x: any) => ({
       id: x.meeting.id,
       startTime: new Date(x.meeting.meetingStart),
@@ -274,16 +276,23 @@ const AppContextProvider = (props: any) => {
       title: x.meeting.summary,
       description: x.meeting.description,
       booked: false,
+      expired: true,
+      attendees: x.meeting.meetingAttendee,
     }));
     meetings = meetings.map((m: any) => {
       if (
-        m.meetingAttendee.some((a: any) => {
+        m.attendees.some((a: any) => {
           return a.userId === studentId;
         })
       ) {
         m.booked = true;
       }
+      if (m.startTime > Date.now()) {
+        m.expired = false;
+      }
+      return m;
     });
+    console.log("getMentorMeetings:filtered meetings", meetings);
     setMentorMeetings(meetings);
   };
 
@@ -314,7 +323,7 @@ const AppContextProvider = (props: any) => {
       disabled: false,
       checked: false,
       date: date,
-      time:`${t}:00-${t + 1}:00`,
+      time: `${t}:00-${t + 1}:00`,
     }));
     meetings.forEach((m: any) => {
       timeArr.forEach((t: any) => {
@@ -334,29 +343,28 @@ const AppContextProvider = (props: any) => {
   const getMeetingTodos = async (userId: string) => {
     let meetings = await getMeetingsByUserId(userId);
     console.log("getMeeting", meetings);
-    console.log("meetingtodo",meetingTodos)
+    console.log("meetingtodo", meetingTodos);
     if (meetings) {
       if (meetingTodos.length === 0) {
         meetings = meetings.map((m: any) => ({
-        meetingId: m.meeting.id,
-        option: {
-          show: true,
-          showAdd: true,
-        },
-        title: m.meeting.summary,
-        task: m.meeting.toDoItem.map((td: any) => ({
-          id: td.id,
-          name: td.title,
-          isCompleted: false,
-          isDeleted: false,
-          isEditing: false,
-        })),
-      }));
-      setMeetingTodos(meetings);
+          meetingId: m.meeting.id,
+          option: {
+            show: true,
+            showAdd: true,
+          },
+          title: m.meeting.summary,
+          task: m.meeting.toDoItem.map((td: any) => ({
+            id: td.id,
+            name: td.title,
+            isCompleted: false,
+            isDeleted: false,
+            isEditing: false,
+          })),
+        }));
+        setMeetingTodos(meetings);
       } else {
         setMeetingTodos(meetingTodos);
       }
-      
     }
   };
 
@@ -425,10 +433,16 @@ const AppContextProvider = (props: any) => {
     studentId: string,
     mentorId: string
   ) => {
-    const attendee = { id: meetingId, userId: studentId, attended: false };
+    console.log("book meeting", meetingId, studentId, mentorId);
+    const attendee = {
+      userId: studentId,
+      attended: false,
+      googleCalendarId: "",
+    };
     let meeting: any = await getMeetingById(meetingId);
-    if (meeting?.attendees) {
-      meeting.attendees.push(attendee);
+    if (meeting?.meetingAttendee) {
+      meeting.meetingAttendee.push(attendee);
+      console.log("book meeting:meeting", JSON.stringify(meeting));
       const ret = await updateMeeting(meeting, meetingId);
       console.log("book meeting", ret);
       getMentorMeetings(mentorId, studentId);
@@ -441,10 +455,11 @@ const AppContextProvider = (props: any) => {
     mentorId: string
   ) => {
     let meeting: any = await getMeetingById(meetingId);
-    if (meeting?.attendees) {
-      meeting.attendees = meeting.attendees.filter((x: any) => {
+    if (meeting?.meetingAttendee) {
+      meeting.meetingAttendee = meeting.meetingAttendee.filter((x: any) => {
         return x.userId !== studentId;
       });
+      console.log("cancel meeting", JSON.stringify(meeting));
       const ret = await updateMeeting(meeting, meetingId);
       console.log("cancel meeting", ret);
       getMentorMeetings(mentorId, studentId);

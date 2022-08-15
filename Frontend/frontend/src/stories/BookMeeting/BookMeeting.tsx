@@ -13,6 +13,7 @@ export interface BookMeetingInfo {
   setOpen:any;
   onConfirmCallback?:any;
   onDenyCallback?:any;
+  content?:string;
 }
 
 export default function BookMeeting(props: BookMeetingInfo) {
@@ -34,7 +35,7 @@ export default function BookMeeting(props: BookMeetingInfo) {
             </Box>
           </Box>
           <Box className="desc">
-            {props.desc}
+          {props.content}
           </Box>
           <Box className="btn-box">
             <Button className="btn-l" onClick={()=>{props.onConfirmCallback()}}>Approve</Button>
