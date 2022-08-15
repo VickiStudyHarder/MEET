@@ -101,6 +101,7 @@ export type IAppContext = {
   getMentorTimeOfDay: any;
   userInfo: any;
   getUserInfo: any;
+  setMentorTimeOfDay: any;
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -156,34 +157,34 @@ const AppContextProvider = (props: any) => {
 
   const navigate = useNavigate();
 
-  const getMeeting = async (userId: string) => {
-    let resp = await getMeetingsByUserId(userId);
-    console.log(`get meeting by user id ${userId}:`, resp);
-    if (resp?.data?.statusCode === 200) {
-      const data = resp?.data?.body;
-      if (data.length > 0) {
-        const mapped = data?.map((item: any) => ({
-          ...item,
-          startable:
-            Date.now() / 1000 - Date.parse(item.startTime) / 1000 < 8 * 60
-              ? true
-              : false,
-          startTime: Date.parse(item.startTime),
-          endTime: Date.parse(item.endTime),
-        }));
-        const sorted = mapped?.sort(
-          (a: any, b: any) => Number(a.startTime) - Number(b.startTime)
-        );
-        console.log(`sort meeting by user id ${userId}:`, sorted);
-        setUserMeetings(sorted);
-      }
-    } else {
-      console.error(
-        "getMeetingsByUserId is invalid on remote",
-        resp?.data?.message
-      );
-    }
-  };
+  // const getMeeting = async (userId: string) => {
+  //   let resp = await getMeetingsByUserId(userId);
+  //   console.log(`get meeting by user id ${userId}:`, resp);
+  //   if (resp?.data?.statusCode === 200) {
+  //     const data = resp?.data?.body;
+  //     if (data.length > 0) {
+  //       const mapped = data?.map((item: any) => ({
+  //         ...item,
+  //         startable:
+  //           Date.now() / 1000 - Date.parse(item.startTime) / 1000 < 8 * 60
+  //             ? true
+  //             : false,
+  //         startTime: Date.parse(item.startTime),
+  //         endTime: Date.parse(item.endTime),
+  //       }));
+  //       const sorted = mapped?.sort(
+  //         (a: any, b: any) => Number(a.startTime) - Number(b.startTime)
+  //       );
+  //       console.log(`sort meeting by user id ${userId}:`, sorted);
+  //       setUserMeetings(sorted);
+  //     }
+  //   } else {
+  //     console.error(
+  //       "getMeetingsByUserId is invalid on remote",
+  //       resp?.data?.message
+  //     );
+  //   }
+  // };
 
   useEffect(() => {
     const email = localStorage.getItem("email");
@@ -217,7 +218,7 @@ const AppContextProvider = (props: any) => {
       expired: true,
     }));
     meetings = meetings.sort((a: any, b: any) => {
-      return a.startTime > b.startTime;
+      return a.startTime < b.startTime;
     });
     meetings = meetings.map((m: any) => {
       if (m.startTime > Date.now()) {
@@ -267,11 +268,11 @@ const AppContextProvider = (props: any) => {
   const getMentorMeetings = async (mentorId: string, studentId: string) => {
     let meetings = await getMeetingsByUserId(mentorId);
     meetings = meetings.map((x: any) => ({
-      id: x.id,
-      startTime: Date.parse(x.startTime),
-      endTime: Date.parse(x.endTime),
-      title: x.summary,
-      description: x.description,
+      id: x.meeting.id,
+      startTime: new Date(x.meeting.meetingStart),
+      endTime: new Date(x.meeting.meetingEnd),
+      title: x.meeting.summary,
+      description: x.meeting.description,
       booked: false,
     }));
     meetings = meetings.map((m: any) => {
@@ -287,36 +288,37 @@ const AppContextProvider = (props: any) => {
   };
 
   const getMentorTimeOfDay = async (mentorId: string, date: Date) => {
-    // let meetings = await getMeetingsByUserId(mentorId);
-    // meetings = meetings.map((x: any) => ({
-    //   id: x.id,
-    //   startTime: Date.parse(x.startTime),
-    //   endTime: Date.parse(x.endTime),
-    //   title: x.title,
-    //   description: x.description,
-    // }));
-    let meetings = [
-      {
-        startTime: new Date("2022-8-16T14:00:00"),
-        endTime: new Date("2022-8-16T15:00:00"),
-      },
-    ];
-    console.log("xx", meetings);
+    console.log("getMentorTimeOfDay:params", mentorId, date);
+    let meetings = await getMeetingsByUserId(mentorId);
+    console.log("getMentorTimeOfDay:raw meetings", meetings);
+    meetings = meetings.map((x: any) => ({
+      id: x.meeting.id,
+      startTime: new Date(x.meeting.meetingStart),
+      endTime: new Date(x.meeting.meetingEnd),
+      title: x.meeting.summary,
+      description: x.meeting.description,
+    }));
+    console.log("getMentorTimeOfDay:mapped meetings", meetings);
     meetings = meetings.filter((x: any) => {
-      return x.startTime.getDay() === date.getDay();
+      const start = new Date(x.startTime.getTime());
+      const comp = new Date(date.getTime());
+      start.setHours(0, 0, 0, 0);
+      comp.setHours(0, 0, 0, 0);
+      console.log(start.getTime(), comp.getTime());
+      return start.getTime() === comp.getTime();
     });
+    console.log("getMentorTimeOfDay:filtered meetings", meetings);
     const timeslots: any = Array.from(Array(16).keys()).map((x: any) => x + 5);
     let timeArr = timeslots.map((t: any) => ({
       hour: t,
       disabled: false,
       checked: false,
       date: date,
-      // startTime: new Date(date.getFullYear(), date.getMonth(), date.getDay(),t,0,0,0),
-      // startTime: new Date(date.getFullYear(), date.getMonth(), date.getDay(),t,0,0,0),
+      time:`${t}:00-${t + 1}:00`,
     }));
     meetings.forEach((m: any) => {
       timeArr.forEach((t: any) => {
-        console.log(m.startTime.getHours(), m.endTime.getHours());
+        // console.log(m.startTime,m.startTime.getHours(),m.endTime, m.endTime.getHours());
         if (t.hour < m.startTime.getHours() || t.hour >= m.endTime.getHours()) {
           t.disabled = false;
         } else {
@@ -325,7 +327,7 @@ const AppContextProvider = (props: any) => {
         }
       });
     });
-    console.log("get time of day:", timeArr);
+    console.log("get time of day:time arr", timeArr);
     setMentorTimeOfDay(timeArr);
   };
 
@@ -728,6 +730,7 @@ const AppContextProvider = (props: any) => {
         getMentorTimeOfDay,
         userInfo,
         getUserInfo,
+        setMentorTimeOfDay,
       }}
     >
       {props.children}
