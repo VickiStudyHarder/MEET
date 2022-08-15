@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Typography, Divider } from '@mui/material';
 import { IMeeting } from '../../types/meetings';
-import YourMeetingImage from '../../assets/YourMeetingImage.png';
 import MeetingsArrow from '../../assets/MeetingsArrow.png';
 
 export interface IMeetingRow {
@@ -17,8 +16,8 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
     <>
       <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
         <Button onClick={() => navigate(`/meeting/${meeting.id}`)}>
-          <Box sx={{ m: 4 }}>
-            <img src={YourMeetingImage} alt='YourMeetingImage' />
+          <Box sx={{ m: 4 ,borderRadius:20}}>
+            <img src={"./meeting.png"} alt='YourMeetingImage' style={{borderRadius:10}}/>
           </Box>
         </Button>
         <Box
