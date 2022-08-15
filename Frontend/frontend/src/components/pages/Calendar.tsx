@@ -230,6 +230,7 @@ const Calendar: React.FC<ICalendar> = () => {
                   title: m.title,
                   start: m.startTime,
                   end: m.endTime,
+                  color:m.expired?"#70798B":"#FD346E",
                   extendedProps: { expired: m.expired },
                 }))}
                 eventClick={eventClick}
