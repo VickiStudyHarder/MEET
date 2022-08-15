@@ -29,10 +29,12 @@ interface CalendarProps {
    * Button contents
    */
   label?: string;
+  height?: string;
+  width?:string;
   /**
    * Optional click handler
    */
-  onClick?: () => void;
+  eventClick: (e:any) => void;
   defaultView?: string;
 
 
@@ -42,21 +44,24 @@ interface CalendarProps {
 /**
  * Primary UI component for user interaction
  */
-export default function Calendar_table({
+export default function CalendarTable({
   primary = false,
   size = "medium",
   backgroundColor,
   label,
   defaultView,
+  height,
+  width,
   events,
+  eventClick,
   ...props
 }: CalendarProps) {
   /*const events = [{
+    id
     title: "Meeting",
     color: "#6001D3",//事件块的颜色
     start: "2022-07-23T10:30:00+00:00",
     end: "2022-07-23T12:30:00+00:00"
-
   },
   {
     title: "Meeting2",
@@ -68,21 +73,24 @@ export default function Calendar_table({
 
   ]
   */
-  console.log(JSON.stringify(events))
+  // console.log(JSON.stringify(events))
   return (
     <div className="FullCalendarPage">
       <FullCalendar
         editable={true}
-        height={780} // 此处高度为方便截图，可不设置
+        height={height}// 此处高度为方便截图，可不设置
         initialView="timeGridWeek"
         plugins={[dayGridPlugin, timeGridPlugin, momentPlugin]}
         allDaySlot={false}
         slotLabelFormat="HH:mm"
         slotDuration={'00:60:00'}
+        slotMinTime={"05:00:00"}
+        slotMaxTime={"22:00:00"}
         scrollTime={'08:00:00'}
         contentHeight='600'
         events={events}
         timeZone={'UTC-8'}
+        eventClick={eventClick}
       />
     </div>
   );

@@ -21,6 +21,6 @@ export const Primary = Template.bind({});
 Primary.args = {
   name: 'Hilaria Abernathy',
   job: 'Executive',
-  Rating: 3,
-  avator: " "
+  rating: 3,
+  avatar: " "
 };

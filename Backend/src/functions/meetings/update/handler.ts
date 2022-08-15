@@ -8,6 +8,7 @@ import {
   INotes,
   IToDoItem,
   IAgenda,
+  IRecording,
 } from '../../../types/meeting';
 
 import schema from './schema';
@@ -17,7 +18,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 ) => {
   const prisma = new PrismaClient();
   const meeting: IMeetingPayload = event.body as unknown as IMeetingPayload;
-  console.log(meeting);
+  console.log({meeting});
   try {
     const result = await prisma.meeting.findUnique({
       where: {
@@ -34,9 +35,9 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     }
 
     console.log('toDoItems');
-    if (meeting?.toDoItems) {
-      await Promise.all(
-        meeting.toDoItems.map(async (item: IToDoItem) => {
+    if (meeting?.toDoItem) {
+      const res = await Promise.all(
+        meeting.toDoItem.map(async (item: IToDoItem) => {
           return await prisma.meeting.update({
             where: {
               id: Number(event.pathParameters.id),
@@ -53,6 +54,9 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
           });
         })
       );
+      console.log('1');
+      console.log({ res });
+      console.log('2');
     }
 
     console.log('notes');
@@ -79,9 +83,10 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     }
 
     console.log('attendees');
-    if (meeting?.attendees) {
+    console.log(event.body)
+    if (meeting?.meetingAttendee) {
       await Promise.all(
-        meeting.attendees.map(async (item: IMeetingAttendee) => {
+        meeting.meetingAttendee.map(async (item: IMeetingAttendee) => {
           return await prisma.meeting.update({
             where: {
               id: Number(event.pathParameters.id),
@@ -122,9 +127,31 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       );
     }
 
+    console.log('recordings');
+    if (meeting?.recordings) {
+      const res = await Promise.all(
+        meeting.recordings.map(async (item: IRecording) => {
+          return await prisma.meeting.update({
+            where: {
+              id: Number(event.pathParameters.id),
+            },
+            data: {
+              recordings: {
+                upsert: {
+                  create: item,
+                  update: item,
+                  where: { id: item.id ? item.id : -1 },
+                },
+              },
+            },
+          });
+        })
+      );
+    }
+
     return formatJSONResponse({
       status: 200,
-      message: ``,
+      message: `Success`,
       event,
       body: result,
     });

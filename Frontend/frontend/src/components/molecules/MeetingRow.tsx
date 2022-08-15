@@ -16,9 +16,11 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
   return (
     <>
       <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
-        <Box sx={{ m: 4 }}>
-          <img src={YourMeetingImage} alt='YourMeetingImage' />
-        </Box>
+        <Button onClick={() => navigate(`/meeting/${meeting.id}`)}>
+          <Box sx={{ m: 4 }}>
+            <img src={YourMeetingImage} alt='YourMeetingImage' />
+          </Box>
+        </Button>
         <Box
           sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column', m: 4 }}
         >

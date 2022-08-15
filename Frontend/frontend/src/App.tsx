@@ -15,12 +15,14 @@ import {
   LandingPage,
   GroupChat,
   Meetings,
-  ToDoHome
+  ToDoHome, 
+  MeetingDashboard
 } from "./components/pages";
 import GoogleAuth from "./components/organisms/Google/Google";
 import ProtectedRoute from "./hooks/ProtectedRoute";
 import API from "./components/pages/API";
 import { AppContextProvider } from "./contexts/AppContext";
+import "./assets/font/font.css";
 
 function App() {
   return (
@@ -38,12 +40,13 @@ function App() {
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/group" element={<Group />} />
               <Route path="/group/:id" element={<GroupChat />} />
+              <Route path="/meeting/:id" element={<MeetingDashboard />} />
               <Route path="/meetings" element={<Meetings />} />
               <Route path="/todo" element={<ToDos />} />
               <Route path="/todo/:id" element={<ToDoHome />} />
               <Route path="/notes/:id" element={<Notes />} />
               <Route path="/rating" element={<Rating />} />
-              <Route path="/recording" element={<Recording />} />
+              <Route path="/recording/:id" element={<Recording />} />
               <Route path="/todos" element={<ToDos />} />
               <Route path="/login1" element={<LandingPage />} />
               <Route path="/api" element={<API />} />

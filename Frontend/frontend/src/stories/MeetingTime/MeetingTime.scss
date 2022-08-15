@@ -1,0 +1,133 @@
+.meeting-time-wrap{
+  width: 546px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #fff;
+  padding: 36px 36px;
+  padding-bottom: 46px;
+  box-sizing: border-box;
+  outline: 0 !important;
+  border-radius: 12px;
+  box-shadow: -9.83281px 13.1104px 32.776px rgba(171, 175, 199, 0.301961);
+  font-family: 'Quicksand';
+  .head{
+    display: flex;
+    align-items: center;
+    margin-bottom: 36px;
+    .logo-box{
+      width: 52px;
+      height: 52px;
+      display: flex;
+      justify-content:center;
+      align-items: center;
+      background: #FCDC00;
+      border-radius:50%;
+      margin-right: 26px;
+      .logo{
+        width: 26px;
+        height: 18px;
+        background: url('../assets/Meeting/meetingTimeLogo.svg')  no-repeat;
+        background-size: contain;
+      }
+    }
+    .title{
+      flex: 1;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 20px;
+      color: #030314;
+    }
+  }
+  .search-box{
+    width: 425px;
+    height: 36px;
+    margin-bottom: 40px;
+    input{
+      width: 425px;
+      height: 36px;
+      background:none;
+      outline:none;
+      border:none;
+      background: #F3F4F6;
+      border-radius: 22px;
+      padding-left: 32px;
+    }
+  }
+  .time-box{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 32px;
+    padding-bottom: 26px;
+    .time-item{
+      width: 25%;
+      // .MuiSwitch-sizeMedium{
+      //   .Mui-checked{
+      //     &{
+      //       box-shadow: 3.2776px 3.2776px 6.55521px rgba(96, 1, 211, 0.298039);
+      //     }
+      //   }
+      // }
+      .MuiFormControlLabel-label{
+        font-size: 10px !important;
+        color: #70798B;
+      }
+      .MuiFormControlLabel-labelPlacementEnd{
+        margin-right: 0;
+      }
+      .Mui-disabled{
+        .MuiSwitch-thumb{
+          background: rgba(255, 255, 255, 0.701961);
+          box-shadow: 1.31104px 1.31104px -2.62208px rgba(8, 20, 32, 0.298039);
+        }
+        .MuiSwitch-track{
+          opacity:1;
+          background: rgba(96, 1, 211, 0.3);
+        }
+      }
+    }
+  }
+  .btn-box{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    .btn-l{
+      margin-right: 38px;
+      height: 50px;
+      width: 160px;
+      text-align: center;
+      font-size: 16px;
+      color: #fff;
+      border-radius: 118px;
+      background: #6001D3;
+      box-shadow: -9.83281px 13.1104px 32.776px rgba(96, 1, 211, 0.301961);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      &:hover{
+        background: #6001D3;
+        box-shadow: -9.83281px 13.1104px 32.776px rgba(96, 1, 211, 0.301961);
+      }
+    }
+    .btn-r{
+      width: 142px;
+      height: 45px;
+      text-align: center;
+      font-size: 16px;
+      color: #000;
+      border-radius: 42px;
+      background: #FCDC00;
+      box-shadow: -9.83281px 13.1104px 32.776px rgba(253, 52, 110, 0.301961);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      &:hover{
+        background: #FCDC00;
+        box-shadow: -9.83281px 13.1104px 32.776px rgba(253, 52, 110, 0.301961);
+      }
+    }
+  }
+}

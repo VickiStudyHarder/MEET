@@ -8,12 +8,15 @@ import {
   Typography,
   Paper,
   Divider,
+  Button,
+  Dialog,
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import NavBar from '../molecules/NavBar';
 import { getMeetingById } from '../../api/meeting';
 import { IMeeting } from '../../types/meetings';
 import AgendaList from '../../stories/AgendaList/AgendaList';
+import CreateAgendaItemForm from '../molecules/CreateAgendaItemForm';
 
 interface IAgenda {}
 
@@ -25,13 +28,14 @@ const Agenda: React.FC<IAgenda> = () => {
   const [start, setStart] = useState<any>(null);
   const [end, setEnd] = useState<any>(null);
   const [diff, setDiff] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     handleGetMeeting();
-  }, [start, end]);
+  }, [start, end, diff]);
 
   const handleGetMeeting = async () => {
-    const result = await getMeetingById(id || '');
+    const result = await getMeetingById(Number(id));
     setMeeting(result);
     if (meeting) {
       const start = new Date(meeting.meetingStart).toLocaleString('en-AU', {
@@ -56,12 +60,22 @@ const Agenda: React.FC<IAgenda> = () => {
       const y = new Date(meeting.meetingStart);
       const diff = x.valueOf() - y.valueOf();
       const diffInHours = diff / 1000 / 60 / 60;
-      if (diffInHours < 24) {
-        setDiff(`${(diffInHours).toFixed(0)} hours`);
+      if (diffInHours < 1) {
+        setDiff(`${diffInHours.toFixed(2)} hours`);
+      } else if (diffInHours < 24) {
+        setDiff(`${diffInHours.toFixed(0)} hours`);
       } else {
         setDiff(`${(diffInHours / 24).toFixed(0)} days`);
       }
     }
+  };
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -72,10 +86,33 @@ const Agenda: React.FC<IAgenda> = () => {
         <Container
           sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column' }}
         >
-          <Box sx={{ width: '100%', m: 2 }}>
-            <Typography variant='h4' align='center'>
+          <Box
+            sx={{ display: 'flex', flexDirection: 'row', width: '100%', m: 2 }}
+          >
+            <Typography
+              sx={{ display: 'flex', flexGrow: 1 }}
+              variant='h4'
+              align='center'
+            >
               Agenda - {meeting.summary}
             </Typography>
+            <Button
+              onClick={handleClickOpen}
+              sx={{
+                minWidth: '100px',
+                minHeight: '40px',
+                maxHeight: '40px',
+                maxWidth: '100px',
+                borderRadius: 5,
+                backgroundColor: '#6001D3',
+                color: '#FFFFFF',
+                fontSize: 12,
+                my: 'auto',
+              }}
+              variant='contained'
+            >
+              +Add
+            </Button>
           </Box>
           <Box
             sx={{
@@ -148,8 +185,30 @@ const Agenda: React.FC<IAgenda> = () => {
                 </Box>
               </Box>
             </Box>
-            {meeting.agendas && <AgendaList agendaList={meeting.agendas} />}
+            {meeting.agendas && (
+              <AgendaList
+                agendaList={meeting.agendas}
+                handleGetMeeting={handleGetMeeting}
+              />
+            )}
           </Box>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby='alert-dialog-title'
+            aria-describedby='alert-dialog-description'
+            sx={{ display: 'flex', flexGrow: 1 }}
+            maxWidth='lg'
+          >
+            {meeting && (
+              <CreateAgendaItemForm
+                setOpen={setOpen}
+                meeting={meeting}
+                handleGetMeeting={handleGetMeeting}
+                handleClose={handleClose}
+              />
+            )}
+          </Dialog>
         </Container>
       )}
     </ThemeProvider>

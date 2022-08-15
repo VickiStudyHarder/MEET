@@ -18,6 +18,8 @@ const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   const meetingPayload: IMeetingPayload =
     event.body as unknown as IMeetingPayload;
 
+    console.log(meetingPayload)
+
   try {
     const meeting = await prisma.meeting.create({
       data: {
@@ -28,7 +30,7 @@ const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         location: meetingPayload.location,
         toDoItem: {
           createMany: {
-            data: meetingPayload.toDoItems || null,
+            data: meetingPayload.toDoItem || null,
           },
         },
         notes: {
@@ -38,12 +40,17 @@ const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         },
         meetingAttendee: {
           createMany: {
-            data: meetingPayload.attendees || null,
+            data: meetingPayload.meetingAttendee || null,
           },
         },
         agendas: {
           createMany: {
             data: meetingPayload.agendas || null,
+          }
+        },
+        recordings: {
+          createMany: {
+            data: meetingPayload.recordings || null,
           }
         }
       },
@@ -51,7 +58,8 @@ const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         toDoItem: true,
         notes: true,
         meetingAttendee: true,
-        agendas: true
+        agendas: true,
+        recordings: true
       },
     });
 

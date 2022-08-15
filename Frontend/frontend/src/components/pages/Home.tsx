@@ -5,6 +5,7 @@ import {
   CssBaseline,
   ThemeProvider,
   Typography,
+  Button
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../molecules/NavBar';
@@ -18,8 +19,7 @@ import { styled } from '@mui/material/styles';
 import AppContext from '../../contexts/AppContext';
 import { getMeetingsByUserId } from '../../api/meeting';
 import { IMeeting, IMeetingResponse } from '../../types/meetings';
-// import { IMeeting } from "../../types/types";
-// import AppContext from "../../contexts/AppContext";
+
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -32,6 +32,7 @@ const Item = styled(Paper)(({ theme }) => ({
 const theme = createTheme();
 
 const Home = () => {
+  const navigate = useNavigate();
   const { email } = useContext(AppContext);
   const [upcomingMeetings, setUpcomingMeetings] =
     useState<null | IMeetingResponse[]>(null);
@@ -77,9 +78,9 @@ const Home = () => {
               {upcomingMeetings &&
                 upcomingMeetings.map((meeting: IMeetingResponse) => {
                   return (
-                    <div>
+                    <Button onClick={() => navigate(`/meeting/${meeting.meeting.id}`)}>
                       <UpcomingMeetingCard meeting={meeting.meeting} />
-                    </div>
+                    </Button>
                   );
                 })}
             </Grid>

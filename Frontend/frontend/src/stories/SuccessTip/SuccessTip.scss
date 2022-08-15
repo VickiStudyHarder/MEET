@@ -1,0 +1,35 @@
+.success-tip-wrap{
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 762px;
+  height: 76px;
+  background-color: #fff;
+  outline: 0 !important;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  backdrop-filter: blur(50px);
+  border-radius: 20px;
+  .logo{
+    background: url("../assets/success.svg") no-repeat;
+    background-size: contain;
+    width:45px;
+    height:45px;
+  }
+  .desc{
+    width: 638px;
+    height: 38px;
+    line-height: 38px;
+    font-family: 'Quicksand';
+    font-weight: 700;
+    font-size: 20px;
+    text-align: right;
+    color: #70798B;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+  }
+}

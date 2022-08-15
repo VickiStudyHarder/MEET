@@ -5,11 +5,11 @@ export interface IMeeting {
   summary: string;
   description: string;
   location: string;
-  attendee: string[];
   toDoItem?: IToDoItem[];
   notes?: INotes[];
-  attendees?: IMeetingAttendee[];
+  meetingAttendee?: IMeetingAttendee[];
   agendas?: IAgenda[];
+  recordings?: IRecording[];
 }
 export interface IToDoItem {
   id?: number;
@@ -28,12 +28,31 @@ export interface IMeetingAttendee {
   id?: number;
   userId: string;
   attended: boolean;
+  googleCalendarId: string;
+  user?: IUser;
 }
 export interface IMeetingResponse {
   meeting: IMeeting;
 }
 export interface IAgenda {
-  id: number;
+  id?: number;
   title: string;
   details: string;
+}
+
+export interface IUser {
+  id: string;
+  firstName: string;
+  lastName: string;
+  dateOfBirth: string;
+  avatar: string;
+  role: string;
+  rating: number;
+  totalMeetings: number;
+}
+
+export interface IRecording {
+  id?: number;
+  url: string;
+  description: string;
 }

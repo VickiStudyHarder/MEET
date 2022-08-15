@@ -83,6 +83,7 @@ const CompleteSignUp: React.FC<{}> = () => {
       firstName: firstName,
       lastName: lastName,
       dateOfBirth: dateOfBirth,
+      avatar: '1',
       role: userType,
       rating: 0,
       totalMeetings: 0,

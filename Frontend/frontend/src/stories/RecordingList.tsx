@@ -3,6 +3,7 @@ import { Box, Container } from "@mui/system";
 import React from "react";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import RecordingModal from './RecordingModal'
+import { Margin } from "@mui/icons-material";
 
 
 interface ListProps {
@@ -37,11 +38,11 @@ export default function RecordingList({
       <ListItem alignItems="center" >
         {
           role === 'student' && (
-            <Box sx={{ width: '100%' }}>
+            <Card sx={{ width: '100%', margin: 1 }}>
               <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                    <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 3 }} variant='circular' src={pic} />
+                    <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 12 }} variant='circular' src={pic} />
                     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', maxWidth: '70%' }}>
                       <Box sx={{ flex: 1 }}>
                         <Typography component="div" variant="h5" marginTop={8}>
@@ -62,15 +63,15 @@ export default function RecordingList({
                   </Box>
                 </Box>
               </Box>
-            </Box>
+            </Card>
           )}
         {
           role === 'mentor' && (
-            <Box sx={{ width: '100%' }}>
+            <Card sx={{ width: '100%', margin: 1 }}>
               <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                   <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                    <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 3 }} variant='circular' src={pic} />
+                    <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 12 }} variant='circular' src={pic} />
                     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }}>
                       <Box sx={{ flex: 1 }}>
                         <Typography component="div" variant="h5" marginTop={8}>
@@ -109,12 +110,12 @@ export default function RecordingList({
                   </Box>
                 </Box>
               </Box>
-            </Box>
+            </Card>
           )
         }
 
       </ListItem >
-      <Divider variant="middle" sx={{ marginTop: -3, marginBottom: -3 }} />
+      {/* <Divider variant="middle" sx={{ marginTop: -3, marginBottom: -3 }} /> */}
     </>
 
   );

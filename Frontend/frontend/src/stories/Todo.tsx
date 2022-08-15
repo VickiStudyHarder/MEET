@@ -5,7 +5,6 @@ import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import { CheckOutlined } from '@ant-design/icons'
 import Delicon from './assets/icon-del.png'
-import todoBackground from './assets/todoBackground.png'
 import CalendarUserCardPrimary from './CalendarUserCardPrimary/CalendarUserCardPrimary';
 import CalendarUserCardMini from './CalendarUserCardMini/CalendarUserCardMini'
 import './Todo.css'
@@ -111,10 +110,10 @@ interface MeetingProps {
 export const Todo: React.VFC = () => {
   const [user, setUser] = React.useState<User>()
   // const [data, setData] = React.useState(list)
-  const { meetingTodos:data, setMeetingTodos:setData } = useContext(AppContext);
+  const { meetingTodos: data, setMeetingTodos: setData,getUserInfo,userInfo, getMeetingTodos, email } = useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
-  const { selectedStudent } = useContext(AppContext);
-  useEffect(() => {}, [selectedStudent]);
+  // const { selectedStudent } = useContext(AppContext);
+  // useEffect(() => { }, [selectedStudent]);
   const [filter, setfilter] = React.useState(false)
   const [isModalVisible, setisModalVisible] = React.useState(false)
   const [modalCtx, setModalCtx] = React.useState({
@@ -122,6 +121,20 @@ export const Todo: React.VFC = () => {
     idx: 0,
     name: '',
   })
+  useEffect(() => { console.log(data) }, [data]);
+
+  // useEffect(() => {console.log(getMeetingTodos(email))}, []);
+
+  useEffect(() => {
+    getUserInfo(email);
+  }, []);
+
+  // useEffect(() => {
+  //   console.log("navbar:userinfo=", userInfo);
+  // }, [userInfo]);
+
+  useEffect(() => { getMeetingTodos(email) }, [email]);
+  
 
   const addTask = (item: any, index: any) => {
     let meet = JSON.parse(JSON.stringify(data))
@@ -177,7 +190,7 @@ export const Todo: React.VFC = () => {
   const onFilter = () => {
     let meet = JSON.parse(JSON.stringify(data))
     meet = meet.map((item: any) => {
-      if (item.task.length === 0) {
+      if (0 === item.task.length) {
         item.option.show = !item.option.show
       }
       return item
@@ -185,6 +198,7 @@ export const Todo: React.VFC = () => {
     setfilter(!filter)
     setData(meet)
   }
+
 
   return (
     <article>
@@ -202,15 +216,15 @@ export const Todo: React.VFC = () => {
         </div>
         <div className="meet-userCard">
           <CalendarUserCardPrimary
-            avator={selectedStudent?.avatar}
-            name={selectedStudent?.name}
-            Rating={selectedStudent?.rating}
-            job={selectedStudent?.role}
+            avatar={`./avatars/${userInfo?.avatar || "0"}.png`}
+            name={userInfo?(userInfo.firstName +' ' +userInfo.lastName):''}
+            rating={userInfo?.rating}
+            job={userInfo?.role}
           />
         </div>
         <div className="meet-box">
-          <img className="meet-box-bg" src={todoBackground} alt="" />
-          <div className="meet-box-scroll">
+          <img className="meet-box-bg" src={"./landing_page.jpg"} alt="" />
+          <div className="meet-box-scroll" style={{backdropFilter:"blur(8px)"}}>
             <div className="flex">
               {data &&
                 data.map((item: any, index: any) => {

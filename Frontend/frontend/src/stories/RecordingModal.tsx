@@ -76,7 +76,7 @@ export default function RecordingModal({
                   </Box>
                   <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                      <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 3 }} variant='circular' src={pic} />
+                      <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 10 }} variant='circular' src={pic} />
                       <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', maxWidth: '70%' }}>
                         <Box sx={{ flex: 1 }}>
                           <Typography component="div" variant="h5" marginTop={8}>
@@ -122,7 +122,7 @@ export default function RecordingModal({
                   </Box>
                   <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                      <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 3 }} variant='circular' src={pic} />
+                      <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 12 }} variant='circular' src={pic} />
                       <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', maxWidth: '70%' }}>
                         <Box sx={{ flex: 1 }}>
                           <Typography component="div" variant="h5" marginTop={8}>
@@ -134,7 +134,7 @@ export default function RecordingModal({
                         </Box>
                       </Box>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: "center", marginRight: 3 }}>
+                    <Box sx={{ display: 'flex', alignItems: "center", marginRight: 12 }}>
                       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                         <Button onClick={doSomething} variant="contained" style={{ backgroundColor: "#6001D3", borderRadius: 20, width: 165, height: 40, marginBottom: 15 }}>
                           Confirm
@@ -167,7 +167,7 @@ export default function RecordingModal({
                 <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                      <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 3 }} variant='circular' src={pic} />
+                      <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 12 }} variant='circular' src={pic} />
                       <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }}>
 
                         <Box sx={{ flex: 1 }}>
@@ -187,7 +187,7 @@ export default function RecordingModal({
                     <Box sx={{ display: 'flex', alignItems: "center", margin: 5 }}>
                       <Input placeholder="URL of recording" inputProps={ariaLabel} />
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: "center", marginRight: 3 }}>
+                    <Box sx={{ display: 'flex', alignItems: "center", marginRight: 12 }}>
                       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                         <Button onClick={doSomething} variant="contained" style={{ backgroundColor: "#6001D3", borderRadius: 20, width: 165, height: 40, marginBottom: 15 }}>
                           Confirm
@@ -219,7 +219,7 @@ export default function RecordingModal({
                 <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                   <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'row' }}>
-                      <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 3 }} variant='circular' src={pic} />
+                      <Avatar sx={{ width: 150, height: 150, margin: 6, marginLeft: 12 }} variant='circular' src={pic} />
                       <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', flex: 1 }}>
 
                         <Box sx={{ flex: 1 }}>
@@ -239,7 +239,7 @@ export default function RecordingModal({
                     <Box sx={{ display: 'flex', alignItems: "center", margin: 5 }}>
                       <Input placeholder="URL of recording" inputProps={ariaLabel} />
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: "center", marginRight: 3 }}>
+                    <Box sx={{ display: 'flex', alignItems: "center", marginRight: 12 }}>
                       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                         <Button onClick={doSomething} variant="contained" style={{ backgroundColor: "#6001D3", borderRadius: 20, width: 165, height: 40, marginBottom: 15 }}>
                           Confirm

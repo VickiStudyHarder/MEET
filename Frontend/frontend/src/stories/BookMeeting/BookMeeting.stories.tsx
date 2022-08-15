@@ -1,31 +1,25 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import Calendar_table from './Calendar_table';
+import BookMeeting from './BookMeeting'
 
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Example/Calendar_table',
-  component: Calendar_table,
+  title: 'Example/BookMeeting',
+  component: BookMeeting,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     backgroundColor: { control: 'color' },
   },
-} as ComponentMeta<typeof Calendar_table>;
+} as ComponentMeta<typeof BookMeeting>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Calendar_table> = (args) => (<Calendar_table {...args} />);
+const Template: ComponentStory<typeof BookMeeting> = (args) => (<BookMeeting {...args} />);
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  primary: true,
-  label: 'Calendar',
-  events: [{
-    title: "Meeting",
-    color: "#6001D3",//事件块的颜色
-    start: "2022-07-23T10:30:00+00:00",
-    end: "2022-07-23T12:30:00+00:00"
-
-  }]
+  time: '2022,23,may',
+  name:'Rob Gresham',
+  desc:"You want to book the meeting on 5/Jul 9:00~10:00 with Alex Regelman? （Video Required）？"
 };

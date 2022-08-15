@@ -8,13 +8,15 @@ import {
   Typography,
   Divider,
   Box,
-  Button
+  Button,
+  Dialog,
 } from '@mui/material';
 import MeetingImage from '../../assets/MeetingImage.png';
 import { useParams } from 'react-router-dom';
 import { getMeetingById } from '../../api/meeting';
 import { IMeeting, IToDoItem } from '../../types/meetings';
 import ToDoRow from '../molecules/ToDoRow';
+import CreateToDoForm from '../molecules/CreateToDoForm';
 
 const theme = createTheme();
 
@@ -28,7 +30,7 @@ const ToDoHome: React.FC<{}> = () => {
   }, []);
 
   const handleGetMeeting = async () => {
-    const result = await getMeetingById(id || '');
+    const result = await getMeetingById(Number(id));
     setMeeting(result);
   };
 
@@ -83,32 +85,49 @@ const ToDoHome: React.FC<{}> = () => {
                 To Do's - {meeting?.summary}
               </Typography>
               <Button
-            onClick={handleClickOpen}
-            sx={{
-              minWidth: '100px',
-              minHeight: '40px',
-              maxHeight: '40px',
-              maxWidth: '100px',
-              borderRadius: 5,
-              backgroundColor: '#6001D3',
-              color: '#FFFFFF',
-              fontSize: 12,
-              my: 'auto',
-            }}
-            variant='contained'
-          >
-            +Add
-          </Button>
+                onClick={handleClickOpen}
+                sx={{
+                  minWidth: '100px',
+                  minHeight: '40px',
+                  maxHeight: '40px',
+                  maxWidth: '100px',
+                  borderRadius: 5,
+                  backgroundColor: '#6001D3',
+                  color: '#FFFFFF',
+                  fontSize: 12,
+                  my: 'auto',
+                }}
+                variant='contained'
+              >
+                +Add
+              </Button>
             </Box>
           </Box>
           <Divider variant='middle' sx={{ width: '100%' }} />
           <Box sx={{ width: '100%', m: 2 }}>
             {meeting &&
               meeting?.toDoItem?.map((toDoItem: IToDoItem) => {
-                return <ToDoRow toDoItem={toDoItem} />;
+                return <ToDoRow toDoItem={toDoItem} handleGetMeeting={handleGetMeeting} meeting={meeting}/>;
               })}
           </Box>
         </Box>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+          sx={{ display: 'flex', flexGrow: 1 }}
+          maxWidth='lg'
+        >
+          {meeting && (
+            <CreateToDoForm
+              setOpen={setOpen}
+              meeting={meeting}
+              handleGetMeeting={handleGetMeeting}
+              handleClose={handleClose}
+            />
+          )}
+        </Dialog>
       </Container>
     </ThemeProvider>
   );

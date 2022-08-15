@@ -1,27 +1,31 @@
-import axiosClient from './client';
+import axiosClient from "./client";
 
 //These have not been tested
 
 export const createUser = (data: any) => {
-  return axiosClient.post('/user', JSON.stringify(data));
+  return axiosClient.post("/user", JSON.stringify(data));
 };
 
 export const deleteUser = (id: string) => {
   return axiosClient.delete(`/user/${id}`);
 };
 
-export const getUser = (id: string) => {
-  return axiosClient.get(`/user/${id}`);
+export const getUser = async (id: string) => {
+  const resp = await axiosClient.get(`/user/${id}`);
+  console.log(`getUser:${id}`,resp)
+  return resp.data.body;
 };
 
 export const updateUser = (data: any, id: string) => {
   return axiosClient.put(`/user/${id}`, JSON.stringify(data));
 };
 
-export const getMentors = () => {
-  return axiosClient.get(`/mentors`);
+export const getMentors = async () => {
+  const resp = await axiosClient.get(`/mentors`);
+  return resp.data.body;
 };
 
-export const getStudents = () => {
-  return axiosClient.get(`/students`);
+export const getStudents = async () => {
+  const resp = await axiosClient.get(`/students`);
+  return resp.data.body;
 };
