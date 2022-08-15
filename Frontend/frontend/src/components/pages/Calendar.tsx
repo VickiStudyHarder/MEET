@@ -32,7 +32,6 @@ interface ICalendar {
 }
 
 const Calendar: React.FC<ICalendar> = () => {
-
   const {
     allMentors,
     getAllMentors,
@@ -44,7 +43,9 @@ const Calendar: React.FC<ICalendar> = () => {
     addMeeting,
     allMeetings,
     email,
-    userType,
+    userInfo,
+    getAllMeetings,
+    getMentorMeetings,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -75,6 +76,16 @@ const Calendar: React.FC<ICalendar> = () => {
   useEffect(() => {
     console.log("Meeting title", meetingTitle);
   }, [meetingTitle]);
+
+  useEffect(() => {
+    if(userInfo.role === "mentor"){
+      getAllMeetings(email)
+    }
+  }, [userInfo]);
+
+  useEffect(() => {
+    console.log("all meetings",allMeetings)
+  }, [allMeetings]);
 
   const onConfirmCallback = async () => {
     console.log("selectedTimeArr:", selectedTimeArr);
@@ -162,46 +173,49 @@ const Calendar: React.FC<ICalendar> = () => {
           </div>
         </div>
         <div className="rightContent">
-          <div className="add">
-            <Button
-              sx={{
-                minWidth: "100px",
-                minHeight: "50px",
-                maxHeight: "50px",
-                maxWidth: "100px",
-                borderRadius: 8,
-                backgroundColor: "#6001D3",
-                color: "#fff",
-                fontSize: 12,
-              }}
-              variant="contained"
-              onClick={() => {
-                setOpen(true);
-                getMentorTimeOfDay("", new Date("2011-10-10T14:00:00"));
-              }}
-            >
-              +Add
-            </Button>
-            <MeetingTime
-              timeArr={mentorTimeOfDay.map((x: any) => ({
-                date: x.date,
-                hour: x.hour,
-                time: `${x.hour}:00-${x.hour + 1}:00`,
-                checked: x.checked,
-                disabled: x.disabled,
-              }))}
-              label={"Create Meeting"}
-              open={open}
-              setOpen={setOpen}
-              onConfirmCallback={onConfirmCallback}
-              onDenyCallback={onDenyCallback}
-              selectedTimeArr={selectedTimeArr}
-              setSelectedTimeArr={setSelectedTimeArr}
-              setMeetingTitle={setMeetingTitle}
-            ></MeetingTime>
-          </div>
+          {userInfo.role == "mentor" && (
+            <div className="add">
+              <Button
+                sx={{
+                  minWidth: "100px",
+                  minHeight: "50px",
+                  maxHeight: "50px",
+                  maxWidth: "100px",
+                  borderRadius: 8,
+                  backgroundColor: "#6001D3",
+                  color: "#fff",
+                  fontSize: 12,
+                }}
+                variant="contained"
+                onClick={() => {
+                  setOpen(true);
+                  getMentorTimeOfDay("", new Date("2011-10-10T14:00:00"));
+                }}
+              >
+                +Add
+              </Button>
+              <MeetingTime
+                timeArr={mentorTimeOfDay.map((x: any) => ({
+                  date: x.date,
+                  hour: x.hour,
+                  time: `${x.hour}:00-${x.hour + 1}:00`,
+                  checked: x.checked,
+                  disabled: x.disabled,
+                }))}
+                label={"Create Meeting"}
+                open={open}
+                setOpen={setOpen}
+                onConfirmCallback={onConfirmCallback}
+                onDenyCallback={onDenyCallback}
+                selectedTimeArr={selectedTimeArr}
+                setSelectedTimeArr={setSelectedTimeArr}
+                setMeetingTitle={setMeetingTitle}
+              ></MeetingTime>
+            </div>
+          )}
+
           <div>
-            {userType === "mentor" && (
+            {userInfo.role === "mentor" && (
               <CalendarTable
                 height="80vh"
                 width="60vh"
@@ -214,7 +228,7 @@ const Calendar: React.FC<ICalendar> = () => {
                 }))}
               ></CalendarTable>
             )}
-            {userType === "mentor" && (
+            {userInfo.role === "student" && (
               <CalendarTable
                 height="80vh"
                 width="60vh"

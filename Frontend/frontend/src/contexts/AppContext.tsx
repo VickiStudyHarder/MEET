@@ -208,12 +208,12 @@ const AppContextProvider = (props: any) => {
 
   const getAllMeetings = async (userId: string) => {
     let meetings = await getMeetingsByUserId(userId);
-    meetings = meetings.map((item: any) => ({
-      id: item.id,
-      startTime: Date.parse(item.startTime),
-      endTime: Date.parse(item.endTime),
-      title: item.summary,
-      description: item.description,
+    meetings = meetings.map((i: any) => ({
+      id: i.meeting.id,
+      startTime: new Date(i.meeting.meetingStart),
+      endTime: new Date(i.meeting.meetingEnd),
+      title: i.meeting.summary,
+      description: i.meeting.description,
       expired: true,
     }));
     meetings = meetings.sort((a: any, b: any) => {
