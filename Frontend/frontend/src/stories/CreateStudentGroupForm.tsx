@@ -133,7 +133,12 @@ const CreateStudentGroupForm: React.FC<ICreateStudentGroupForm> = ({
                 sx={{
                   display: 'flex',
                   flexGrow: 1,
-                  marginRight: 5,
+                  minWidth: '150px',
+                  minHeight: '50px',
+                  maxHeight: '50px',
+                  maxWidth: '100px',
+                  marginRight: 6,
+                  marginLeft: 0,
                   borderRadius: 8,
                   backgroundColor: '#6001D3',
                   color: '#FFFFFF',
@@ -146,7 +151,7 @@ const CreateStudentGroupForm: React.FC<ICreateStudentGroupForm> = ({
               </Button>
               <Button
                 sx={{
-                  minWidth: '100px',
+                  minWidth: '150px',
                   minHeight: '50px',
                   maxHeight: '50px',
                   maxWidth: '100px',
