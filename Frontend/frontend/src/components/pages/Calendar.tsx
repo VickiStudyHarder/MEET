@@ -78,13 +78,13 @@ const Calendar: React.FC<ICalendar> = () => {
   }, [meetingTitle]);
 
   useEffect(() => {
-    if(userInfo.role === "mentor"){
-      getAllMeetings(email)
+    if (userInfo.role === "mentor") {
+      getAllMeetings(email);
     }
   }, [userInfo]);
 
   useEffect(() => {
-    console.log("all meetings",allMeetings)
+    console.log("all meetings", allMeetings);
   }, [allMeetings]);
 
   const onConfirmCallback = async () => {
@@ -141,6 +141,10 @@ const Calendar: React.FC<ICalendar> = () => {
   };
 
   const onDenyCallback = () => {};
+
+  const eventClick = (e:any) => {
+    console.log(e);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -226,6 +230,7 @@ const Calendar: React.FC<ICalendar> = () => {
                   end: m.endTime,
                   extendedProps: { expired: m.expired },
                 }))}
+                eventClick={eventClick}
               ></CalendarTable>
             )}
             {userInfo.role === "student" && (
@@ -239,6 +244,7 @@ const Calendar: React.FC<ICalendar> = () => {
                   end: m.endTime,
                   extendedProps: { booked: m.booked },
                 }))}
+                eventClick={eventClick}
               ></CalendarTable>
             )}
           </div>

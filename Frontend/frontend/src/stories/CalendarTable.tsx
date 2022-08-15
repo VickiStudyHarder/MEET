@@ -34,7 +34,7 @@ interface CalendarProps {
   /**
    * Optional click handler
    */
-  onClick?: () => void;
+  eventClick: (e:any) => void;
   defaultView?: string;
 
 
@@ -53,6 +53,7 @@ export default function CalendarTable({
   height,
   width,
   events,
+  eventClick,
   ...props
 }: CalendarProps) {
   /*const events = [{
@@ -89,6 +90,7 @@ export default function CalendarTable({
         contentHeight='600'
         events={events}
         timeZone={'UTC-8'}
+        eventClick={eventClick}
       />
     </div>
   );
