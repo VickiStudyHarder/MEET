@@ -16,7 +16,7 @@ model User {
   lastName         String
   dateOfBirth      String
   role             String
-  rating           Int
+  rating           Float
   totalMeetings    Int
   avatar String
   meetingAttendee  MeetingAttendee[]
