@@ -1,5 +1,6 @@
 import { func } from "prop-types";
-import React from "react";
+import React, { useEffect,useState } from "react";
+import $ from 'jquery'
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from "@fullcalendar/timegrid";
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -11,6 +12,7 @@ import momentPlugin from '@fullcalendar/moment';
 import "./calendar.css";
 import { callbackify } from "util";
 import { url } from "node:inspector";
+import { type } from "os";
 
 interface CalendarProps {
   /**
@@ -35,6 +37,7 @@ interface CalendarProps {
    * Optional click handler
    */
   eventClick: (e:any) => void;
+  headerClick: (e:any) => void;
   defaultView?: string;
 
 
@@ -54,6 +57,7 @@ export default function CalendarTable({
   width,
   events,
   eventClick,
+  headerClick,
   ...props
 }: CalendarProps) {
   /*const events = [{
@@ -74,6 +78,35 @@ export default function CalendarTable({
   ]
   */
   // console.log(JSON.stringify(events))
+
+  useEffect(() => {
+    let dayElement = $(".fc-col-header-cell")
+    for (let i in dayElement) {
+      if (dayElement.hasOwnProperty(i)) {
+        if (typeof (dayElement[i].nodeName) === 'string') {
+          dayElement[i].addEventListener("click", (e) => {
+            e.stopPropagation();
+            headerClick(dayElement[i]?.getAttribute('data-date'))
+            console.log("cal table",dayElement[i]?.getAttribute('data-date'))
+          }, false);
+        }
+      }
+      // if(typeof(dayElement[i].nodeName)==='string'){
+      //     dayElement[i].addEventListener("click", (e)=>{
+      //       e.stopPropagation();
+      //       e.preventDefault()
+      //       if(e.target){
+      //         try {
+      //           // console.log((e.target as HTMLElement).getAttribute["aria-label"])
+      //         } catch (error) {
+
+      //         }
+      //       }
+      //     },false);
+      // }
+    }
+  }, [])
+
   return (
     <div className="FullCalendarPage">
       <FullCalendar
@@ -86,11 +119,11 @@ export default function CalendarTable({
         slotDuration={'00:60:00'}
         slotMinTime={"05:00:00"}
         slotMaxTime={"22:00:00"}
-        scrollTime={'08:00:00'}
+        scrollTime={'05:00:00'}
         contentHeight='600'
         events={events}
-        timeZone={'UTC-8'}
         eventClick={eventClick}
+        displayEventTime={false}
       />
     </div>
   );

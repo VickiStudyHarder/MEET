@@ -5,6 +5,7 @@ import './MeetingTime.scss';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
+import AppContext from "../../contexts/AppContext";
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
@@ -62,27 +63,27 @@ const IOSSwitch = styled((props: SwitchProps) => (
 export interface MeetingTimeInfo {
   desc?: string;
   label?: string;
-  timeArr: Array<object>;
   open:any;
   setOpen:any;
   onConfirmCallback:any;
   onDenyCallback:any;
-  selectedTimeArr:any;
-  setSelectedTimeArr:any;
   setMeetingTitle:any;
 }
 
 export default function MeetingTime(props:MeetingTimeInfo) {
   const handleOpen = () => props.setOpen(true);
   const handleClose = () => props.setOpen(false);
+
+  const {mentorTimeOfDay,setMentorTimeOfDay} = React.useContext(AppContext)
+
   const onChange = (item:any)=>{
-    const timeArr = props.selectedTimeArr.map((x:any)=>{
+    const timeArr = mentorTimeOfDay.map((x:any)=>{
       if(x.hour === item.hour){
         x.checked = !x.checked
       }
       return x
     })
-    props.setSelectedTimeArr(timeArr)
+    setMentorTimeOfDay(timeArr)
   }
   return (
     <div>
@@ -105,13 +106,14 @@ export default function MeetingTime(props:MeetingTimeInfo) {
               props.setMeetingTitle(e.target.value)}} />
           </Box>
           <Box className="time-box">
-            {props.timeArr.map((item:any) =>
+            {mentorTimeOfDay.map((item:any) =>
               <Box className="time-item">
                   <FormControlLabel
                   control={
                     <IOSSwitch 
                       sx={{ m: 1 }} 
-                      defaultChecked={item.checked}
+                      // defaultChecked={item.checked}
+                      checked={item.checked}
                       disabled={item.disabled}
                       onChange={()=>{onChange(item)}}
                       />

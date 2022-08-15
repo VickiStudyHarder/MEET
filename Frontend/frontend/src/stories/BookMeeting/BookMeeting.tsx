@@ -9,16 +9,19 @@ export interface BookMeetingInfo {
   time?: string;
   name?: string;
   desc?: string;
+  open:any;
+  setOpen:any;
+  onConfirmCallback?:any;
+  onDenyCallback?:any;
 }
 
 export default function BookMeeting(props: BookMeetingInfo) {
-  const [open, setOpen] = React.useState(true);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => props.setOpen(true);
+  const handleClose = () => props.setOpen(false);
   return (
     <div>
       <Modal 
-        open={open} 
+        open={props.open} 
         onClose={handleClose}
       >
         <Box className="book-meeting-wrap">
@@ -34,8 +37,11 @@ export default function BookMeeting(props: BookMeetingInfo) {
             {props.desc}
           </Box>
           <Box className="btn-box">
-            <Button className="btn-l">Approve</Button>
-            <Button className="btn-r">Deny</Button>
+            <Button className="btn-l" onClick={()=>{props.onConfirmCallback()}}>Approve</Button>
+            <Button className="btn-r" onClick={()=>{
+              handleClose();
+              props.onDenyCallback()
+            }}>Deny</Button>
           </Box>
         </Box>
       </Modal>
