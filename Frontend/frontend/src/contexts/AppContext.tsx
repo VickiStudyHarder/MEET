@@ -297,8 +297,8 @@ const AppContextProvider = (props: any) => {
     // }));
     let meetings = [
       {
-        startTime: new Date("2011-10-10T14:00:00"),
-        endTime: new Date("2011-10-10T15:00:00"),
+        startTime: new Date("2022-8-16T14:00:00"),
+        endTime: new Date("2022-8-16T15:00:00"),
       },
     ];
     console.log("xx", meetings);
@@ -331,8 +331,8 @@ const AppContextProvider = (props: any) => {
 
   const getMeetingTodos = async (userId: string) => {
     let meetings = await getMeetingsByUserId(userId);
+    console.log("getMeetingTodos", meetings);
     if (meetings) {
-      console.log("getMeetingTodos111", meetings);
       meetings = meetings.map((m: any) => ({
         meetingId: m.meeting.id,
         option: {
@@ -348,7 +348,6 @@ const AppContextProvider = (props: any) => {
           isEditing: false,
         })),
       }));
-      console.log("getMeetingTodos", meetings);
       setMeetingTodos(meetings);
     }
   };
