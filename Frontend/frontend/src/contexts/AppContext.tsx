@@ -103,6 +103,8 @@ export type IAppContext = {
   updateMeetingTodos: any;
   mentorTimeOfDay: any;
   getMentorTimeOfDay: any;
+  userInfo:any;
+  getUserInfo:any;
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -111,7 +113,7 @@ export default AppContext;
 
 const AppContextProvider = (props: any) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [email, setEmail] = useState("z3417347@gmail.com");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -126,7 +128,11 @@ const AppContextProvider = (props: any) => {
   const [googleAuthToken, setGoogleAuthToken] = useState("");
 
   // exposed vars
-  const [selectedMentor, setSelectedMentor] = useState<any>({firstName:"",lastName:"",rating:0}); //选中的导师
+  const [selectedMentor, setSelectedMentor] = useState<any>({
+    firstName: "",
+    lastName: "",
+    rating: 0,
+  }); //选中的导师
   const [selectedStudent, setSelectedStudent] = useState({});
   const [allMentors, setAllMentors] = useState([{}]); //导师列表
   const [mentorBookedMeetings, setMentorBookedMeetings] = useState([{}]); //学生模式下已被学生预定的当前老师的会议
@@ -150,6 +156,7 @@ const AppContextProvider = (props: any) => {
   const [selectedRecording, setSelectedRecording] = useState<any>([{}]);
 
   const [mentorTimeOfDay, setMentorTimeOfDay] = useState([]);
+  const [userInfo, setUserInfo] = useState<any>({});
 
   // context local vars
 
@@ -321,6 +328,18 @@ const AppContextProvider = (props: any) => {
     getAllMentors();
   }, []);
 
+  const getUserInfo = async (userId:string) => {
+    let user = await getUser(userId);
+    user = {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      rating: user.rating,
+      avatar: user.avatar,
+    };
+    setUserInfo(user);
+  };
+
   const getFutureMeetings = async (userId: string) => {
     let meetings = await getMeetingsByUserId(userId);
     meetings = meetings.map((item: any) => ({
@@ -343,7 +362,7 @@ const AppContextProvider = (props: any) => {
       firstName: item.firstName,
       lastName: item.lastName,
       rating: item.rating,
-      avatar:item.avatar || "./avatars/10.png"
+      avatar: item.avatar || "./avatars/10.png",
     }));
     setAllMentors(mentors);
   };
@@ -355,7 +374,7 @@ const AppContextProvider = (props: any) => {
       firstName: mentor.firstName,
       lastName: mentor.lastName,
       rating: mentor.rating,
-      avatar:mentor.avatar || "./avatars/10.png"
+      avatar: mentor.avatar || "./avatars/10.png",
     };
     setSelectedMentor(mentor);
   };
@@ -367,7 +386,7 @@ const AppContextProvider = (props: any) => {
       firstName: student.firstName,
       lastName: student.lastName,
       rating: student.rating,
-      avatar:student.avatar || "./avatars/10.png"
+      avatar: student.avatar || "./avatars/10.png",
     };
     setSelectedStudent(student);
   };
@@ -454,7 +473,7 @@ const AppContextProvider = (props: any) => {
       hour: t,
       disabled: false,
       checked: false,
-      date:date
+      date: date,
       // startTime: new Date(date.getFullYear(), date.getMonth(), date.getDay(),t,0,0,0),
       // startTime: new Date(date.getFullYear(), date.getMonth(), date.getDay(),t,0,0,0),
     }));
@@ -600,12 +619,12 @@ const AppContextProvider = (props: any) => {
       description: desc,
       location: "",
       meetingAttendees: [{ userId: mentorId, attended: false }],
-      toDoItem:[],
-      notes:[],
-      agendas:[],
-      recordings:[]
+      toDoItem: [],
+      notes: [],
+      agendas: [],
+      recordings: [],
     } as IMeeting;
-    console.log("create meeting payload:",JSON.stringify(meeting));
+    console.log("create meeting payload:", JSON.stringify(meeting));
     const ret = await createMeeting(meeting);
     console.log("create meeting:", ret);
     getMentorMeetings(mentorId);
@@ -862,6 +881,8 @@ const AppContextProvider = (props: any) => {
         updateMeetingTodos,
         mentorTimeOfDay,
         getMentorTimeOfDay,
+        userInfo,
+        getUserInfo,
       }}
     >
       {props.children}
