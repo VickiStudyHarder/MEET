@@ -7,6 +7,7 @@ import {
   deleteUser,
   getUserById,
   updateUser,
+  rateMentor,
 } from '@functions/users';
 
 import {
@@ -18,7 +19,7 @@ import {
   removeNote,
   removeToDo,
   removeAgenda,
-  removeRecording
+  removeRecording,
 } from '@functions/meetings';
 
 import {
@@ -80,7 +81,8 @@ const serverlessConfiguration: AWS = {
     removeNote,
     removeToDo,
     removeAgenda,
-    removeRecording
+    removeRecording,
+    rateMentor,
   },
   package: { individually: true },
   custom: {

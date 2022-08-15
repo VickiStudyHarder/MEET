@@ -9,6 +9,7 @@ import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import StarRateIcon from '@mui/icons-material/StarRate';
 
 interface TitleProps {
   content: string;
@@ -68,7 +69,7 @@ export default function PageTitle({
         icon === '4' && (
           <Box sx={{ display: 'flex', flexDirection: 'row' }}>
             <Fab style={{ backgroundColor: '#6001D3' }} aria-label="delete recording" size="medium">
-              <AttachFileIcon style={{ fontSize: 30, color: '#ffffff' }} />
+              <StarRateIcon style={{ fontSize: 35, color: '#ffffff' }} />
             </Fab>
             <Typography component="div" variant="h4" sx={{ marginTop: 0.5, marginLeft: 5 }} >
               {content}
