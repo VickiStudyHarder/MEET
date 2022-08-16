@@ -95,7 +95,7 @@ const ToDoRow: React.FC<IToDoItemRow> = ({ toDoItem, handleGetMeeting, meeting})
         onClose={handleClose}
         aria-labelledby='alert-dialog-title'
         aria-describedby='alert-dialog-description'
-        sx={{ display: 'flex', flexGrow: 1 }}
+        // sx={{ display: 'flex', flexGrow: 1 }}
         maxWidth='lg'
       >
         <EditNoteForm
