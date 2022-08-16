@@ -18,6 +18,7 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
   groupParticipant,
   userIsParticipant,
   getAllGroups,
+
 }) => {
   const { email } = useContext(AppContext);
   const [open, setOpen] = useState(false);
@@ -92,7 +93,7 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
                   m: 'auto',
                 }}
               >
-                <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                <Box sx={{ display: 'flex', flexDirection: 'row', marginTop:2 }}>
                   <Button
                     onClick={() => {
                       navigate(`/group/${id}`);
@@ -118,6 +119,20 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
                     />
                   </Button>
                 </Box>
+                <Typography
+              variant='body1'
+              component='h2'
+              sx={{
+                mx: 'auto',
+                my:2,
+                color: '#70798B',
+                fontSize: 14,
+                textAlign: 'left',
+                mt: 15
+              }}
+            >
+              {groupParticipant.length} Members
+            </Typography>
               </Box>
             ) : (
               <Box
@@ -127,8 +142,8 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
                   m: 'auto',
                 }}
               >
-                <Button onClick={handleJoinGroup}>
-                  <Typography variant='body1' color='black' sx={{ m: 'auto' }}>
+                <Button onClick={handleJoinGroup} sx={{marginTop:2}}>
+                  <Typography variant='body1' color='black' sx={{ m: 'auto'}}>
                     Join
                   </Typography>
                   <ArrowRightAltOutlinedIcon
@@ -136,6 +151,20 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
                     sx={{ ml: 2 }}
                   />
                 </Button>
+                <Typography
+              variant='body1'
+              component='h2'
+              sx={{
+                mx: 'auto',
+                my:2,
+                color: '#70798B',
+                fontSize: 14,
+                textAlign: 'left',
+                mt: 20
+              }}
+            >
+              {groupParticipant.length} Members
+            </Typography>
               </Box>
             )}
           </Box>
@@ -175,8 +204,9 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
                 textAlign: 'left',
               }}
             >
-              {groupParticipant.length} Members
+              {description}
             </Typography>
+
           </Box>
         </Box>
       </Card>

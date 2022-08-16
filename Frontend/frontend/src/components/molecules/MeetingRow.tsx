@@ -8,28 +8,43 @@ export interface IMeetingRow {
   meeting: IMeeting;
 }
 
+// function date
+function add0(m: any) { return m < 10 ? '0' + m : m }
+
+function format(input: any) {
+  var time = new Date(input);
+  var y = time.getFullYear();
+  var m = time.getMonth() + 1;
+  var d = time.getDate();
+  var h = time.getHours();
+  var mm = time.getMinutes();
+  var s = time.getSeconds();
+  return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
+}
+
+
 const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  console.log('meeting:', meeting)
   return (
     <>
       <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
         <Button onClick={() => navigate(`/meeting/${meeting.id}`)}>
-          <Box sx={{ m: 4 ,borderRadius:20}}>
-            <img src={"./meeting.png"} alt='YourMeetingImage' style={{borderRadius:10}}/>
+          <Box sx={{ m: 4, borderRadius: 20 }}>
+            <img src={"./meeting.png"} alt='YourMeetingImage' style={{ borderRadius: 10 }} />
           </Box>
         </Button>
         <Box
           sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column', m: 4 }}
         >
           <Box sx={{ display: 'flex', flexDirection: 'row', mt: 2 }}>
-            <Typography sx={{ color: '#6001D3', mr: 4 }} style={{fontFamily:"Quicksand"}}>
+            <Typography sx={{ color: '#6001D3', mr: 4, fontWeight: 'bold' }} style={{ fontFamily: "Quicksand" }}>
               {meeting?.notes?.length ? meeting.notes.length : '0'} Notes
             </Typography>
-            <Typography style={{fontFamily:"Quicksand"}}>Hosted By</Typography>
+            <Typography style={{ fontFamily: "Quicksand" }}>Start at {format(meeting.meetingStart)}</Typography>
           </Box>
-          <Typography variant='h4' sx={{ mt: 6 }} style={{fontFamily:"Quicksand"}}>
+          <Typography variant='h4' sx={{ mt: 6 }} style={{ fontFamily: "Quicksand" }}>
             {meeting.summary}
           </Typography>
         </Box>
@@ -48,7 +63,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
               navigate(`/agenda/${meeting.id}`);
             }}
           >
-            <Typography sx={{ color: 'black', mr: 2 }} style={{fontFamily:"Quicksand"}}>Agenda</Typography>
+            <Typography sx={{ color: 'black', mr: 2 }} style={{ fontFamily: "Quicksand" }}>Agenda</Typography>
             <img
               src={MeetingsArrow}
               alt='meeting-arrow'
@@ -63,7 +78,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
               navigate(`/notes/${meeting.id}`);
             }}
           >
-            <Typography sx={{ color: 'black', mr: 2 }} style={{fontFamily:"Quicksand"}}>Notes</Typography>
+            <Typography sx={{ color: 'black', mr: 2 }} style={{ fontFamily: "Quicksand" }}>Notes</Typography>
             <img
               src={MeetingsArrow}
               alt='meeting-arrow'
@@ -78,7 +93,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
               navigate(`/todo/${meeting.id}`);
             }}
           >
-            <Typography sx={{ color: 'black', mr: 2 }} style={{fontFamily:"Quicksand"}}>To Dos</Typography>
+            <Typography sx={{ color: 'black', mr: 2 }} style={{ fontFamily: "Quicksand" }}>To Dos</Typography>
             <img
               src={MeetingsArrow}
               alt='meeting-arrow'
@@ -93,7 +108,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting }) => {
               navigate(`/recording/${meeting.id}`);
             }}
           >
-            <Typography sx={{ color: 'black', mr: 2 }} style={{fontFamily:"Quicksand"}}>Recording</Typography>
+            <Typography sx={{ color: 'black', mr: 2 }} style={{ fontFamily: "Quicksand" }}>Recording</Typography>
             <img
               src={MeetingsArrow}
               alt='meeting-arrow'

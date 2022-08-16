@@ -31,6 +31,8 @@ const Group: React.FC<IGroup> = () => {
   const [open, setOpen] = useState(false);
   const [myGroups, setMyGroups] = useState<any>(null);
   const [availableGroups, setAvailableGroups] = useState<any>(null);
+  const [showOwn, setShowOwn] = useState(false);
+  const [switchButton, setSwitchButton] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -40,14 +42,23 @@ const Group: React.FC<IGroup> = () => {
     setOpen(false);
   };
 
-  useEffect(() => {
-    getAllGroups();
-  }, []);
+  const showOwnCard = () => {
+    if (!showOwn) {
+          setShowOwn(true)
+          setSwitchButton(true)
+    } else{
+      setShowOwn(false)
+      setSwitchButton(true)
+    }
+
+  }
+
 
   const getAllGroups = async () => {
     const allGroups = await getGroups();
     const myGroups: any[] = [];
     const availableGroups: any[] = [];
+    console.log('all group:',allGroups);
     allGroups.map((group: any) => {
       if (
         group.groupParticipant.filter(
@@ -61,7 +72,14 @@ const Group: React.FC<IGroup> = () => {
     });
     setMyGroups(myGroups);
     setAvailableGroups(availableGroups);
+    console.log('my group:',myGroups);
+    console.log('available:',availableGroups);
   };
+
+    useEffect(() => {
+    getAllGroups();
+  }, []);
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -106,7 +124,8 @@ const Group: React.FC<IGroup> = () => {
         }}
       >
         <Box sx={{ height: '100%', m: 2 }}>
-          <StudentGroupNameCard myGroups={myGroups} />
+          {switchButton && <StudentGroupNameCard myGroups={myGroups} doSomething={showOwnCard} switchButton={true} />}
+          {!switchButton && <StudentGroupNameCard myGroups={myGroups} doSomething={showOwnCard}  />}
         </Box>
         <Container
           sx={{
@@ -114,6 +133,9 @@ const Group: React.FC<IGroup> = () => {
             flexDirection: 'column',
             width: '100%',
             flexShrink: 1,
+            overflow:'auto',
+            overflowX:'hidden',
+            height:'75vh'
           }}
         >
           <Box sx={{ display: 'flex', flexGrow: 1, m: 2, width: '100%' }}>
@@ -138,6 +160,7 @@ const Group: React.FC<IGroup> = () => {
               {availableGroups &&
                 availableGroups.map((group: any) => {
                   return (
+                    showOwn && 
                     <StudentGroupCard
                       id={group.id}
                       name={group.name}

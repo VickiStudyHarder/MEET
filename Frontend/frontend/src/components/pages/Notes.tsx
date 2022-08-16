@@ -87,7 +87,7 @@ const Notes: React.FC<{}> = () => {
           </Box>
           
           <Divider variant='middle' sx={{ width: '100%' }} />
-          <Box sx={{ width: '100%', m: 2 }}>
+          <Box sx={{ width: '100%', m: 2, overflow:'auto',height:'77vh',overflowX:'hidden' }}>
             {meeting &&
               meeting?.notes?.map((note: INotes) => {
                 return (

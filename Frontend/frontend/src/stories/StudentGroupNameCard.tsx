@@ -14,7 +14,8 @@ export interface IStudentGroupNameCard {
   myGroups?: any;
   doSomething?: (params: any) => any;
   inChat?: boolean;
-  groupName?: string
+  groupName?: string;
+  switchButton?:boolean;
 }
 
 export const StudentGroupNameCard: React.FC<IStudentGroupNameCard> = ({
@@ -22,12 +23,14 @@ export const StudentGroupNameCard: React.FC<IStudentGroupNameCard> = ({
   doSomething,
   inChat,
   groupName,
+  switchButton,
 }) => {
   const { firstName, lastName, getUserInfo, userInfo, getMeetingTodos, email } = useContext(AppContext);
   useEffect(() => {
     getUserInfo(email);
     console.log('userinfo=', userInfo)
   }, []);
+
 
   return (
     <Box sx={{ width: 380, height: 666 }}>
@@ -77,7 +80,8 @@ export const StudentGroupNameCard: React.FC<IStudentGroupNameCard> = ({
           </Typography>
           {!inChat && (<Box sx={{ marginTop: 10 }}>
             <Button onClick={doSomething} variant="contained" style={{ color: '#000000', backgroundColor: "#EEEEEE", borderRadius: 20, width: 200, height: 50, fontWeight: 'bold' }}>
-              My group
+              {switchButton && 'My group'}
+              {!switchButton && 'All group'}
             </Button>
           </Box>)
           }
@@ -102,21 +106,6 @@ export const StudentGroupNameCard: React.FC<IStudentGroupNameCard> = ({
 
           }
 
-
-          {myGroups &&
-            myGroups.map((group: any) => {
-              return (
-                <Typography
-                  sx={{
-                    width: '100%',
-                    m: 'auto',
-                    textAlign: 'center',
-                  }}
-                >
-                  {group.name}
-                </Typography>
-              );
-            })}
         </CardContent>
 
       </Card>

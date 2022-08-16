@@ -79,7 +79,7 @@ const Meetings = () => {
             </Box>
           </Box>
           <Divider variant='middle' sx={{ width: '100%' }} />
-          <Box sx={{ width: '100%', m:2 }}>
+          <Box sx={{ width: '100%', m:2 , overflow:'auto', height:'77vh', overflowX:'hidden'}}>
             {meetings &&
               meetings.map((meeting: IMeetingResponse) => {
                 return <MeetingRow meeting={meeting.meeting} />;

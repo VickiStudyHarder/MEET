@@ -39,7 +39,7 @@ const Agenda: React.FC<IAgenda> = () => {
   }, [start, end, diff]);
 
 
-  
+
   const handleGetMeeting = async () => {
     const result = await getMeetingById(Number(id));
     setMeeting(result);
@@ -91,132 +91,132 @@ const Agenda: React.FC<IAgenda> = () => {
       <NavBar />
       {meeting && (
         <Container
-        maxWidth='xl' sx={{ display: 'flex', flexGrow: 1 }}
+          maxWidth='xl' sx={{ display: 'flex', flexGrow: 1 }}
         >
           <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexGrow: 1,
-            width: '100%',
-          }}
-        >
-                    <Box
             sx={{
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center',
-            }}
-          >
-          <Box
-            sx={{ display: 'flex', flexDirection: 'row', width: '100%', m: 2, justifyContent: 'space-between' }}
-          >
-            <Box sx={{ marginLeft: 3 }}>
-              <PageTitle icon='6' content={`Agenda - ${meeting?.summary}`} doSomething={() => navigate(`/meetings/`)} />
-            </Box>
-
-            <Button onClick={handleClickOpen} variant="outlined" sx={{ borderColor: "#6001D3", color: "#6001D3" }} startIcon={<AddCircleOutlineIcon />}>
-              New
-            </Button>
-
-          </Box>
-          </Box>
-          <Divider variant='middle' sx={{ width: '100%' }} />
-          <Box
-            sx={{
-              m: 2,
-              width: '100%',
-              display: 'flex',
               flexGrow: 1,
-              flexDirection: 'row',
+              width: '100%',
             }}
           >
-            <Box sx={{ display: 'flex', flexGrow: 1, height: '100%' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+              }}
+            >
               <Box
-                sx={{
-                  boxShadow: '5px 5px 5px 5px lightGray',
-                  width: 800,
-                  height: 350,
-                  mt: 30,
-                  borderRadius: 10,
-                  display: 'flex',
-                  flexDirection: 'row',
-                  p: 4,
-                  background: '#F3F4F6',
-                  // border:,
-                }}
+                sx={{ display: 'flex', flexDirection: 'row', width: '100%', m: 2,ml:0, justifyContent: 'space-between' }}
               >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flexGrow: 1,
-                    maxWidth: '40%',
-                  }}
-                >
-                  <GroupsIcon
-                  sx={{color:'#6001D3',fontSize:60}}
-                  >
-                  </GroupsIcon>
-                  <Typography
-                    
-                    align='center'
-                    // color='#6001D3'
-                    sx={{fontSize:50, mx: 'auto',}}
-                  >
-                    {meeting.summary}
-                  </Typography>
-                  <Typography
-                    variant='subtitle1'
-                    align='center'
-                    
-                    sx={{ mx: 'auto', my: 2 }}
-                  >
-                    {start}
-                  </Typography>
-                  <Typography
-                    variant='subtitle1'
-                    align='center'
-                    // color='white'
-                    sx={{ mx: 'auto', mb: 2 }}
-                  >
-                    {end}
-                  </Typography>
+                <Box sx={{ marginLeft: 3 }}>
+                  <PageTitle icon='6' content={`Agenda - ${meeting?.summary}`} doSomething={() => navigate(`/meetings/`)} />
                 </Box>
-                <Divider
-                  variant='middle'
-                  orientation='vertical'
-                  
-                  sx={{ width: '10%', display: 'flex', mx: 4 }}
-                />
-                <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flexGrow: 1,
-                    maxWidth: '40%',
-                  }}
-                >
-                  <AlarmIcon
-                  sx={{color:'#6001D3',fontSize:60}}
-                  >
-                  </AlarmIcon>
-                  <Typography 
-                    // variant='h2' 
-                    // color='#6001D3'
-                    sx={{ mx:'auto',fontWeight: 500, fontSize:70, my:4 }}>
-                    {diff}
-                  </Typography>
-                </Box>
+
+                <Button onClick={handleClickOpen} variant="outlined" sx={{ borderColor: "#6001D3", color: "#6001D3" }} startIcon={<AddCircleOutlineIcon />}>
+                  New
+                </Button>
+
               </Box>
             </Box>
-            {meeting.agendas && (
-              <AgendaList
-                agendaList={meeting.agendas}
-                handleGetMeeting={handleGetMeeting}
-              />
-            )}
-          </Box>
+            <Divider variant='middle' sx={{ width: '100%' }} />
+            <Box
+              sx={{
+                m: 2,
+                width: '100%',
+                display: 'flex',
+                flexGrow: 1,
+                flexDirection: 'row',
+              }}
+            >
+              <Box sx={{ display: 'flex', flexGrow: 1, height: '100%' }}>
+                <Box
+                  sx={{
+                    boxShadow: '5px 5px 5px 5px lightGray',
+                    width: 800,
+                    height: 350,
+                    mt: 30,
+                    borderRadius: 10,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    p: 4,
+                    background: '#F3F4F6',
+                    // border:,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      flexGrow: 1,
+                      maxWidth: '40%',
+                    }}
+                  >
+                    <GroupsIcon
+                      sx={{ color: '#6001D3', fontSize: 60 }}
+                    >
+                    </GroupsIcon>
+                    <Typography
+
+                      align='center'
+                      // color='#6001D3'
+                      sx={{ fontSize: 50, mx: 'auto', }}
+                    >
+                      {meeting.summary}
+                    </Typography>
+                    <Typography
+                      variant='subtitle1'
+                      align='center'
+
+                      sx={{ mx: 'auto', my: 2 }}
+                    >
+                      {start}
+                    </Typography>
+                    <Typography
+                      variant='subtitle1'
+                      align='center'
+                      // color='white'
+                      sx={{ mx: 'auto', mb: 2 }}
+                    >
+                      {end}
+                    </Typography>
+                  </Box>
+                  <Divider
+                    variant='middle'
+                    orientation='vertical'
+
+                    sx={{ width: '10%', display: 'flex', mx: 4 }}
+                  />
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      flexGrow: 1,
+                      maxWidth: '40%',
+                    }}
+                  >
+                    <AlarmIcon
+                      sx={{ color: '#6001D3', fontSize: 60 }}
+                    >
+                    </AlarmIcon>
+                    <Typography
+                      // variant='h2' 
+                      // color='#6001D3'
+                      sx={{ mx: 'auto', fontWeight: 500, fontSize: 70, my: 4 }}>
+                      {diff}
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+              {meeting.agendas && (
+                <AgendaList
+                  agendaList={meeting.agendas}
+                  handleGetMeeting={handleGetMeeting}
+                />
+              )}
+            </Box>
           </Box>
           <Dialog
             open={open}
