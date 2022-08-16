@@ -11,6 +11,8 @@ import { IMeeting, INotes } from '../../types/meetings';
 import { AppContext } from '../../contexts/AppContext';
 import { updateMeeting } from '../../api/meeting';
 import { useParams } from 'react-router-dom';
+import PageTitle from '../../stories/PageTiltle';
+import CustomInput from '../../stories/Input';
 
 export interface ICreateNoteForm {
   setOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -64,14 +66,13 @@ const CreateNoteForm: React.FC<ICreateNoteForm> = ({ setOpen, meeting, handleGet
       }}
     >
       <Card sx={{ display: 'flex', flexGrow: 1, p: 4 }}>
-        <CardContent sx={{ marginRight: 3 }}>
+        <CardContent sx={{ marginRight: 1 }}>
           <Grid
             container
             direction='column'
             sx={{
               display: 'flex',
               flexGrow: 1,
-              // marginLeft: 1,
               marginTop: 2,
             }}
           >
@@ -81,6 +82,9 @@ const CreateNoteForm: React.FC<ICreateNoteForm> = ({ setOpen, meeting, handleGet
               sx={{ m: 2, display: 'flex', flexGrow: 1 }}
             >
               <Grid item sx={{ m: 'auto' }}>
+              <PageTitle icon='4' content={'Create Note'} />
+              </Grid>
+              {/* <Grid item sx={{ m: 'auto' }}>
                 <GroupsTwoToneIcon
                   sx={{
                     fontSize: 40,
@@ -97,10 +101,10 @@ const CreateNoteForm: React.FC<ICreateNoteForm> = ({ setOpen, meeting, handleGet
                 >
                   Create Note
                 </Typography>
-              </Grid>
+              </Grid> */}
             </Grid>
 
-            <Grid item>
+            {/* <Grid item>
               <TextField
                 id='title'
                 fullWidth
@@ -112,8 +116,17 @@ const CreateNoteForm: React.FC<ICreateNoteForm> = ({ setOpen, meeting, handleGet
                 value={title}
                 onChange={handleTitleChange}
               />
-            </Grid>
-            <Grid item>
+            </Grid> */}
+            <CustomInput
+              margin='normal'
+              fullWidth
+              id='title'
+              label='title'
+              autoFocus
+              value={title}
+              onChange={handleTitleChange}
+            />
+            {/* <Grid item>
               <TextField
                 id='details'
                 fullWidth
@@ -125,7 +138,16 @@ const CreateNoteForm: React.FC<ICreateNoteForm> = ({ setOpen, meeting, handleGet
                 value={details}
                 onChange={handleDetailsChange}
               />
-            </Grid>
+            </Grid> */}
+            <CustomInput
+              margin='normal'
+              fullWidth
+              id='details'
+              label='details'
+              autoFocus
+              value={details}
+              onChange={handleDetailsChange}
+            />
             <Grid
               item
               container
@@ -141,7 +163,12 @@ const CreateNoteForm: React.FC<ICreateNoteForm> = ({ setOpen, meeting, handleGet
                 sx={{
                   display: 'flex',
                   flexGrow: 1,
-                  marginRight: 5,
+                  minWidth: '150px',
+                  minHeight: '50px',
+                  maxHeight: '50px',
+                  maxWidth: '100px',
+                  marginRight: 6,
+                  marginLeft: 0,
                   borderRadius: 8,
                   backgroundColor: '#6001D3',
                   color: '#FFFFFF',
@@ -154,7 +181,7 @@ const CreateNoteForm: React.FC<ICreateNoteForm> = ({ setOpen, meeting, handleGet
               </Button>
               <Button
                 sx={{
-                  minWidth: '100px',
+                  minWidth: '150px',
                   minHeight: '50px',
                   maxHeight: '50px',
                   maxWidth: '100px',

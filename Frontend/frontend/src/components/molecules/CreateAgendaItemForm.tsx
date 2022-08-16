@@ -66,7 +66,7 @@ const CreateAgendaItemForm: React.FC<ICreateAgendaItemForm> = ({
       }}
     >
       <Card sx={{ display: 'flex', flexGrow: 1, p: 4 }}>
-        <CardContent sx={{ marginRight: 3 }}>
+        <CardContent sx={{ marginRight: 1 }}>
           <Grid
             container
             direction='column'
@@ -82,7 +82,7 @@ const CreateAgendaItemForm: React.FC<ICreateAgendaItemForm> = ({
               sx={{ m: 2, display: 'flex', flexGrow: 1 }}
             >
               <Grid item sx={{ m: 'auto' }}>
-              <PageTitle icon='5' content={'Create Agenda Item'} />
+              <PageTitle icon='3' content={'Create Agenda Item'} />
               </Grid>
               {/* <Grid item sx={{ m: 'auto' }}>
                 <GroupsTwoToneIcon
