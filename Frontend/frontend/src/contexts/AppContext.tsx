@@ -609,6 +609,7 @@ const AppContextProvider = (props: any) => {
   const removeTodo = async(id:number)=>{
     console.log("remove todo:id=",id)
     await deleteToDoItem(id)
+    await getMeetingTodos(email)
   }
 
   const getSession = async () =>
