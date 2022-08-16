@@ -98,7 +98,7 @@ const CreateRecordingForm: React.FC<IRecordingForm> = ({
               sx={{ m: 2, display: 'flex', flexGrow: 1 }}
             >
               <Grid item sx={{ m: 'auto' }}>
-              <PageTitle icon='1' content={'Create Recording Form'} />
+              <PageTitle icon='1' content={'Create Recording'} />
               </Grid>
               {/* <Grid item sx={{ m: 'auto' }}>
                 <GroupsTwoToneIcon
