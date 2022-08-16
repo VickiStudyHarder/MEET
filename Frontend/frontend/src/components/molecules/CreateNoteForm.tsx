@@ -167,7 +167,7 @@ const CreateNoteForm: React.FC<ICreateNoteForm> = ({ setOpen, meeting, handleGet
                   minHeight: '50px',
                   maxHeight: '50px',
                   maxWidth: '100px',
-                  marginRight: 6,
+                  marginRight: 15,
                   marginLeft: 0,
                   borderRadius: 8,
                   backgroundColor: '#6001D3',
