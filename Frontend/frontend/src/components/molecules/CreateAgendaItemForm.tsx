@@ -82,7 +82,7 @@ const CreateAgendaItemForm: React.FC<ICreateAgendaItemForm> = ({
               sx={{ m: 2, display: 'flex', flexGrow: 1 }}
             >
               <Grid item sx={{ m: 'auto' }}>
-              <PageTitle icon='3' content={'Create Agenda Item'} />
+              <PageTitle icon='5' content={'Create Agenda Item'} />
               </Grid>
               {/* <Grid item sx={{ m: 'auto' }}>
                 <GroupsTwoToneIcon

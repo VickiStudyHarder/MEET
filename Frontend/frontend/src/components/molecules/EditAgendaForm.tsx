@@ -11,6 +11,8 @@ import { IAgenda, IMeeting, INotes } from '../../types/meetings';
 import { AppContext } from '../../contexts/AppContext';
 import { updateMeeting } from '../../api/meeting';
 import { useParams } from 'react-router-dom';
+import PageTitle from '../../stories/PageTiltle';
+import CustomInput from '../../stories/Input';
 
 export interface IEditAgendaForm {
   setOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -67,14 +69,13 @@ const EditAgendaForm: React.FC<IEditAgendaForm> = ({
       }}
     >
       <Card sx={{ display: 'flex', flexGrow: 1, p: 4 }}>
-        <CardContent sx={{ marginRight: 3 }}>
+        <CardContent sx={{ marginRight: 1 }}>
           <Grid
             container
             direction='column'
             sx={{
               display: 'flex',
               flexGrow: 1,
-              // marginLeft: 1,
               marginTop: 2,
             }}
           >
@@ -84,6 +85,9 @@ const EditAgendaForm: React.FC<IEditAgendaForm> = ({
               sx={{ m: 2, display: 'flex', flexGrow: 1 }}
             >
               <Grid item sx={{ m: 'auto' }}>
+              <PageTitle icon='5' content={'Edit Agenda'} />
+              </Grid>
+              {/* <Grid item sx={{ m: 'auto' }}>
                 <GroupsTwoToneIcon
                   sx={{
                     fontSize: 40,
@@ -100,10 +104,10 @@ const EditAgendaForm: React.FC<IEditAgendaForm> = ({
                 >
                   Edit Agenda
                 </Typography>
-              </Grid>
+              </Grid> */}
             </Grid>
 
-            <Grid item>
+            {/* <Grid item>
               <TextField
                 id='title'
                 fullWidth
@@ -115,8 +119,17 @@ const EditAgendaForm: React.FC<IEditAgendaForm> = ({
                 value={title}
                 onChange={handleTitleChange}
               />
-            </Grid>
-            <Grid item>
+            </Grid> */}
+            <CustomInput
+              margin='normal'
+              fullWidth
+              id='title'
+              label='title'
+              autoFocus
+              value={title}
+              onChange={handleTitleChange}
+            />
+            {/* <Grid item>
               <TextField
                 id='details'
                 fullWidth
@@ -128,7 +141,16 @@ const EditAgendaForm: React.FC<IEditAgendaForm> = ({
                 value={details}
                 onChange={handleDetailsChange}
               />
-            </Grid>
+            </Grid> */}
+            <CustomInput
+              margin='normal'
+              fullWidth
+              id='details'
+              label='details'
+              autoFocus
+              value={details}
+              onChange={handleDetailsChange}
+            />
             <Grid
               item
               container
@@ -144,7 +166,12 @@ const EditAgendaForm: React.FC<IEditAgendaForm> = ({
                 sx={{
                   display: 'flex',
                   flexGrow: 1,
-                  marginRight: 5,
+                  minWidth: '150px',
+                  minHeight: '50px',
+                  maxHeight: '50px',
+                  maxWidth: '100px',
+                  marginRight: 6,
+                  marginLeft: 0,
                   borderRadius: 8,
                   backgroundColor: '#6001D3',
                   color: '#FFFFFF',
@@ -157,7 +184,7 @@ const EditAgendaForm: React.FC<IEditAgendaForm> = ({
               </Button>
               <Button
                 sx={{
-                  minWidth: '100px',
+                  minWidth: '150px',
                   minHeight: '50px',
                   maxHeight: '50px',
                   maxWidth: '100px',
