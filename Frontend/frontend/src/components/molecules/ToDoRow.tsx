@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Typography, Divider, Dialog, Fab } from '@mui/material';
 import { IToDoItem, IMeeting } from '../../types/meetings';
-import YourMeetingImage from '../../assets/YourTodo.png';
+import YourMeetingImage from '../../assets/todo.png';
 import MeetingsArrow from '../../assets/MeetingsArrow.png';
 import { deleteToDoItem } from '../../api/meeting';
 import EditNoteForm from './EditToDoForm';
@@ -45,7 +45,7 @@ const ToDoRow: React.FC<IToDoItemRow> = ({ toDoItem, handleGetMeeting, meeting})
     <>
       <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
         <Box sx={{ m: 4 }}>
-          <img src={"./todo.png"} style={{width:380, height:220, borderRadius: 20 ,boxShadow: '-15px 30px 30px rgba(8, 20, 32, 0.2)'}} alt='YourMeetingImage' />
+          <img src={YourMeetingImage} style={{width:380, height:220, borderRadius: 20 ,boxShadow: '-15px 30px 30px rgba(8, 20, 32, 0.2)'}} alt='YourMeetingImage' />
         </Box>
         <Box
           sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column', m: 4 ,mt:5}}

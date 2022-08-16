@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Typography, Divider, Dialog, Fab } from '@mui/material';
 import Link from '@material-ui/core/Link';
 import { IToDoItem, IMeeting, IRecording } from '../../types/meetings';
-import YourMeetingImage from '../../assets/YourMeetingImage.png';
+import YourMeetingImage from '../../assets/recording.png';
 import MeetingsArrow from '../../assets/MeetingsArrow.png';
 import { deleteRecordingItem } from '../../api/meeting';
 import EditRecordingForm from './EditRecordingForm';
@@ -51,7 +51,7 @@ const RecordingRow: React.FC<IRecordingRow> = ({
     <>
       <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
         <Box sx={{ m: 4 }}>
-          <img src={"./recording.png"} style={{ width:380, height:220,borderRadius: 20 ,boxShadow: '-15px 30px 30px rgba(8, 20, 32, 0.2)'}} alt='YourMeetingImage' />
+          <img src={YourMeetingImage} style={{ width:380, height:220,borderRadius: 20 ,boxShadow: '-15px 30px 30px rgba(8, 20, 32, 0.2)'}} alt='YourMeetingImage' />
         </Box>
         <Box
           sx={{

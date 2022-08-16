@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Typography, Divider, Dialog, Fab } from '@mui/material';
 import { INotes } from '../../types/meetings';
-import YourMeetingImage from '../../assets/YourNote.png';
 import MeetingsArrow from '../../assets/MeetingsArrow.png';
 import { deleteNote } from '../../api/meeting';
 import EditNoteForm from './EditNoteForm';
 import EditRecordingForm from './EditRecordingForm';
+import YourMeetingImage from '../../assets/note.png';
 import LinkIcon from '@mui/icons-material/Link';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -38,7 +38,7 @@ const MeetingRow: React.FC<INotesRow> = ({ note, handleGetMeeting }) => {
     <>
       <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
         <Box sx={{ m: 4 }}>
-          <img src={"./note.png"} style={{ width:380, height:220,borderRadius: 20 ,boxShadow: '-15px 30px 30px rgba(8, 20, 32, 0.2)'}} alt='YourMeetingImage' />
+          <img src={YourMeetingImage} style={{ width:380, height:220,borderRadius: 20 ,boxShadow: '-15px 30px 30px rgba(8, 20, 32, 0.2)'}} alt='YourMeetingImage' />
         </Box>
         <Box
            sx={{
