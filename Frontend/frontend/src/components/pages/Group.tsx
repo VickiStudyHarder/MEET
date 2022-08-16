@@ -42,7 +42,7 @@ const Group: React.FC<IGroup> = () => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 500)
   }, [])
 
 
@@ -133,7 +133,7 @@ const Group: React.FC<IGroup> = () => {
               <PageTitle icon='2' content={'All my group'} />
             </Box>
 
-            <Button onClick={handleClickOpen} variant="outlined" sx={{ borderColor: "#6001D3", color: "#6001D3" }} startIcon={<AddCircleOutlineIcon />}>
+            <Button onClick={handleClickOpen} variant="contained" color="secondary" sx={{ backgroundColor: "#6001D3", color: "#ffffff", borderRadius: 10, width: 104, height: 45 }} startIcon={<AddCircleOutlineIcon />}>
               New
             </Button>
 

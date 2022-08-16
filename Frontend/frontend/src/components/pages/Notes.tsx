@@ -33,7 +33,7 @@ const Notes: React.FC<{}> = () => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 500)
   }, [])
 
 
@@ -103,7 +103,7 @@ const Notes: React.FC<{}> = () => {
                     <PageTitle icon='6' content={`Notes - ${meeting?.summary}`} doSomething={() => navigate(-1)} />
                   </Box>
 
-                  <Button onClick={handleClickOpen} variant="outlined" sx={{ borderColor: "#6001D3", color: "#6001D3" }} startIcon={<AddCircleOutlineIcon />}>
+                  <Button onClick={handleClickOpen} variant="contained" color="secondary" sx={{ backgroundColor: "#6001D3", color: "#ffffff", borderRadius: 10, width: 104, height: 45 }} startIcon={<AddCircleOutlineIcon />}>
                     New
                   </Button>
                 </Box>

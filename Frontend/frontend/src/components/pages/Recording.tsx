@@ -36,7 +36,7 @@ const Recording: React.FC<{}> = () => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 500)
   }, [])
 
   const navigate = useNavigate();
@@ -105,7 +105,7 @@ const Recording: React.FC<{}> = () => {
                     <PageTitle icon='6' content={`Recording - ${meeting?.summary}`} doSomething={() => navigate(-1)} />
                   </Box>
                   {
-                    userInfo.role === 'mentor' && <Button onClick={handleClickOpen} variant="outlined" sx={{ borderColor: "#6001D3", color: "#6001D3" }} startIcon={<AddCircleOutlineIcon />}>
+                    userInfo.role === 'mentor' && <Button onClick={handleClickOpen} variant="contained" color="secondary" sx={{ backgroundColor: "#6001D3", color: "#ffffff", borderRadius: 10, width: 104, height: 45 }} startIcon={<AddCircleOutlineIcon />}>
                       New
                     </Button>
                   }

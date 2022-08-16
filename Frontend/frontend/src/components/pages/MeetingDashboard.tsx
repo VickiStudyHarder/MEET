@@ -16,7 +16,7 @@ import NavBar from '../molecules/NavBar';
 import Box from '@mui/material/Box';
 import MeetingImage from '../../assets/MeetingImage.png';
 import { getMeetingById, updateMeeting } from '../../api/meeting';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   IMeeting,
   INotes,
@@ -30,6 +30,7 @@ import EmptyMeetingBox from '../../stories/EmptyMeetingBox';
 import AppContext from '../../contexts/AppContext';
 import MentorMeetingRow from '../molecules/MentorRatingRow';
 import CircleLoader from 'react-spinners/CircleLoader'
+import PageTitle from '../../stories/PageTiltle';
 
 const theme = createTheme();
 
@@ -41,11 +42,12 @@ const MeetingDasboard: React.FC<{}> = ({ }) => {
   const { id } = useParams();
   // loading
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 500)
   }, [])
 
   useEffect(() => {
@@ -114,7 +116,7 @@ const MeetingDasboard: React.FC<{}> = ({ }) => {
       ) : (
         <Box>
           <CssBaseline />
-          <NavBar />
+          <NavBar inMeeting={true} />
           <Container maxWidth='xl' sx={{ display: 'flex', flexGrow: 1 }}>
             <Box
               sx={{
@@ -137,25 +139,15 @@ const MeetingDasboard: React.FC<{}> = ({ }) => {
                     flexDirection: 'row',
                     py: 2,
                     maxHeight: 140,
+                    justifyContent:'space-between'
                   }}
                 >
-                  <Box sx={{ my: 'auto', mr: 2 }}>
-                    <img
-                      src={MeetingImage}
-                      height='120'
-                      width='120'
-                      alt='study-group-icon'
-                    />
+                  <Box sx={{marginLeft:5}}>
+                     <PageTitle icon='6' content={`Meeting - ${meeting?.summary}`} doSomething={() => navigate(-1)} />
                   </Box>
-                  {meeting && (
-                    <Typography
-                      variant='h3'
-                      sx={{ display: 'flex', flexGrow: 1, my: 'auto' }}
-                    >
-                      {meeting.summary}
-                    </Typography>
-                  )}
-                  {user && user.attended ? (
+                 
+                  <Box>
+                    {user && user.attended ? (
                     <Button
                       sx={{
                         minWidth: '200px',
@@ -180,10 +172,10 @@ const MeetingDasboard: React.FC<{}> = ({ }) => {
                         maxHeight: '40px',
                         maxWidth: '100px',
                         borderRadius: 5,
-                        backgroundColor: '#ffd11a',
+                        backgroundColor: '#6001D3',
                         color: '#FFFFFF',
                         fontSize: 12,
-                        fontWeight: 800,
+                        fontWeight: 'bold',
                         my: 'auto',
                       }}
                       variant='contained'
@@ -192,6 +184,8 @@ const MeetingDasboard: React.FC<{}> = ({ }) => {
                       Mark As Attended
                     </Button>
                   )}
+                  </Box>
+                  
                 </Box>
               </Box>
               <Divider variant='middle' sx={{ width: '100%' }} />
