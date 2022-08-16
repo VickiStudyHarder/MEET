@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import React, { useEffect, useState } from 'react';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {
   CssBaseline,
   ThemeProvider,
@@ -11,19 +11,19 @@ import {
   Divider,
   Button,
   Dialog,
-} from "@mui/material";
-import AlarmIcon from "@mui/icons-material/Alarm";
-import GroupsIcon from "@mui/icons-material/Groups";
-import { useNavigate, useParams } from "react-router-dom";
-import NavBar from "../molecules/NavBar";
-import { getMeetingById } from "../../api/meeting";
-import { IMeeting } from "../../types/meetings";
-import AgendaList from "../../stories/AgendaList/AgendaList";
-import CreateAgendaItemForm from "../molecules/CreateAgendaItemForm";
-import PageTitle from "../../stories/PageTiltle";
-import CircleLoader from "react-spinners/CircleLoader";
+} from '@mui/material';
+import AlarmIcon from '@mui/icons-material/Alarm';
+import GroupsIcon from '@mui/icons-material/Groups';
+import { useNavigate, useParams } from 'react-router-dom';
+import NavBar from '../molecules/NavBar';
+import { getMeetingById } from '../../api/meeting';
+import { IMeeting } from '../../types/meetings';
+import AgendaList from '../../stories/AgendaList/AgendaList';
+import CreateAgendaItemForm from '../molecules/CreateAgendaItemForm';
+import PageTitle from '../../stories/PageTiltle';
+import CircleLoader from 'react-spinners/CircleLoader'
 
-interface IAgenda {}
+interface IAgenda { }
 
 const theme = createTheme();
 
@@ -38,36 +38,39 @@ const Agenda: React.FC<IAgenda> = () => {
   // loading
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setLoading(true);
+    setLoading(true)
     setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  }, []);
+      setLoading(false)
+    }, 2000)
+  }, [])
+
 
   useEffect(() => {
     handleGetMeeting();
   }, [start, end, diff]);
 
+
+
   const handleGetMeeting = async () => {
     const result = await getMeetingById(Number(id));
     setMeeting(result);
     if (meeting) {
-      const start = new Date(meeting.meetingStart).toLocaleString("en-AU", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
+      const start = new Date(meeting.meetingStart).toLocaleString('en-AU', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
       });
       setStart(start);
-      const end = new Date(meeting.meetingEnd).toLocaleString("en-AU", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
+      const end = new Date(meeting.meetingEnd).toLocaleString('en-AU', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
       });
       setEnd(end);
       const x = new Date(meeting.meetingEnd);
@@ -96,157 +99,140 @@ const Agenda: React.FC<IAgenda> = () => {
   return (
     <ThemeProvider theme={theme}>
       {loading ? (
-        <Box
-          sx={{
-            textAlign: "center",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            height: "100vh",
-          }}
-        >
-          <CircleLoader size={100} color={"#6001D3"} loading={loading} />
+        <Box sx={{
+          textAlign: 'center',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          height: '100vh'
+        }}>
+          <CircleLoader size={100} color={'#6001D3'} loading={loading} />
         </Box>
+
       ) : (
         <Box>
           <CssBaseline />
           <NavBar inMeeting={true} />
           {meeting && (
-            <Container maxWidth="xl" sx={{ display: "flex", flexGrow: 1 }}>
+            <Container
+              maxWidth='xl' sx={{ display: 'flex', flexGrow: 1 }}
+            >
               <Box
                 sx={{
-                  display: "flex",
-                  flexDirection: "column",
+                  display: 'flex',
+                  flexDirection: 'column',
                   flexGrow: 1,
-                  width: "100%",
+                  width: '100%',
                 }}
               >
                 <Box
                   sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
                   }}
                 >
                   <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      width: "100%",
-                      m: 2,
-                      ml: 0,
-                      justifyContent: "space-between",
-                    }}
+                    sx={{ display: 'flex', flexDirection: 'row', width: '100%', m: 2, ml: 0, justifyContent: 'space-between' }}
                   >
                     <Box sx={{ marginLeft: 3 }}>
-                      <PageTitle
-                        icon="6"
-                        content={`Agenda - ${meeting?.summary}`}
-                        doSomething={() => navigate(-1)}
-                      />
+                      <PageTitle icon='6' content={`Agenda - ${meeting?.summary}`} doSomething={() => navigate(-1)} />
                     </Box>
 
-                    <Button
-                      onClick={handleClickOpen}
-                      variant="outlined"
-                      sx={{ borderColor: "#6001D3", color: "#6001D3" }}
-                      startIcon={<AddCircleOutlineIcon />}
-                    >
-                      New
+                    <Button onClick={handleClickOpen} variant="contained" color="secondary" sx={{ backgroundColor: "#6001D3", color: "#ffffff", borderRadius: 10, width: 104, height: 45 }} startIcon={<AddCircleOutlineIcon />}>
+                      <Typography variant='subtitle1'>
+                        new
+                      </Typography>
                     </Button>
+
                   </Box>
                 </Box>
-                <Divider variant="middle" sx={{ width: "100%" }} />
+                <Divider variant='middle' sx={{ width: '100%' }} />
                 <Box
                   sx={{
                     m: 2,
-                    width: "100%",
-                    display: "flex",
+                    width: '100%',
+                    display: 'flex',
                     flexGrow: 1,
-                    flexDirection: "row",
+                    flexDirection: 'row',
                   }}
                 >
-                  <Box sx={{ display: "flex", flexGrow: 1, height: "100%" }}>
+                  <Box sx={{ display: 'flex', flexGrow: 1, height: '100%' }}>
                     <Box
                       sx={{
-                        boxShadow: "5px 5px 5px 5px lightGray",
+                        boxShadow: '5px 5px 5px 5px lightGray',
                         width: 800,
                         height: 350,
                         mt: 30,
                         borderRadius: 10,
-                        display: "flex",
-                        flexDirection: "row",
+                        display: 'flex',
+                        flexDirection: 'row',
                         p: 4,
-                        background: "#F3F4F6",
+                        background: '#F3F4F6',
                         // border:,
                       }}
                     >
                       <Box
                         sx={{
-                          display: "flex",
-                          flexDirection: "column",
+                          display: 'flex',
+                          flexDirection: 'column',
                           flexGrow: 1,
-                          maxWidth: "40%",
+                          maxWidth: '40%',
                         }}
                       >
                         <GroupsIcon
-                          sx={{ color: "#6001D3", fontSize: 60 }}
-                        ></GroupsIcon>
+                          sx={{ color: '#6001D3', fontSize: 60 }}
+                        >
+                        </GroupsIcon>
                         <Typography
-                          style={{ fontFamily: "Quicksand" }}
-                          align="center"
+
+                          align='center'
                           // color='#6001D3'
-                          sx={{ fontSize: 50, mx: "auto" }}
+                          sx={{ fontSize: 50, mx: 'auto', }}
                         >
                           {meeting.summary}
                         </Typography>
                         <Typography
-                          variant="subtitle1"
-                          align="center"
-                          style={{ fontFamily: "Quicksand" }}
-                          sx={{ mx: "auto", my: 2 }}
+                          variant='subtitle1'
+                          align='center'
+
+                          sx={{ mx: 'auto', my: 2 }}
                         >
                           {start}
                         </Typography>
                         <Typography
-                          style={{ fontFamily: "Quicksand" }}
-                          variant="subtitle1"
-                          align="center"
+                          variant='subtitle1'
+                          align='center'
                           // color='white'
-                          sx={{ mx: "auto", mb: 2 }}
+                          sx={{ mx: 'auto', mb: 2 }}
                         >
                           {end}
                         </Typography>
                       </Box>
                       <Divider
-                        variant="middle"
-                        orientation="vertical"
-                        sx={{ width: "10%", display: "flex", mx: 4 }}
+                        variant='middle'
+                        orientation='vertical'
+
+                        sx={{ width: '10%', display: 'flex', mx: 4 }}
                       />
                       <Box
                         sx={{
-                          display: "flex",
-                          flexDirection: "column",
+                          display: 'flex',
+                          flexDirection: 'column',
                           flexGrow: 1,
-                          maxWidth: "40%",
+                          maxWidth: '40%',
                         }}
                       >
                         <AlarmIcon
-                          sx={{ color: "#6001D3", fontSize: 60 }}
-                        ></AlarmIcon>
-                        <Typography
-                          // variant='h2'
-                          // color='#6001D3'
-                          sx={{
-                            mx: "auto",
-                            fontWeight: 500,
-                            fontSize: 70,
-                            my: 4,
-                          }}
-                          style={{ fontFamily: "Quicksand" }}
+                          sx={{ color: '#6001D3', fontSize: 60 }}
                         >
-                          {diff} 
+                        </AlarmIcon>
+                        <Typography
+                          // variant='h2' 
+                          // color='#6001D3'
+                          sx={{ mx: 'auto', fontWeight: 500, fontSize: 70, my: 4 }}>
+                          {diff}
                         </Typography>
                       </Box>
                     </Box>
@@ -262,10 +248,10 @@ const Agenda: React.FC<IAgenda> = () => {
               <Dialog
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
+                aria-labelledby='alert-dialog-title'
+                aria-describedby='alert-dialog-description'
                 // sx={{ display: 'flex', flexGrow: 1 }}
-                maxWidth="lg"
+                maxWidth='lg'
               >
                 {meeting && (
                   <CreateAgendaItemForm
@@ -280,6 +266,7 @@ const Agenda: React.FC<IAgenda> = () => {
           )}
         </Box>
       )}
+
     </ThemeProvider>
   );
 };
