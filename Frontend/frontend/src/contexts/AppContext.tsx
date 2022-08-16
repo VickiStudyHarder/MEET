@@ -204,7 +204,7 @@ const AppContextProvider = (props: any) => {
       firstName: user.firstName,
       lastName: user.lastName,
       rating: user.rating,
-      avatar: user.avatar,
+      avatar: user.avatar  || "./avatars/0.png",
       role: user.role,
     };
     setUserInfo(user);
@@ -239,7 +239,7 @@ const AppContextProvider = (props: any) => {
       firstName: item.firstName,
       lastName: item.lastName,
       rating: item.rating,
-      avatar: item.avatar || "./avatars/10.png",
+      avatar: item.avatar || "./avatars/0.png",
     }));
     setAllMentors(mentors);
   };
@@ -251,7 +251,7 @@ const AppContextProvider = (props: any) => {
       firstName: mentor.firstName,
       lastName: mentor.lastName,
       rating: mentor.rating,
-      avatar: mentor.avatar || "./avatars/10.png",
+      avatar: mentor.avatar || "./avatars/0.png",
     };
     setSelectedMentor(mentor);
   };
@@ -263,7 +263,8 @@ const AppContextProvider = (props: any) => {
       firstName: student.firstName,
       lastName: student.lastName,
       rating: student.rating,
-      avatar: student.avatar || "./avatars/10.png",
+      avatar: student.avatar || "./avatars/0.png",
+      role: student.role
     };
     setSelectedStudent(student);
   };
@@ -360,6 +361,7 @@ const AppContextProvider = (props: any) => {
           isCompleted: false,
           isDeleted: false,
           isEditing: false,
+          isdel: td.isCompleted
         })),
       }));
       setMeetingTodos(meetings);
@@ -570,7 +572,7 @@ const AppContextProvider = (props: any) => {
   const rate = async (mentorId: string, rating: number) => {};
 
   const updateMeetingTodos = async (todos: any, userId: string) => {
-    console.log("update meeting todos", todos);
+    console.log("update meeting todos:raw input", todos);
     let meetings = await getMeetingsByUserId(userId);
     meetings.forEach((m: any) => {
       todos.forEach((td: any) => {
@@ -580,6 +582,7 @@ const AppContextProvider = (props: any) => {
             title: task.name,
             dueDate: new Date(),
             assigneeId: email,
+            isCompleted: task.isdel
           }));
         }
       });

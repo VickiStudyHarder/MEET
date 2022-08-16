@@ -109,13 +109,10 @@ interface MeetingProps {
 // ]
 
 export const Todo: React.VFC = () => {
-  const [user, setUser] = React.useState<User>();
   // const [data, setData] = React.useState(list)
-  const { meetingTodos, updateMeetingTodos, getMeetingTodos, email,removeTodo } =
+  const { meetingTodos, updateMeetingTodos, getMeetingTodos,getUserInfo,userInfo, email,removeTodo,selectedStudent } =
     useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
-  const { selectedStudent } = useContext(AppContext);
-  useEffect(() => {}, [selectedStudent]);
   const [filter, setfilter] = React.useState(false);
   const [data, setData] = React.useState<any>([]);
   const [isModalVisible, setisModalVisible] = React.useState(false);
@@ -143,6 +140,7 @@ export const Todo: React.VFC = () => {
 
   useEffect(() => {
     getMeetingTodos(email);
+    getUserInfo(email)
   }, [email]);
 
   const addTask = (item: any, index: any) => {
@@ -178,11 +176,12 @@ export const Todo: React.VFC = () => {
     setModalCtx(obj);
     setisModalVisible(!isModalVisible);
   };
-
+  
   const ondel = (index: any, idx: any) => {
     let meet = JSON.parse(JSON.stringify(data));
     meet[index].task[idx].isdel = !meet[index].task[idx].isdel;
     setData(meet);
+    updateMeetingTodos(meet,email)
   };
   
   const delItem = () => {
@@ -229,10 +228,10 @@ export const Todo: React.VFC = () => {
         </div>
         <div className="meet-userCard">
           <CalendarUserCardPrimary
-            avatar={data?.avatar}
-            name={data?.name}
-            rating={data?.rating}
-            job={data?.role}
+            avatar={userInfo?.avatar}
+            name={userInfo?.lastName + " " + userInfo?.firstName}
+            rating={userInfo?.rating}
+            job={userInfo?.role}
           />
         </div>
         <div className="meet-box">
