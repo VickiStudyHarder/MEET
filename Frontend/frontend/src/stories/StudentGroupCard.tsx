@@ -179,7 +179,7 @@ const StudentGroupCard: React.FC<IStudentGroupCard> = ({
             py: 2,
           }}
         >
-          <Box sx={{ width: '50%', pl: 2 }}>
+          <Box sx={{ width: '50%', pl: 2, marginLeft:4 }}>
             <Typography
               variant='body1'
               component='h1'

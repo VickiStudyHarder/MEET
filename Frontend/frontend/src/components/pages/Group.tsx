@@ -48,7 +48,7 @@ const Group: React.FC<IGroup> = () => {
           setSwitchButton(true)
     } else{
       setShowOwn(false)
-      setSwitchButton(true)
+      setSwitchButton(false)
     }
 
   }
@@ -125,7 +125,7 @@ const Group: React.FC<IGroup> = () => {
       >
         <Box sx={{ height: '100%', m: 2 }}>
           {switchButton && <StudentGroupNameCard myGroups={myGroups} doSomething={showOwnCard} switchButton={true} />}
-          {!switchButton && <StudentGroupNameCard myGroups={myGroups} doSomething={showOwnCard}  />}
+          {!switchButton && <StudentGroupNameCard myGroups={myGroups} doSomething={showOwnCard}  switchButton={false}/>}
         </Box>
         <Container
           sx={{
