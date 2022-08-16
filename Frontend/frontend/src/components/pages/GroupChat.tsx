@@ -38,7 +38,7 @@ const GroupChat: React.FC<IGroupChat> = () => {
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
-      setLoading(false)
+
     }, 500)
   }, [])
 
@@ -53,6 +53,7 @@ const GroupChat: React.FC<IGroupChat> = () => {
     const messages = await getGroupById(Number(id));
     setGroupName(messages.name)
     setMessages(messages.messageHistory);
+    setLoading(false)
     console.log(messages);
   };
 

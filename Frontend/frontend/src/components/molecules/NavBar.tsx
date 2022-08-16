@@ -57,11 +57,6 @@ const NavBar: React.FC<INavBar> = ({
   useEffect(() => {
     console.log("navbar:email=", email);
     getUserInfo(email);
-  }, []);
-
-  useEffect(() => {
-    console.log("userinfo=", userInfo);
-    console.log('location=', location);
     if (userInfo.avatar === '1') {
       setImage(avater1);
     }
@@ -98,6 +93,12 @@ const NavBar: React.FC<INavBar> = ({
     if (userInfo.avatar === '12') {
       setImage(avater12);
     }
+  }, []);
+
+  useEffect(() => {
+    console.log("userinfo=", userInfo);
+    console.log('location=', location);
+
 
   }, [userInfo]);
 

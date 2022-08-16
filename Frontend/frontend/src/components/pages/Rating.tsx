@@ -22,7 +22,7 @@ const Rating: React.FC<IRating> = () => {
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
-      setLoading(false)
+
     }, 500)
   }, [])
 
@@ -34,6 +34,7 @@ const Rating: React.FC<IRating> = () => {
   const handleGetUser = async () => {
     const result = await getUser(email);
     setUser(result);
+      setLoading(false)    
   };
 
   return (
