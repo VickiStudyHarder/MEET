@@ -34,7 +34,7 @@ const GetStarted: React.FC<IGetStarted> = ({ incrementStage }) => {
 
   const navigate = useNavigate();
 
-  const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  const format = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
 
   const onSubmit = (e: any) => {
     e.preventDefault();
@@ -55,9 +55,9 @@ const GetStarted: React.FC<IGetStarted> = ({ incrementStage }) => {
       setError('Password must contain at least one uppercase letter');
       setOpen(true);
       return;
-    } else if (!password.includes('!' || '.' || '$' || '*')) {
+    } else if (!format.test(password)) {
       console.log(password);
-      setError('Password must contain a special character');
+      setError('Password must contain a special character [! . , $ *]');
       setOpen(true);
       return;
     } else if (firstName === '') {
