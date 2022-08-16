@@ -69,7 +69,6 @@ export const Todo: React.VFC = () => {
       }
       return x
     })
-    setMeetingTodos(meet)
     updateMeetingTodos(meet)
   }
   
@@ -81,7 +80,6 @@ export const Todo: React.VFC = () => {
         x.task.push({name:val})
       }
     })
-    setMeetingTodos(meet)
     updateMeetingTodos(meet)
   }
   

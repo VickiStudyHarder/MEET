@@ -52,4 +52,14 @@ export const deleteRecordingItem = async (id: number) => {
   return result.data.body
 };
 
+export const deleteMeetingAttendee = async (id: number,userId:string) => {
+  const cfg = {
+    data: {
+      userId: userId
+    }
+  }
+  const result = await axiosClient.delete(`meetingAttendee/${id}`,cfg);
+  return result.data.body
+};
+
 

@@ -21,6 +21,7 @@ import {
   createMeeting,
   deleteAgendaItem,
   deleteMeeting,
+  deleteMeetingAttendee,
   deleteNote,
   deleteRecordingItem,
   getMeetingById,
@@ -456,13 +457,9 @@ const AppContextProvider = (props: any) => {
   ) => {
     let meeting: any = await getMeetingById(meetingId);
     if (meeting?.meetingAttendee) {
-      meeting.meetingAttendee = meeting.meetingAttendee.filter((x: any) => {
-        return x.userId !== studentId;
-      });
-      console.log("cancel meeting", JSON.stringify(meeting));
-      const ret = await updateMeeting(meeting, meetingId);
-      console.log("cancel meeting", ret);
-      getMentorMeetings(mentorId, studentId);
+      const ret = await deleteMeetingAttendee(meetingId, studentId);
+      console.log("cancel meeting:delete attendee", ret);
+      await getMentorMeetings(mentorId, studentId);
     }
   };
 
