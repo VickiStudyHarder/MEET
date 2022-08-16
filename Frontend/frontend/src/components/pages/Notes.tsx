@@ -19,6 +19,7 @@ import { IMeeting, INotes } from '../../types/meetings';
 import NotesRow from '../molecules/NotesRow';
 import CreateNoteForm from '../molecules/CreateNoteForm';
 import PageTitle from '../../stories/PageTiltle';
+import CircleLoader from 'react-spinners/CircleLoader'
 
 const theme = createTheme();
 
@@ -26,6 +27,15 @@ const Notes: React.FC<{}> = () => {
   const { id } = useParams();
   const [meeting, setMeeting] = useState<null | IMeeting>(null);
   const [open, setOpen] = useState(false);
+  // loading
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000)
+  }, [])
+
 
   useEffect(() => {
     handleGetMeeting();
@@ -48,72 +58,89 @@ const Notes: React.FC<{}> = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <NavBar />
-      <Container maxWidth='xl' sx={{ display: 'flex', flexGrow: 1 }}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            flexGrow: 1,
-            width: '100%',
-          }}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-            }}
-          >
+      {loading ? (
+        <Box sx={{
+          textAlign: 'center',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          height: '100vh'
+        }}>
+          <CircleLoader size={100} color={'#6001D3'} loading={loading} />
+        </Box>
+
+      ) : (
+        <Box>
+          <CssBaseline />
+          <NavBar inMeeting={true} />
+          <Container maxWidth='xl' sx={{ display: 'flex', flexGrow: 1 }}>
             <Box
               sx={{
                 display: 'flex',
-                flexDirection: 'row',
-                py: 2,
-                maxHeight: 140,
-                justifyContent: 'space-between'
+                flexDirection: 'column',
+                flexGrow: 1,
+                width: '100%',
               }}
             >
-              <Box sx={{marginLeft:3}}>
-                <PageTitle icon='6' content={`Notes - ${meeting?.summary}`} doSomething={() => navigate(`/meetings/`)}/>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                }}
+              >
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    py: 2,
+                    maxHeight: 140,
+                    justifyContent: 'space-between'
+                  }}
+                >
+                  <Box sx={{ marginLeft: 3 }}>
+                    <PageTitle icon='6' content={`Notes - ${meeting?.summary}`} doSomething={() => navigate(-1)} />
+                  </Box>
+
+                  <Button onClick={handleClickOpen} variant="outlined" sx={{ borderColor: "#6001D3", color: "#6001D3" }} startIcon={<AddCircleOutlineIcon />}>
+                    New
+                  </Button>
+                </Box>
+
               </Box>
-              
-              <Button onClick={handleClickOpen} variant="outlined" sx={{ borderColor: "#6001D3", color: "#6001D3" }} startIcon={<AddCircleOutlineIcon />}>
-              New
-            </Button>
+
+              <Divider variant='middle' sx={{ width: '100%' }} />
+              <Box sx={{ width: '100%', m: 2, overflow: 'auto', height: '77vh', overflowX: 'hidden' }}>
+                {meeting &&
+                  meeting?.notes?.map((note: INotes) => {
+                    return (
+                      <NotesRow note={note} handleGetMeeting={handleGetMeeting} />
+                    );
+                  })}
+              </Box>
             </Box>
-            
-          </Box>
-          
-          <Divider variant='middle' sx={{ width: '100%' }} />
-          <Box sx={{ width: '100%', m: 2, overflow:'auto',height:'77vh',overflowX:'hidden' }}>
-            {meeting &&
-              meeting?.notes?.map((note: INotes) => {
-                return (
-                  <NotesRow note={note} handleGetMeeting={handleGetMeeting} />
-                );
-              })}
-          </Box>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby='alert-dialog-title'
+              aria-describedby='alert-dialog-description'
+              // sx={{ display: 'flex', flexGrow: 1 }}
+              maxWidth='lg'
+            >
+              {meeting && (
+                <CreateNoteForm
+                  setOpen={setOpen}
+                  meeting={meeting}
+                  handleGetMeeting={handleGetMeeting}
+                  handleClose={handleClose}
+                />
+              )}
+            </Dialog>
+          </Container>
         </Box>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='alert-dialog-title'
-          aria-describedby='alert-dialog-description'
-          // sx={{ display: 'flex', flexGrow: 1 }}
-          maxWidth='lg'
-        >
-          {meeting && (
-            <CreateNoteForm
-              setOpen={setOpen}
-              meeting={meeting}
-              handleGetMeeting={handleGetMeeting}
-              handleClose={handleClose}
-            />
-          )}
-        </Dialog>
-      </Container>
+      )}
+
     </ThemeProvider>
   );
 };

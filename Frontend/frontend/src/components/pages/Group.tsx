@@ -21,6 +21,8 @@ import StudentGroupCard from '../../stories/StudentGroupCard';
 import AppContext from '../../contexts/AppContext';
 import StudyGroupIcon from '../../assets/StudyGroupIcon.png';
 import PageTitle from '../../stories/PageTiltle';
+import CircleLoader from 'react-spinners/CircleLoader'
+
 
 interface IGroup { }
 
@@ -34,6 +36,17 @@ const Group: React.FC<IGroup> = () => {
   const [showOwn, setShowOwn] = useState(false);
   const [switchButton, setSwitchButton] = useState(false);
 
+  // loading
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000)
+  }, [])
+
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -44,9 +57,9 @@ const Group: React.FC<IGroup> = () => {
 
   const showOwnCard = () => {
     if (!showOwn) {
-          setShowOwn(true)
-          setSwitchButton(true)
-    } else{
+      setShowOwn(true)
+      setSwitchButton(true)
+    } else {
       setShowOwn(false)
       setSwitchButton(false)
     }
@@ -58,7 +71,7 @@ const Group: React.FC<IGroup> = () => {
     const allGroups = await getGroups();
     const myGroups: any[] = [];
     const availableGroups: any[] = [];
-    console.log('all group:',allGroups);
+    console.log('all group:', allGroups);
     allGroups.map((group: any) => {
       if (
         group.groupParticipant.filter(
@@ -72,38 +85,51 @@ const Group: React.FC<IGroup> = () => {
     });
     setMyGroups(myGroups);
     setAvailableGroups(availableGroups);
-    console.log('my group:',myGroups);
-    console.log('available:',availableGroups);
+    console.log('my group:', myGroups);
+    console.log('available:', availableGroups);
   };
 
-    useEffect(() => {
+  useEffect(() => {
     getAllGroups();
   }, []);
 
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <NavBar />
-      <Box
-        sx={{
+      {loading ? (
+        <Box sx={{
+          textAlign: 'center',
           display: 'flex',
-          flexDirection: 'column',
           justifyContent: 'center',
-        }}
-      >
+          alignItems: 'center',
+          width: '100%',
+          height: '100vh'
+        }}>
+          <CircleLoader size={100} color={'#6001D3'} loading={loading} />
+        </Box>
+
+      ) : (<Box>
+        <CssBaseline />
+        <NavBar />
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'row',
-            px: 10,
-            py: 2,
-            maxHeight: 140,
-            justifyContent:'space-between'
+            flexDirection: 'column',
+            justifyContent: 'center',
           }}
         >
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              px: 10,
+              py: 2,
+              maxHeight: 140,
+              justifyContent: 'space-between'
+            }}
+          >
 
-          <Box sx={{marginLeft:3}}>
+            <Box sx={{ marginLeft: 3 }}>
               <PageTitle icon='2' content={'All my group'} />
             </Box>
 
@@ -112,80 +138,83 @@ const Group: React.FC<IGroup> = () => {
             </Button>
 
 
+          </Box>
         </Box>
-      </Box>
-      <Divider variant='middle' sx={{ width: '100%' }} />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          p: 6,
-          alignItems: 'flex-start',
-        }}
-      >
-        <Box sx={{ height: '100%', m: 2 }}>
-          {switchButton && <StudentGroupNameCard myGroups={myGroups} doSomething={showOwnCard} switchButton={true} />}
-          {!switchButton && <StudentGroupNameCard myGroups={myGroups} doSomething={showOwnCard}  switchButton={false}/>}
-        </Box>
-        <Container
+        <Divider variant='middle' sx={{ width: '100%' }} />
+        <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            flexShrink: 1,
-            overflow:'auto',
-            overflowX:'hidden',
-            height:'75vh'
+            flexDirection: 'row',
+            p: 6,
+            alignItems: 'flex-start',
           }}
         >
-          <Box sx={{ display: 'flex', flexGrow: 1, m: 2, width: '100%' }}>
-            <Grid container spacing={2}>
-              {myGroups &&
-                myGroups.map((group: any) => {
-                  return (
-                    <StudentGroupCard
-                      id={group.id}
-                      name={group.name}
-                      groupParticipant={group.groupParticipant}
-                      description={group.description}
-                      userIsParticipant={true}
-                      getAllGroups={getAllGroups}
-                    />
-                  );
-                })}
-            </Grid>
+          <Box sx={{ height: '100%', m: 2 }}>
+            {switchButton && <StudentGroupNameCard myGroups={myGroups} doSomething={showOwnCard} switchButton={true} />}
+            {!switchButton && <StudentGroupNameCard myGroups={myGroups} doSomething={showOwnCard} switchButton={false} />}
           </Box>
-          <Box sx={{ display: 'flex', flexGrow: 1, m: 2, width: '100%' }}>
-            <Grid container spacing={2}>
-              {availableGroups &&
-                availableGroups.map((group: any) => {
-                  return (
-                    showOwn && 
-                    <StudentGroupCard
-                      id={group.id}
-                      name={group.name}
-                      groupParticipant={group.groupParticipant}
-                      description={group.description}
-                      userIsParticipant={false}
-                      getAllGroups={getAllGroups}
-                    />
-                  );
-                })}
-            </Grid>
-            {/* <ChatWindow /> */}
-          </Box>
-        </Container>
-      </Box>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby='alert-dialog-title'
-        aria-describedby='alert-dialog-description'
-        // sx={{ display: 'flex', flexGrow: 1 }}
-        maxWidth='lg'
-      >
-        <CreateStudentGroupForm setOpen={setOpen} getAllGroups={getAllGroups} />
-      </Dialog>
+          <Container
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              flexShrink: 1,
+              overflow: 'auto',
+              overflowX: 'hidden',
+              height: '75vh'
+            }}
+          >
+            <Box sx={{ display: 'flex', flexGrow: 1, m: 2, width: '100%' }}>
+              <Grid container spacing={2}>
+                {myGroups &&
+                  myGroups.map((group: any) => {
+                    return (
+                      <StudentGroupCard
+                        id={group.id}
+                        name={group.name}
+                        groupParticipant={group.groupParticipant}
+                        description={group.description}
+                        userIsParticipant={true}
+                        getAllGroups={getAllGroups}
+                      />
+                    );
+                  })}
+              </Grid>
+            </Box>
+            <Box sx={{ display: 'flex', flexGrow: 1, m: 2, width: '100%' }}>
+              <Grid container spacing={2}>
+                {availableGroups &&
+                  availableGroups.map((group: any) => {
+                    return (
+                      showOwn &&
+                      <StudentGroupCard
+                        id={group.id}
+                        name={group.name}
+                        groupParticipant={group.groupParticipant}
+                        description={group.description}
+                        userIsParticipant={false}
+                        getAllGroups={getAllGroups}
+                      />
+                    );
+                  })}
+              </Grid>
+              {/* <ChatWindow /> */}
+            </Box>
+          </Container>
+        </Box>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='alert-dialog-title'
+          aria-describedby='alert-dialog-description'
+          // sx={{ display: 'flex', flexGrow: 1 }}
+          maxWidth='lg'
+        >
+          <CreateStudentGroupForm setOpen={setOpen} getAllGroups={getAllGroups} />
+        </Dialog>
+      </Box>)}
+
+
     </ThemeProvider>
   );
 };

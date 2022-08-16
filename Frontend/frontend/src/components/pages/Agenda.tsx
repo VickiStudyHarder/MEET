@@ -21,6 +21,7 @@ import { IMeeting } from '../../types/meetings';
 import AgendaList from '../../stories/AgendaList/AgendaList';
 import CreateAgendaItemForm from '../molecules/CreateAgendaItemForm';
 import PageTitle from '../../stories/PageTiltle';
+import CircleLoader from 'react-spinners/CircleLoader'
 
 interface IAgenda { }
 
@@ -33,6 +34,16 @@ const Agenda: React.FC<IAgenda> = () => {
   const [end, setEnd] = useState<any>(null);
   const [diff, setDiff] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+
+  // loading
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000)
+  }, [])
+
 
   useEffect(() => {
     handleGetMeeting();
@@ -87,8 +98,22 @@ const Agenda: React.FC<IAgenda> = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <NavBar />
+       {loading ? (
+        <Box sx={{
+          textAlign: 'center',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          height: '100vh'
+        }}>
+          <CircleLoader size={100} color={'#6001D3'} loading={loading} />
+        </Box>
+
+      ) : (
+      <Box>
+<CssBaseline />
+      <NavBar inMeeting={true}/>
       {meeting && (
         <Container
           maxWidth='xl' sx={{ display: 'flex', flexGrow: 1 }}
@@ -112,7 +137,7 @@ const Agenda: React.FC<IAgenda> = () => {
                 sx={{ display: 'flex', flexDirection: 'row', width: '100%', m: 2,ml:0, justifyContent: 'space-between' }}
               >
                 <Box sx={{ marginLeft: 3 }}>
-                  <PageTitle icon='6' content={`Agenda - ${meeting?.summary}`} doSomething={() => navigate(`/meetings/`)} />
+                  <PageTitle icon='6' content={`Agenda - ${meeting?.summary}`} doSomething={() => navigate(-1)} />
                 </Box>
 
                 <Button onClick={handleClickOpen} variant="outlined" sx={{ borderColor: "#6001D3", color: "#6001D3" }} startIcon={<AddCircleOutlineIcon />}>
@@ -237,6 +262,9 @@ const Agenda: React.FC<IAgenda> = () => {
           </Dialog>
         </Container>
       )}
+      </Box>
+      )}
+      
     </ThemeProvider>
   );
 };
