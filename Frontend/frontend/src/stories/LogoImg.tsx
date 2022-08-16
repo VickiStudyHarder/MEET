@@ -17,7 +17,7 @@ interface ListProps {
 /**
  * Primary UI component for user interaction
  */
-export default function Logo({
+export default function LogoImg({
   title,
   content,
   ...props
