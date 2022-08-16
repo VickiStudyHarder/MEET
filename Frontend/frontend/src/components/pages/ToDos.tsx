@@ -20,11 +20,11 @@ const ToDos: React.FC<IToDos> = () => {
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
-      setLoading(false)
-    }, 500)
+setLoading(false)
+    }, 1000)
   }, [])
 
-  useEffect(() => { }, [meetingTodos]);
+  useEffect(() => {       }, [meetingTodos]);
   useEffect(() => { }, [selectedStudent]);
 
   return (
