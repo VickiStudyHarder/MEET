@@ -111,7 +111,7 @@ interface MeetingProps {
 export const Todo: React.VFC = () => {
   const [user, setUser] = React.useState<User>();
   // const [data, setData] = React.useState(list)
-  const { meetingTodos, updateMeetingTodos, getMeetingTodos, email,removeTodo } =
+  const { meetingTodos, updateMeetingTodos, getMeetingTodos, email,removeTodo, userInfo, getUserInfo } =
     useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
   const { selectedStudent } = useContext(AppContext);
@@ -143,7 +143,10 @@ export const Todo: React.VFC = () => {
 
   useEffect(() => {
     getMeetingTodos(email);
+    getUserInfo(email);
   }, [email]);
+
+
 
   const addTask = (item: any, index: any) => {
     let meet = JSON.parse(JSON.stringify(meetingTodos));
@@ -213,6 +216,7 @@ export const Todo: React.VFC = () => {
     updateMeetingTodos(meet,email)
   };
 
+  console.log('data',data)
   return (
     <article>
       <div className="meet-body">
@@ -229,10 +233,10 @@ export const Todo: React.VFC = () => {
         </div>
         <div className="meet-userCard">
           <CalendarUserCardPrimary
-            avatar={data?.avatar}
-            name={data?.name}
-            rating={data?.rating}
-            job={data?.role}
+            avatar={userInfo?`../avatars/${userInfo.avatar}.png` : '../avatars/0.png'}
+            name={userInfo?.firstName + ' ' + userInfo?.lastName}
+            rating={userInfo?.rating}
+            job={userInfo?.role}
           />
         </div>
         <div className="meet-box">

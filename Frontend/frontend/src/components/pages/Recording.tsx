@@ -35,7 +35,7 @@ const Recording: React.FC<{}> = () => {
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
-      setLoading(false)
+
     }, 500)
   }, [])
 
@@ -47,6 +47,7 @@ const Recording: React.FC<{}> = () => {
   const handleGetMeeting = async () => {
     const result = await getMeetingById(Number(id));
     setMeeting(result);
+    setLoading(false)
   };
 
   const handleClickOpen = () => {

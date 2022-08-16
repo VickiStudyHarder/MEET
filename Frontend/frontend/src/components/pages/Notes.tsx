@@ -32,7 +32,7 @@ const Notes: React.FC<{}> = () => {
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
-      setLoading(false)
+
     }, 500)
   }, [])
 
@@ -44,6 +44,7 @@ const Notes: React.FC<{}> = () => {
   const handleGetMeeting = async () => {
     const result = await getMeetingById(Number(id));
     setMeeting(result);
+      setLoading(false)    
   };
 
   const handleClickOpen = () => {
