@@ -1,31 +1,30 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import {
   Container,
   createTheme,
   CssBaseline,
   ThemeProvider,
   Typography,
-  Button
-} from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import NavBar from '../molecules/NavBar';
-import RequestCard from '../../stories/RequestCard';
-import CurrentMeetingCard from '../../stories/MeetingScheduleToday/MeetingScheduleToday';
-import UpcomingMeetingCard from '../../stories/MeetingScheduleTomorrow/MeetingScheduleTomorrow';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import { styled } from '@mui/material/styles';
-import AppContext from '../../contexts/AppContext';
-import { getMeetingsByUserId } from '../../api/meeting';
-import { IMeeting, IMeetingResponse } from '../../types/meetings';
-
+  Button,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import NavBar from "../molecules/NavBar";
+import RequestCard from "../../stories/RequestCard";
+import CurrentMeetingCard from "../../stories/MeetingScheduleToday/MeetingScheduleToday";
+import UpcomingMeetingCard from "../../stories/MeetingScheduleTomorrow/MeetingScheduleTomorrow";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import { styled } from "@mui/material/styles";
+import AppContext from "../../contexts/AppContext";
+import { getMeetingsByUserId } from "../../api/meeting";
+import { IMeeting, IMeetingResponse } from "../../types/meetings";
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
   ...theme.typography.body2,
   padding: theme.spacing(2),
-  textAlign: 'center',
+  textAlign: "center",
   color: theme.palette.text.secondary,
 }));
 
@@ -60,10 +59,10 @@ const Home = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <NavBar />
-      <Container maxWidth='xl' sx={{ display: 'flex' }}>
+      <Container maxWidth="xl" sx={{ display: "flex" }}>
         {upcomingMeetings && upcomingMeetings.length > 0 ? (
           <>
-            <Box sx={{ maxWidth: '30%', display: 'flex', m: 2 }}>
+            <Box sx={{ maxWidth: "30%", display: "flex", m: 2 }}>
               <Grid container spacing={3}>
                 <Grid item xs={4}>
                   {upcomingMeetings && (
@@ -74,11 +73,19 @@ const Home = () => {
                 </Grid>
               </Grid>
             </Box>
-            <Grid container spacing={2} sx={{ m: 2 }}>
+            <Grid
+              container
+              spacing={2}
+              sx={{ m: 2 }}
+              justifyContent="flex-start"
+              alignItems="flex-start"
+            >
               {upcomingMeetings &&
                 upcomingMeetings.map((meeting: IMeetingResponse) => {
                   return (
-                    <Button onClick={() => navigate(`/meeting/${meeting.meeting.id}`)}>
+                    <Button
+                      onClick={() => navigate(`/meeting/${meeting.meeting.id}`)}
+                    >
                       <UpcomingMeetingCard meeting={meeting.meeting} />
                     </Button>
                   );
@@ -88,17 +95,17 @@ const Home = () => {
         ) : (
           <Box
             sx={{
-              display: 'flex',
+              display: "flex",
               flexGrow: 1,
               mt: 16,
-              justify: 'center',
-              textAlign: 'center',
+              justify: "center",
+              textAlign: "center",
             }}
           >
             <Typography
-              variant='h2'
-              align='center'
-              sx={{ justify: 'center', textAlign: 'center', width: '100%' }}
+              variant="h2"
+              align="center"
+              sx={{ justify: "center", textAlign: "center", width: "100%" }}
             >
               You have no upcoming meetings
             </Typography>
