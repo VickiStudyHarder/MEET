@@ -82,7 +82,7 @@ const Calendar: React.FC<ICalendar> = () => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 500)
   }, [])
 
 

@@ -33,7 +33,7 @@ const Notes: React.FC<{}> = () => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 500)
   }, [])
 
 

@@ -42,7 +42,7 @@ const Home = () => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 500)
   }, [])
   useEffect(() => {
     handleGetUpcomingMeetings();

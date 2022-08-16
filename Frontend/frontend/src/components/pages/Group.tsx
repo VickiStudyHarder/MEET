@@ -42,7 +42,7 @@ const Group: React.FC<IGroup> = () => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 500)
   }, [])
 
 

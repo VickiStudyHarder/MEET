@@ -23,7 +23,7 @@ const Rating: React.FC<IRating> = () => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 500)
   }, [])
 
 
