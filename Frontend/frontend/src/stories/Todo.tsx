@@ -11,6 +11,7 @@ import "./Todo.css";
 import { url } from "inspector";
 import AppContext from "../contexts/AppContext";
 import { setDate } from "date-fns";
+import { deleteToDoItem, getMeetingsByUserId, updateMeeting } from "../api/meeting";
 
 const { TextArea } = Input;
 
@@ -112,11 +113,7 @@ export const Todo: React.VFC = () => {
   // const [data, setData] = React.useState(list)
 
   const {
-    meetingTodos,
-    updateMeetingTodos,
-    getMeetingTodos,
     email,
-    removeTodo,
     userInfo,
     getUserInfo,
   } = useContext(AppContext);
@@ -129,9 +126,6 @@ export const Todo: React.VFC = () => {
     idx: 0,
     name: "",
   });
-  useEffect(() => {
-    setData(meetingTodos);
-  }, [meetingTodos]);
 
   // useEffect(() => {console.log(getMeetingTodos(email))}, []);
 
@@ -155,8 +149,75 @@ export const Todo: React.VFC = () => {
     }
   }, []);
 
+  const getMeetingTodos = async (userId:string)=>{
+    let meetings = await getMeetingsByUserId(userId);
+    console.log("getMeetingTodos", meetings);
+    if (meetings?.length > 0) {
+      meetings = meetings.map((m: any) => ({
+        meetingId: m.meeting.id,
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: m.meeting.summary,
+        task: m.meeting.toDoItem.map((td: any) => ({
+          id: td.id,
+          name: td.title,
+          isCompleted: false,
+          isDeleted: false,
+          isEditing: false,
+          isdel: td.isCompleted,
+        })),
+      }));
+      setData(meetings);
+      console.log("todo page:getMeetingTodo", meetings);
+    }
+  }
+
+  const removeTodo = async (id:number) =>{
+    console.log("todo page:remove todo:id=", id);
+    await deleteToDoItem(id);
+  }
+
+  const updateMeetingTodos = async (todos: any, userId: string) => {
+    console.log("todo page:update meeting todos:raw input", todos);
+    let meetings = await getMeetingsByUserId(userId);
+    meetings.forEach((m: any) => {
+      todos.forEach((td: any) => {
+        if (td.meetingId === m.meeting.id) {
+          m.meeting.toDoItem = td.task.map((task: any) => {
+            if (task.id) {
+              return {
+                id: task.id,
+                title: task.name,
+                dueDate: new Date(),
+                assigneeId: email,
+                isCompleted: task.isdel,
+              };
+            } else {
+              return {
+                title: task.name,
+                dueDate: new Date(),
+                assigneeId: email,
+                isCompleted: task.isdel,
+              };
+            }
+          });
+        }
+      });
+    });
+    console.log("todo page:update meeting todos", meetings);
+    meetings.forEach((m: any) => {
+      console.log(
+        "todo page:update meeting todos:update meeting",
+        JSON.stringify(m.meeting)
+      );
+      updateMeeting(m.meeting, m.meeting.id);
+    });
+  };
+
   const addTask = (item: any, index: any) => {
-    let meet = JSON.parse(JSON.stringify(meetingTodos));
+    let meet = JSON.parse(JSON.stringify(data));
     meet[index].option.showAdd = !meet[index].option.showAdd;
     setData(meet);
   };
