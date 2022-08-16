@@ -180,6 +180,7 @@ const MeetingDasboard: React.FC<{}> = ({ }) => {
                       }}
                       variant='contained'
                       onClick={handleMarkAsAttended}
+                      style={{ fontFamily: "Quicksand"}}
                     >
                       Mark As Attended
                     </Button>
@@ -205,7 +206,7 @@ const MeetingDasboard: React.FC<{}> = ({ }) => {
                             />
                           );
                         })}
-                        <EmptyMeetingBox id={meeting.id} type={'agenda'} />
+                        <EmptyMeetingBox id={meeting.id} type={'agenda'} icon={0}/>
                       </Grid>
                     )}
                   </Box>
@@ -223,7 +224,7 @@ const MeetingDasboard: React.FC<{}> = ({ }) => {
                             />
                           );
                         })}
-                        <EmptyMeetingBox id={meeting.id} type={'todo'} />
+                        <EmptyMeetingBox id={meeting.id} type={'todo'} icon={1}/>
                       </Grid>
                     )}
                   </Box>
@@ -241,7 +242,7 @@ const MeetingDasboard: React.FC<{}> = ({ }) => {
                             />
                           );
                         })}
-                        <EmptyMeetingBox id={meeting.id} type={'notes'} />
+                        <EmptyMeetingBox id={meeting.id} type={'notes'} icon={2}/>
                       </Grid>
                     )}
                   </Box>

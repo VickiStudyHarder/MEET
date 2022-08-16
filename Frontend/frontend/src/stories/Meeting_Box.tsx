@@ -38,7 +38,7 @@ export default function MeetingBox(props: IMeetingBox) {
   return (
     <Button onClick={() => navigate(`/${props.type}/${props.id}`)}>
       <Box sx={{ width: 260, height: 210 }}>
-        <Card sx={{ width: 260, height: 210, borderRadius: 5 }}>
+        <Card sx={{ width: 260, height: 210, borderRadius: 5 ,boxShadow: '-15px 30px 30px rgba(8, 20, 32, 0.2)' }} style={{ fontFamily: "Quicksand"}}>
           <CardActionArea>
             <CardContent sx={{ pt: 4 }}>
               <Box
@@ -76,6 +76,7 @@ export default function MeetingBox(props: IMeetingBox) {
                     m: 'auto',
                     justifyContent: 'center',
                   }}
+                  style={{ fontFamily: "Quicksand"}}
                 >
                   {props.boxName}
                 </Typography>
@@ -98,6 +99,7 @@ export default function MeetingBox(props: IMeetingBox) {
                     fontSize: 14,
                     justifyContent: 'center',
                   }}
+                  style={{ fontFamily: "Quicksand"}}
                 >
                   {dueDate}
                 </Typography>
@@ -121,6 +123,7 @@ export default function MeetingBox(props: IMeetingBox) {
                     m: 'auto',
                     justifyContent: 'center',
                   }}
+                  style={{ fontFamily: "Quicksand"}}
                 >
                   {props.meetingName2}
                 </Typography>
