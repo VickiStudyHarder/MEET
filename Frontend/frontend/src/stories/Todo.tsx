@@ -154,7 +154,6 @@ export const Todo: React.VFC = () => {
   useEffect(() => {
     if (email) {
       getMeetingTodos(email);
-      getUserInfo(email);
     }
   }, []);
 
