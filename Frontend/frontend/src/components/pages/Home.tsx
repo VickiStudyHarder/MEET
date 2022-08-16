@@ -41,15 +41,15 @@ const Home = () => {
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
-      setLoading(false)
     }, 500)
   }, [])
   useEffect(() => {
     handleGetUpcomingMeetings();
   }, []);
-
+  
   const handleGetUpcomingMeetings = async () => {
     const result = await getMeetingsByUserId(email);
+    setLoading(false)
     const upComingMeetings = filterUpcomingMeetings(result);
     setUpcomingMeetings(upComingMeetings);
   };

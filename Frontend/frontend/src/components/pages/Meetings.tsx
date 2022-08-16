@@ -30,17 +30,17 @@ const Meetings = () => {
   useEffect(() => {
     setLoading(true)
     setTimeout(() => {
-      setLoading(false)
     }, 500)
   }, [])
-
-
+  
+  
   useEffect(() => {
     getAllMeetings();
   }, []);
-
+  
   const getAllMeetings = async () => {
     const data = await getMeetingsByUserId(email);
+    setLoading(false)
     setMeetings(data);
   };
 
