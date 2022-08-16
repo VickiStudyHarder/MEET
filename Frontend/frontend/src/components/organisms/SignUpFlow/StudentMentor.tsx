@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 import {
   Grid,
   Box,
@@ -6,11 +6,11 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Button,
-} from '@mui/material';
-import Typography from '@mui/material/Typography';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { AppContext } from '../../../contexts/AppContext';
+} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { AppContext } from "../../../contexts/AppContext";
 
 interface IStudentMentor {
   incrementStage: () => void;
@@ -37,26 +37,26 @@ const StudentMentor: React.FC<IStudentMentor> = ({
         sx={{
           my: 8,
           mx: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justify: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justify: "center",
         }}
       >
-        <Typography component='h1' variant='h5'>
+        <Typography component="h1" variant="h5">
           I am a
         </Typography>
-        <Box component='form' noValidate sx={{ m: 4 }}>
+        <Box component="form" noValidate sx={{ m: 4 }}>
           <ToggleButtonGroup
-            orientation='horizontal'
+            orientation="horizontal"
             exclusive
             onChange={handleChange}
             value={userType}
           >
-            <ToggleButton value='student' aria-label='student'>
+            <ToggleButton value="student" aria-label="student">
               Student
             </ToggleButton>
-            <ToggleButton value='mentor' aria-label='mentor'>
+            <ToggleButton value="mentor" aria-label="mentor">
               Mentor
             </ToggleButton>
           </ToggleButtonGroup>

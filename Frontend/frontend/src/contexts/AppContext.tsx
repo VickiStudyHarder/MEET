@@ -104,7 +104,7 @@ export type IAppContext = {
   userInfo: any;
   getUserInfo: any;
   setMentorTimeOfDay: any;
-  removeTodo:any;
+  removeTodo: any;
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -199,13 +199,13 @@ const AppContextProvider = (props: any) => {
 
   const getUserInfo = async (userId: string) => {
     let user = await getUser(userId);
-    console.log("getUserInfo:resp",user)
+    console.log("getUserInfo:resp", user);
     user = {
       id: user.id,
       firstName: user.firstName,
       lastName: user.lastName,
       rating: user.rating,
-      avatar: user.avatar  || "./avatars/0.png",
+      avatar: user.avatar || "./avatars/0.png",
       role: user.role,
     };
     setUserInfo(user);
@@ -265,7 +265,7 @@ const AppContextProvider = (props: any) => {
       lastName: student.lastName,
       rating: student.rating,
       avatar: student.avatar || "./avatars/0.png",
-      role: student.role
+      role: student.role,
     };
     setSelectedStudent(student);
   };
@@ -362,7 +362,7 @@ const AppContextProvider = (props: any) => {
           isCompleted: false,
           isDeleted: false,
           isEditing: false,
-          isdel: td.isCompleted
+          isdel: td.isCompleted,
         })),
       }));
       setMeetingTodos(meetings);
@@ -578,22 +578,24 @@ const AppContextProvider = (props: any) => {
     meetings.forEach((m: any) => {
       todos.forEach((td: any) => {
         if (td.meetingId === m.meeting.id) {
-          m.meeting.toDoItem = td.task.map((task: any) =>{if(task.id){
-            return {
-              id: task.id,
-              title: task.name,
-              dueDate: new Date(),
-              assigneeId: email,
-              isCompleted: task.isdel
+          m.meeting.toDoItem = td.task.map((task: any) => {
+            if (task.id) {
+              return {
+                id: task.id,
+                title: task.name,
+                dueDate: new Date(),
+                assigneeId: email,
+                isCompleted: task.isdel,
+              };
+            } else {
+              return {
+                title: task.name,
+                dueDate: new Date(),
+                assigneeId: email,
+                isCompleted: task.isdel,
+              };
             }
-          }else{
-            return {
-              title: task.name,
-              dueDate: new Date(),
-              assigneeId: email,
-              isCompleted: task.isdel
-            }
-          }})
+          });
         }
       });
     });
@@ -603,15 +605,15 @@ const AppContextProvider = (props: any) => {
         "update meeting todos:update meeting",
         JSON.stringify(m.meeting)
       );
-      updateMeeting(m.meeting,m.meeting.id)
+      updateMeeting(m.meeting, m.meeting.id);
     });
   };
 
-  const removeTodo = async(id:number)=>{
-    console.log("remove todo:id=",id)
-    await deleteToDoItem(id)
-    await getMeetingTodos(email)
-  }
+  const removeTodo = async (id: number) => {
+    console.log("remove todo:id=", id);
+    await deleteToDoItem(id);
+    await getMeetingTodos(email);
+  };
 
   const getSession = async () =>
     await new Promise((resolve, reject) => {

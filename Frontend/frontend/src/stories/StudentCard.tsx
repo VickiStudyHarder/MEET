@@ -35,7 +35,7 @@ export default function PostingCard(props: IPostingCardProps) {
               src={props.imageUrl}
             />
           </CardContent>
-          <Typography variant="body1" component="h2" sx={{mx:"auto"}}>
+          <Typography variant="body1" component="h2" sx={{ mx: "auto" }}>
             {props.userName}
           </Typography>
           <Typography variant="body1" component="h2">

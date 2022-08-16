@@ -1,5 +1,4 @@
 export default {
-  
   // properties: {
   // },
   // required: ['name']

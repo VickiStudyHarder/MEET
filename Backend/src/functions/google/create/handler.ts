@@ -1,10 +1,10 @@
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
-import { formatJSONResponse } from '@libs/api-gateway';
-import { middyfy } from '@libs/lambda';
-import { PrismaClient } from '@prisma/client';
-import oauth2Client from '@libs/oauth2-client'
+import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
+import { formatJSONResponse } from "@libs/api-gateway";
+import { middyfy } from "@libs/lambda";
+import { PrismaClient } from "@prisma/client";
+import oauth2Client from "@libs/oauth2-client";
 
-import schema from './schema';
+import schema from "./schema";
 
 const createCalendarEvent: ValidatedEventAPIGatewayProxyEvent<
   typeof schema

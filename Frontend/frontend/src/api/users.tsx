@@ -1,9 +1,9 @@
-import axiosClient from './client';
+import axiosClient from "./client";
 
 //These have not been tested
 
 export const createUser = (data: any) => {
-  return axiosClient.post('/user', JSON.stringify(data));
+  return axiosClient.post("/user", JSON.stringify(data));
 };
 
 export const deleteUser = (id: string) => {
@@ -31,7 +31,7 @@ export const getStudents = async () => {
 };
 
 export const rateMentor = async (rating: number, id: string) => {
-  console.log("Rate Mentor")
+  console.log("Rate Mentor");
   const resp = await axiosClient.put(
     `/rate/${id}`,
     JSON.stringify({ rating: rating })

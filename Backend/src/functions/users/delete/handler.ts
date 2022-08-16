@@ -1,9 +1,9 @@
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
-import { formatJSONResponse } from '@libs/api-gateway';
-import { middyfy } from '@libs/lambda';
-import { PrismaClient } from '@prisma/client';
+import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
+import { formatJSONResponse } from "@libs/api-gateway";
+import { middyfy } from "@libs/lambda";
+import { PrismaClient } from "@prisma/client";
 
-import schema from './schema';
+import schema from "./schema";
 
 const remove: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
@@ -26,7 +26,7 @@ const remove: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       event,
     });
   } finally {
-    await prisma.$disconnect()
+    await prisma.$disconnect();
   }
 };
 

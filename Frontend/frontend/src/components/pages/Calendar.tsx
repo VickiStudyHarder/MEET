@@ -29,7 +29,7 @@ import CancelMeeting from "../../stories/CancelMeeting/CancelMeeting";
 import BookMeeting from "../../stories/BookMeeting/BookMeeting";
 import UpcomingMeetingCard from "../../stories/MeetingScheduleTomorrow/MeetingScheduleTomorrow";
 import { useNavigate } from "react-router-dom";
-import CircleLoader from 'react-spinners/CircleLoader'
+import CircleLoader from "react-spinners/CircleLoader";
 // import './Calendar.css';
 
 const theme = createTheme();
@@ -72,19 +72,19 @@ const Calendar: React.FC<ICalendar> = () => {
   const [openDeletePanel, setOpenDeletePanel] = useState(false);
   const [openCancelPanel, setOpenCancelPanel] = useState(false);
   const [openBookingPanel, setOpenBookingPanel] = useState(false);
-  const [creatingPanelTitle, setCreatingPanelTitle] =
-    useState<any>("Default Meeting Name");
+  const [creatingPanelTitle, setCreatingPanelTitle] = useState<any>(
+    "Default Meeting Name"
+  );
   const [selectedEvent, setSelectedEvent] = useState<any>();
 
   // loading
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     setTimeout(() => {
-      setLoading(false)
-    }, 500)
-  }, [])
-
+      setLoading(false);
+    }, 500);
+  }, []);
 
   useEffect(() => {
     console.log("all mentors:", allMentors);
@@ -149,7 +149,7 @@ const Calendar: React.FC<ICalendar> = () => {
     }
   };
 
-  const onCreatingDenyCallback = () => { };
+  const onCreatingDenyCallback = () => {};
 
   const onDeleteConfirmCallback = async () => {
     if (userInfo.role === "mentor") {
@@ -161,14 +161,14 @@ const Calendar: React.FC<ICalendar> = () => {
   const onBookConfirmCallback = async () => {
     if (userInfo.role === "student") {
       await bookMeeting(selectedEvent?.id, email, selectedMentor?.id);
-      setOpenBookingPanel(false)
+      setOpenBookingPanel(false);
     }
   };
 
   const onCancelBookingConfirmCallback = async () => {
     if (userInfo.role === "student") {
       await cancelMeeting(selectedEvent?.id, email, selectedMentor?.id);
-      setOpenCancelPanel(false)
+      setOpenCancelPanel(false);
     }
   };
 
@@ -216,17 +216,18 @@ const Calendar: React.FC<ICalendar> = () => {
   return (
     <ThemeProvider theme={theme}>
       {loading ? (
-        <Box sx={{
-          textAlign: 'center',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          height: '100vh'
-        }}>
-          <CircleLoader size={100} color={'#6001D3'} loading={loading} />
+        <Box
+          sx={{
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100vh",
+          }}
+        >
+          <CircleLoader size={100} color={"#6001D3"} loading={loading} />
         </Box>
-
       ) : (
         <Box>
           <NavBar></NavBar>
@@ -249,7 +250,7 @@ const Calendar: React.FC<ICalendar> = () => {
             content={`Do you really want to delete your meeting?`}
             setOpen={setOpenDeletePanel}
             onConfirmCallback={onDeleteConfirmCallback}
-            onDenyCallback={() => { }}
+            onDenyCallback={() => {}}
           ></CancelMeeting>
           <BookMeeting
             name={"Book Meeting"}
@@ -260,7 +261,7 @@ const Calendar: React.FC<ICalendar> = () => {
             content={`Book this meeting?`}
             setOpen={setOpenBookingPanel}
             onConfirmCallback={onBookConfirmCallback}
-            onDenyCallback={() => { }}
+            onDenyCallback={() => {}}
           ></BookMeeting>
           <MeetingTime
             label={`Create Meeting ${mentorTimeOfDay[0]?.date}`}
@@ -375,8 +376,8 @@ const Calendar: React.FC<ICalendar> = () => {
                       color: m.expired
                         ? "#70798B"
                         : m.booked
-                          ? "#83B297"
-                          : "#FD346E",
+                        ? "#83B297"
+                        : "#FD346E",
                       extendedProps: { booked: m.booked, expired: m.expired },
                     }))}
                     eventClick={eventClick}

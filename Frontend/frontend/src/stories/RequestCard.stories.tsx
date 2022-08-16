@@ -1,28 +1,29 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import RequestCard from './RequestCard';
-
+import React from "react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
+import RequestCard from "./RequestCard";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Example/RequestCard',
+  title: "Example/RequestCard",
   component: RequestCard,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    backgroundColor: { control: 'color' },
+    backgroundColor: { control: "color" },
   },
 } as ComponentMeta<typeof RequestCard>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof RequestCard> = (args) => (<RequestCard {...args} />);
+const Template: ComponentStory<typeof RequestCard> = (args) => (
+  <RequestCard {...args} />
+);
 
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
   imageUrl: "",
-  userName:"Charlie",
+  userName: "Charlie",
   MeetingName: "Meeting 1",
-  MeetingTime:"2022, 23 May",
+  MeetingTime: "2022, 23 May",
   Part_rate: 60,
-  Rating: 4
+  Rating: 4,
 };

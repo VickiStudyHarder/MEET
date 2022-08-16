@@ -15,8 +15,8 @@ import {
   LandingPage,
   GroupChat,
   Meetings,
-  ToDoHome, 
-  MeetingDashboard
+  ToDoHome,
+  MeetingDashboard,
 } from "./components/pages";
 import GoogleAuth from "./components/organisms/Google/Google";
 import ProtectedRoute from "./hooks/ProtectedRoute";
@@ -26,16 +26,12 @@ import "./assets/font/font.css";
 
 function App() {
   return (
-      <Router>
-        <div style={{ height: "100%", width: "100%" }}>
-          <AppContextProvider>
-            <Routes>
-              {/* <Route path='/' element={<ProtectedRoute />}> */}
+    <Router>
+      <div style={{ height: "100%", width: "100%" }}>
+        <AppContextProvider>
+          <Routes>
+            <Route path="/" element={<ProtectedRoute />}>
               <Route path="/home" element={<Home />} />
-              {/* </Route> */}
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
               <Route path="/agenda/:id" element={<Agenda />} />
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/group" element={<Group />} />
@@ -50,10 +46,13 @@ function App() {
               <Route path="/todos" element={<ToDos />} />
               <Route path="/login1" element={<LandingPage />} />
               <Route path="/api" element={<API />} />
-            </Routes>
-          </AppContextProvider>
-        </div>
-      </Router>
+            </Route>
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </AppContextProvider>
+      </div>
+    </Router>
   );
 }
 

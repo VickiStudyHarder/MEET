@@ -25,58 +25,66 @@ import { updateMeeting } from "../../api/meeting";
 import { useParams } from "react-router-dom";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
-export interface IEditToDoForm {
+export interface IEditMeetingForm {
   setOpen: Dispatch<React.SetStateAction<boolean>>;
   handleGetMeeting: any;
   handleClose: any;
-  toDoItem: IToDoItem;
   meeting: IMeeting;
 }
 
-const EditToDoForm: React.FC<IEditToDoForm> = ({
+const EditMeetingForm: React.FC<IEditMeetingForm> = ({
   setOpen,
   handleGetMeeting,
   handleClose,
-  toDoItem,
   meeting,
 }) => {
   const { id } = useParams();
   const { email } = useContext(AppContext);
-  const [title, setTitle] = useState(toDoItem.title);
-  const [dueDate, setDueDate] = useState<Date | null>(toDoItem.dueDate);
-  const [assigneeId, setAssigneeId] = useState(toDoItem.assigneeId);
+  const [meetingStart, setMeetingStart] = useState<Date | null>(
+    new Date(meeting.meetingStart)
+  );
+  const [meetingEnd, setMeetingEnd] = useState<Date | null>(
+    new Date(meeting.meetingEnd)
+  );
+  const [summary, setSummary] = useState(meeting.summary || "");
+  const [location, setLocation] = useState(meeting.location || "");
+  const [description, setDescription] = useState(meeting.description || "");
 
   const handleCreate = async (e: any) => {
     e.preventDefault();
-    console.log(title);
 
-    const toDoList: IToDoItem[] = [];
-    toDoList.push({
-      id: toDoItem.id,
-      title: title,
-      dueDate: dueDate || new Date(),
-      assigneeId: assigneeId,
+    const attendees = meeting?.meetingAttendee?.map((attendee) => {
+      delete attendee.user;
+      delete attendee.meetingId;
+      return attendee;
     });
-    console.log(toDoList);
 
-    const meetingUpdate = {
-      toDoItem: toDoList,
+    const data: IMeeting = {
+      summary: summary,
+      location: location,
+      meetingStart: meetingStart?.toISOString()!,
+      meetingEnd: meetingEnd?.toISOString()!,
+      description: description,
+      meetingAttendee: attendees,
     };
-    console.log({ meetingUpdate });
-    await updateMeeting(meetingUpdate, Number(id));
+
+    await updateMeeting(data, meeting.id!);
     handleGetMeeting();
     handleClose();
   };
 
-  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event);
-    setTitle(event.target.value);
+  const handleSetSummary = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSummary(event.target.value);
   };
 
-  const handleAssigneeChange = (event: SelectChangeEvent) => {
-    setAssigneeId(event.target.value as string);
+  const handleSetDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setDescription(event.target.value);
+  };
+
+  const handleSetLocation = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setLocation(event.target.value);
   };
 
   return (
@@ -95,14 +103,12 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
             sx={{
               display: "flex",
               flexGrow: 1,
-              // marginLeft: 1,
-              marginTop: 2,
             }}
           >
             <Grid
               container
               direction="row"
-              sx={{ m: 2, display: "flex", flexGrow: 1 }}
+              sx={{ display: "flex", flexGrow: 1 }}
             >
               <Grid item sx={{ m: "auto" }}>
                 <GroupsTwoToneIcon
@@ -119,37 +125,76 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
                   variant="body1"
                   sx={{ fontSize: 40, mx: 2, my: "auto" }}
                 >
-                  Create To Do
+                  Edit Meeting
                 </Typography>
               </Grid>
             </Grid>
             <Grid
               item
               sx={{
-                m: 2,
+                m: 1,
               }}
             >
               <TextField
-                id="title"
+                id="summary"
                 fullWidth
-                label="title"
+                label="summary"
                 variant="filled"
-                value={title}
-                onChange={handleTitleChange}
+                value={summary}
+                onChange={handleSetSummary}
+              />
+            </Grid>
+            <Grid item sx={{ m: 1 }}>
+              <TextField
+                id="location"
+                fullWidth
+                label="location"
+                variant="filled"
+                value={location}
+                onChange={handleSetLocation}
               />
             </Grid>
             <Grid
               item
               sx={{
-                m: 2,
+                m: 1,
+              }}
+            >
+              <TextField
+                id="description"
+                fullWidth
+                label="description"
+                variant="filled"
+                value={description}
+                onChange={handleSetDescription}
+              />
+            </Grid>
+            <Grid
+              item
+              sx={{
+                m: 1,
               }}
             >
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
-                  label="Date Of Birth"
-                  inputFormat="MM/dd/yyyy"
-                  value={dueDate}
-                  onChange={(value: Date | null) => setDueDate(value)}
+                <DateTimePicker
+                  label="Meeting Start"
+                  value={meetingStart}
+                  onChange={(value: Date | null) => setMeetingStart(value)}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid
+              item
+              sx={{
+                m: 1,
+              }}
+            >
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                  label="Meeting End"
+                  value={meetingEnd}
+                  onChange={(value: Date | null) => setMeetingEnd(value)}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
@@ -159,31 +204,7 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
               sx={{
                 m: 2,
               }}
-            >
-              <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Assignee</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={toDoItem.assigneeId}
-                  label="Assignee"
-                  onChange={handleAssigneeChange}
-                >
-                  {meeting?.meetingAttendee &&
-                    meeting.meetingAttendee &&
-                    meeting.meetingAttendee.map(
-                      (attendee: IMeetingAttendee) => {
-                        return (
-                          <MenuItem value={attendee.userId}>
-                            {attendee?.user?.firstName}{" "}
-                            {attendee?.user?.lastName}
-                          </MenuItem>
-                        );
-                      }
-                    )}
-                </Select>
-              </FormControl>
-            </Grid>
+            ></Grid>
 
             <Grid
               item
@@ -193,7 +214,6 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
                 display: "flex",
                 alignItem: "center",
                 justifyContent: "flex-end",
-                marginTop: 5,
               }}
             >
               <Button
@@ -237,4 +257,4 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
   );
 };
 
-export default EditToDoForm;
+export default EditMeetingForm;

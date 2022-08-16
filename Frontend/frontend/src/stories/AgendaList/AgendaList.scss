@@ -1,65 +1,65 @@
 .agenda-list-wrap {
-    width: 468px;
-    margin: auto;
+  width: 468px;
+  margin: auto;
+  text-align: center;
+  .title {
+    font-family: "Nunito";
+    font-weight: 700;
+    font-size: 50px;
+    line-height: 65px;
+    margin-bottom: 50px;
     text-align: center;
-    .title {
-        font-family: 'Nunito';
+    padding-top: 10px;
+  }
+  .box {
+    height: 522px;
+    width: 468px;
+    overflow: auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+    .item {
+      height: 130px;
+      display: flex;
+      align-items: center;
+      .l {
+        width: 90px;
+        height: 60px;
+        background: #6001d3;
+        box-shadow: -10px 15px 30px rgba(96, 1, 211, 0.301961);
+        margin-right: 30px;
+        font-family: "Nunito";
         font-weight: 700;
-        font-size: 50px;
-        line-height: 65px;
-        margin-bottom: 50px;
+        font-size: 30px;
+        line-height: 60px;
+        color: #ffffff;
         text-align: center;
-        padding-top: 10px;
-    }
-    .box {
-        height: 522px;
-        width: 468px;
-        overflow: auto;
-        padding: 0 40px;
-        box-sizing: border-box;
-        .item {
-            height: 130px;
-            display: flex;
-            align-items: center;
-            .l {
-                width: 90px;
-                height: 60px;
-                background: #6001d3;
-                box-shadow: -10px 15px 30px rgba(96, 1, 211, 0.301961);
-                margin-right: 30px;
-                font-family: 'Nunito';
-                font-weight: 700;
-                font-size: 30px;
-                line-height: 60px;
-                color: #ffffff;
-                text-align: center;
-                // vertical-align: top;
-                border-radius: 50%;
-            }
-            .r {
-                width: 260px;
-                .tit {
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    font-family: 'Nunito';
-                    font-weight: 700;
-                    font-size: 25px;
-                    line-height: 40px;
-                    color: #030314;
-                    margin-bottom: 4px;
-                }
-                .desc {
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                    font-family: 'Quicksand';
-                    font-weight: 500;
-                    font-size: 16px;
-                    line-height: 25px;
-                    color: #70798b;
-                }
-            }
+        // vertical-align: top;
+        border-radius: 50%;
+      }
+      .r {
+        width: 260px;
+        .tit {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-family: "Nunito";
+          font-weight: 700;
+          font-size: 25px;
+          line-height: 40px;
+          color: #030314;
+          margin-bottom: 4px;
         }
+        .desc {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-family: "Quicksand";
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 25px;
+          color: #70798b;
+        }
+      }
     }
+  }
 }

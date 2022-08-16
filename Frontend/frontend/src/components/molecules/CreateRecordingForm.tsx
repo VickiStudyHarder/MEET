@@ -1,4 +1,4 @@
-import React, { Dispatch, useContext, useState } from 'react';
+import React, { Dispatch, useContext, useState } from "react";
 import {
   Box,
   FormControl,
@@ -6,28 +6,28 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
-} from '@mui/material';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+} from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import GroupsTwoToneIcon from "@mui/icons-material/GroupsTwoTone";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import {
   IMeeting,
   IToDoItem,
   IMeetingAttendee,
   IRecording,
-} from '../../types/meetings';
-import { AppContext } from '../../contexts/AppContext';
-import { updateMeeting } from '../../api/meeting';
-import { useParams } from 'react-router-dom';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import PageTitle from '../../stories/PageTiltle';
-import CustomInput from '../../stories/Input';
+} from "../../types/meetings";
+import { AppContext } from "../../contexts/AppContext";
+import { updateMeeting } from "../../api/meeting";
+import { useParams } from "react-router-dom";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import PageTitle from "../../stories/PageTiltle";
+import CustomInput from "../../stories/Input";
 
 export interface IRecordingForm {
   setOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -44,8 +44,8 @@ const CreateRecordingForm: React.FC<IRecordingForm> = ({
 }) => {
   const { id } = useParams();
   const { email } = useContext(AppContext);
-  const [url, setUrl] = useState('');
-  const [description, setDescription] = useState('');
+  const [url, setUrl] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleCreate = async (e: any) => {
     e.preventDefault();
@@ -69,36 +69,38 @@ const CreateRecordingForm: React.FC<IRecordingForm> = ({
     setUrl(event.target.value);
   };
 
-  const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDescriptionChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setDescription(event.target.value as string);
   };
 
   return (
     <Box
       sx={{
-        display: 'flex',
+        display: "flex",
         flexGrow: 1,
-        justify: 'center',
+        justify: "center",
       }}
     >
-      <Card sx={{ display: 'flex', flexGrow: 1, p: 4 }}>
+      <Card sx={{ display: "flex", flexGrow: 1, p: 4 }}>
         <CardContent sx={{ marginRight: 1 }}>
           <Grid
             container
-            direction='column'
+            direction="column"
             sx={{
-              display: 'flex',
+              display: "flex",
               flexGrow: 1,
               marginTop: 2,
             }}
           >
             <Grid
               container
-              direction='row'
-              sx={{ m: 2, display: 'flex', flexGrow: 1 }}
+              direction="row"
+              sx={{ m: 2, display: "flex", flexGrow: 1 }}
             >
-              <Grid item sx={{ m: 'auto' }}>
-              <PageTitle icon='1' content={'Create Recording'} />
+              <Grid item sx={{ m: "auto" }}>
+                <PageTitle icon="1" content={"Create Recording"} />
               </Grid>
               {/* <Grid item sx={{ m: 'auto' }}>
                 <GroupsTwoToneIcon
@@ -135,10 +137,10 @@ const CreateRecordingForm: React.FC<IRecordingForm> = ({
               />
             </Grid> */}
             <CustomInput
-              margin='normal'
+              margin="normal"
               fullWidth
-              id='url'
-              label='url'
+              id="url"
+              label="url"
               autoFocus
               value={url}
               onChange={handleUrlChange}
@@ -159,10 +161,10 @@ const CreateRecordingForm: React.FC<IRecordingForm> = ({
               />
             </Grid> */}
             <CustomInput
-              margin='normal'
+              margin="normal"
               fullWidth
-              id='description'
-              label='description'
+              id="description"
+              label="description"
               autoFocus
               value={description}
               onChange={handleDescriptionChange}
@@ -170,46 +172,46 @@ const CreateRecordingForm: React.FC<IRecordingForm> = ({
             <Grid
               item
               container
-              direction='row'
+              direction="row"
               sx={{
-                display: 'flex',
-                alignItem: 'center',
-                justifyContent: 'flex-end',
+                display: "flex",
+                alignItem: "center",
+                justifyContent: "flex-end",
                 marginTop: 5,
               }}
             >
               <Button
                 sx={{
-                  display: 'flex',
+                  display: "flex",
                   flexGrow: 1,
-                  minWidth: '150px',
-                  minHeight: '50px',
-                  maxHeight: '50px',
-                  maxWidth: '100px',
+                  minWidth: "150px",
+                  minHeight: "50px",
+                  maxHeight: "50px",
+                  maxWidth: "100px",
                   marginRight: 15,
                   marginLeft: 0,
                   borderRadius: 8,
-                  backgroundColor: '#6001D3',
-                  color: '#FFFFFF',
+                  backgroundColor: "#6001D3",
+                  color: "#FFFFFF",
                   fontSize: 12,
                 }}
-                variant='contained'
+                variant="contained"
                 onClick={handleCreate}
               >
                 Create
               </Button>
               <Button
                 sx={{
-                  minWidth: '150px',
-                  minHeight: '50px',
-                  maxHeight: '50px',
-                  maxWidth: '100px',
+                  minWidth: "150px",
+                  minHeight: "50px",
+                  maxHeight: "50px",
+                  maxWidth: "100px",
                   borderRadius: 8,
-                  backgroundColor: '#FCDC00',
-                  color: '#000000',
+                  backgroundColor: "#FCDC00",
+                  color: "#000000",
                   fontSize: 12,
                 }}
-                variant='contained'
+                variant="contained"
                 onClick={() => {
                   handleClose();
                 }}

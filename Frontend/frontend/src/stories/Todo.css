@@ -31,7 +31,7 @@
   padding-top: 10px;
   cursor: pointer;
 }
-.line-center{
+.line-center {
   line-height: 8vh;
 }
 .meet-box {
@@ -48,13 +48,12 @@
   align-items: center;
   position: relative;
 }
-.meet-box-bg{
+.meet-box-bg {
   width: 100%;
   height: 100%;
   position: absolute;
   border-radius: 20px;
   object-fit: contain;
-
 }
 .meet-box-scroll {
   width: 97%;
@@ -102,7 +101,7 @@
   line-height: 30px;
   cursor: pointer;
 }
-.add-list-btx{
+.add-list-btx {
   width: 200px;
   height: 30px;
   background: #e9e9e9;
@@ -121,7 +120,7 @@
   margin-top: 5px;
   width: 180px;
 }
-.edit-area{
+.edit-area {
   margin-top: 5px;
   width: 180px;
   height: 30px;
@@ -139,7 +138,7 @@
   left: -14px;
 }
 .radio_type:before {
-  content: '';
+  content: "";
   width: 15px;
   height: 15px;
   border: 1px solid #cac8c8;
@@ -160,17 +159,17 @@
 /* 滚动条滑块 */
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: #ABAFC7;
+  background: #abafc7;
   -webkit-box-shadow: inset006pxrgba(0, 0, 0, 0.5);
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-  background: #ABAFC7;
+  background: #abafc7;
 }
-.ant-modal-content{
+.ant-modal-content {
   width: 300px;
   height: 150px;
 }
-.close-CircleOutlined{
+.close-CircleOutlined {
   width: 50px;
   height: 50px;
   margin-right: 10px;
@@ -198,7 +197,7 @@
   text-align: center;
   line-height: 40px;
 }
-.del-itm{
+.del-itm {
   width: 14px;
   height: 14px;
   position: relative;

@@ -1,21 +1,21 @@
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
-import { formatJSONResponse } from '@libs/api-gateway';
-import { middyfy } from '@libs/lambda';
-import { PrismaClient } from '@prisma/client';
+import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
+import { formatJSONResponse } from "@libs/api-gateway";
+import { middyfy } from "@libs/lambda";
+import { PrismaClient } from "@prisma/client";
 
-import schema from './schema';
+import schema from "./schema";
 
 const getAllMentors: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
   const prisma = new PrismaClient();
-  
+
   try {
     const result = await prisma.user.findMany({
-      where: { 
-        role : 'mentor'
-      }
-    })
+      where: {
+        role: "mentor",
+      },
+    });
     return formatJSONResponse({
       statusCode: 200,
       message: `Sucessfully returned all mentors`,
@@ -27,8 +27,8 @@ const getAllMentors: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       message: `${e.message}`,
       event,
     });
-  }  finally {
-    await prisma.$disconnect()
+  } finally {
+    await prisma.$disconnect();
   }
 };
 

@@ -1,4 +1,4 @@
-.success-tip-wrap{
+.success-tip-wrap {
   position: absolute;
   top: 30px;
   right: 30px;
@@ -13,23 +13,23 @@
   box-sizing: border-box;
   backdrop-filter: blur(50px);
   border-radius: 20px;
-  .logo{
+  .logo {
     background: url("../assets/success.svg") no-repeat;
     background-size: contain;
-    width:45px;
-    height:45px;
+    width: 45px;
+    height: 45px;
   }
-  .desc{
+  .desc {
     width: 638px;
     height: 38px;
     line-height: 38px;
-    font-family: 'Quicksand';
+    font-family: "Quicksand";
     font-weight: 700;
     font-size: 20px;
     text-align: right;
-    color: #70798B;
+    color: #70798b;
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 }

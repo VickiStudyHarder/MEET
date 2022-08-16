@@ -1,7 +1,7 @@
-.cal-mentor-meeting-mall-wrap{
+.cal-mentor-meeting-mall-wrap {
   width: 360px;
   height: 200px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 20px;
   box-sizing: border-box;
   box-shadow: -15px 30px 60px rgba(0, 0, 0, 0.01);
@@ -10,51 +10,48 @@
   border-color: rgb(238, 235, 234);
   display: flex;
   justify-content: space-between;
-  .l{
+  .l {
     width: 204px;
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     //white-space: nowrap;
-    font-family: 'Quicksand';
+    font-family: "Quicksand";
 
-    .name{
-      font-family: 'Nunito';
+    .name {
+      font-family: "Nunito";
       font-style: normal;
       font-weight: 700;
       font-size: 22px;
       height: 50px;
       color: #030314;
       margin-bottom: 20px;
-
-      
-
     }
-    .line{
+    .line {
       width: 200px;
       height: 4px;
-      background-color: #6001D3;
+      background-color: #6001d3;
       border-radius: 4px;
       margin-bottom: 30px;
     }
-    .time{
+    .time {
       font-size: 16px;
       line-height: 26px;
       color: #000000;
       margin-bottom: 20px;
     }
-    .txt{
+    .txt {
       font-size: 16px;
       line-height: 20px;
       color: #081420;
       display: flex;
       align-items: center;
       cursor: pointer;
-      span{
+      span {
         margin-right: 18px;
       }
     }
   }
-  .r{
+  .r {
     height: 110px;
     width: 72px;
     color: #fff;
@@ -64,14 +61,14 @@
     align-items: center;
     background: #242424;
     border-radius: 10px;
-    .d-1{
+    .d-1 {
       font-size: 40px;
       line-height: 42px;
     }
-    .d-2{
+    .d-2 {
       font-size: 14px;
     }
-    .d-3{
+    .d-3 {
       font-size: 14px;
     }
   }

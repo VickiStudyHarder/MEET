@@ -1,31 +1,31 @@
-.flex{
-    display: flex;
+.flex {
+  display: flex;
 }
-.leftContent{
-    width: 25%;
-    display: flex;
-    justify-content: center;
+.leftContent {
+  width: 25%;
+  display: flex;
+  justify-content: center;
 }
-.rightContent{
-    width: 70%;
-    height: 80vh;
-    margin-top: 20px;
-    position: relative;
-    margin-left: 20px;
+.rightContent {
+  width: 70%;
+  height: 80vh;
+  margin-top: 20px;
+  position: relative;
+  margin-left: 20px;
 }
-.minCardContent{
-    margin-top: 40px;
-    display: grid;
-    display: grid;
-    grid-template-columns: 1fr 1fr; /*定义每一列的列宽*/
-    height: 60vh;
-    overflow-y: auto;
+.minCardContent {
+  margin-top: 40px;
+  display: grid;
+  display: grid;
+  grid-template-columns: 1fr 1fr; /*定义每一列的列宽*/
+  height: 60vh;
+  overflow-y: auto;
 }
-.minCard{
-    width: 50%;
-    display: inline-block;
+.minCard {
+  width: 50%;
+  display: inline-block;
 }
-.add{
-    position: absolute;
-    right: 60px;
+.add {
+  position: absolute;
+  right: 60px;
 }

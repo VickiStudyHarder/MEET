@@ -7,17 +7,14 @@ type Props = {};
 
 function API({}: Props) {
   // const { userMeetings } = useContext(AppContext);
-  const [userMeetings, setUserMeetings] = useState([])
+  const [userMeetings, setUserMeetings] = useState([]);
 
-  useEffect(()=>{
-    console.log("/api",userMeetings)
-  },[userMeetings])
-
+  useEffect(() => {
+    console.log("/api", userMeetings);
+  }, [userMeetings]);
 
   return (
-    <div>
-      {userMeetings?.map((item:any)=>(item?.meeting?.description))}
-    </div>
+    <div>{userMeetings?.map((item: any) => item?.meeting?.description)}</div>
   );
 }
 

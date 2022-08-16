@@ -1,11 +1,11 @@
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
-import { formatJSONResponse } from '@libs/api-gateway';
-import { middyfy } from '@libs/lambda';
-import { Prisma, PrismaClient } from '@prisma/client';
+import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
+import { formatJSONResponse } from "@libs/api-gateway";
+import { middyfy } from "@libs/lambda";
+import { Prisma, PrismaClient } from "@prisma/client";
 
-import schema from './schema';
+import schema from "./schema";
 
-const prisma = new PrismaClient({ log: ['query', 'info', 'warn', 'error'] });
+const prisma = new PrismaClient({ log: ["query", "info", "warn", "error"] });
 
 const leaveGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
@@ -15,8 +15,8 @@ const leaveGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   console.log(event.body);
 
   try {
-    const col1 = 'userId';
-    const col2 = 'groupName';
+    const col1 = "userId";
+    const col2 = "groupName";
 
     const result = await prisma.$queryRaw(
       Prisma.sql`DELETE FROM \"public\".\"GroupParticipant\" WHERE \"public\".\"GroupParticipant\".\"userId\"=${userId} AND \"public\".\"GroupParticipant\".\"groupName\"=${groupName};`
@@ -24,7 +24,7 @@ const leaveGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     console.log(result);
     return formatJSONResponse({
       status: 200,
-      message: 'Success',
+      message: "Success",
       event,
       body: result,
     });

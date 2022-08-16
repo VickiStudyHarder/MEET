@@ -16,9 +16,7 @@ export default function PostingCard(props: IPostingCardProps) {
   const theme = useTheme();
   return (
     <div>
-      <Card sx={{ display: "flex" }}>
-       
-      </Card>
+      <Card sx={{ display: "flex" }}></Card>
     </div>
   );
 }

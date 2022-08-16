@@ -1,5 +1,5 @@
-import { IMessage } from '../types/groups';
-import axiosClient from './client';
+import { IMessage } from "../types/groups";
+import axiosClient from "./client";
 
 interface Group {
   id?: number;
@@ -19,12 +19,12 @@ export const joinGroup = async (userId: string, name: string) => {
 
 export const leaveGroup = async (userId: string, name: string) => {
   const data = JSON.stringify({ userId: userId, name: name });
-  console.log({data})
+  console.log({ data });
   return await axiosClient.put(`/group/leave`, data);
 };
 
 export const getGroups = async () => {
-  const result = await axiosClient.get('/group');
+  const result = await axiosClient.get("/group");
   return result.data.body;
 };
 
@@ -33,7 +33,10 @@ export const getGroupById = async (id: number) => {
   return result.data.body;
 };
 
-export const sendMessage = async(message: IMessage) => {
-  const result = await axiosClient.post('/sendMessage', JSON.stringify(message))
-  return result.data.body
-}
+export const sendMessage = async (message: IMessage) => {
+  const result = await axiosClient.post(
+    "/sendMessage",
+    JSON.stringify(message)
+  );
+  return result.data.body;
+};

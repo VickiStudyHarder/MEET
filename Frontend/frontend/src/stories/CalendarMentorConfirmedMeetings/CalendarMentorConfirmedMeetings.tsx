@@ -2,7 +2,7 @@ import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import { Avatar, CardActionArea } from "@mui/material";
-import './CalendarMentorConfirmedMeetings.scss';
+import "./CalendarMentorConfirmedMeetings.scss";
 
 export interface CalendarMentorConfirmedMeetingsInfo {
   date: Array<string>;
@@ -10,17 +10,16 @@ export interface CalendarMentorConfirmedMeetingsInfo {
   time?: string;
 }
 
-export default function CalendarMentorConfirmedMeetings(props: CalendarMentorConfirmedMeetingsInfo) {
+export default function CalendarMentorConfirmedMeetings(
+  props: CalendarMentorConfirmedMeetingsInfo
+) {
   const theme = useTheme();
   return (
     <Box className="cal-mentor-meeting-mall-wrap" sx={{ m: 2 }}>
       <Box className="l">
         <Box className="name">{props.meetingName}</Box>
         <Box className="line"></Box>
-        <Box className="time">
-          {props.time}
-        </Box>
-
+        <Box className="time">{props.time}</Box>
       </Box>
       <Box className="r">
         <span className="d-1">{props.date[0]}</span>

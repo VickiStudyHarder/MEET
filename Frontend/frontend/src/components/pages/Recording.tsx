@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import NavBar from '../molecules/NavBar';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import React, { useState, useEffect, useContext } from "react";
+import NavBar from "../molecules/NavBar";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {
   Container,
   createTheme,
@@ -11,17 +11,17 @@ import {
   Box,
   Button,
   Dialog,
-} from '@mui/material';
-import MeetingImage from '../../assets/MeetingImage.png';
-import { useNavigate, useParams } from 'react-router-dom';
-import { getMeetingById } from '../../api/meeting';
-import { IMeeting, IToDoItem, IRecording } from '../../types/meetings';
-import RecordingRow from '../molecules/RecordingRow';
-import CreateToDoForm from '../molecules/CreateToDoForm';
-import CreateRecordingForm from '../molecules/CreateRecordingForm';
-import PageTitle from '../../stories/PageTiltle';
-import AppContext from '../../contexts/AppContext';
-import CircleLoader from 'react-spinners/CircleLoader'
+} from "@mui/material";
+import MeetingImage from "../../assets/MeetingImage.png";
+import { useNavigate, useParams } from "react-router-dom";
+import { getMeetingById } from "../../api/meeting";
+import { IMeeting, IToDoItem, IRecording } from "../../types/meetings";
+import RecordingRow from "../molecules/RecordingRow";
+import CreateToDoForm from "../molecules/CreateToDoForm";
+import CreateRecordingForm from "../molecules/CreateRecordingForm";
+import PageTitle from "../../stories/PageTiltle";
+import AppContext from "../../contexts/AppContext";
+import CircleLoader from "react-spinners/CircleLoader";
 
 const theme = createTheme();
 
@@ -33,11 +33,9 @@ const Recording: React.FC<{}> = () => {
   // loading
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setLoading(true)
-    setTimeout(() => {
-
-    }, 500)
-  }, [])
+    setLoading(true);
+    setTimeout(() => {}, 500);
+  }, []);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -47,7 +45,7 @@ const Recording: React.FC<{}> = () => {
   const handleGetMeeting = async () => {
     const result = await getMeetingById(Number(id));
     setMeeting(result);
-    setLoading(false)
+    setLoading(false);
   };
 
   const handleClickOpen = () => {
@@ -61,64 +59,85 @@ const Recording: React.FC<{}> = () => {
   return (
     <ThemeProvider theme={theme}>
       {loading ? (
-        <Box sx={{
-          textAlign: 'center',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          height: '100vh'
-        }}>
-          <CircleLoader size={100} color={'#6001D3'} loading={loading} />
+        <Box
+          sx={{
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100vh",
+          }}
+        >
+          <CircleLoader size={100} color={"#6001D3"} loading={loading} />
         </Box>
-
       ) : (
         <Box>
           <CssBaseline />
           <NavBar inMeeting={true} />
-          <Container maxWidth='xl' sx={{ display: 'flex', flexGrow: 1 }}>
+          <Container maxWidth="xl" sx={{ display: "flex", flexGrow: 1 }}>
             <Box
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
+                display: "flex",
+                flexDirection: "column",
                 flexGrow: 1,
-                width: '100%',
+                width: "100%",
               }}
             >
               <Box
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
                 }}
               >
                 <Box
                   sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
+                    display: "flex",
+                    flexDirection: "row",
                     py: 2,
                     maxHeight: 140,
-                    justifyContent: 'space-between'
+                    justifyContent: "space-between",
                   }}
                 >
-
                   <Box sx={{ marginLeft: 3 }}>
-                    <PageTitle icon='6' content={`Recording - ${meeting?.summary}`} doSomething={() => navigate(-1)} />
+                    <PageTitle
+                      icon="6"
+                      content={`Recording - ${meeting?.summary}`}
+                      doSomething={() => navigate(-1)}
+                    />
                   </Box>
-                  {
-                    userInfo.role === 'mentor' && <Button onClick={handleClickOpen} variant="contained" color="secondary" sx={{ backgroundColor: "#6001D3", color: "#ffffff", borderRadius: 10, width: 104, height: 45 }} startIcon={<AddCircleOutlineIcon />}>
+                  {userInfo.role === "mentor" && (
+                    <Button
+                      onClick={handleClickOpen}
+                      variant="contained"
+                      color="secondary"
+                      sx={{
+                        backgroundColor: "#6001D3",
+                        color: "#ffffff",
+                        borderRadius: 10,
+                        width: 104,
+                        height: 45,
+                      }}
+                      startIcon={<AddCircleOutlineIcon />}
+                    >
                       New
                     </Button>
-                  }
-
-
+                  )}
                 </Box>
               </Box>
-              <Divider variant='middle' sx={{ width: '100%' }} />
-              <Box sx={{ width: '100%', m: 2, overflow: 'auto', height: '77vh', overflowX: 'hidden' }}>
+              <Divider variant="middle" sx={{ width: "100%" }} />
+              <Box
+                sx={{
+                  width: "100%",
+                  m: 2,
+                  overflow: "auto",
+                  height: "77vh",
+                  overflowX: "hidden",
+                }}
+              >
                 {meeting &&
                   meeting?.recordings?.map((recording: IRecording) => {
-
                     return (
                       <div>
                         <RecordingRow
@@ -136,10 +155,10 @@ const Recording: React.FC<{}> = () => {
             <Dialog
               open={open}
               onClose={handleClose}
-              aria-labelledby='alert-dialog-title'
-              aria-describedby='alert-dialog-description'
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
               // sx={{ display: 'flex', flexGrow: 1 }}
-              maxWidth='lg'
+              maxWidth="lg"
             >
               {meeting && (
                 <CreateRecordingForm
@@ -153,7 +172,6 @@ const Recording: React.FC<{}> = () => {
           </Container>
         </Box>
       )}
-
     </ThemeProvider>
   );
 };

@@ -1,8 +1,8 @@
-.agenda-search-wrap{
+.agenda-search-wrap {
   height: 60px;
   width: 912px;
   border-radius: 30px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 30px;
   box-shadow: -15px 30px 60px rgba(8, 20, 32, 0.2);
   display: flex;
@@ -11,27 +11,27 @@
   padding-left: 40px;
   padding-right: 24px;
   box-sizing: border-box;
-  .l{
+  .l {
     width: 660px;
     height: 60px;
-    background:none;
-    outline:none;
-    border:none
+    background: none;
+    outline: none;
+    border: none;
   }
-  .r{
+  .r {
     width: 148px;
     height: 40px;
-    background: #FD346E;
+    background: #fd346e;
     box-shadow: -5px 10px 20px rgba(253, 52, 110, 0.301961);
     border-radius: 20px;
     text-align: center;
     line-height: 40px;
-    font-family: 'Quicksand';
+    font-family: "Quicksand";
     font-size: 16px;
-    color: #FFFFFF;
+    color: #ffffff;
     cursor: pointer;
-    &:hover{
-      background: #FD346E;
+    &:hover {
+      background: #fd346e;
       box-shadow: -5px 10px 20px rgba(253, 52, 110, 0.301961);
     }
   }

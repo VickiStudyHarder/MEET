@@ -1,8 +1,8 @@
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
-import { formatJSONResponse } from '@libs/api-gateway';
-import { middyfy } from '@libs/lambda';
+import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
+import { formatJSONResponse } from "@libs/api-gateway";
+import { middyfy } from "@libs/lambda";
 
-import schema from './schema';
+import schema from "./schema";
 
 const getByMeetingId: ValidatedEventAPIGatewayProxyEvent<
   typeof schema
@@ -12,7 +12,7 @@ const getByMeetingId: ValidatedEventAPIGatewayProxyEvent<
     return formatJSONResponse({
       statusCode: 200,
       message: `${event}`,
-      body: '',
+      body: "",
     });
   } catch (e) {
     return formatJSONResponse({

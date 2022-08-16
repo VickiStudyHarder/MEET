@@ -121,7 +121,7 @@ export const Todo: React.VFC = () => {
     getUserInfo,
   } = useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
-  const [filter, setfilter] = React.useState(false);
+  const [filter, setfilter] = React.useState(true);
   const [data, setData] = React.useState<any>([]);
   const [isModalVisible, setisModalVisible] = React.useState(false);
   const [modalCtx, setModalCtx] = React.useState({
@@ -260,10 +260,11 @@ export const Todo: React.VFC = () => {
             <div className="flex">
               {data &&
                 data.map((item: any, index: any) => {
+                  console.log("item", item.task);
                   return (
                     <div
                       style={{
-                        display: item.option.show ? "" : "none",
+                        display: filter || item.task.length > 0 ? "" : "none",
                       }}
                       className="meet-from"
                       key={index}

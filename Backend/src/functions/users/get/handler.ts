@@ -1,9 +1,9 @@
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
-import { formatJSONResponse } from '@libs/api-gateway';
-import { middyfy } from '@libs/lambda';
-import { PrismaClient } from '@prisma/client';
+import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
+import { formatJSONResponse } from "@libs/api-gateway";
+import { middyfy } from "@libs/lambda";
+import { PrismaClient } from "@prisma/client";
 
-import schema from './schema';
+import schema from "./schema";
 
 const getById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
@@ -17,7 +17,7 @@ const getById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       },
     });
 
-    if (result.role === 'student') {
+    if (result.role === "student") {
       const meetings = await prisma.meetingAttendee.findMany({
         where: {
           userId: event.pathParameters.id,
