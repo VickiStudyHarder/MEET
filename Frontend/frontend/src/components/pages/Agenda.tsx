@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import {
   CssBaseline,
@@ -22,6 +22,8 @@ import AgendaList from "../../stories/AgendaList/AgendaList";
 import CreateAgendaItemForm from "../molecules/CreateAgendaItemForm";
 import PageTitle from "../../stories/PageTiltle";
 import CircleLoader from "react-spinners/CircleLoader";
+import AgendaCard from "../../stories/AgendaCard/AgendaCard";
+import AppContext from "../../contexts/AppContext";
 
 interface IAgenda {}
 
@@ -34,6 +36,7 @@ const Agenda: React.FC<IAgenda> = () => {
   const [end, setEnd] = useState<any>(null);
   const [diff, setDiff] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const {email} = useContext(AppContext)
 
   // loading
   const [loading, setLoading] = useState(false);
@@ -46,11 +49,12 @@ const Agenda: React.FC<IAgenda> = () => {
 
   useEffect(() => {
     handleGetMeeting();
-  }, [start, end, diff]);
+  }, [start, end, diff,email]);
 
   const handleGetMeeting = async () => {
     const result = await getMeetingById(Number(id));
     setMeeting(result);
+    console.log("agenda:handleGetMeeting",result)
     if (meeting) {
       const start = new Date(meeting.meetingStart).toLocaleString("en-AU", {
         year: "numeric",
@@ -146,15 +150,34 @@ const Agenda: React.FC<IAgenda> = () => {
                         doSomething={() => navigate(-1)}
                       />
                     </Box>
-
-                    <Button
+                    <div className="add">
+                      <Button
+                        sx={{
+                          minWidth: "100px",
+                          minHeight: "50px",
+                          maxHeight: "50px",
+                          maxWidth: "100px",
+                          borderRadius: 8,
+                          backgroundColor: "#6001D3",
+                          color: "#fff",
+                          fontSize: 12,
+                          marginRight:'160px'
+                        }}
+                        style={{ fontFamily: "Quicksand" }}
+                        variant="contained"
+                        onClick={handleClickOpen}
+                      >
+                        +Add
+                      </Button>
+                    </div>
+                    {/* <Button
                       onClick={handleClickOpen}
                       variant="outlined"
                       sx={{ borderColor: "#6001D3", color: "#6001D3" }}
                       startIcon={<AddCircleOutlineIcon />}
                     >
                       New
-                    </Button>
+                    </Button> */}
                   </Box>
                 </Box>
                 <Divider variant="middle" sx={{ width: "100%" }} />
@@ -165,20 +188,21 @@ const Agenda: React.FC<IAgenda> = () => {
                     display: "flex",
                     flexGrow: 1,
                     flexDirection: "row",
+                    justifyContent:"center"
                   }}
                 >
-                  <Box sx={{ display: "flex", flexGrow: 1, height: "100%" }}>
+                  <Box sx={{ display: "flex", flexGrow: 1, height: "100%" ,justifyContent:"center"}}>
                     <Box
                       sx={{
-                        boxShadow: "5px 5px 5px 5px lightGray",
+                        boxShadow: "0px 50px 80px rgba(106, 114, 154, 0.2)",
                         width: 800,
                         height: 350,
                         mt: 30,
-                        borderRadius: 10,
+                        borderRadius: 4,
                         display: "flex",
                         flexDirection: "row",
                         p: 4,
-                        background: "#F3F4F6",
+                        background: "#FFFFFF",
                         // border:,
                       }}
                     >
@@ -190,9 +214,9 @@ const Agenda: React.FC<IAgenda> = () => {
                           maxWidth: "40%",
                         }}
                       >
-                        <GroupsIcon
+                        {/* <GroupsIcon
                           sx={{ color: "#6001D3", fontSize: 60 }}
-                        ></GroupsIcon>
+                        ></GroupsIcon> */}
                         <Typography
                           style={{ fontFamily: "Quicksand" }}
                           align="center"
@@ -230,11 +254,12 @@ const Agenda: React.FC<IAgenda> = () => {
                           flexDirection: "column",
                           flexGrow: 1,
                           maxWidth: "40%",
+                          justifyContent:"center"
                         }}
                       >
-                        <AlarmIcon
+                        {/* <AlarmIcon
                           sx={{ color: "#6001D3", fontSize: 60 }}
-                        ></AlarmIcon>
+                        ></AlarmIcon> */}
                         <Typography
                           // variant='h2'
                           // color='#6001D3'
