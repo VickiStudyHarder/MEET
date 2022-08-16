@@ -22,7 +22,7 @@ const AgendaList: React.FC<IAgendaList> = ({ agendaList, handleGetMeeting }) => 
   const [open, setOpen] = useState(false);
 
   return (
-    <Box className='agenda-list-wrap' sx={{ height: '100%' }}>
+    <Box className='agenda-list-wrap' sx={{ height: '800px' }}>
       <Box className='title' style={{ fontFamily: "Quicksand" }}>Agenda list</Box>
       <Box className='box'>
         {agendaList.map((item: IAgenda, index) => {

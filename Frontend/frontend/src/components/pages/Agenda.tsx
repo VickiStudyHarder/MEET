@@ -44,6 +44,7 @@ const Agenda: React.FC<IAgenda> = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
+      handleGetMeeting();
     }, 2000);
   }, []);
 
@@ -55,8 +56,8 @@ const Agenda: React.FC<IAgenda> = () => {
     const result = await getMeetingById(Number(id));
     setMeeting(result);
     console.log("agenda:handleGetMeeting",result)
-    if (meeting) {
-      const start = new Date(meeting.meetingStart).toLocaleString("en-AU", {
+    if (result) {
+      const start = new Date(result.meetingStart).toLocaleString("en-AU", {
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
@@ -65,7 +66,7 @@ const Agenda: React.FC<IAgenda> = () => {
         second: "2-digit",
       });
       setStart(start);
-      const end = new Date(meeting.meetingEnd).toLocaleString("en-AU", {
+      const end = new Date(result.meetingEnd).toLocaleString("en-AU", {
         year: "numeric",
         month: "2-digit",
         day: "2-digit",
@@ -74,12 +75,13 @@ const Agenda: React.FC<IAgenda> = () => {
         second: "2-digit",
       });
       setEnd(end);
-      const x = new Date(meeting.meetingEnd);
-      const y = new Date(meeting.meetingStart);
-      const diff = x.valueOf() - y.valueOf();
-      const diffInHours = diff / 1000 / 60 / 60;
+      // const x = new Date(result.meetingEnd);
+      const y = new Date(result.meetingStart);
+      const timeDiff = y.valueOf() - new Date().valueOf();
+      console.log("agenda:handleGetMeeting",start,end,timeDiff)
+      const diffInHours = timeDiff / 1000 / 60 / 60;
       if (diffInHours < 1) {
-        setDiff(`${diffInHours.toFixed(2)} hours`);
+        setDiff(`${(Math.abs(diffInHours).toFixed(0))} hours ago`);
       } else if (diffInHours < 24) {
         setDiff(`${diffInHours.toFixed(0)} hours`);
       } else {
@@ -204,21 +206,25 @@ const Agenda: React.FC<IAgenda> = () => {
                         p: 4,
                         background: "#FFFFFF",
                         // border:,
+                        justifyContent:"center"
                       }}
-                    >
+                      >
                       <Box
                         sx={{
                           display: "flex",
                           flexDirection: "column",
                           flexGrow: 1,
                           maxWidth: "40%",
+                          justifyContent:"center",
+                          alignItems:"center",
+                          paddingLeft:"60px"
                         }}
                       >
                         {/* <GroupsIcon
                           sx={{ color: "#6001D3", fontSize: 60 }}
                         ></GroupsIcon> */}
                         <Typography
-                          style={{ fontFamily: "Quicksand" }}
+                          style={{ fontFamily: "Quicksand" ,maxWidth:"300px"}}
                           align="center"
                           // color='#6001D3'
                           sx={{ fontSize: 50, mx: "auto" }}
