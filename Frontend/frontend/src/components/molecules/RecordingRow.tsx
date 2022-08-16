@@ -51,7 +51,7 @@ const RecordingRow: React.FC<IRecordingRow> = ({
     <>
       <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
         <Box sx={{ m: 4 }}>
-          <img src={YourMeetingImage} style={{borderRadius:20}} alt='YourMeetingImage' />
+          <img src={"./recording.png"} style={{ borderRadius: 10 ,boxShadow: '-15px 30px 30px rgba(8, 20, 32, 0.2)'}} alt='YourMeetingImage' />
         </Box>
         <Box
           sx={{
@@ -63,10 +63,10 @@ const RecordingRow: React.FC<IRecordingRow> = ({
           }}
         >
 
-          <Typography component="div" variant="h3" marginTop={0}>
+          <Typography component="div" variant="h3" marginTop={0} style={{ fontFamily: "Quicksand" }}>
             {title}
           </Typography>
-          <Typography variant="h6" color="text.secondary" component="div" marginTop={2} marginBottom={5}>
+          <Typography variant="h6" color="text.secondary" component="div" marginTop={2} marginBottom={5} style={{ fontFamily: "Quicksand" }}>
             {recording.description}
           </Typography>
 
@@ -103,7 +103,7 @@ const RecordingRow: React.FC<IRecordingRow> = ({
           }}
         >
 
-          <a target='_blank' href={modifiedUrl} rel='noreferrer'>
+          <a target='_blank' href={modifiedUrl} rel='noreferrer' style={{ fontFamily: "Quicksand" }}>
             <Fab style={{ backgroundColor: '#6001D3', marginRight: 30 }} aria-label="delete recording" size="medium" >
               <PlayArrowIcon style={{ fontSize: 35, margin: 10, color: '#ffffff' }} />
             </Fab>
