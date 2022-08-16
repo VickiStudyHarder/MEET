@@ -121,7 +121,7 @@ export const Todo: React.VFC = () => {
     getUserInfo,
   } = useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
-  const [filter, setfilter] = React.useState(false);
+  const [filter, setfilter] = React.useState(true);
   const [data, setData] = React.useState<any>([]);
   const [isModalVisible, setisModalVisible] = React.useState(false);
   const [modalCtx, setModalCtx] = React.useState({
