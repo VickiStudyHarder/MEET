@@ -66,6 +66,7 @@ model ToDoItem {
   assigneeId String
   meeting    Meeting  @relation(fields: [meetingId], references: [id], onDelete: Cascade)
   meetingId  Int
+  isCompleted Boolean @default(false)
 }
 
 model Notes {
