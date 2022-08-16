@@ -83,7 +83,7 @@ const CompleteSignUp: React.FC<{}> = () => {
       firstName: firstName,
       lastName: lastName,
       dateOfBirth: dateOfBirth,
-      avatar: '1',
+      avatar: Math.floor(Math.random() * 12),
       role: userType,
       rating: 0,
       totalMeetings: 0,

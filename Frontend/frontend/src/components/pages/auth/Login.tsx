@@ -47,7 +47,8 @@ const SignUp = () => {
   return (
     <ThemeProvider theme={theme}>
       <Container component='main' maxWidth='xs'>
-        <Box className='login-box'>
+        <img style={{position:"absolute"}}/>
+        <Box className='login-box'  style={{ backdropFilter: "blur(8px)" }}>
           {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                 <LockOutlinedIcon />
               </Avatar>
