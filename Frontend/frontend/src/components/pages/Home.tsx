@@ -106,6 +106,7 @@ const Home = () => {
               variant="h2"
               align="center"
               sx={{ justify: "center", textAlign: "center", width: "100%" }}
+              style={{fontFamily:"Quicksand"}}
             >
               You have no upcoming meetings
             </Typography>
