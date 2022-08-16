@@ -199,6 +199,7 @@ const AppContextProvider = (props: any) => {
 
   const getUserInfo = async (userId: string) => {
     let user = await getUser(userId);
+    console.log("getUserInfo:resp",user)
     user = {
       id: user.id,
       firstName: user.firstName,
