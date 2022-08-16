@@ -19,6 +19,7 @@ export interface IToDoItem {
   title: string;
   dueDate: Date;
   assigneeId: string;
+  isCompleted?: boolean;
 }
 export interface INotes {
   id: number;
