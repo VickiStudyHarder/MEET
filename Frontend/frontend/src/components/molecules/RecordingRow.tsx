@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Box, Button, Typography, Divider, Dialog } from '@mui/material';
+import { Box, Button, Typography, Divider, Dialog, Fab } from '@mui/material';
 import Link from '@material-ui/core/Link';
 import { IToDoItem, IMeeting, IRecording } from '../../types/meetings';
 import YourMeetingImage from '../../assets/YourMeetingImage.png';
@@ -8,17 +8,27 @@ import MeetingsArrow from '../../assets/MeetingsArrow.png';
 import { deleteRecordingItem } from '../../api/meeting';
 import EditRecordingForm from './EditRecordingForm';
 import LinkIcon from '@mui/icons-material/Link';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import EditIcon from '@mui/icons-material/Edit';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import AppContext from '../../contexts/AppContext';
 
 export interface IRecordingRow {
   recording: IRecording;
   handleGetMeeting: any;
   meeting: IMeeting;
+  role: string;
+  title: string;
 }
 
 const RecordingRow: React.FC<IRecordingRow> = ({
   recording,
   handleGetMeeting,
   meeting,
+  title,
+  role,
 }) => {
   const [open, setOpen] = useState(false);
   const modifiedUrl = recording.url.startsWith('https://')
@@ -32,15 +42,16 @@ const RecordingRow: React.FC<IRecordingRow> = ({
     await handleGetMeeting();
   };
 
+
   const handleClose = () => {
     setOpen(false);
   };
-
+  
   return (
     <>
       <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
         <Box sx={{ m: 4 }}>
-          <img src={YourMeetingImage} alt='YourMeetingImage' />
+          <img src={YourMeetingImage} style={{borderRadius:20}} alt='YourMeetingImage' />
         </Box>
         <Box
           sx={{
@@ -51,50 +62,55 @@ const RecordingRow: React.FC<IRecordingRow> = ({
             ml: 8,
           }}
         >
-          <Typography sx={{ m: 2 }}>{recording.description}</Typography>
-          <Box sx={{ m: 2 }}>
-            <a target='_blank' href={modifiedUrl} rel='noreferrer'>
-              <LinkIcon />
-            </a>
-          </Box>
+
+          <Typography component="div" variant="h3" marginTop={0}>
+            {title}
+          </Typography>
+          <Typography variant="h6" color="text.secondary" component="div" marginTop={2} marginBottom={5}>
+            {recording.description}
+          </Typography>
+
         </Box>
-        <Box
+        {  role === 'mentor' ?  (<Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             m: 'auto',
-            width: '20%',
+            marginRight: 5
           }}
         >
-          <Button
-            sx={{ mx: 'auto', width: '100%' }}
-            style={{ justifyContent: 'flex-end' }}
-            onClick={() => {
-              setOpen(true);
-            }}
-          >
-            <Typography sx={{ color: 'black', mr: 2 }}>Edit</Typography>
-            <img
-              src={MeetingsArrow}
-              alt='meeting-arrow'
-              width='40'
-              height='40'
-            />
-          </Button>
-          <Button
-            sx={{ mx: 'auto', width: '100%' }}
-            style={{ justifyContent: 'flex-end' }}
-            onClick={handleDelete}
-          >
-            <Typography sx={{ color: 'black', mr: 2 }}>Delete</Typography>
-            <img
-              src={MeetingsArrow}
-              alt='meeting-arrow'
-              width='40'
-              height='40'
-            />
-          </Button>
+
+          <a target='_blank' href={modifiedUrl} rel='noreferrer'>
+            <Fab style={{ backgroundColor: '#6001D3', marginRight: 30 }} aria-label="delete recording" size="medium" >
+              <PlayArrowIcon style={{ fontSize: 35, margin: 10, color: '#ffffff' }} />
+            </Fab>
+          </a>
+          <Fab onClick={() => { setOpen(true); }} color="secondary" style={{ backgroundColor: '#6001D3', marginRight: 30 }} aria-label="manage recording" size="medium">
+            <EditIcon style={{ fontSize: 30, margin: 10 }} />
+          </Fab>
+
+
+          <Fab onClick={handleDelete} style={{ backgroundColor: '#6001D3' }} aria-label="delete recording" size="medium">
+            <DeleteOutlineIcon style={{ fontSize: 35, margin: 10, color: '#ffffff' }} />
+          </Fab>
+        </Box>) : (
+          <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            m: 'auto',
+            marginRight: 5
+          }}
+        >
+
+          <a target='_blank' href={modifiedUrl} rel='noreferrer'>
+            <Fab style={{ backgroundColor: '#6001D3', marginRight: 30 }} aria-label="delete recording" size="medium" >
+              <PlayArrowIcon style={{ fontSize: 35, margin: 10, color: '#ffffff' }} />
+            </Fab>
+          </a>
         </Box>
+        )}
+
       </Box>
       <Divider variant='middle' sx={{ width: '100%' }} />
       <Dialog

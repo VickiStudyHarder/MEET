@@ -21,8 +21,9 @@ import StudentGroupCard from '../../stories/StudentGroupCard';
 import { useNavigate, useParams } from 'react-router-dom';
 import StudyGroupIcon from '../../assets/StudyGroupIcon.png';
 import PageTitle from '../../stories/PageTiltle';
+import CircleLoader from 'react-spinners/CircleLoader'
 
-interface IGroupChat {}
+interface IGroupChat { }
 
 const theme = createTheme();
 
@@ -32,6 +33,17 @@ const GroupChat: React.FC<IGroupChat> = () => {
   const [messages, setMessages] = useState<any>(null);
   const [GroupName, setGroupName] = useState('');
   const navigate = useNavigate();
+  // loading
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+    }, 2000)
+  }, [])
+
+
+
   useEffect(() => {
     const timer = setInterval(getMessages, 3000);
     return () => clearInterval(timer);
@@ -46,7 +58,21 @@ const GroupChat: React.FC<IGroupChat> = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+      {loading ? (
+        <Box sx={{
+          textAlign: 'center',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          height: '100vh'
+        }}>
+          <CircleLoader size={100} color={'#6001D3'} loading={loading} />
+        </Box>
+
+      ) : (
+        <Box>
+<CssBaseline />
       <NavBar />
       <Box
         sx={{
@@ -64,9 +90,9 @@ const GroupChat: React.FC<IGroupChat> = () => {
             maxHeight: 140,
           }}
         >
-            <Box sx={{ marginLeft: 3 }}>
-              <PageTitle icon='6' content='All my group' doSomething={() => navigate(`/group`)} />
-            </Box>
+          <Box sx={{ marginLeft: 3 }}>
+            <PageTitle icon='6' content='All my group' doSomething={() => navigate(-1)} />
+          </Box>
         </Box>
       </Box>
       <Divider variant='middle' sx={{ width: '100%' }} />
@@ -75,7 +101,7 @@ const GroupChat: React.FC<IGroupChat> = () => {
           <StudentGroupNameCard inChat={true} groupName={GroupName} />
         </Box>
         <Container
-          sx={{ display: 'flex', flexDirection: 'column', width: '100%'}}
+          sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}
         >
           <ChatWindow
             groupId={Number(id)}
@@ -84,6 +110,9 @@ const GroupChat: React.FC<IGroupChat> = () => {
           />
         </Container>
       </Box>
+        </Box>
+      )}
+      
     </ThemeProvider>
   );
 };

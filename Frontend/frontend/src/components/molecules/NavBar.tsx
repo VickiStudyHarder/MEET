@@ -17,7 +17,9 @@ import AvaterMeun from "../../stories/AvatarMenu";
 import { User } from "../../contexts";
 import AppContext from "../../contexts/AppContext";
 
-interface INavBar {}
+interface INavBar {
+  inMeeting?: boolean;
+}
 
 const options = [
   { title: "Upcoming Meetings", url: "/home" },
@@ -29,12 +31,14 @@ const options = [
   { title: "Group", url: "/group" },
 ];
 
-const NavBar: React.FC<INavBar> = () => {
+const NavBar: React.FC<INavBar> = ({
+  inMeeting = false,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { email, userInfo, getUserInfo } = useContext(AppContext);
 
-  const changeAvatar = () => {};
+  const changeAvatar = () => { };
   useEffect(() => {
     console.log("navbar:email=", email);
     getUserInfo(email);
@@ -42,6 +46,7 @@ const NavBar: React.FC<INavBar> = () => {
 
   useEffect(() => {
     console.log("userinfo=", userInfo);
+    console.log('location=', location)
   }, [userInfo]);
 
   return (
@@ -68,7 +73,7 @@ const NavBar: React.FC<INavBar> = () => {
             {/* <Brand></Brand> */}
           </Box>
           <Box sx={{ display: "flex" }}>
-            {options.map((option) => {
+            {inMeeting && options.map((option) => {
               return (
                 <Button
                   color="inherit"
@@ -78,11 +83,35 @@ const NavBar: React.FC<INavBar> = () => {
                   }}
                   key={option.title}
                 >
-                  {location.pathname === option.url ? (
+                  {"/meetings" === option.url && (
                     <Typography style={{ fontWeight: 600, color: "#000000" }} fontFamily={"Quicksand"}>
                       {option.title}
                     </Typography>
-                  ) : (
+                  )}
+                  {"/meetings" !== option.url && (
+
+                    <Typography fontFamily={"Quicksand"}>{option.title}</Typography>
+                  )}
+                </Button>
+              );
+            })}
+            {!inMeeting && options.map((option) => {
+              return (
+                <Button
+                  color="inherit"
+                  sx={{ color: "#70798B", marginRight: 2 }}
+                  onClick={(e) => {
+                    navigate(option.url);
+                  }}
+                  key={option.title}
+                >
+                  {location.pathname === option.url && (
+                    <Typography style={{ fontWeight: 600, color: "#000000" }} fontFamily={"Quicksand"}>
+                      {option.title}
+                    </Typography>
+                  )}
+                  {location.pathname !== option.url && (
+
                     <Typography fontFamily={"Quicksand"}>{option.title}</Typography>
                   )}
                 </Button>

@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Box, Button, Typography, Divider, Dialog } from '@mui/material';
+import { Box, Button, Typography, Divider, Dialog, Fab } from '@mui/material';
 import { IToDoItem, IMeeting } from '../../types/meetings';
-import YourMeetingImage from '../../assets/YourMeetingImage.png';
+import YourMeetingImage from '../../assets/YourTodo.png';
 import MeetingsArrow from '../../assets/MeetingsArrow.png';
 import { deleteToDoItem } from '../../api/meeting';
 import EditNoteForm from './EditToDoForm';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import EditIcon from '@mui/icons-material/Edit';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import AppContext from '../../contexts/AppContext';
 
 export interface IToDoItemRow {
   toDoItem: IToDoItem;
@@ -39,10 +45,10 @@ const ToDoRow: React.FC<IToDoItemRow> = ({ toDoItem, handleGetMeeting, meeting})
     <>
       <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
         <Box sx={{ m: 4 }}>
-          <img src={YourMeetingImage} alt='YourMeetingImage' />
+          <img src={YourMeetingImage} style={{width:380, height:220, borderRadius:20}} alt='YourMeetingImage' />
         </Box>
         <Box
-          sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column', m: 4 }}
+          sx={{ display: 'flex', flexGrow: 1, flexDirection: 'column', m: 4 ,mt:5}}
         >
           <Typography>
             <>Due Date: {date}</>
@@ -54,39 +60,20 @@ const ToDoRow: React.FC<IToDoItemRow> = ({ toDoItem, handleGetMeeting, meeting})
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             m: 'auto',
-            width: '20%',
+            marginRight: 5
           }}
         >
-          <Button
-            sx={{ mx: 'auto', width: '100%' }}
-            style={{ justifyContent: 'flex-end' }}
-            onClick={() => {
-              setOpen(true);
-            }}
-          >
-            <Typography sx={{ color: 'black', mr: 2 }}>Edit</Typography>
-            <img
-              src={MeetingsArrow}
-              alt='meeting-arrow'
-              width='40'
-              height='40'
-            />
-          </Button>
-          <Button
-            sx={{ mx: 'auto', width: '100%' }}
-            style={{ justifyContent: 'flex-end' }}
-            onClick={handleDelete}
-          >
-            <Typography sx={{ color: 'black', mr: 2 }}>Delete</Typography>
-            <img
-              src={MeetingsArrow}
-              alt='meeting-arrow'
-              width='40'
-              height='40'
-            />
-          </Button>
+
+          <Fab onClick={() => { setOpen(true); }} color="secondary" style={{ backgroundColor: '#6001D3', marginRight: 50 }} aria-label="manage recording" size="medium">
+            <EditIcon style={{ fontSize: 30, margin: 10 }} />
+          </Fab>
+
+
+          <Fab onClick={handleDelete} style={{ backgroundColor: '#6001D3' }} aria-label="delete recording" size="medium">
+            <DeleteOutlineIcon style={{ fontSize: 35, margin: 10, color: '#ffffff' }} />
+          </Fab>
         </Box>
       </Box>
       <Divider variant='middle' sx={{ width: '100%' }} />
