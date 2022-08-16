@@ -106,7 +106,7 @@ const Meetings = () => {
               <Box sx={{ width: '100%', m: 2, overflow: 'auto', height: '77vh', overflowX: 'hidden' }}>
                 {meetings &&
                   meetings.map((meeting: IMeetingResponse) => {
-                    return <MeetingRow meeting={meeting.meeting} />;
+                    return <MeetingRow meeting={meeting.meeting} getAllMeetings={getAllMeetings} />;
                   })}
               </Box>
             </Box>

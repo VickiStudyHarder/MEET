@@ -39,7 +39,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     }
 
     console.log('toDoItems');
-    if (meeting?.toDoItem) {
+    if (meeting?.toDoItem && meeting.toDoItem.length > 0) {
       const res = await Promise.all(
         meeting.toDoItem.map(async (item: IToDoItem) => {
           return await prisma.meeting.update({
@@ -62,7 +62,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 
     console.log('notes');
 
-    if (meeting?.notes) {
+    if (meeting?.notes && meeting.notes.length > 0) {
       await Promise.all(
         meeting.notes.map(async (item: INotes) => {
           return await prisma.meeting.update({
@@ -85,7 +85,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
 
     console.log('attendees');
     //console.log(event.body);
-    if (meeting?.meetingAttendee) {
+    if (meeting?.meetingAttendee && meeting.meetingAttendee.length > 0) {
       await Promise.all(
         meeting.meetingAttendee.map(async (item: IMeetingAttendee) => {
           return await prisma.meeting.update({
@@ -107,7 +107,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     }
 
     console.log('agendas');
-    if (meeting?.agendas) {
+    if (meeting?.agendas && meeting.agendas.length > 0) {
       await Promise.all(
         meeting.agendas.map(async (item: IAgenda) => {
           return await prisma.meeting.update({
@@ -129,7 +129,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     }
 
     console.log('recordings');
-    if (meeting?.recordings) {
+    if (meeting?.recordings && meeting.recordings.length > 0) {
       const res = await Promise.all(
         meeting.recordings.map(async (item: IRecording) => {
           return await prisma.meeting.update({
@@ -148,6 +148,20 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
           });
         })
       );
+    }
+
+    if (meeting) {
+      await prisma.meeting.update({
+        where: {
+          id: Number(event.pathParameters.id),
+        },
+        data: {
+          meetingStart: meeting.meetingStart,
+          meetingEnd: meeting.meetingEnd,
+          summary: meeting.summary,
+          description: meeting.description
+        },
+      });
     }
 
     const meetingAttendees = await prisma.meetingAttendee.findMany({

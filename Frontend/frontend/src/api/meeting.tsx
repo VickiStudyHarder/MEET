@@ -15,6 +15,7 @@ export const updateMeeting = async (
   data: Partial<IMeeting>,
   id: number
 ) => {
+  console.log({data, id});
   return await axiosClient.put(`meeting/${id}`, JSON.stringify(data));
 };
 

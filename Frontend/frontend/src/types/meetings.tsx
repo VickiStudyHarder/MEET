@@ -5,6 +5,8 @@ export interface IMeeting {
   summary: string;
   description: string;
   location: string;
+  googleCalendarId?: string;
+  requestId?: string;
   toDoItem?: IToDoItem[];
   notes?: INotes[];
   meetingAttendee?: IMeetingAttendee[];
@@ -30,6 +32,7 @@ export interface IMeetingAttendee {
   userId: string;
   attended: boolean;
   googleCalendarId: string;
+  meetingId? : number;
   user?: IUser;
 }
 export interface IMeetingResponse {
