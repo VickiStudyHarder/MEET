@@ -75,9 +75,9 @@ const Agenda: React.FC<IAgenda> = () => {
         second: "2-digit",
       });
       setEnd(end);
-      // const x = new Date(result.meetingEnd);
-      const y = new Date(result.meetingStart);
-      const timeDiff = y.valueOf() - new Date().valueOf();
+      const y = new Date(result.meetingEnd);
+      const x = new Date(result.meetingStart);
+      const timeDiff = y.valueOf() - x.valueOf();
       console.log("agenda:handleGetMeeting",start,end,timeDiff)
       const diffInHours = timeDiff / 1000 / 60 / 60;
       if (diffInHours < 1) {
