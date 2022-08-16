@@ -19,7 +19,9 @@ const remove: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       }
     })
 
-    //await deleteGoogleMeeting(meetingAttendees);
+    //console.log({meetingAttendees})
+
+    await deleteGoogleMeeting(meetingAttendees, Number(event.pathParameters.id));
 
     const result = await prisma.meeting.delete({
       where: {
@@ -30,7 +32,7 @@ const remove: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       status: 200,
       message: ``,
       event,
-      body: result,
+      body: '',
     });
   } catch (e) {
     console.error(e);
@@ -42,21 +44,35 @@ const remove: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   }
 };
 
-const deleteGoogleMeeting = async (meetingAttendees: MeetingAttendee[]) => {
-  const result = await Promise.all(meetingAttendees.map(async (attendee: MeetingAttendee) => {
-    const token = await prisma.tokens.findUnique({
-      where: {
-        userId: attendee.userId,
-      },
-    });
-    oauth2Client.setCredentials({ refresh_token: token.refreshToken });
-    const calendar = google.calendar('v3');
+const deleteGoogleMeeting = async (meetingAttendees: MeetingAttendee[], meetingId: number) => {
 
-    return await calendar.events.delete({
-      auth: oauth2Client,
-      calendarId: 'primary',
-      eventId: attendee.googleCalendarId
-    });
+  const meetingData =  await prisma.meeting.findUnique({
+    where: {
+      id: meetingId
+    }
+  })
+
+  const result = await Promise.all(meetingAttendees.map(async (attendee: MeetingAttendee) => {
+    try {
+      const token = await prisma.tokens.findUnique({
+        where: {
+          userId: attendee.userId,
+        },
+      });
+
+
+      oauth2Client.setCredentials({ refresh_token: token.refreshToken });
+      const calendar = google.calendar('v3');
+  
+      return await calendar.events.delete({
+        auth: oauth2Client,
+        calendarId: 'primary',
+        eventId: meetingData.requestId
+      });
+    } catch (e) {
+      console.error(e)
+      return
+    }
   }))
   return result;
 }

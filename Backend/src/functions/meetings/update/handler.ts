@@ -1,7 +1,7 @@
 import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
 import { formatJSONResponse } from '@libs/api-gateway';
 import { middyfy } from '@libs/lambda';
-import { PrismaClient } from '@prisma/client';
+import { MeetingAttendee, PrismaClient } from '@prisma/client';
 import {
   IMeetingAttendee,
   IMeetingPayload,
@@ -10,15 +10,19 @@ import {
   IAgenda,
   IRecording,
 } from '../../../types/meeting';
+import oauth2Client from '@libs/oauth2-client';
+
+import { google } from 'googleapis';
 
 import schema from './schema';
+
+const prisma = new PrismaClient();
 
 const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
 ) => {
-  const prisma = new PrismaClient();
   const meeting: IMeetingPayload = event.body as unknown as IMeetingPayload;
-  console.log({meeting});
+  //console.log({ meeting });
   try {
     const result = await prisma.meeting.findUnique({
       where: {
@@ -54,9 +58,6 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
           });
         })
       );
-      console.log('1');
-      console.log({ res });
-      console.log('2');
     }
 
     console.log('notes');
@@ -83,7 +84,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     }
 
     console.log('attendees');
-    console.log(event.body)
+    //console.log(event.body);
     if (meeting?.meetingAttendee) {
       await Promise.all(
         meeting.meetingAttendee.map(async (item: IMeetingAttendee) => {
@@ -149,6 +150,18 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       );
     }
 
+    const meetingAttendees = await prisma.meetingAttendee.findMany({
+      where: {
+        meetingId: Number(event.pathParameters.id),
+      },
+    });
+
+    await updateGoogleMeeting(
+      meetingAttendees,
+      Number(event.pathParameters.id),
+      meeting
+    );
+
     return formatJSONResponse({
       status: 200,
       message: `Success`,
@@ -163,6 +176,71 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       event,
     });
   }
+};
+
+const updateGoogleMeeting = async (
+  meetingAttendees: MeetingAttendee[],
+  meetingId: number,
+  meetingPayload: IMeetingPayload
+) => {
+  const meetingData = await prisma.meeting.findUnique({
+    where: {
+      id: meetingId,
+    },
+  });
+
+  const result = await Promise.all(
+    meetingAttendees.map(async (attendee: MeetingAttendee) => {
+      try {
+        const token = await prisma.tokens.findUnique({
+          where: {
+            userId: attendee.userId,
+          },
+        });
+
+        const attendees = meetingPayload.meetingAttendee.map(
+          (attendee: IMeetingAttendee) => {
+            return { email: attendee.userId };
+          }
+        );
+
+        oauth2Client.setCredentials({ refresh_token: token.refreshToken });
+        const calendar = google.calendar('v3');
+
+        return await calendar.events.update({
+          conferenceDataVersion: 1,
+          auth: oauth2Client,
+          eventId: meetingData.requestId,
+          calendarId: 'primary',
+          requestBody: {
+            summary: meetingPayload.summary,
+            description: meetingPayload.description,
+            location: meetingPayload.location,
+            start: {
+              dateTime: new Date(meetingPayload.meetingStart),
+              timeZone: 'Australia/Sydney',
+            },
+            end: {
+              dateTime: new Date(meetingPayload.meetingEnd),
+              timeZone: 'Australia/Sydney',
+            },
+            attendees: attendees,
+            conferenceData: {
+              createRequest: {
+                conferenceSolutionKey: {
+                  type: 'hangoutsMeet',
+                },
+              },
+            },
+          },
+        });
+      } catch (e) {
+        console.error(e);
+        return;
+      }
+    })
+  );
+  return result;
 };
 
 export const main = middyfy(update);
