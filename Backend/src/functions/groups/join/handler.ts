@@ -1,9 +1,9 @@
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
-import { formatJSONResponse } from '@libs/api-gateway';
-import { middyfy } from '@libs/lambda';
-import { PrismaClient } from '@prisma/client';
+import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
+import { formatJSONResponse } from "@libs/api-gateway";
+import { middyfy } from "@libs/lambda";
+import { PrismaClient } from "@prisma/client";
 
-import schema from './schema';
+import schema from "./schema";
 
 const prisma = new PrismaClient();
 
@@ -22,7 +22,7 @@ const joinGroup: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     });
     return formatJSONResponse({
       status: 200,
-      message: 'Success',
+      message: "Success",
       event,
       body: result,
     });

@@ -41,7 +41,5 @@
 
 // export { Session, SessionContext };
 
-const Session = () => {
-
-}
-export default Session
+const Session = () => {};
+export default Session;

@@ -28,17 +28,12 @@ interface FullCalendarProps {
 /**
  * Primary UI component for user interaction
  */
- export default function FullCalendar  ({
-    primary = false,
-    size = "medium",
-    backgroundColor,
-    label,
-    ...props
-  }: FullCalendarProps){
- 
-  return (
-    <>
-    1
-    </>
-  );
-};
+export default function FullCalendar({
+  primary = false,
+  size = "medium",
+  backgroundColor,
+  label,
+  ...props
+}: FullCalendarProps) {
+  return <>1</>;
+}

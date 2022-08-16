@@ -1,12 +1,12 @@
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
-import { formatJSONResponse } from '@libs/api-gateway';
-import { middyfy } from '@libs/lambda';
-import { MeetingAttendee, PrismaClient } from '@prisma/client';
-import oauth2Client from '@libs/oauth2-client';
+import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
+import { formatJSONResponse } from "@libs/api-gateway";
+import { middyfy } from "@libs/lambda";
+import { MeetingAttendee, PrismaClient } from "@prisma/client";
+import oauth2Client from "@libs/oauth2-client";
 
-import { google } from 'googleapis';
+import { google } from "googleapis";
 
-import schema from './schema';
+import schema from "./schema";
 const prisma = new PrismaClient();
 
 const removeAgenda: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (

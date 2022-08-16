@@ -1,9 +1,8 @@
 import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import './AgendaCard.scss';
-import { Button } from '@mui/material';
-
+import "./AgendaCard.scss";
+import { Button } from "@mui/material";
 
 export interface AgendaCardInfo {
   number?: string;

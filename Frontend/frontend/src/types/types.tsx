@@ -21,7 +21,7 @@ export interface IMeetingAttendee {
   id: string;
   meetingId?: string;
   attended: boolean;
-  googleCalendarId:string;
+  googleCalendarId: string;
 }
 
 export interface INote {
@@ -70,8 +70,6 @@ export default interface IGroupAttendee {
   attended: boolean;
 }
 
-
-
 export default interface IGroup {
   id?: string;
   ownerId?: string;
@@ -94,5 +92,3 @@ export interface IUser {
   role: string;
   avatar: string;
 }
-
-

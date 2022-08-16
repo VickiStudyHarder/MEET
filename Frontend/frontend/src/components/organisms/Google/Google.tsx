@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import {
   GoogleLogin,
   GoogleLoginResponse,
   GoogleLoginResponseOffline,
-} from 'react-google-login';
-import { gapi } from 'gapi-script';
-import { createToken } from '../../../api/google';
-import { AppContext } from '../../../contexts/AppContext';
-import { Box, Button, Typography } from '@mui/material';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { useNavigate } from 'react-router-dom';
+} from "react-google-login";
+import { gapi } from "gapi-script";
+import { createToken } from "../../../api/google";
+import { AppContext } from "../../../contexts/AppContext";
+import { Box, Button, Typography } from "@mui/material";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForwardIos";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { useNavigate } from "react-router-dom";
 
 interface IGoogle {
   incrementStage: () => void;
@@ -18,10 +18,10 @@ interface IGoogle {
 }
 
 const CLIENT_ID =
-  '782858661732-0gqlc5n856gk2b943tpl3ebarpcdhfdg.apps.googleusercontent.com';
+  "782858661732-0gqlc5n856gk2b943tpl3ebarpcdhfdg.apps.googleusercontent.com";
 
 const GoogleAuth: React.FC<IGoogle> = ({ incrementStage, decrementStage }) => {
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState("");
   const [isNextEnabled, setNextEnabled] = useState(false);
   const navigate = useNavigate();
 
@@ -31,11 +31,11 @@ const GoogleAuth: React.FC<IGoogle> = ({ incrementStage, decrementStage }) => {
     function start() {
       gapi.client.init({
         clientId: CLIENT_ID,
-        scope: 'openid email profile https://www.googleapis.com/auth/calendar',
+        scope: "openid email profile https://www.googleapis.com/auth/calendar",
       });
     }
 
-    gapi.load('client:auth2', start);
+    gapi.load("client:auth2", start);
   }, [isNextEnabled]);
 
   const onSuccess = async (
@@ -44,8 +44,8 @@ const GoogleAuth: React.FC<IGoogle> = ({ incrementStage, decrementStage }) => {
     const { code } = response;
     console.log({ email });
     try {
-      console.log(code)
-      setGoogleAuthToken(code || '');
+      console.log(code);
+      setGoogleAuthToken(code || "");
       setNextEnabled(true);
     } catch (e) {
       console.log(e);
@@ -61,31 +61,31 @@ const GoogleAuth: React.FC<IGoogle> = ({ incrementStage, decrementStage }) => {
       sx={{
         my: 8,
         mx: 4,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justify: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justify: "center",
       }}
     >
-      <Box sx={{ p: 4, textAlign: 'center' }}>
+      <Box sx={{ p: 4, textAlign: "center" }}>
         <Typography>Complete Google Sign Up</Typography>
         <Typography>To Proceed</Typography>
       </Box>
       <Box
         sx={{
-          alignItems: 'center',
-          justify: 'center',
+          alignItems: "center",
+          justify: "center",
         }}
       >
         <GoogleLogin
           clientId={CLIENT_ID}
-          buttonText='Sign In & Authorize Calendar'
+          buttonText="Sign In & Authorize Calendar"
           onSuccess={onSuccess}
           onFailure={onFailure}
-          cookiePolicy={'single_host_origin'}
-          responseType='code'
-          accessType='offline'
-          scope='openid email profile https://www.googleapis.com/auth/calendar'
+          cookiePolicy={"single_host_origin"}
+          responseType="code"
+          accessType="offline"
+          scope="openid email profile https://www.googleapis.com/auth/calendar"
         />
       </Box>
       <Box sx={{ x: 20 }}>

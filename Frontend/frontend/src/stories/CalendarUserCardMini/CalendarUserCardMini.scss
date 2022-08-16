@@ -1,4 +1,4 @@
-.calender-user-card-mini-wrap{
+.calender-user-card-mini-wrap {
   width: 148px;
   height: 142px;
   display: flex;
@@ -7,8 +7,8 @@
   position: relative;
   margin-top: 20px;
   margin-bottom: 10px;
-  
-  .img-box{
+
+  .img-box {
     width: 100px;
     height: 100px;
     border-radius: 20px;
@@ -16,17 +16,17 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    .avator{
+    .avator {
       width: 100px;
       height: 100px;
       border-radius: 20px;
     }
   }
-  .main{
+  .main {
     height: 120px;
     width: 148px;
     border-radius: 20px;
-    box-shadow:0 15px 35px rgba(0,0,0,0.05);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
     display: flex;
     align-items: flex-end;
@@ -34,15 +34,15 @@
     border-style: solid;
     border-color: rgb(238, 235, 234);
 
-    .name{
+    .name {
       margin: 0 auto;
       width: 140px;
       height: 26px;
       text-align: center;
       overflow: hidden;
-      text-overflow:ellipsis;
+      text-overflow: ellipsis;
       white-space: nowrap;
-      font-family: 'Nunito';
+      font-family: "Nunito";
       font-weight: 700;
       font-size: 16px;
       line-height: 26px;

@@ -36,7 +36,7 @@ const Agenda: React.FC<IAgenda> = () => {
   const [end, setEnd] = useState<any>(null);
   const [diff, setDiff] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
-  const {email} = useContext(AppContext)
+  const { email } = useContext(AppContext);
 
   // loading
   const [loading, setLoading] = useState(false);
@@ -50,12 +50,12 @@ const Agenda: React.FC<IAgenda> = () => {
 
   useEffect(() => {
     handleGetMeeting();
-  }, [start, end, diff,email]);
+  }, [start, end, diff, email]);
 
   const handleGetMeeting = async () => {
     const result = await getMeetingById(Number(id));
     setMeeting(result);
-    console.log("agenda:handleGetMeeting",result)
+    console.log("agenda:handleGetMeeting", result);
     if (result) {
       const start = new Date(result.meetingStart).toLocaleString("en-AU", {
         year: "numeric",
@@ -78,10 +78,10 @@ const Agenda: React.FC<IAgenda> = () => {
       const y = new Date(result.meetingEnd);
       const x = new Date(result.meetingStart);
       const timeDiff = y.valueOf() - x.valueOf();
-      console.log("agenda:handleGetMeeting",start,end,timeDiff)
+      console.log("agenda:handleGetMeeting", start, end, timeDiff);
       const diffInHours = timeDiff / 1000 / 60 / 60;
       if (diffInHours < 1) {
-        setDiff(`${(Math.abs(diffInHours).toFixed(0))} hours ago`);
+        setDiff(`${Math.abs(diffInHours).toFixed(0)} hours ago`);
       } else if (diffInHours < 24) {
         setDiff(`${diffInHours.toFixed(0)} hours`);
       } else {
@@ -163,7 +163,7 @@ const Agenda: React.FC<IAgenda> = () => {
                           backgroundColor: "#6001D3",
                           color: "#fff",
                           fontSize: 12,
-                          marginRight:'160px'
+                          marginRight: "160px",
                         }}
                         style={{ fontFamily: "Quicksand" }}
                         variant="contained"
@@ -190,10 +190,17 @@ const Agenda: React.FC<IAgenda> = () => {
                     display: "flex",
                     flexGrow: 1,
                     flexDirection: "row",
-                    justifyContent:"center"
+                    justifyContent: "center",
                   }}
                 >
-                  <Box sx={{ display: "flex", flexGrow: 1, height: "100%" ,justifyContent:"center"}}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexGrow: 1,
+                      height: "100%",
+                      justifyContent: "center",
+                    }}
+                  >
                     <Box
                       sx={{
                         boxShadow: "0px 50px 80px rgba(106, 114, 154, 0.2)",
@@ -206,25 +213,25 @@ const Agenda: React.FC<IAgenda> = () => {
                         p: 4,
                         background: "#FFFFFF",
                         // border:,
-                        justifyContent:"center"
+                        justifyContent: "center",
                       }}
-                      >
+                    >
                       <Box
                         sx={{
                           display: "flex",
                           flexDirection: "column",
                           flexGrow: 1,
                           maxWidth: "40%",
-                          justifyContent:"center",
-                          alignItems:"center",
-                          paddingLeft:"60px"
+                          justifyContent: "center",
+                          alignItems: "center",
+                          paddingLeft: "60px",
                         }}
                       >
                         {/* <GroupsIcon
                           sx={{ color: "#6001D3", fontSize: 60 }}
                         ></GroupsIcon> */}
                         <Typography
-                          style={{ fontFamily: "Quicksand" ,maxWidth:"300px"}}
+                          style={{ fontFamily: "Quicksand", maxWidth: "300px" }}
                           align="center"
                           // color='#6001D3'
                           sx={{ fontSize: 50, mx: "auto" }}
@@ -260,7 +267,7 @@ const Agenda: React.FC<IAgenda> = () => {
                           flexDirection: "column",
                           flexGrow: 1,
                           maxWidth: "40%",
-                          justifyContent:"center"
+                          justifyContent: "center",
                         }}
                       >
                         {/* <AlarmIcon
@@ -277,7 +284,7 @@ const Agenda: React.FC<IAgenda> = () => {
                           }}
                           style={{ fontFamily: "Quicksand" }}
                         >
-                          {diff} 
+                          {diff}
                         </Typography>
                       </Box>
                     </Box>

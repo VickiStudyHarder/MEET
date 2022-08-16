@@ -1,7 +1,7 @@
-.agenda-card-wrap{
+.agenda-card-wrap {
   width: 80px;
   height: 240px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 20px;
   box-shadow: -15px 30px 60px rgba(8, 20, 32, 0.2);
   padding: 0 80px;
@@ -9,59 +9,63 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  .l{
-    background: linear-gradient(180deg, #6001D3 0%, rgba(255, 255, 255, 0.0001) 116.15%); 
-    -webkit-background-clip:text; 
-    -webkit-text-fill-color:transparent; 
+  .l {
+    background: linear-gradient(
+      180deg,
+      #6001d3 0%,
+      rgba(255, 255, 255, 0.0001) 116.15%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-size: 150px;
     line-height: 1;
   }
-  .c{
+  .c {
     width: 230px;
-    .tit{
+    .tit {
       width: 230px;
       overflow: hidden;
-      text-overflow:ellipsis;
+      text-overflow: ellipsis;
       white-space: nowrap;
-      font-family: 'Nunito';
+      font-family: "Nunito";
       font-weight: 700;
       font-size: 25px;
       line-height: 40px;
       color: #030314;
       margin-bottom: 8px;
     }
-    .desc{
-      font-family: 'Quicksand';
+    .desc {
+      font-family: "Quicksand";
       font-style: normal;
       font-size: 16px;
       line-height: 26px;
-      color: #70798B;
+      color: #70798b;
       display: -webkit-box;
-      overflow: hidden;  
-      -webkit-line-clamp:3;
+      overflow: hidden;
+      -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
     }
   }
-  .r{
+  .r {
     width: 170px;
-    .btn{
+    .btn {
       width: 170px;
       height: 50px;
-      font-family: 'Quicksand';
+      font-family: "Quicksand";
       font-size: 16px;
       line-height: 50px;
       text-align: center;
-      color: #FFFFFF;
+      color: #ffffff;
       border-radius: 25px;
       cursor: pointer;
     }
-    .btn-1{
-      background: #FD346E;
+    .btn-1 {
+      background: #fd346e;
       box-shadow: -15px 20px 50px rgba(96, 1, 211, 0.301961);
       margin-bottom: 40px;
     }
-    .btn-2{
-      background: #6001D3;
+    .btn-2 {
+      background: #6001d3;
       box-shadow: -15px 20px 50px rgba(96, 1, 211, 0.301961);
     }
   }

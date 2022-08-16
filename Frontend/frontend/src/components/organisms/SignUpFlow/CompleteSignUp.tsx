@@ -1,21 +1,21 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Button, Grid, Box, Paper, TextField, Stack } from '@mui/material';
-import Typography from '@mui/material/Typography';
-import { AppContext } from '../../../contexts/AppContext';
-import UserPool from '../../../utils/auth/UserPool';
-import { useNavigate } from 'react-router-dom';
-import { CognitoUser } from 'amazon-cognito-identity-js';
-import { createUser } from '../../../api/users';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { createToken } from '../../../api/google';
+import React, { useState, useEffect, useContext } from "react";
+import { Button, Grid, Box, Paper, TextField, Stack } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import { AppContext } from "../../../contexts/AppContext";
+import UserPool from "../../../utils/auth/UserPool";
+import { useNavigate } from "react-router-dom";
+import { CognitoUser } from "amazon-cognito-identity-js";
+import { createUser } from "../../../api/users";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import { createToken } from "../../../api/google";
 
 const CompleteSignUp: React.FC<{}> = () => {
   const navigate = useNavigate();
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [open, setOpen] = React.useState(false);
   const {
     email,
@@ -83,24 +83,24 @@ const CompleteSignUp: React.FC<{}> = () => {
       firstName: firstName,
       lastName: lastName,
       dateOfBirth: dateOfBirth,
-      avatar: '1',
+      avatar: "1",
       role: userType,
       rating: 0,
       totalMeetings: 0,
     };
     await createUser(user);
-    const result = await createToken(googleAuthToken || '', email);
+    const result = await createToken(googleAuthToken || "", email);
     if (result.status !== 200) {
-      throw new Error('Unable to set tokens correctly');
+      throw new Error("Unable to set tokens correctly");
     }
     console.log(result);
-    navigate('/login');
+    navigate("/login");
   };
 
   useEffect(() => {}, [courses, isCodeSent]);
 
   const onSubmit = () => {
-    console.log('On Submit');
+    console.log("On Submit");
   };
 
   return (
@@ -109,23 +109,23 @@ const CompleteSignUp: React.FC<{}> = () => {
         sx={{
           my: 8,
           mx: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justify: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justify: "center",
         }}
       >
         <Box>
-          <Typography component='h1' variant='h5' sx={{ p: 4 }}>
+          <Typography component="h1" variant="h5" sx={{ p: 4 }}>
             Complete Sign Up
           </Typography>
         </Box>
-        <Box component='form' noValidate sx={{ m: 4 }}>
+        <Box component="form" noValidate sx={{ m: 4 }}>
           {isCodeSent && (
             <TextField
               sx={{ m: 4 }}
-              id='outlined-multiline-flexible'
-              label='ConfirmationCode'
+              id="outlined-multiline-flexible"
+              label="ConfirmationCode"
               multiline
               maxRows={4}
               value={confirmationCode}
@@ -136,14 +136,14 @@ const CompleteSignUp: React.FC<{}> = () => {
         <Dialog
           open={open}
           onClose={handleClose}
-          aria-labelledby='alert-dialog-title'
-          aria-describedby='alert-dialog-description'
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id='alert-dialog-title'>
-            {'An error occured'}
+          <DialogTitle id="alert-dialog-title">
+            {"An error occured"}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText id='alert-dialog-description'>
+            <DialogContentText id="alert-dialog-description">
               {error}
             </DialogContentText>
           </DialogContent>

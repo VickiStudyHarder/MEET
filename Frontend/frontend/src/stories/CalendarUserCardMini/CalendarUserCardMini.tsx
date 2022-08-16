@@ -10,9 +10,8 @@ import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import { Avatar, CardActionArea } from "@mui/material";
-import './CalendarUserCardMini.scss';
-import Star from '../assets/Calender/star.png';
-
+import "./CalendarUserCardMini.scss";
+import Star from "../assets/Calender/star.png";
 
 export interface CalendarUserCardMiniInfo {
   avator?: string;
@@ -27,11 +26,10 @@ export default function PostingCard(props: CalendarUserCardMiniInfo) {
         <Avatar className="avator" src={props.avator} />
       </Box>
       <Box className="main">
-        <Box className="name" style={{fontFamily:"Quicksand"}}> 
+        <Box className="name" style={{ fontFamily: "Quicksand" }}>
           {props.name}
         </Box>
       </Box>
     </Box>
   );
 }
-

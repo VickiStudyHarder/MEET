@@ -1,8 +1,8 @@
-.book-meeting-wrap{
+.book-meeting-wrap {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   width: 374px;
   background-color: #fff;
   box-shadow: -15px 20px 50px rgba(171, 175, 199, 0.3);
@@ -10,47 +10,47 @@
   padding: 23px 28px 36px;
   box-sizing: border-box;
   outline: 0 !important;
-  .avator-box{
+  .avator-box {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
   }
-  .avator{
+  .avator {
     width: 45px;
     height: 45px;
     margin-right: 24px;
   }
-  .time-box{
+  .time-box {
     line-height: 16px;
-    font-family: 'Quicksand';
+    font-family: "Quicksand";
     font-size: 12px;
-    color: #70798B;
-    .name{
-      font-family: 'Nunito';
+    color: #70798b;
+    .name {
+      font-family: "Nunito";
       font-weight: 700;
       font-size: 14px;
       line-height: 20px;
       color: #030314;
     }
   }
-  .desc{
+  .desc {
     width: 310px;
     padding: 10px 0;
     margin-bottom: 24px;
-    font-family: 'Quicksand';
+    font-family: "Quicksand";
     font-weight: 700;
     font-size: 13px;
     line-height: 16px;
-    color: #70798B;
+    color: #70798b;
     display: flex;
     align-items: center;
   }
-  .btn-box{
+  .btn-box {
     display: flex;
     justify-content: center;
     align-items: flex-end;
   }
-  .btn-box .btn-l{
+  .btn-box .btn-l {
     margin-right: 24px;
     height: 48px;
     width: 154px;
@@ -58,30 +58,30 @@
     font-size: 16px;
     color: #fff;
     border-radius: 116px;
-    background: #6001D3;
+    background: #6001d3;
     box-shadow: -9.54082px 12.7211px 31.8027px rgba(96, 1, 211, 0.301961);
     cursor: pointer;
     display: flex;
     align-items: center;
-    &:hover{
-      background: #6001D3;
+    &:hover {
+      background: #6001d3;
       box-shadow: -9.54082px 12.7211px 31.8027px rgba(96, 1, 211, 0.301961);
     }
   }
-  .btn-box .btn-r{
+  .btn-box .btn-r {
     height: 44px;
     width: 138px;
     text-align: center;
     font-size: 16px;
     color: #000;
     border-radius: 40px;
-    background: #FCDC00;
+    background: #fcdc00;
     box-shadow: -9.54082px 12.7211px 31.8027px rgba(253, 52, 110, 0.301961);
     cursor: pointer;
     display: flex;
     align-items: center;
-    &:hover{
-      background: #FCDC00;
+    &:hover {
+      background: #fcdc00;
       box-shadow: -9.54082px 12.7211px 31.8027px rgba(253, 52, 110, 0.301961);
     }
   }

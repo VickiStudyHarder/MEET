@@ -131,7 +131,6 @@ export const Todo: React.VFC = () => {
   });
   useEffect(() => {
     setData(meetingTodos);
-
   }, [meetingTodos]);
 
   // useEffect(() => {console.log(getMeetingTodos(email))}, []);
@@ -261,95 +260,91 @@ export const Todo: React.VFC = () => {
             <div className="flex">
               {data &&
                 data.map((item: any, index: any) => {
-                  console.log('item', item.task)
+                  console.log("item", item.task);
                   return (
-        
-                        <div
-                          style={{
-                            display: filter || item.task.length > 0 ? "" : "none",
-                          }}
-                          className="meet-from"
-                          key={index}
-                        >
-                          <div className="form-title">{item.title}</div>
-                          {item.task &&
-                            item.task.length > 0 &&
-                            item.task.map((itm: any, idx: any) => {
-                              return (
-                                <div>
-                                  {itm.isEdit ? (
-                                    <TextArea
-                                      className="from-area"
-                                      rows={4}
-                                      placeholder="Edit your to-do task..."
-                                      onPressEnter={(e) => editTask(index, idx, e)}
-                                    />
-                                  ) : (
-                                    <div
-                                      className="form-info"
-                                      style={{
-                                        display:
-                                          itm.deled || itm.isEdit ? "none" : "",
-                                      }}
-                                      key={idx}
-                                    >
-                                      <input
-                                        className="radio_type"
-                                        type="radio"
-                                        name="type"
-                                        id={idx}
-                                        onClick={() => ondel(index, idx)}
-                                      />
-                                      <CheckOutlined
-                                        style={{
-                                          visibility: itm.isdel
-                                            ? "visible"
-                                            : "hidden",
-                                        }}
-                                        onClick={() => ondel(index, idx)}
-                                        className="Check-Outlined"
-                                      />
-                                      <div
-                                        className="form-txt"
-                                        style={{
-                                          textDecoration: itm.isdel
-                                            ? "line-through"
-                                            : "",
-                                        }}
-                                        onClick={() => editItm(index, idx)}
-                                      >
-                                        {itm.name}
-                                      </div>
-                                      <img
-                                        alt=""
-                                        className="del-itm"
-                                        src={Delicon}
-                                        onClick={() => showModel(index, itm, idx)}
-                                      />
-                                    </div>
-                                  )}
+                    <div
+                      style={{
+                        display: filter || item.task.length > 0 ? "" : "none",
+                      }}
+                      className="meet-from"
+                      key={index}
+                    >
+                      <div className="form-title">{item.title}</div>
+                      {item.task &&
+                        item.task.length > 0 &&
+                        item.task.map((itm: any, idx: any) => {
+                          return (
+                            <div>
+                              {itm.isEdit ? (
+                                <TextArea
+                                  className="from-area"
+                                  rows={4}
+                                  placeholder="Edit your to-do task..."
+                                  onPressEnter={(e) => editTask(index, idx, e)}
+                                />
+                              ) : (
+                                <div
+                                  className="form-info"
+                                  style={{
+                                    display:
+                                      itm.deled || itm.isEdit ? "none" : "",
+                                  }}
+                                  key={idx}
+                                >
+                                  <input
+                                    className="radio_type"
+                                    type="radio"
+                                    name="type"
+                                    id={idx}
+                                    onClick={() => ondel(index, idx)}
+                                  />
+                                  <CheckOutlined
+                                    style={{
+                                      visibility: itm.isdel
+                                        ? "visible"
+                                        : "hidden",
+                                    }}
+                                    onClick={() => ondel(index, idx)}
+                                    className="Check-Outlined"
+                                  />
+                                  <div
+                                    className="form-txt"
+                                    style={{
+                                      textDecoration: itm.isdel
+                                        ? "line-through"
+                                        : "",
+                                    }}
+                                    onClick={() => editItm(index, idx)}
+                                  >
+                                    {itm.name}
+                                  </div>
+                                  <img
+                                    alt=""
+                                    className="del-itm"
+                                    src={Delicon}
+                                    onClick={() => showModel(index, itm, idx)}
+                                  />
                                 </div>
-                              );
-                            })}
-                          {item.option.showAdd ? (
-                            <div
-                              className="form-btn"
-                              onClick={() => addTask(item, index)}
-                            >
-                              + Add more task
+                              )}
                             </div>
-                          ) : (
-                            <TextArea
-                              className="from-area"
-                              rows={4}
-                              placeholder="Enter your to-do task..."
-                              onPressEnter={(e) => enterTask(item, index, e)}
-                            />
-                          )}
+                          );
+                        })}
+                      {item.option.showAdd ? (
+                        <div
+                          className="form-btn"
+                          onClick={() => addTask(item, index)}
+                        >
+                          + Add more task
                         </div>
-
-                  
-
+                      ) : (
+                        <TextArea
+                          className="from-area"
+                          rows={4}
+                          placeholder="Enter your to-do task..."
+                          onPressEnter={(e) => enterTask(item, index, e)}
+                        />
+                      )}
+                    </div>
                   );
                 })}
             </div>

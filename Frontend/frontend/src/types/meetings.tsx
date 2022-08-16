@@ -18,7 +18,7 @@ export interface IToDoItem {
   title: string;
   dueDate: Date;
   assigneeId: string;
-  isCompleted?:boolean;
+  isCompleted?: boolean;
 }
 export interface INotes {
   id?: number;
@@ -32,7 +32,7 @@ export interface IMeetingAttendee {
   userId: string;
   attended: boolean;
   googleCalendarId: string;
-  meetingId? : number;
+  meetingId?: number;
   user?: IUser;
 }
 export interface IMeetingResponse {

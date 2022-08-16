@@ -4,16 +4,16 @@ import * as React from "react";
 export interface IInputProps {
   sx?: any;
   margin?: any;
-  required?:boolean;
-  fullWidth?:any;
-  id?:any;
-  label?:any;
-  name?:any;
-  autoComplete?:any;
-  autoFocus?:any;
-  value?:any;
-  onChange?:any;
-  type?:any;
+  required?: boolean;
+  fullWidth?: any;
+  id?: any;
+  label?: any;
+  name?: any;
+  autoComplete?: any;
+  autoFocus?: any;
+  value?: any;
+  onChange?: any;
+  type?: any;
 }
 
 export default function CustomInput(props: IInputProps) {

@@ -19,7 +19,7 @@ import { styled } from "@mui/material/styles";
 import AppContext from "../../contexts/AppContext";
 import { getMeetingsByUserId } from "../../api/meeting";
 import { IMeeting, IMeetingResponse } from "../../types/meetings";
-import CircleLoader from 'react-spinners/CircleLoader'
+import CircleLoader from "react-spinners/CircleLoader";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -39,17 +39,16 @@ const Home = () => {
   // loading
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setLoading(true)
-    setTimeout(() => {
-    }, 500)
-  }, [])
+    setLoading(true);
+    setTimeout(() => {}, 500);
+  }, []);
   useEffect(() => {
     handleGetUpcomingMeetings();
   }, []);
-  
+
   const handleGetUpcomingMeetings = async () => {
     const result = await getMeetingsByUserId(email);
-    setLoading(false)
+    setLoading(false);
     const upComingMeetings = filterUpcomingMeetings(result);
     setUpcomingMeetings(upComingMeetings);
   };
@@ -66,17 +65,18 @@ const Home = () => {
   return (
     <ThemeProvider theme={theme}>
       {loading ? (
-        <Box sx={{
-          textAlign: 'center',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          height: '100vh'
-        }}>
-          <CircleLoader size={100} color={'#6001D3'} loading={loading} />
+        <Box
+          sx={{
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100vh",
+          }}
+        >
+          <CircleLoader size={100} color={"#6001D3"} loading={loading} />
         </Box>
-
       ) : (
         <Box>
           <CssBaseline />
@@ -106,7 +106,9 @@ const Home = () => {
                     upcomingMeetings.map((meeting: IMeetingResponse) => {
                       return (
                         <Button
-                          onClick={() => navigate(`/meeting/${meeting.meeting.id}`)}
+                          onClick={() =>
+                            navigate(`/meeting/${meeting.meeting.id}`)
+                          }
                         >
                           <UpcomingMeetingCard meeting={meeting.meeting} />
                         </Button>
@@ -137,7 +139,6 @@ const Home = () => {
           </Container>
         </Box>
       )}
-
     </ThemeProvider>
   );
 };

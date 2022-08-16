@@ -10,10 +10,9 @@ import SkipPreviousIcon from "@mui/icons-material/SkipPrevious";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SkipNextIcon from "@mui/icons-material/SkipNext";
 import { Avatar, CardActionArea } from "@mui/material";
-import './CalendarUserCardPrimary.scss';
+import "./CalendarUserCardPrimary.scss";
 import Rating from "@mui/material/Rating";
-import Star from '../assets/Calender/star.png';
-
+import Star from "../assets/Calender/star.png";
 
 export interface CalendarUserCardPrimaryInfo {
   name?: string;
@@ -22,26 +21,23 @@ export interface CalendarUserCardPrimaryInfo {
   avatar?: string;
 }
 
-export default function CalendarUserCardPrimary(props: CalendarUserCardPrimaryInfo) {
+export default function CalendarUserCardPrimary(
+  props: CalendarUserCardPrimaryInfo
+) {
   return (
     <Box className="calender-user-card-wrap">
       <Box className="l">
-        <Box className="name" style={{fontFamily:"Quicksand"}}>
+        <Box className="name" style={{ fontFamily: "Quicksand" }}>
           {props.name}
         </Box>
         <Box className="desc">
-          <Box className="txt" style={{fontFamily:"Quicksand"}}>
+          <Box className="txt" style={{ fontFamily: "Quicksand" }}>
             {props.job}
           </Box>
           <Box className="line"></Box>
         </Box>
         <Box className="star-box">
-          <Rating
-            name="read-only"
-            size="small"
-            value={props.rating}
-            readOnly
-          />
+          <Rating name="read-only" size="small" value={props.rating} readOnly />
         </Box>
       </Box>
       <Box className="r">

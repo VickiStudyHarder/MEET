@@ -1,7 +1,7 @@
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
-import { formatJSONResponse } from '@libs/api-gateway';
-import { middyfy } from '@libs/lambda';
-import { MeetingAttendee, PrismaClient } from '@prisma/client';
+import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
+import { formatJSONResponse } from "@libs/api-gateway";
+import { middyfy } from "@libs/lambda";
+import { MeetingAttendee, PrismaClient } from "@prisma/client";
 import {
   IMeetingAttendee,
   IMeetingPayload,
@@ -9,12 +9,12 @@ import {
   IToDoItem,
   IAgenda,
   IRecording,
-} from '../../../types/meeting';
-import oauth2Client from '@libs/oauth2-client';
+} from "../../../types/meeting";
+import oauth2Client from "@libs/oauth2-client";
 
-import { google } from 'googleapis';
+import { google } from "googleapis";
 
-import schema from './schema';
+import schema from "./schema";
 
 const prisma = new PrismaClient();
 
@@ -38,7 +38,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       });
     }
 
-    console.log('toDoItems');
+    console.log("toDoItems");
     if (meeting?.toDoItem && meeting.toDoItem.length > 0) {
       const res = await Promise.all(
         meeting.toDoItem.map(async (item: IToDoItem) => {
@@ -60,7 +60,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       );
     }
 
-    console.log('notes');
+    console.log("notes");
 
     if (meeting?.notes && meeting.notes.length > 0) {
       await Promise.all(
@@ -83,7 +83,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       );
     }
 
-    console.log('attendees');
+    console.log("attendees");
     //console.log(event.body);
     if (meeting?.meetingAttendee && meeting.meetingAttendee.length > 0) {
       await Promise.all(
@@ -106,7 +106,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       );
     }
 
-    console.log('agendas');
+    console.log("agendas");
     if (meeting?.agendas && meeting.agendas.length > 0) {
       await Promise.all(
         meeting.agendas.map(async (item: IAgenda) => {
@@ -128,7 +128,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       );
     }
 
-    console.log('recordings');
+    console.log("recordings");
     if (meeting?.recordings && meeting.recordings.length > 0) {
       const res = await Promise.all(
         meeting.recordings.map(async (item: IRecording) => {
@@ -159,7 +159,7 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
           meetingStart: meeting.meetingStart,
           meetingEnd: meeting.meetingEnd,
           summary: meeting.summary,
-          description: meeting.description
+          description: meeting.description,
         },
       });
     }
@@ -219,30 +219,30 @@ const updateGoogleMeeting = async (
         );
 
         oauth2Client.setCredentials({ refresh_token: token.refreshToken });
-        const calendar = google.calendar('v3');
+        const calendar = google.calendar("v3");
 
         return await calendar.events.update({
           conferenceDataVersion: 1,
           auth: oauth2Client,
           eventId: meetingData.requestId,
-          calendarId: 'primary',
+          calendarId: "primary",
           requestBody: {
             summary: meetingPayload.summary,
             description: meetingPayload.description,
             location: meetingPayload.location,
             start: {
               dateTime: new Date(meetingPayload.meetingStart),
-              timeZone: 'Australia/Sydney',
+              timeZone: "Australia/Sydney",
             },
             end: {
               dateTime: new Date(meetingPayload.meetingEnd),
-              timeZone: 'Australia/Sydney',
+              timeZone: "Australia/Sydney",
             },
             attendees: attendees,
             conferenceData: {
               createRequest: {
                 conferenceSolutionKey: {
-                  type: 'hangoutsMeet',
+                  type: "hangoutsMeet",
                 },
               },
             },

@@ -26,12 +26,24 @@ export interface IEmptyMeetingBox {
 
 export default function EmptyMeetingBox(props: IEmptyMeetingBox) {
   const navigate = useNavigate();
-  const iconset = [agenda,note,todo]
-  const name = ["Create Agenda","Create Note","Create Todo"]
+  const iconset = [agenda, note, todo];
+  const name = ["Create Agenda", "Create Note", "Create Todo"];
   return (
     <Button onClick={() => navigate(`/${props.type}/${props.id}`)}>
       <Box sx={{ width: 260, height: 210 }}>
-        <Card sx={{ width: 260, height: 210, borderRadius: 5 ,boxShadow: '-15px 30px 30px rgba(8, 20, 32, 0.2)'}} style={{ fontFamily: "Quicksand" ,fontWeight:"700", fontSize:"18px"}}>
+        <Card
+          sx={{
+            width: 260,
+            height: 210,
+            borderRadius: 5,
+            boxShadow: "-15px 30px 30px rgba(8, 20, 32, 0.2)",
+          }}
+          style={{
+            fontFamily: "Quicksand",
+            fontWeight: "700",
+            fontSize: "18px",
+          }}
+        >
           {name[props.icon]}
           <CardActionArea
             sx={{

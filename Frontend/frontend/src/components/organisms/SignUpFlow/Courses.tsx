@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import {
   Button,
   Grid,
@@ -7,15 +7,15 @@ import {
   TextField,
   IconButton,
   InputAdornment,
-} from '@mui/material';
-import Typography from '@mui/material/Typography';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { AppContext } from '../../../contexts/AppContext';
-import UserPool from '../../../utils/auth/UserPool';
-import { useNavigate } from 'react-router-dom';
-import { CognitoUser } from 'amazon-cognito-identity-js';
-import { createUser } from '../../../api/users';
+} from "@mui/material";
+import Typography from "@mui/material/Typography";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { AppContext } from "../../../contexts/AppContext";
+import UserPool from "../../../utils/auth/UserPool";
+import { useNavigate } from "react-router-dom";
+import { CognitoUser } from "amazon-cognito-identity-js";
+import { createUser } from "../../../api/users";
 
 interface ICourses {
   decrementStage: () => void;
@@ -24,7 +24,7 @@ interface ICourses {
 
 const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
   const navigate = useNavigate();
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
 
   const {
     email,
@@ -43,7 +43,7 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
   const addCourse = () => {
     const updatedCourses = [input, ...courses];
     setCourses(updatedCourses);
-    setInput('');
+    setInput("");
   };
 
   const onSignUp = (event: any) => {
@@ -81,11 +81,11 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
     console.log(username);
     const user = {
       id: username,
-      firstName: 'test',
-      lastName: 'test',
+      firstName: "test",
+      lastName: "test",
       dateOfBirth: new Date(),
-      avatar: '1',
-      role: 'student',
+      avatar: "1",
+      role: "student",
       rating: 0,
       totalMeetings: 0,
     };
@@ -101,39 +101,39 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
         sx={{
           my: 8,
           mx: 4,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justify: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justify: "center",
         }}
       >
-        <Typography component='h1' variant='h5' sx={{ p: 4 }}>
+        <Typography component="h1" variant="h5" sx={{ p: 4 }}>
           Which courses are you taking?
         </Typography>
         {courses.length > 0 && (
-          <Typography component='h1' variant='h5' sx={{ p: 4 }}>
+          <Typography component="h1" variant="h5" sx={{ p: 4 }}>
             Selected Courses:
           </Typography>
         )}
         {courses.length > 0 &&
           courses.map((course: string) => {
             return (
-              <Typography component='h1' variant='h5'>
+              <Typography component="h1" variant="h5">
                 {course}
               </Typography>
             );
           })}
-        <Box component='form' noValidate sx={{ m: 4 }}>
+        <Box component="form" noValidate sx={{ m: 4 }}>
           <TextField
-            id='outlined-multiline-flexible'
-            label='Courses'
+            id="outlined-multiline-flexible"
+            label="Courses"
             multiline
             maxRows={4}
             value={input}
             onChange={(e: any) => setInput(e.target.value)}
             InputProps={{
               endAdornment: (
-                <InputAdornment position='end'>
+                <InputAdornment position="end">
                   <IconButton onClick={addCourse}>
                     <AddCircleOutlineIcon />
                   </IconButton>
@@ -144,8 +144,8 @@ const Courses: React.FC<ICourses> = ({ decrementStage, incrementStage }) => {
           {isCodeSent && (
             <TextField
               sx={{ m: 4 }}
-              id='outlined-multiline-flexible'
-              label='ConfirmationCode'
+              id="outlined-multiline-flexible"
+              label="ConfirmationCode"
               multiline
               maxRows={4}
               value={confirmationCode}

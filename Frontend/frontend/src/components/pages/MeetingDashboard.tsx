@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from "react";
 import {
   Container,
   createTheme,
@@ -11,26 +11,26 @@ import {
   Dialog,
   DialogContent,
   Rating,
-} from '@mui/material';
-import NavBar from '../molecules/NavBar';
-import Box from '@mui/material/Box';
-import MeetingImage from '../../assets/MeetingImage.png';
-import { getMeetingById, updateMeeting } from '../../api/meeting';
-import { useNavigate, useParams } from 'react-router-dom';
+} from "@mui/material";
+import NavBar from "../molecules/NavBar";
+import Box from "@mui/material/Box";
+import MeetingImage from "../../assets/MeetingImage.png";
+import { getMeetingById, updateMeeting } from "../../api/meeting";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   IMeeting,
   INotes,
   IAgenda,
   IToDoItem,
   IMeetingAttendee,
-} from '../../types/meetings';
-import AgendaList from '../../stories/AgendaList/AgendaList';
-import MeetingBox from '../../stories/Meeting_Box';
-import EmptyMeetingBox from '../../stories/EmptyMeetingBox';
-import AppContext from '../../contexts/AppContext';
-import MentorMeetingRow from '../molecules/MentorRatingRow';
-import CircleLoader from 'react-spinners/CircleLoader';
-import PageTitle from '../../stories/PageTiltle';
+} from "../../types/meetings";
+import AgendaList from "../../stories/AgendaList/AgendaList";
+import MeetingBox from "../../stories/Meeting_Box";
+import EmptyMeetingBox from "../../stories/EmptyMeetingBox";
+import AppContext from "../../contexts/AppContext";
+import MentorMeetingRow from "../molecules/MentorRatingRow";
+import CircleLoader from "react-spinners/CircleLoader";
+import PageTitle from "../../stories/PageTiltle";
 
 const theme = createTheme();
 
@@ -87,7 +87,7 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
       id: user.id,
       userId: email,
       attended: true,
-      googleCalendarId: '',
+      googleCalendarId: "",
     });
 
     const meetingUpdate = {
@@ -104,71 +104,71 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
       {loading ? (
         <Box
           sx={{
-            textAlign: 'center',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            height: '100vh',
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            height: "100vh",
           }}
         >
-          <CircleLoader size={100} color={'#6001D3'} loading={loading} />
+          <CircleLoader size={100} color={"#6001D3"} loading={loading} />
         </Box>
       ) : (
         <Box>
           <CssBaseline />
           <NavBar inMeeting={true} />
-          <Container maxWidth='xl' sx={{ display: 'flex', flexGrow: 1 }}>
+          <Container maxWidth="xl" sx={{ display: "flex", flexGrow: 1 }}>
             <Box
               sx={{
-                display: 'flex',
-                flexDirection: 'column',
+                display: "flex",
+                flexDirection: "column",
                 flexGrow: 1,
-                width: '100%',
+                width: "100%",
               }}
             >
               <Box
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
                 }}
               >
                 <Box
                   sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
+                    display: "flex",
+                    flexDirection: "row",
                     py: 2,
                     maxHeight: 140,
-                    justifyContent: 'space-between',
+                    justifyContent: "space-between",
                   }}
                 >
                   <Box sx={{ marginLeft: 5 }}>
                     <PageTitle
-                      icon='6'
+                      icon="6"
                       content={`Meeting - ${meeting?.summary}`}
                       doSomething={() => navigate(-1)}
                     />
                   </Box>
-                  <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+                  <Box sx={{ display: "flex", flexDirection: "row" }}>
                     <Box>
                       {meeting && meeting?.googleCalendarId && (
                         <a href={meeting.googleCalendarId}>
                           <Button
                             sx={{
-                              minWidth: '200px',
-                              minHeight: '40px',
-                              maxHeight: '40px',
-                              maxWidth: '100px',
+                              minWidth: "200px",
+                              minHeight: "40px",
+                              maxHeight: "40px",
+                              maxWidth: "100px",
                               borderRadius: 5,
-                              backgroundColor: '#6001D3',
-                              color: '#FFFFFF',
+                              backgroundColor: "#6001D3",
+                              color: "#FFFFFF",
                               fontSize: 12,
-                              fontWeight: 'semibold',
-                              my: 'auto',
+                              fontWeight: "semibold",
+                              my: "auto",
                               mx: 2,
                             }}
-                            variant='contained'
+                            variant="contained"
                           >
                             Join Meeting
                           </Button>
@@ -179,38 +179,38 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                       {user && user.attended ? (
                         <Button
                           sx={{
-                            minWidth: '200px',
-                            minHeight: '40px',
-                            maxHeight: '40px',
-                            maxWidth: '100px',
+                            minWidth: "200px",
+                            minHeight: "40px",
+                            maxHeight: "40px",
+                            maxWidth: "100px",
                             borderRadius: 5,
-                            backgroundColor: '#00b300',
-                            color: '#FFFFFF',
+                            backgroundColor: "#00b300",
+                            color: "#FFFFFF",
                             fontSize: 12,
-                            my: 'auto',
+                            my: "auto",
                             mx: 2,
                           }}
-                          variant='contained'
+                          variant="contained"
                         >
                           Attended
                         </Button>
                       ) : (
                         <Button
                           sx={{
-                            minWidth: '200px',
-                            minHeight: '40px',
-                            maxHeight: '40px',
-                            maxWidth: '100px',
+                            minWidth: "200px",
+                            minHeight: "40px",
+                            maxHeight: "40px",
+                            maxWidth: "100px",
                             borderRadius: 5,
-                            backgroundColor: '#6001D3',
-                            color: '#FFFFFF',
+                            backgroundColor: "#6001D3",
+                            color: "#FFFFFF",
                             fontSize: 12,
-                            fontWeight: 'bold',
-                            my: 'auto',
+                            fontWeight: "bold",
+                            my: "auto",
                           }}
-                          variant='contained'
+                          variant="contained"
                           onClick={handleMarkAsAttended}
-                          style={{ fontFamily: 'Quicksand' }}
+                          style={{ fontFamily: "Quicksand" }}
                         >
                           Mark As Attended
                         </Button>
@@ -219,18 +219,18 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                   </Box>
                 </Box>
               </Box>
-              <Divider variant='middle' sx={{ width: '100%' }} />
-              <Box sx={{ display: 'flex', flexGrow: 1, flexDirection: 'row' }}>
+              <Divider variant="middle" sx={{ width: "100%" }} />
+              <Box sx={{ display: "flex", flexGrow: 1, flexDirection: "row" }}>
                 <Box>
-                  <Box sx={{ display: 'flex', flexGrow: 1, m: 4 }}>
+                  <Box sx={{ display: "flex", flexGrow: 1, m: 4 }}>
                     {meeting?.agendas && (
                       <Grid container spacing={1}>
                         {meeting?.agendas?.map((agenda: IAgenda) => {
                           return (
                             <MeetingBox
                               id={meeting.id}
-                              type={'agenda'}
-                              boxName='Agenda Item'
+                              type={"agenda"}
+                              boxName="Agenda Item"
                               meetingName1={agenda.title}
                               meetingName2={agenda.details}
                             />
@@ -238,21 +238,21 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                         })}
                         <EmptyMeetingBox
                           id={meeting.id}
-                          type={'agenda'}
+                          type={"agenda"}
                           icon={0}
                         />
                       </Grid>
                     )}
                   </Box>
-                  <Box sx={{ display: 'flex', flexGrow: 1, m: 4 }}>
+                  <Box sx={{ display: "flex", flexGrow: 1, m: 4 }}>
                     {meeting?.notes && (
                       <Grid container spacing={1}>
                         {meeting?.toDoItem?.map((todo: IToDoItem) => {
                           return (
                             <MeetingBox
                               id={meeting.id}
-                              type={'todo'}
-                              boxName='To Do'
+                              type={"todo"}
+                              boxName="To Do"
                               meetingName1={todo.dueDate.toString()}
                               meetingName2={todo.title}
                             />
@@ -260,21 +260,21 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                         })}
                         <EmptyMeetingBox
                           id={meeting.id}
-                          type={'todo'}
+                          type={"todo"}
                           icon={1}
                         />
                       </Grid>
                     )}
                   </Box>
-                  <Box sx={{ display: 'flex', flexGrow: 1, m: 4 }}>
+                  <Box sx={{ display: "flex", flexGrow: 1, m: 4 }}>
                     {meeting?.notes && (
                       <Grid container spacing={1}>
                         {meeting?.notes?.map((note: INotes) => {
                           return (
                             <MeetingBox
                               id={meeting.id}
-                              type={'notes'}
-                              boxName='Meeting Note'
+                              type={"notes"}
+                              boxName="Meeting Note"
                               meetingName1={note.title}
                               meetingName2={note.details}
                             />
@@ -282,7 +282,7 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                         })}
                         <EmptyMeetingBox
                           id={meeting.id}
-                          type={'notes'}
+                          type={"notes"}
                           icon={2}
                         />
                       </Grid>
@@ -291,56 +291,56 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                 </Box>
               </Box>
             </Box>
-            <Dialog open={open} onClose={handleClose} maxWidth='lg'>
+            <Dialog open={open} onClose={handleClose} maxWidth="lg">
               <DialogContent
                 sx={{
                   width: 800,
                   height: 600,
-                  display: 'flex',
+                  display: "flex",
                   flexGrow: 1,
-                  flexDirection: 'column',
+                  flexDirection: "column",
                 }}
               >
                 <Typography
-                  variant='h3'
-                  align='center'
+                  variant="h3"
+                  align="center"
                   sx={{ m: 4 }}
-                  style={{ fontFamily: 'Quicksand' }}
+                  style={{ fontFamily: "Quicksand" }}
                 >
                   Rate Your Mentors
                 </Typography>
-                <Divider variant='middle' />
+                <Divider variant="middle" />
                 {meeting &&
                   meeting?.meetingAttendee?.map(
                     (attendee: IMeetingAttendee) => {
-                      if (attendee?.user?.role === 'mentor') {
+                      if (attendee?.user?.role === "mentor") {
                         return <MentorMeetingRow attendee={attendee} />;
                       }
                     }
                   )}
 
                 <Box
-                  sx={{ m: 'auto', display: 'flex', flexDirection: 'column' }}
+                  sx={{ m: "auto", display: "flex", flexDirection: "column" }}
                 >
                   <Button
                     sx={{
-                      minWidth: '200px',
-                      minHeight: '40px',
-                      maxHeight: '40px',
-                      maxWidth: '100px',
+                      minWidth: "200px",
+                      minHeight: "40px",
+                      maxHeight: "40px",
+                      maxWidth: "100px",
                       borderRadius: 5,
-                      backgroundColor: '#00b300',
-                      color: '#FFFFFF',
+                      backgroundColor: "#00b300",
+                      color: "#FFFFFF",
                       fontSize: 12,
-                      m: 'auto',
+                      m: "auto",
                     }}
-                    variant='contained'
+                    variant="contained"
                     onClick={handleCompleteMeeting}
-                    style={{ fontFamily: 'Quicksand' }}
+                    style={{ fontFamily: "Quicksand" }}
                   >
                     Complete Review
                   </Button>
-                  <Typography sx={{ m: 2 }} style={{ fontFamily: 'Quicksand' }}>
+                  <Typography sx={{ m: 2 }} style={{ fontFamily: "Quicksand" }}>
                     Review Can Only Be Completed Once
                   </Typography>
                 </Box>

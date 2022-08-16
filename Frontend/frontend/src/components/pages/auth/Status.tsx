@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { AppContext } from '../../../contexts/AppContext';
+import React, { useState, useContext, useEffect } from "react";
+import { AppContext } from "../../../contexts/AppContext";
 
 const Status = () => {
   const [status, setStatus] = useState(false);
@@ -21,7 +21,7 @@ const Status = () => {
           <button onClick={logout}>Logout</button>
         </div>
       ) : (
-        'Please login below'
+        "Please login below"
       )}
     </div>
   );

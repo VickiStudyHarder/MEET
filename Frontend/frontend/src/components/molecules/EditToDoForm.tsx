@@ -1,4 +1,4 @@
-import React, { Dispatch, useContext, useState } from 'react';
+import React, { Dispatch, useContext, useState } from "react";
 import {
   Box,
   FormControl,
@@ -6,21 +6,26 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
-} from '@mui/material';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import GroupsTwoToneIcon from '@mui/icons-material/GroupsTwoTone';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import { IToDoItem, INotes, IMeeting, IMeetingAttendee } from '../../types/meetings';
-import { AppContext } from '../../contexts/AppContext';
-import { updateMeeting } from '../../api/meeting';
-import { useParams } from 'react-router-dom';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+} from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import GroupsTwoToneIcon from "@mui/icons-material/GroupsTwoTone";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import {
+  IToDoItem,
+  INotes,
+  IMeeting,
+  IMeetingAttendee,
+} from "../../types/meetings";
+import { AppContext } from "../../contexts/AppContext";
+import { updateMeeting } from "../../api/meeting";
+import { useParams } from "react-router-dom";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 export interface IEditToDoForm {
   setOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -35,7 +40,7 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
   handleGetMeeting,
   handleClose,
   toDoItem,
-  meeting
+  meeting,
 }) => {
   const { id } = useParams();
   const { email } = useContext(AppContext);
@@ -77,18 +82,18 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
   return (
     <Box
       sx={{
-        display: 'flex',
+        display: "flex",
         flexGrow: 1,
-        justify: 'center',
+        justify: "center",
       }}
     >
-      <Card sx={{ display: 'flex', flexGrow: 1, p: 4 }}>
+      <Card sx={{ display: "flex", flexGrow: 1, p: 4 }}>
         <CardContent sx={{ marginRight: 3 }}>
           <Grid
             container
-            direction='column'
+            direction="column"
             sx={{
-              display: 'flex',
+              display: "flex",
               flexGrow: 1,
               // marginLeft: 1,
               marginTop: 2,
@@ -96,23 +101,23 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
           >
             <Grid
               container
-              direction='row'
-              sx={{ m: 2, display: 'flex', flexGrow: 1 }}
+              direction="row"
+              sx={{ m: 2, display: "flex", flexGrow: 1 }}
             >
-              <Grid item sx={{ m: 'auto' }}>
+              <Grid item sx={{ m: "auto" }}>
                 <GroupsTwoToneIcon
                   sx={{
                     fontSize: 40,
-                    color: '#0CD68A',
-                    m: 'auto',
+                    color: "#0CD68A",
+                    m: "auto",
                   }}
                 ></GroupsTwoToneIcon>
               </Grid>
 
               <Grid item>
                 <Typography
-                  variant='body1'
-                  sx={{ fontSize: 40, mx: 2, my: 'auto' }}
+                  variant="body1"
+                  sx={{ fontSize: 40, mx: 2, my: "auto" }}
                 >
                   Create To Do
                 </Typography>
@@ -125,10 +130,10 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
               }}
             >
               <TextField
-                id='title'
+                id="title"
                 fullWidth
-                label='title'
-                variant='filled'
+                label="title"
+                variant="filled"
                 value={title}
                 onChange={handleTitleChange}
               />
@@ -141,8 +146,8 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
             >
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                  label='Date Of Birth'
-                  inputFormat='MM/dd/yyyy'
+                  label="Date Of Birth"
+                  inputFormat="MM/dd/yyyy"
                   value={dueDate}
                   onChange={(value: Date | null) => setDueDate(value)}
                   renderInput={(params) => <TextField {...params} />}
@@ -156,12 +161,12 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
               }}
             >
               <FormControl fullWidth>
-                <InputLabel id='demo-simple-select-label'>Assignee</InputLabel>
+                <InputLabel id="demo-simple-select-label">Assignee</InputLabel>
                 <Select
-                  labelId='demo-simple-select-label'
-                  id='demo-simple-select'
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
                   value={toDoItem.assigneeId}
-                  label='Assignee'
+                  label="Assignee"
                   onChange={handleAssigneeChange}
                 >
                   {meeting?.meetingAttendee &&
@@ -170,7 +175,7 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
                       (attendee: IMeetingAttendee) => {
                         return (
                           <MenuItem value={attendee.userId}>
-                            {attendee?.user?.firstName}{' '}
+                            {attendee?.user?.firstName}{" "}
                             {attendee?.user?.lastName}
                           </MenuItem>
                         );
@@ -183,41 +188,41 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
             <Grid
               item
               container
-              direction='row'
+              direction="row"
               sx={{
-                display: 'flex',
-                alignItem: 'center',
-                justifyContent: 'flex-end',
+                display: "flex",
+                alignItem: "center",
+                justifyContent: "flex-end",
                 marginTop: 5,
               }}
             >
               <Button
                 sx={{
-                  display: 'flex',
+                  display: "flex",
                   flexGrow: 1,
                   marginRight: 5,
                   borderRadius: 8,
-                  backgroundColor: '#6001D3',
-                  color: '#FFFFFF',
+                  backgroundColor: "#6001D3",
+                  color: "#FFFFFF",
                   fontSize: 12,
                 }}
-                variant='contained'
+                variant="contained"
                 onClick={handleCreate}
               >
                 Edit
               </Button>
               <Button
                 sx={{
-                  minWidth: '100px',
-                  minHeight: '50px',
-                  maxHeight: '50px',
-                  maxWidth: '100px',
+                  minWidth: "100px",
+                  minHeight: "50px",
+                  maxHeight: "50px",
+                  maxWidth: "100px",
                   borderRadius: 8,
-                  backgroundColor: '#FCDC00',
-                  color: '#000000',
+                  backgroundColor: "#FCDC00",
+                  color: "#000000",
                   fontSize: 12,
                 }}
-                variant='contained'
+                variant="contained"
                 onClick={() => {
                   handleClose();
                 }}

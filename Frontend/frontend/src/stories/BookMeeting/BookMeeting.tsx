@@ -1,19 +1,19 @@
 import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import { Avatar, CardActionArea ,Modal} from "@mui/material";
-import './BookMeeting.scss';
-import { Button } from '@mui/material';
+import { Avatar, CardActionArea, Modal } from "@mui/material";
+import "./BookMeeting.scss";
+import { Button } from "@mui/material";
 
 export interface BookMeetingInfo {
   time?: string;
   name?: string;
   desc?: string;
-  open:any;
-  setOpen:any;
-  onConfirmCallback?:any;
-  onDenyCallback?:any;
-  content?:string;
+  open: any;
+  setOpen: any;
+  onConfirmCallback?: any;
+  onDenyCallback?: any;
+  content?: string;
 }
 
 export default function BookMeeting(props: BookMeetingInfo) {
@@ -21,10 +21,7 @@ export default function BookMeeting(props: BookMeetingInfo) {
   const handleClose = () => props.setOpen(false);
   return (
     <div>
-      <Modal 
-        open={props.open} 
-        onClose={handleClose}
-      >
+      <Modal open={props.open} onClose={handleClose}>
         <Box className="book-meeting-wrap">
           <Box className="avator-box">
             <Avatar className="avator" alt="Remy Sharp" src="" />
@@ -34,15 +31,25 @@ export default function BookMeeting(props: BookMeetingInfo) {
               <Box className="time">{props.time}</Box>
             </Box>
           </Box>
-          <Box className="desc">
-          {props.content}
-          </Box>
+          <Box className="desc">{props.content}</Box>
           <Box className="btn-box">
-            <Button className="btn-l" onClick={()=>{props.onConfirmCallback()}}>Approve</Button>
-            <Button className="btn-r" onClick={()=>{
-              handleClose();
-              props.onDenyCallback()
-            }}>Deny</Button>
+            <Button
+              className="btn-l"
+              onClick={() => {
+                props.onConfirmCallback();
+              }}
+            >
+              Approve
+            </Button>
+            <Button
+              className="btn-r"
+              onClick={() => {
+                handleClose();
+                props.onDenyCallback();
+              }}
+            >
+              Deny
+            </Button>
           </Box>
         </Box>
       </Modal>

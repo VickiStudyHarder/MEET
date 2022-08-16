@@ -1,16 +1,16 @@
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
-import { formatJSONResponse } from '@libs/api-gateway';
-import { middyfy } from '@libs/lambda';
-import { PrismaClient } from '@prisma/client';
-import oauth2Client from '@libs/oauth2-client';
-import { IMeetingPayload, IMeetingAttendee } from '../../../types/meeting';
-import { v4 as uuidv4 } from 'uuid';
+import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
+import { formatJSONResponse } from "@libs/api-gateway";
+import { middyfy } from "@libs/lambda";
+import { PrismaClient } from "@prisma/client";
+import oauth2Client from "@libs/oauth2-client";
+import { IMeetingPayload, IMeetingAttendee } from "../../../types/meeting";
+import { v4 as uuidv4 } from "uuid";
 
-import schema from './schema';
-import { google } from 'googleapis';
+import schema from "./schema";
+import { google } from "googleapis";
 
 const prisma = new PrismaClient({
-  log: ['query', 'info', 'warn', 'error'],
+  log: ["query", "info", "warn", "error"],
 });
 
 const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
@@ -109,31 +109,31 @@ const addGoogleMeeting = async (
   });
 
   oauth2Client.setCredentials({ refresh_token: token.refreshToken });
-  const calendar = google.calendar('v3');
+  const calendar = google.calendar("v3");
 
   const requestId = uuidv4();
 
   const googleApiResponse = await calendar.events.insert({
     conferenceDataVersion: 1,
     auth: oauth2Client,
-    calendarId: 'primary',
+    calendarId: "primary",
     requestBody: {
       summary: meetingPayload.summary,
       description: meetingPayload.description,
       location: meetingPayload.location,
       start: {
         dateTime: new Date(meetingPayload.meetingStart),
-        timeZone: 'Australia/Sydney',
+        timeZone: "Australia/Sydney",
       },
       end: {
         dateTime: new Date(meetingPayload.meetingEnd),
-        timeZone: 'Australia/Sydney',
+        timeZone: "Australia/Sydney",
       },
       attendees: attendees,
       conferenceData: {
         createRequest: {
           conferenceSolutionKey: {
-            type: 'hangoutsMeet',
+            type: "hangoutsMeet",
           },
           requestId: requestId,
         },

@@ -1,4 +1,4 @@
-.normal-tip-wrap{
+.normal-tip-wrap {
   position: absolute;
   top: 30px;
   right: 30px;
@@ -13,32 +13,32 @@
   box-sizing: border-box;
   backdrop-filter: blur(50px);
   border-radius: 20px;
-  .logo{
+  .logo {
     width: 45px;
     height: 45px;
-    border-radius:50%;
+    border-radius: 50%;
     background-color: #fd346e;
     display: flex;
     justify-content: center;
     align-items: center;
-    .rill{
+    .rill {
       width: 14px;
       height: 16px;
       background: url("../assets/normalTip.svg") no-repeat;
       background-size: contain;
     }
   }
-  .desc{
+  .desc {
     width: 638px;
     height: 38px;
     line-height: 38px;
-    font-family: 'Quicksand';
+    font-family: "Quicksand";
     font-weight: 700;
     font-size: 20px;
     text-align: right;
-    color: #70798B;
+    color: #70798b;
     overflow: hidden;
-    text-overflow:ellipsis;
+    text-overflow: ellipsis;
     white-space: nowrap;
   }
 }

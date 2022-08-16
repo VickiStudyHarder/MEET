@@ -1,9 +1,9 @@
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
-import { formatJSONResponse } from '@libs/api-gateway';
-import { middyfy } from '@libs/lambda';
-import { PrismaClient } from '@prisma/client';
+import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
+import { formatJSONResponse } from "@libs/api-gateway";
+import { middyfy } from "@libs/lambda";
+import { PrismaClient } from "@prisma/client";
 
-import schema from './schema';
+import schema from "./schema";
 
 const getAllStudents: ValidatedEventAPIGatewayProxyEvent<
   typeof schema
@@ -13,7 +13,7 @@ const getAllStudents: ValidatedEventAPIGatewayProxyEvent<
   try {
     const result = await prisma.user.findMany({
       where: {
-        role: 'student',
+        role: "student",
       },
     });
     return formatJSONResponse({

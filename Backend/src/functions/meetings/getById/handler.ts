@@ -1,9 +1,9 @@
-import type { ValidatedEventAPIGatewayProxyEvent } from '@libs/api-gateway';
-import { formatJSONResponse } from '@libs/api-gateway';
-import { PrismaClient } from '@prisma/client';
-import { middyfy } from '@libs/lambda';
+import type { ValidatedEventAPIGatewayProxyEvent } from "@libs/api-gateway";
+import { formatJSONResponse } from "@libs/api-gateway";
+import { PrismaClient } from "@prisma/client";
+import { middyfy } from "@libs/lambda";
 
-import schema from './schema';
+import schema from "./schema";
 
 const getById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   event
@@ -12,25 +12,25 @@ const getById: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
   console.log(event.pathParameters);
   try {
     const result = await prisma.meeting.findUnique({
-      where : {
-        id: Number(event.pathParameters.id)
+      where: {
+        id: Number(event.pathParameters.id),
       },
-      include : {
+      include: {
         notes: true,
         toDoItem: true,
         meetingAttendee: {
           include: {
-            user: true
-          }
+            user: true,
+          },
         },
         agendas: true,
-        recordings: true
-      }
-    })
+        recordings: true,
+      },
+    });
     return formatJSONResponse({
       statusCode: 200,
       message: `${event}`,
-      body: result
+      body: result,
     });
   } catch (e) {
     return formatJSONResponse({
