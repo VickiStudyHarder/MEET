@@ -38,7 +38,7 @@ const MeetingRow: React.FC<INotesRow> = ({ note, handleGetMeeting }) => {
     <>
       <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
         <Box sx={{ m: 4 }}>
-          <img src={YourMeetingImage} style={{width:380, height:220, borderRadius:20}} alt='YourMeetingImage' />
+          <img src={"./note.png"} style={{width:380, height:220, borderRadius:20}} alt='YourMeetingImage' />
         </Box>
         <Box
            sx={{
