@@ -31,7 +31,7 @@ const MentorMeetingRow: React.FC<IMentorMeetingRow> = ({ attendee }) => {
           maxHeight: '60px',
         }}
       >
-        <Typography variant='h4' sx={{ display: 'flex', m: 'auto' }}>
+        <Typography variant='h4' sx={{ display: 'flex', m: 'auto' }} style={{ fontFamily: "Quicksand"}}>
           {attendee?.user?.firstName} {attendee?.user?.firstName}
         </Typography>
         <Rating
@@ -61,6 +61,7 @@ const MentorMeetingRow: React.FC<IMentorMeetingRow> = ({ attendee }) => {
               my: 'auto',
             }}
             variant='contained'
+            style={{ fontFamily: "Quicksand"}}
           >
             Rating Submitted
           </Button>
@@ -80,6 +81,7 @@ const MentorMeetingRow: React.FC<IMentorMeetingRow> = ({ attendee }) => {
             }}
             variant='contained'
             onClick={submitRating}
+            style={{ fontFamily: "Quicksand"}}
           >
             Submit Rating
           </Button>

@@ -259,7 +259,7 @@ const MeetingDasboard: React.FC<{}> = ({ }) => {
                   flexDirection: 'column',
                 }}
               >
-                <Typography variant='h3' align='center' sx={{ m: 4 }}>
+                <Typography variant='h3' align='center' sx={{ m: 4 }} style={{ fontFamily: "Quicksand"}}>
                   Rate Your Mentors
                 </Typography>
                 <Divider variant='middle' />
@@ -285,10 +285,11 @@ const MeetingDasboard: React.FC<{}> = ({ }) => {
                     }}
                     variant='contained'
                     onClick={handleCompleteMeeting}
+                    style={{ fontFamily: "Quicksand"}}
                   >
                     Complete Review
                   </Button>
-                  <Typography sx={{ m: 2 }}>
+                  <Typography sx={{ m: 2 }} style={{ fontFamily: "Quicksand"}}>
                     Review Can Only Be Completed Once
                   </Typography>
                 </Box>
