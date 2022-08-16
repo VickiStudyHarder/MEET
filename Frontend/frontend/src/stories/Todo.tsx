@@ -109,13 +109,18 @@ interface MeetingProps {
 // ]
 
 export const Todo: React.VFC = () => {
-  const [user, setUser] = React.useState<User>();
   // const [data, setData] = React.useState(list)
-  const { meetingTodos, updateMeetingTodos, getMeetingTodos, email,removeTodo, userInfo, getUserInfo } =
-    useContext(AppContext);
+
+  const {
+    meetingTodos,
+    updateMeetingTodos,
+    getMeetingTodos,
+    email,
+    removeTodo,
+    userInfo,
+    getUserInfo,
+  } = useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
-  const { selectedStudent } = useContext(AppContext);
-  useEffect(() => {}, [selectedStudent]);
   const [filter, setfilter] = React.useState(false);
   const [data, setData] = React.useState<any>([]);
   const [isModalVisible, setisModalVisible] = React.useState(false);
@@ -125,9 +130,7 @@ export const Todo: React.VFC = () => {
     name: "",
   });
   useEffect(() => {
-    if (data.length === 0) {
-      setData(meetingTodos);
-    }
+    setData(meetingTodos);
   }, [meetingTodos]);
 
   // useEffect(() => {console.log(getMeetingTodos(email))}, []);
@@ -146,32 +149,36 @@ export const Todo: React.VFC = () => {
     getUserInfo(email);
   }, [email]);
 
-
+  useEffect(() => {
+    if (email) {
+      getMeetingTodos(email);
+    }
+  }, []);
 
   const addTask = (item: any, index: any) => {
     let meet = JSON.parse(JSON.stringify(meetingTodos));
     meet[index].option.showAdd = !meet[index].option.showAdd;
     setData(meet);
   };
-  
+
   const enterTask = (item: any, index: any, e: any) => {
     let val = e.target.value;
     let meet = JSON.parse(JSON.stringify(data));
     meet[index].option.showAdd = !meet[index].option.showAdd;
     meet[index].task.push({ name: val });
     setData(meet);
-    updateMeetingTodos(meet,email)
+    updateMeetingTodos(meet, email);
   };
-  
+
   const editTask = (index: any, idx: any, e: any) => {
     let val = e.target.value;
     let meet = JSON.parse(JSON.stringify(data));
     meet[index].task[idx].name = val;
     meet[index].task[idx].isEdit = false;
     setData(meet);
-    updateMeetingTodos(meet,email)
+    updateMeetingTodos(meet, email);
   };
-  
+
   const showModel = (index: any, itm: any, idx: any) => {
     let obj: any = {
       index,
@@ -186,23 +193,24 @@ export const Todo: React.VFC = () => {
     let meet = JSON.parse(JSON.stringify(data));
     meet[index].task[idx].isdel = !meet[index].task[idx].isdel;
     setData(meet);
+    updateMeetingTodos(meet, email);
   };
-  
+
   const delItem = () => {
     let meet = JSON.parse(JSON.stringify(data));
     meet[modalCtx.index].task[modalCtx.idx].deled = true;
     setData(meet);
-    removeTodo(meet[modalCtx.index].task[modalCtx.idx].id)
+    removeTodo(meet[modalCtx.index].task[modalCtx.idx].id);
     setisModalVisible(!isModalVisible);
   };
-  
+
   const editItm = (index: any, idx: any) => {
     let meet = JSON.parse(JSON.stringify(data));
     meet[index].task[idx].isEdit = true;
     setData(meet);
-    updateMeetingTodos(meet,email)
+    updateMeetingTodos(meet, email);
   };
-  
+
   const onFilter = () => {
     let meet = JSON.parse(JSON.stringify(data));
     meet = meet.map((item: any) => {
@@ -213,10 +221,10 @@ export const Todo: React.VFC = () => {
     });
     setfilter(!filter);
     setData(meet);
-    updateMeetingTodos(meet,email)
+    updateMeetingTodos(meet, email);
   };
 
-  console.log('data',data)
+  console.log("data", data);
   return (
     <article>
       <div className="meet-body">
@@ -233,8 +241,12 @@ export const Todo: React.VFC = () => {
         </div>
         <div className="meet-userCard">
           <CalendarUserCardPrimary
-            avatar={userInfo?`../avatars/${userInfo.avatar}.png` : '../avatars/0.png'}
-            name={userInfo?.firstName + ' ' + userInfo?.lastName}
+            avatar={
+              userInfo
+                ? `../avatars/${userInfo.avatar}.png`
+                : "../avatars/0.png"
+            }
+            name={userInfo?.firstName + " " + userInfo?.lastName}
             rating={userInfo?.rating}
             job={userInfo?.role}
           />
