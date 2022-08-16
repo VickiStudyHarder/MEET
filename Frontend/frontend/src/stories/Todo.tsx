@@ -130,9 +130,7 @@ export const Todo: React.VFC = () => {
     name: "",
   });
   useEffect(() => {
-    if (data.length === 0) {
-      setData(meetingTodos);
-    }
+    setData(meetingTodos);
   }, [meetingTodos]);
 
   // useEffect(() => {console.log(getMeetingTodos(email))}, []);
