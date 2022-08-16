@@ -9,6 +9,8 @@ import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { createGroup } from '../api/groupChat';
+import CustomInput from './Input';
+import PageTitle from './PageTiltle';
 
 export interface ICreateStudentGroupForm {
   setOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -53,10 +55,11 @@ const CreateStudentGroupForm: React.FC<ICreateStudentGroupForm> = ({
         display: 'flex',
         flexGrow: 1,
         justify: 'center',
+        borderRadius: 20
       }}
     >
-      <Card sx={{ display: 'flex', flexGrow: 1, p: 4 }}>
-        <CardContent  sx={{ marginRight: 3 }}>
+      <Card sx={{ display: 'flex', flexGrow: 1, p: 4}}>
+        <CardContent  sx={{ marginRight: 1 }}>
           <Grid
             container
             direction='column'
@@ -72,26 +75,20 @@ const CreateStudentGroupForm: React.FC<ICreateStudentGroupForm> = ({
               sx={{ m: 2, display: 'flex', flexGrow: 1 }}
             >
               <Grid item sx={{ m: 'auto' }}>
-                <GroupsTwoToneIcon
-                  sx={{
-                    fontSize: 40,
-                    color: '#0CD68A',
-                    m: 'auto',
-                  }}
-                ></GroupsTwoToneIcon>
+              <PageTitle icon='2' content={'Create Group'} />
               </Grid>
 
-              <Grid item>
+              {/* <Grid item>
                 <Typography
                   variant='body1'
                   sx={{ fontSize: 40, mx: 2, my: 'auto' }}
                 >
                   Create Group
-                </Typography>
-              </Grid>
+                </Typography> */}
+              {/* </Grid> */}
             </Grid>
 
-            <Grid item>
+            {/* <Grid item>
               <TextField
                 id='New-Group-Name'
                 fullWidth
@@ -103,8 +100,18 @@ const CreateStudentGroupForm: React.FC<ICreateStudentGroupForm> = ({
                 value={name}
                 onChange={handleNameChange}
               />
-            </Grid>
-            <Grid item>
+            </Grid> */}
+            <CustomInput
+              margin='normal'
+              fullWidth
+              id='New-Group-Name'
+              label='Group Name'
+              // autoComplete='name'
+              autoFocus
+              value={name}
+              onChange={handleNameChange}
+            />
+            {/* <Grid item>
               <TextField
                 id='New-Group-Description'
                 fullWidth
@@ -116,7 +123,16 @@ const CreateStudentGroupForm: React.FC<ICreateStudentGroupForm> = ({
                 value={description}
                 onChange={handleDescriptionChange}
               />
-            </Grid>
+            </Grid> */}
+            <CustomInput
+              margin='normal'
+              fullWidth
+              id='New-Group-Description'
+              label='Group Description'
+              autoFocus
+              value={description}
+              onChange={handleDescriptionChange}
+            />
             <Grid
               item
               container
