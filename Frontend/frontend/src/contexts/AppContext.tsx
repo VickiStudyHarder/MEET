@@ -577,13 +577,22 @@ const AppContextProvider = (props: any) => {
     meetings.forEach((m: any) => {
       todos.forEach((td: any) => {
         if (td.meetingId === m.meeting.id) {
-          m.meeting.toDoItem = td.task.map((task: any) => ({
-            id: task.id,
-            title: task.name,
-            dueDate: new Date(),
-            assigneeId: email,
-            isCompleted: task.isdel
-          }));
+          m.meeting.toDoItem = td.task.map((task: any) =>{if(task.id){
+            return {
+              id: task.id,
+              title: task.name,
+              dueDate: new Date(),
+              assigneeId: email,
+              isCompleted: task.isdel
+            }
+          }else{
+            return {
+              title: task.name,
+              dueDate: new Date(),
+              assigneeId: email,
+              isCompleted: task.isdel
+            }
+          }})
         }
       });
     });
