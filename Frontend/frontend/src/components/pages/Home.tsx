@@ -40,7 +40,6 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {}, 500);
   }, []);
   useEffect(() => {
     handleGetUpcomingMeetings();

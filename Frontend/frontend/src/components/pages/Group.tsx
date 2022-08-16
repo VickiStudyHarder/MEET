@@ -23,7 +23,7 @@ import StudyGroupIcon from "../../assets/StudyGroupIcon.png";
 import PageTitle from "../../stories/PageTiltle";
 import CircleLoader from "react-spinners/CircleLoader";
 
-interface IGroup {}
+interface IGroup { }
 
 const theme = createTheme();
 
@@ -39,9 +39,6 @@ const Group: React.FC<IGroup> = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 800);
   }, []);
 
   const handleClickOpen = () => {
@@ -80,6 +77,7 @@ const Group: React.FC<IGroup> = () => {
     });
     setMyGroups(myGroups);
     setAvailableGroups(availableGroups);
+    setLoading(false);
     console.log("my group:", myGroups);
     console.log("available:", availableGroups);
   };
@@ -107,132 +105,134 @@ const Group: React.FC<IGroup> = () => {
         <Box>
           <CssBaseline />
           <NavBar />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
+          <Box sx={{ ml: 10, mr: 10 }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  py: 2,
+                  maxHeight: 140,
+                  justifyContent: "space-between",
+                }}
+              >
+                <Box sx={{ marginLeft: 5 }}>
+                  <PageTitle icon="2" content={"All my group"} />
+                </Box>
+
+                <Button
+                  onClick={handleClickOpen}
+                  variant="contained"
+                  color="secondary"
+                  sx={{
+                    backgroundColor: "#6001D3",
+                    color: "#ffffff",
+                    borderRadius: 10,
+                    width: 104,
+                    height: 45,
+                  }}
+                  startIcon={<AddCircleOutlineIcon />}
+                >
+                  New
+                </Button>
+              </Box>
+            </Box>
+            <Divider variant="middle" sx={{ width: "100%" }} />
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "row",
-                px: 10,
-                py: 2,
-                maxHeight: 140,
-                justifyContent: "space-between",
+                p: 6,
+                alignItems: "flex-start",
               }}
             >
-              <Box sx={{ marginLeft: 3 }}>
-                <PageTitle icon="2" content={"All my group"} />
+              <Box sx={{ height: "100%", m: 2 }}>
+                {switchButton && (
+                  <StudentGroupNameCard
+                    myGroups={myGroups}
+                    doSomething={showOwnCard}
+                    switchButton={true}
+                  />
+                )}
+                {!switchButton && (
+                  <StudentGroupNameCard
+                    myGroups={myGroups}
+                    doSomething={showOwnCard}
+                    switchButton={false}
+                  />
+                )}
               </Box>
-
-              <Button
-                onClick={handleClickOpen}
-                variant="contained"
-                color="secondary"
+              <Container
                 sx={{
-                  backgroundColor: "#6001D3",
-                  color: "#ffffff",
-                  borderRadius: 10,
-                  width: 104,
-                  height: 45,
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "100%",
+                  flexShrink: 1,
+                  overflow: "auto",
+                  overflowX: "hidden",
+                  height: "75vh",
                 }}
-                startIcon={<AddCircleOutlineIcon />}
               >
-                New
-              </Button>
-            </Box>
-          </Box>
-          <Divider variant="middle" sx={{ width: "100%" }} />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              p: 6,
-              alignItems: "flex-start",
-            }}
-          >
-            <Box sx={{ height: "100%", m: 2 }}>
-              {switchButton && (
-                <StudentGroupNameCard
-                  myGroups={myGroups}
-                  doSomething={showOwnCard}
-                  switchButton={true}
-                />
-              )}
-              {!switchButton && (
-                <StudentGroupNameCard
-                  myGroups={myGroups}
-                  doSomething={showOwnCard}
-                  switchButton={false}
-                />
-              )}
-            </Box>
-            <Container
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                flexShrink: 1,
-                overflow: "auto",
-                overflowX: "hidden",
-                height: "75vh",
-              }}
-            >
-              <Box sx={{ display: "flex", flexGrow: 1, m: 2, width: "100%" }}>
-                <Grid container spacing={2}>
-                  {myGroups &&
-                    myGroups.map((group: any) => {
-                      return (
-                        <StudentGroupCard
-                          id={group.id}
-                          name={group.name}
-                          groupParticipant={group.groupParticipant}
-                          description={group.description}
-                          userIsParticipant={true}
-                          getAllGroups={getAllGroups}
-                        />
-                      );
-                    })}
-                </Grid>
-              </Box>
-              <Box sx={{ display: "flex", flexGrow: 1, m: 2, width: "100%" }}>
-                <Grid container spacing={2}>
-                  {availableGroups &&
-                    availableGroups.map((group: any) => {
-                      return (
-                        showOwn && (
+                <Box sx={{ display: "flex", flexGrow: 1, m: 2, width: "100%" }}>
+                  <Grid container spacing={2}>
+                    {myGroups &&
+                      myGroups.map((group: any) => {
+                        return (
                           <StudentGroupCard
                             id={group.id}
                             name={group.name}
                             groupParticipant={group.groupParticipant}
                             description={group.description}
-                            userIsParticipant={false}
+                            userIsParticipant={true}
                             getAllGroups={getAllGroups}
                           />
-                        )
-                      );
-                    })}
-                </Grid>
-                {/* <ChatWindow /> */}
-              </Box>
-            </Container>
+                        );
+                      })}
+                  </Grid>
+                </Box>
+                <Box sx={{ display: "flex", flexGrow: 1, m: 2, width: "100%" }}>
+                  <Grid container spacing={2}>
+                    {availableGroups &&
+                      availableGroups.map((group: any) => {
+                        return (
+                          showOwn && (
+                            <StudentGroupCard
+                              id={group.id}
+                              name={group.name}
+                              groupParticipant={group.groupParticipant}
+                              description={group.description}
+                              userIsParticipant={false}
+                              getAllGroups={getAllGroups}
+                            />
+                          )
+                        );
+                      })}
+                  </Grid>
+                  {/* <ChatWindow /> */}
+                </Box>
+              </Container>
+            </Box>
+            <Dialog
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+              // sx={{ display: 'flex', flexGrow: 1 }}
+              maxWidth="lg"
+            >
+              <CreateStudentGroupForm
+                setOpen={setOpen}
+                getAllGroups={getAllGroups}
+              />
+            </Dialog>
           </Box>
-          <Dialog
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-            // sx={{ display: 'flex', flexGrow: 1 }}
-            maxWidth="lg"
-          >
-            <CreateStudentGroupForm
-              setOpen={setOpen}
-              getAllGroups={getAllGroups}
-            />
-          </Dialog>
+
         </Box>
       )}
     </ThemeProvider>

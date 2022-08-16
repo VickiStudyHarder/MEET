@@ -45,9 +45,6 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
   const navigate = useNavigate();
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-    }, 500);
   }, []);
 
   useEffect(() => {
@@ -62,6 +59,7 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
     const result = await getMeetingById(Number(id));
     console.log(result);
     setMeeting(result);
+      setLoading(false);    
     const currentUser = await result.meetingAttendee.filter(
       (attendee: IMeetingAttendee) => attendee?.user?.id === email
     );
@@ -118,7 +116,7 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
         <Box>
           <CssBaseline />
           <NavBar inMeeting={true} />
-          <Container maxWidth="xl" sx={{ display: "flex", flexGrow: 1 }}>
+          <Box sx={{ ml: 10, mr: 10 }}>
             <Box
               sx={{
                 display: "flex",
@@ -346,7 +344,7 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                 </Box>
               </DialogContent>
             </Dialog>
-          </Container>
+          </Box>
         </Box>
       )}
     </ThemeProvider>

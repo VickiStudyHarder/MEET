@@ -31,7 +31,6 @@ const Notes: React.FC<{}> = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {}, 500);
   }, []);
 
   useEffect(() => {
@@ -73,7 +72,7 @@ const Notes: React.FC<{}> = () => {
         <Box>
           <CssBaseline />
           <NavBar inMeeting={true} />
-          <Container maxWidth="xl" sx={{ display: "flex", flexGrow: 1 }}>
+          <Box  sx={{ pl:10, pr:10 }}>
             <Box
               sx={{
                 display: "flex",
@@ -162,7 +161,7 @@ const Notes: React.FC<{}> = () => {
                 />
               )}
             </Dialog>
-          </Container>
+          </Box>
         </Box>
       )}
     </ThemeProvider>

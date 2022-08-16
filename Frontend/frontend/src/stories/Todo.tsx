@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Input } from "antd";
-import { Button } from "@mui/material";
+import { Divider, Button, CssBaseline } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import { CheckOutlined } from "@ant-design/icons";
@@ -12,6 +12,9 @@ import { url } from "inspector";
 import AppContext from "../contexts/AppContext";
 import { setDate } from "date-fns";
 import { deleteToDoItem, getMeetingsByUserId, updateMeeting } from "../api/meeting";
+import CircleLoader from "react-spinners/CircleLoader";
+import NavBar from "../components/molecules/NavBar";
+import PageTitle from "./PageTiltle";
 
 const { TextArea } = Input;
 
@@ -127,6 +130,12 @@ export const Todo: React.VFC = () => {
     name: "",
   });
 
+  // loading
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+  }, []);
+
   // useEffect(() => {console.log(getMeetingTodos(email))}, []);
 
   // useEffect(() => {
@@ -149,7 +158,7 @@ export const Todo: React.VFC = () => {
     }
   }, []);
 
-  const getMeetingTodos = async (userId:string)=>{
+  const getMeetingTodos = async (userId: string) => {
     let meetings = await getMeetingsByUserId(userId);
     console.log("getMeetingTodos", meetings);
     if (meetings?.length > 0) {
@@ -170,11 +179,12 @@ export const Todo: React.VFC = () => {
         })),
       }));
       setData(meetings);
+      setLoading(false);
       console.log("todo page:getMeetingTodo", meetings);
     }
   }
 
-  const removeTodo = async (id:number) =>{
+  const removeTodo = async (id: number) => {
     console.log("todo page:remove todo:id=", id);
     await deleteToDoItem(id);
   }
@@ -287,174 +297,211 @@ export const Todo: React.VFC = () => {
 
   console.log("data", data);
   return (
-    <article>
-      <div className="meet-body">
-        <div className="meet-head">
-          {filter ? (
-            <div className="meet-head-btn line-center" onClick={onFilter}>
-              Display all to do list
-            </div>
-          ) : (
-            <div className="meet-head-btn" onClick={onFilter}>
-              Display to do list with to do item only
-            </div>
-          )}
-        </div>
-        <div className="meet-userCard">
-          <CalendarUserCardPrimary
-            avatar={
-              userInfo
-                ? `../avatars/${userInfo.avatar}.png`
-                : "../avatars/0.png"
-            }
-            name={userInfo?.firstName + " " + userInfo?.lastName}
-            rating={userInfo?.rating}
-            job={userInfo?.role}
-          />
-        </div>
-        <div className="meet-box">
-          <img className="meet-box-bg" src={"./landing_page.jpg"} alt="" />
-          <div
-            className="meet-box-scroll"
-            style={{ backdropFilter: "blur(8px)" }}
-          >
-            <div className="flex">
-              {data &&
-                data.map((item: any, index: any) => {
-                  console.log("item", item.task);
-                  return (
-                    <div
-                      style={{
-                        display: filter || item.task.length > 0 ? "" : "none",
-                      }}
-                      className="meet-from"
-                      key={index}
-                    >
-                      <div className="form-title">{item.title}</div>
-                      {item.task &&
-                        item.task.length > 0 &&
-                        item.task.map((itm: any, idx: any) => {
-                          return (
-                            <div>
-                              {itm.isEdit ? (
-                                <TextArea
-                                  className="from-area"
-                                  rows={4}
-                                  placeholder="Edit your to-do task..."
-                                  onPressEnter={(e) => editTask(index, idx, e)}
-                                />
-                              ) : (
-                                <div
-                                  className="form-info"
-                                  style={{
-                                    display:
-                                      itm.deled || itm.isEdit ? "none" : "",
-                                  }}
-                                  key={idx}
-                                >
-                                  <input
-                                    className="radio_type"
-                                    type="radio"
-                                    name="type"
-                                    id={idx}
-                                    onClick={() => ondel(index, idx)}
-                                  />
-                                  <CheckOutlined
-                                    style={{
-                                      visibility: itm.isdel
-                                        ? "visible"
-                                        : "hidden",
-                                    }}
-                                    onClick={() => ondel(index, idx)}
-                                    className="Check-Outlined"
-                                  />
-                                  <div
-                                    className="form-txt"
-                                    style={{
-                                      textDecoration: itm.isdel
-                                        ? "line-through"
-                                        : "",
-                                    }}
-                                    onClick={() => editItm(index, idx)}
-                                  >
-                                    {itm.name}
+    loading ? (
+      <Box sx={{
+        textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100vh'
+      }}>
+        <CircleLoader size={100} color={'#6001D3'} loading={loading} />
+      </Box>
+
+    ) : (
+      <Box>
+        <article>
+          <CssBaseline />
+          <NavBar />
+          <Box sx={{ pl: 10, pr: 10 }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                py: 2,
+                maxHeight: 140,
+                justifyContent: "space-between",
+              }}
+            >
+              <Box sx={{ marginLeft: 5 }}>
+                <PageTitle icon="3" content="All To Dos" />
+              </Box>
+            </Box>
+
+            <Divider variant="middle" sx={{ width: "100%" }} />
+            <div className="meet-body">
+              <div className="meet-head">
+                {filter ? (
+                  <div className="meet-head-btn line-center" onClick={onFilter}>
+                    Display all to do list
+                  </div>
+                ) : (
+                  <div className="meet-head-btn" onClick={onFilter}>
+                    Display to do list with to do item only
+                  </div>
+                )}
+              </div>
+              <div className="meet-userCard">
+                <CalendarUserCardPrimary
+                  avatar={
+                    userInfo
+                      ? `../avatars/${userInfo.avatar}.png`
+                      : "../avatars/0.png"
+                  }
+                  name={userInfo?.firstName + " " + userInfo?.lastName}
+                  rating={userInfo?.rating}
+                  job={userInfo?.role}
+                />
+              </div>
+              <div className="meet-box">
+                <img className="meet-box-bg" src={"./landing_page.jpg"} alt="" />
+                <div
+                  className="meet-box-scroll"
+                  style={{ backdropFilter: "blur(8px)" }}
+                >
+                  <div className="flex">
+                    {data &&
+                      data.map((item: any, index: any) => {
+                        console.log("item", item.task);
+                        return (
+                          <div
+                            style={{
+                              display: filter || item.task.length > 0 ? "" : "none",
+                            }}
+                            className="meet-from"
+                            key={index}
+                          >
+                            <div className="form-title">{item.title}</div>
+                            {item.task &&
+                              item.task.length > 0 &&
+                              item.task.map((itm: any, idx: any) => {
+                                return (
+                                  <div>
+                                    {itm.isEdit ? (
+                                      <TextArea
+                                        className="from-area"
+                                        rows={4}
+                                        placeholder="Edit your to-do task..."
+                                        onPressEnter={(e) => editTask(index, idx, e)}
+                                      />
+                                    ) : (
+                                      <div
+                                        className="form-info"
+                                        style={{
+                                          display:
+                                            itm.deled || itm.isEdit ? "none" : "",
+                                        }}
+                                        key={idx}
+                                      >
+                                        <input
+                                          className="radio_type"
+                                          type="radio"
+                                          name="type"
+                                          id={idx}
+                                          onClick={() => ondel(index, idx)}
+                                        />
+                                        <CheckOutlined
+                                          style={{
+                                            visibility: itm.isdel
+                                              ? "visible"
+                                              : "hidden",
+                                          }}
+                                          onClick={() => ondel(index, idx)}
+                                          className="Check-Outlined"
+                                        />
+                                        <div
+                                          className="form-txt"
+                                          style={{
+                                            textDecoration: itm.isdel
+                                              ? "line-through"
+                                              : "",
+                                          }}
+                                          onClick={() => editItm(index, idx)}
+                                        >
+                                          {itm.name}
+                                        </div>
+                                        <img
+                                          alt=""
+                                          className="del-itm"
+                                          src={Delicon}
+                                          onClick={() => showModel(index, itm, idx)}
+                                        />
+                                      </div>
+                                    )}
                                   </div>
-                                  <img
-                                    alt=""
-                                    className="del-itm"
-                                    src={Delicon}
-                                    onClick={() => showModel(index, itm, idx)}
-                                  />
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })}
-                      {item.option.showAdd ? (
-                        <div
-                          className="form-btn"
-                          onClick={() => addTask(item, index)}
-                        >
-                          + Add more task
-                        </div>
-                      ) : (
-                        <TextArea
-                          className="from-area"
-                          rows={4}
-                          placeholder="Enter your to-do task..."
-                          onPressEnter={(e) => enterTask(item, index, e)}
-                        />
-                      )}
-                    </div>
-                  );
-                })}
-            </div>
-          </div>
-        </div>
-        <Modal
-          open={isModalVisible}
-          onClose={setisModalVisible}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <div className="flex-box">
-              <img alt="" className="close-CircleOutlined" src={Delicon} />
-              <div>Do you want to delete this {modalCtx.name}?</div>
-            </div>
-            <div className="flex-box">
-              <Button
-                variant="contained"
-                onClick={delItem}
-                style={{
-                  backgroundColor: "#6001D3",
-                  borderRadius: 20,
-                  width: 165,
-                  height: 40,
-                  marginTop: 15,
-                }}
+                                );
+                              })}
+                            {item.option.showAdd ? (
+                              <div
+                                className="form-btn"
+                                onClick={() => addTask(item, index)}
+                              >
+                                + Add more task
+                              </div>
+                            ) : (
+                              <TextArea
+                                className="from-area"
+                                rows={4}
+                                placeholder="Enter your to-do task..."
+                                onPressEnter={(e) => enterTask(item, index, e)}
+                              />
+                            )}
+                          </div>
+                        );
+                      })}
+                  </div>
+                </div>
+              </div>
+              <Modal
+                open={isModalVisible}
+                onClose={setisModalVisible}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
               >
-                Yes
-              </Button>
-              <Button
-                onClick={() => setisModalVisible(!isModalVisible)}
-                variant="contained"
-                style={{
-                  color: "#000000",
-                  backgroundColor: "#FCDC00",
-                  borderRadius: 20,
-                  width: 155,
-                  height: 40,
-                  marginLeft: 10,
-                  marginTop: 15,
-                }}
-              >
-                No
-              </Button>
+                <Box sx={style}>
+                  <div className="flex-box">
+                    <img alt="" className="close-CircleOutlined" src={Delicon} />
+                    <div>Do you want to delete this {modalCtx.name}?</div>
+                  </div>
+                  <div className="flex-box">
+                    <Button
+                      variant="contained"
+                      onClick={delItem}
+                      style={{
+                        backgroundColor: "#6001D3",
+                        borderRadius: 20,
+                        width: 165,
+                        height: 40,
+                        marginTop: 15,
+                      }}
+                    >
+                      Yes
+                    </Button>
+                    <Button
+                      onClick={() => setisModalVisible(!isModalVisible)}
+                      variant="contained"
+                      style={{
+                        color: "#000000",
+                        backgroundColor: "#FCDC00",
+                        borderRadius: 20,
+                        width: 155,
+                        height: 40,
+                        marginLeft: 10,
+                        marginTop: 15,
+                      }}
+                    >
+                      No
+                    </Button>
+                  </div>
+                </Box>
+              </Modal>
             </div>
           </Box>
-        </Modal>
-      </div>
-    </article>
+
+        </article>
+      </Box>
+    )
+
   );
 };

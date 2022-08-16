@@ -23,7 +23,7 @@ import StudyGroupIcon from "../../assets/StudyGroupIcon.png";
 import PageTitle from "../../stories/PageTiltle";
 import CircleLoader from "react-spinners/CircleLoader";
 
-interface IGroupChat {}
+interface IGroupChat { }
 
 const theme = createTheme();
 
@@ -37,7 +37,6 @@ const GroupChat: React.FC<IGroupChat> = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {}, 500);
   }, []);
 
   useEffect(() => {
@@ -72,46 +71,49 @@ const GroupChat: React.FC<IGroupChat> = () => {
         <Box>
           <CssBaseline />
           <NavBar />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
+          <Box sx={{ ml: 10, mr: 10 }} >
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "row",
-                px: 10,
-                py: 2,
-                maxHeight: 140,
+                flexDirection: "column",
+                justifyContent: "center",
               }}
             >
-              <Box sx={{ marginLeft: 3 }}>
-                <PageTitle
-                  icon="6"
-                  content="All my group"
-                  doSomething={() => navigate(-1)}
-                />
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  py: 2,
+                  maxHeight: 140,
+                }}
+              >
+                <Box sx={{ ml: 5 }}>
+                  <PageTitle
+                    icon="6"
+                    content={"Group - " + GroupName}
+                    doSomething={() => navigate(-1)}
+                  />
+                </Box>
               </Box>
             </Box>
-          </Box>
-          <Divider variant="middle" sx={{ width: "100%" }} />
-          <Box sx={{ display: "flex", flexDirection: "row", p: 6 }}>
-            <Box sx={{ height: "100%", m: 2 }}>
-              <StudentGroupNameCard inChat={true} groupName={GroupName} />
+            <Divider variant="middle" sx={{ width: "100%" }} />
+            <Box sx={{ display: "flex", flexDirection: "row", p: 6 }}>
+              <Box sx={{ height: "100%", m: 2 }}>
+                <StudentGroupNameCard inChat={true} groupName={GroupName} />
+              </Box>
+              <Container
+                sx={{ display: "flex", flexDirection: "column", width: "100%" }}
+              >
+                <ChatWindow
+                  groupId={Number(id)}
+                  messages={messages}
+                  getMessages={getMessages}
+                />
+              </Container>
             </Box>
-            <Container
-              sx={{ display: "flex", flexDirection: "column", width: "100%" }}
-            >
-              <ChatWindow
-                groupId={Number(id)}
-                messages={messages}
-                getMessages={getMessages}
-              />
-            </Container>
+
           </Box>
+
         </Box>
       )}
     </ThemeProvider>

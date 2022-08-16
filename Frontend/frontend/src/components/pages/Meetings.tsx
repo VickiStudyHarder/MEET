@@ -29,7 +29,7 @@ const Meetings = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {}, 500);
+
   }, []);
 
   useEffect(() => {
@@ -69,58 +69,61 @@ const Meetings = () => {
         <Box>
           <CssBaseline />
           <NavBar />
-          <Container maxWidth="xl" sx={{ display: "flex", flexGrow: 1 }}>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: 1,
+              width: "100%",
+              pl: 10,
+              pr: 10
+
+            }}
+          >
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                flexGrow: 1,
-                width: "100%",
+                justifyContent: "center",
               }}
             >
               <Box
                 sx={{
                   display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
+                  flexDirection: "row",
+                  py: 2,
+                  maxHeight: 140,
+                  justifyContent: "space-between",
                 }}
               >
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    py: 2,
-                    maxHeight: 140,
-                    justifyContent: "space-between",
-                  }}
-                >
-                  <Box sx={{ marginLeft: 3 }}>
-                    <PageTitle icon="5" content="Your meetings" />
-                  </Box>
+                <Box sx={{ marginLeft: 3 }}>
+                  <PageTitle icon="1" content="Your meetings" />
                 </Box>
               </Box>
-              <Divider variant="middle" sx={{ width: "100%" }} />
-              <Box
-                sx={{
-                  width: "100%",
-                  m: 2,
-                  overflow: "auto",
-                  height: "77vh",
-                  overflowX: "hidden",
-                }}
-              >
-                {meetings &&
-                  meetings.map((meeting: IMeetingResponse) => {
-                    return (
-                      <MeetingRow
-                        meeting={meeting.meeting}
-                        getAllMeetings={getAllMeetings}
-                      />
-                    );
-                  })}
-              </Box>
             </Box>
-          </Container>
+            <Divider variant="middle" sx={{ width: "100%" }} />
+            <Box
+              sx={{
+                width: "100%",
+                m: 2,
+                overflow: "auto",
+                height: "77vh",
+                overflowX: "hidden",
+              }}
+            >
+              {meetings &&
+                meetings.map((meeting: IMeetingResponse) => {
+                  return (
+                    <MeetingRow
+                      meeting={meeting.meeting}
+                      getAllMeetings={getAllMeetings}
+                    />
+                  );
+                })}
+            </Box>
+          </Box>
+
         </Box>
       )}
     </ThemeProvider>

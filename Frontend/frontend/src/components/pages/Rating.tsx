@@ -10,7 +10,7 @@ import AppContext from "../../contexts/AppContext";
 import { IUser } from "../../types/meetings";
 import CircleLoader from "react-spinners/CircleLoader";
 
-interface IRating {}
+interface IRating { }
 
 const theme = createTheme();
 
@@ -21,7 +21,6 @@ const Rating: React.FC<IRating> = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {}, 500);
   }, []);
 
   useEffect(() => {
@@ -53,7 +52,7 @@ const Rating: React.FC<IRating> = () => {
         <Box>
           <CssBaseline />
           <NavBar />
-          <Box sx={{ margin: 10, display: "flex", flexDirection: "column" }}>
+          <Box sx={{ ml: 10, mr: 10, display: "flex", flexDirection: "column" }}>
             {user && (
               <>
                 <Box sx={{ marginLeft: 3, display: "flex" }}>
@@ -67,7 +66,7 @@ const Rating: React.FC<IRating> = () => {
                   >
                     <PageTitle
                       content={`Rating - ${user.firstName} ${user.lastName}`}
-                      icon="1"
+                      icon="4"
                     />
                   </Box>
                 </Box>

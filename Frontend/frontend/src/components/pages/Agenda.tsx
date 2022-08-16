@@ -25,7 +25,7 @@ import CircleLoader from "react-spinners/CircleLoader";
 import AgendaCard from "../../stories/AgendaCard/AgendaCard";
 import AppContext from "../../contexts/AppContext";
 
-interface IAgenda {}
+interface IAgenda { }
 
 const theme = createTheme();
 
@@ -42,10 +42,9 @@ const Agenda: React.FC<IAgenda> = () => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      handleGetMeeting();
-    }, 2000);
+
+    handleGetMeeting();
+
   }, []);
 
   useEffect(() => {
@@ -55,6 +54,7 @@ const Agenda: React.FC<IAgenda> = () => {
   const handleGetMeeting = async () => {
     const result = await getMeetingById(Number(id));
     setMeeting(result);
+    setLoading(false);
     console.log("agenda:handleGetMeeting", result);
     if (result) {
       const start = new Date(result.meetingStart).toLocaleString("en-AU", {
@@ -119,7 +119,7 @@ const Agenda: React.FC<IAgenda> = () => {
           <CssBaseline />
           <NavBar inMeeting={true} />
           {meeting && (
-            <Container maxWidth="xl" sx={{ display: "flex", flexGrow: 1 }}>
+            <Box  sx={{ pl:10, pr:10 }}>
               <Box
                 sx={{
                   display: "flex",
@@ -154,22 +154,19 @@ const Agenda: React.FC<IAgenda> = () => {
                     </Box>
                     <div className="add">
                       <Button
-                        sx={{
-                          minWidth: "100px",
-                          minHeight: "50px",
-                          maxHeight: "50px",
-                          maxWidth: "100px",
-                          borderRadius: 8,
-                          backgroundColor: "#6001D3",
-                          color: "#fff",
-                          fontSize: 12,
-                          marginRight: "160px",
-                        }}
-                        style={{ fontFamily: "Quicksand" }}
-                        variant="contained"
                         onClick={handleClickOpen}
+                        variant="contained"
+                        color="secondary"
+                        sx={{
+                          backgroundColor: "#6001D3",
+                          color: "#ffffff",
+                          borderRadius: 10,
+                          width: 104,
+                          height: 45,
+                        }}
+                        startIcon={<AddCircleOutlineIcon />}
                       >
-                        +Add
+                        New
                       </Button>
                     </div>
                     {/* <Button
@@ -314,7 +311,7 @@ const Agenda: React.FC<IAgenda> = () => {
                   />
                 )}
               </Dialog>
-            </Container>
+            </Box>
           )}
         </Box>
       )}
