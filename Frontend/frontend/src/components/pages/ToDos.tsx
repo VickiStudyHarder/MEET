@@ -55,7 +55,7 @@ const ToDos: React.FC<IToDos> = () => {
             }}
           >
             <Box sx={{ marginLeft: 3 }}>
-              <PageTitle icon='4' content='Your Rating' />
+              <PageTitle icon='4' content="All To Dos" />
             </Box>
 
           </Box>
