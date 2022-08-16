@@ -26,6 +26,8 @@ import { useParams } from 'react-router-dom';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import PageTitle from '../../stories/PageTiltle';
+import CustomInput from '../../stories/Input';
 
 export interface IRecordingForm {
   setOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -80,14 +82,13 @@ const CreateRecordingForm: React.FC<IRecordingForm> = ({
       }}
     >
       <Card sx={{ display: 'flex', flexGrow: 1, p: 4 }}>
-        <CardContent sx={{ marginRight: 3 }}>
+        <CardContent sx={{ marginRight: 1 }}>
           <Grid
             container
             direction='column'
             sx={{
               display: 'flex',
               flexGrow: 1,
-              // marginLeft: 1,
               marginTop: 2,
             }}
           >
@@ -97,6 +98,9 @@ const CreateRecordingForm: React.FC<IRecordingForm> = ({
               sx={{ m: 2, display: 'flex', flexGrow: 1 }}
             >
               <Grid item sx={{ m: 'auto' }}>
+              <PageTitle icon='1' content={'Create Recording Form'} />
+              </Grid>
+              {/* <Grid item sx={{ m: 'auto' }}>
                 <GroupsTwoToneIcon
                   sx={{
                     fontSize: 40,
@@ -113,9 +117,9 @@ const CreateRecordingForm: React.FC<IRecordingForm> = ({
                 >
                   Create Recording Form
                 </Typography>
-              </Grid>
+              </Grid> */}
             </Grid>
-            <Grid
+            {/* <Grid
               item
               sx={{
                 m: 2,
@@ -129,8 +133,17 @@ const CreateRecordingForm: React.FC<IRecordingForm> = ({
                 value={url}
                 onChange={handleUrlChange}
               />
-            </Grid>
-            <Grid
+            </Grid> */}
+            <CustomInput
+              margin='normal'
+              fullWidth
+              id='url'
+              label='url'
+              autoFocus
+              value={url}
+              onChange={handleUrlChange}
+            />
+            {/* <Grid
               item
               sx={{
                 m: 2,
@@ -144,7 +157,16 @@ const CreateRecordingForm: React.FC<IRecordingForm> = ({
                 value={description}
                 onChange={handleDescriptionChange}
               />
-            </Grid>
+            </Grid> */}
+            <CustomInput
+              margin='normal'
+              fullWidth
+              id='description'
+              label='description'
+              autoFocus
+              value={description}
+              onChange={handleDescriptionChange}
+            />
             <Grid
               item
               container
@@ -160,7 +182,12 @@ const CreateRecordingForm: React.FC<IRecordingForm> = ({
                 sx={{
                   display: 'flex',
                   flexGrow: 1,
-                  marginRight: 5,
+                  minWidth: '150px',
+                  minHeight: '50px',
+                  maxHeight: '50px',
+                  maxWidth: '100px',
+                  marginRight: 6,
+                  marginLeft: 0,
                   borderRadius: 8,
                   backgroundColor: '#6001D3',
                   color: '#FFFFFF',
@@ -173,7 +200,7 @@ const CreateRecordingForm: React.FC<IRecordingForm> = ({
               </Button>
               <Button
                 sx={{
-                  minWidth: '100px',
+                  minWidth: '150px',
                   minHeight: '50px',
                   maxHeight: '50px',
                   maxWidth: '100px',
