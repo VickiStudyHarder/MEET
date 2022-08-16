@@ -73,7 +73,7 @@ const Calendar: React.FC<ICalendar> = () => {
   const [openCancelPanel, setOpenCancelPanel] = useState(false);
   const [openBookingPanel, setOpenBookingPanel] = useState(false);
   const [creatingPanelTitle, setCreatingPanelTitle] =
-    useState<any>("Create Meeting");
+    useState<any>("Default Meeting Name");
   const [selectedEvent, setSelectedEvent] = useState<any>();
 
   // loading
