@@ -24,6 +24,7 @@ import {
   deleteMeetingAttendee,
   deleteNote,
   deleteRecordingItem,
+  deleteToDoItem,
   getMeetingById,
   getMeetingsByUserId,
   updateMeeting,
@@ -103,6 +104,7 @@ export type IAppContext = {
   userInfo: any;
   getUserInfo: any;
   setMentorTimeOfDay: any;
+  removeTodo:any;
 };
 
 const AppContext = createContext<IAppContext>({} as IAppContext);
@@ -592,6 +594,11 @@ const AppContextProvider = (props: any) => {
     });
   };
 
+  const removeTodo = async(id:number)=>{
+    console.log("remove todo:id=",id)
+    await deleteToDoItem(id)
+  }
+
   const getSession = async () =>
     await new Promise((resolve, reject) => {
       const user = UserPool.getCurrentUser();
@@ -759,6 +766,7 @@ const AppContextProvider = (props: any) => {
         userInfo,
         getUserInfo,
         setMentorTimeOfDay,
+        removeTodo,
       }}
     >
       {props.children}

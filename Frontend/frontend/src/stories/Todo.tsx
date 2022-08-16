@@ -111,7 +111,7 @@ interface MeetingProps {
 export const Todo: React.VFC = () => {
   const [user, setUser] = React.useState<User>();
   // const [data, setData] = React.useState(list)
-  const { meetingTodos, updateMeetingTodos, getMeetingTodos, email } =
+  const { meetingTodos, updateMeetingTodos, getMeetingTodos, email,removeTodo } =
     useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
   const { selectedStudent } = useContext(AppContext);
@@ -183,14 +183,13 @@ export const Todo: React.VFC = () => {
     let meet = JSON.parse(JSON.stringify(data));
     meet[index].task[idx].isdel = !meet[index].task[idx].isdel;
     setData(meet);
-    updateMeetingTodos(meet,email)
   };
   
   const delItem = () => {
     let meet = JSON.parse(JSON.stringify(data));
     meet[modalCtx.index].task[modalCtx.idx].deled = true;
     setData(meet);
-    updateMeetingTodos(meet,email)
+    removeTodo(meet[modalCtx.index].task[modalCtx.idx].id)
     setisModalVisible(!isModalVisible);
   };
   
