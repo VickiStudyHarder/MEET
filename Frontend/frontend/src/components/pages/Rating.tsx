@@ -55,7 +55,7 @@ const Rating: React.FC<IRating> = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginTop: 20,
+                marginTop: 12,
               }}
             >
               <RatingCard user={user} />

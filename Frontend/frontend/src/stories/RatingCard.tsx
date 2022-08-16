@@ -17,7 +17,7 @@ const RatingCard: React.FC<IRatingCard> = ({ user }) => {
   const formattedRole = user.role.charAt(0).toUpperCase() + user.role.slice(1)
   console.log("rating", user)
   return (
-    <Box sx={{ width: 662, height: 610 }}>
+    <Box sx={{ width: 662, height: 610}}>
       <Avatar
         sx={{
           width: 188,
@@ -53,6 +53,7 @@ const RatingCard: React.FC<IRatingCard> = ({ user }) => {
                   my: 2,
                   mx: 'auto',
                 }}
+                style={{ fontFamily: "Quicksand" }}
               >
                 {`${user.firstName} ${user.lastName}`}
               </Typography>
@@ -64,6 +65,7 @@ const RatingCard: React.FC<IRatingCard> = ({ user }) => {
                   color: '#617181',
                 }}
                 variant='h4'
+                style={{ fontFamily: "Quicksand" }}
               >
                 {formattedRole}
               </Typography>
@@ -76,6 +78,7 @@ const RatingCard: React.FC<IRatingCard> = ({ user }) => {
                   fontSize: '2rem',
                   color: '#ABAFC7',
                 }}
+                style={{ fontFamily: "Quicksand" }}
               >
                 Your Rating
               </Typography>
