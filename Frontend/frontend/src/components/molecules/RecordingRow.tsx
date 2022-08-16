@@ -51,7 +51,7 @@ const RecordingRow: React.FC<IRecordingRow> = ({
     <>
       <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
         <Box sx={{ m: 4 }}>
-          <img src={"./recording.png"} style={{ borderRadius: 10 ,boxShadow: '-15px 30px 30px rgba(8, 20, 32, 0.2)'}} alt='YourMeetingImage' />
+          <img src={"./recording.png"} style={{ width:380, height:220,borderRadius: 20 ,boxShadow: '-15px 30px 30px rgba(8, 20, 32, 0.2)'}} alt='YourMeetingImage' />
         </Box>
         <Box
           sx={{

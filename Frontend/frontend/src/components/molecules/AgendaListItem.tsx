@@ -31,10 +31,10 @@ const AgendaListItem: React.FC<IAgendaListItem> = ({
 
   return (
     <Box className='item' key={index}>
-      <Box className='l'>{index + 1}</Box>
+      <Box className='l' style={{ fontFamily: "Quicksand" }}>{index + 1}</Box>
       <Box className='r'>
-        <Box className='tit'>{item.title}</Box>
-        <Box className='desc'>{item.details} </Box>
+        <Box className='tit' style={{ fontFamily: "Quicksand" }}>{item.title}</Box>
+        <Box className='desc' style={{ fontFamily: "Quicksand" }}>{item.details} </Box>
       </Box>
       <Box>
         <Button
@@ -44,7 +44,7 @@ const AgendaListItem: React.FC<IAgendaListItem> = ({
             setOpen(true);
           }}
         >
-          <Typography variant='subtitle2' sx={{ color: 'black', mr: 2 }}>
+          <Typography variant='subtitle2' sx={{ color: 'black', mr: 2 }} style={{ fontFamily: "Quicksand" }}>
             Edit
           </Typography>
           <img src={MeetingsArrow} alt='meeting-arrow' width='30' height='30' />
@@ -54,7 +54,7 @@ const AgendaListItem: React.FC<IAgendaListItem> = ({
           style={{ justifyContent: 'flex-end' }}
           onClick={handleDelete}
         >
-          <Typography variant='subtitle2' sx={{ color: 'black', mr: 2 }}>
+          <Typography variant='subtitle2' sx={{ color: 'black', mr: 2 }} style={{ fontFamily: "Quicksand" }}>
             Delete
           </Typography>
           <img src={MeetingsArrow} alt='meeting-arrow' width='30' height='30' />

@@ -38,7 +38,7 @@ const MeetingRow: React.FC<INotesRow> = ({ note, handleGetMeeting }) => {
     <>
       <Box sx={{ display: 'flex', flexDirection: 'row', m: 2 }}>
         <Box sx={{ m: 4 }}>
-          <img src={"./note.png"} style={{width:380, height:220, borderRadius:20}} alt='YourMeetingImage' />
+          <img src={"./note.png"} style={{ width:380, height:220,borderRadius: 20 ,boxShadow: '-15px 30px 30px rgba(8, 20, 32, 0.2)'}} alt='YourMeetingImage' />
         </Box>
         <Box
            sx={{
@@ -50,10 +50,10 @@ const MeetingRow: React.FC<INotesRow> = ({ note, handleGetMeeting }) => {
             mt: 6,
           }}
         >
-          <Typography component="div" variant="h3" marginTop={0}>
+          <Typography component="div" variant="h3" marginTop={0} style={{ fontFamily: "Quicksand" }}>
             {note.title}
           </Typography>
-          <Typography variant="h6" color="text.secondary" component="div" marginTop={2} marginBottom={5}>
+          <Typography variant="h6" color="text.secondary" component="div" marginTop={2} marginBottom={5} style={{ fontFamily: "Quicksand" }}>
             {note.details}
           </Typography>
         </Box>
