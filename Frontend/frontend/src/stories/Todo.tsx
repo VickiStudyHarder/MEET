@@ -110,7 +110,9 @@ interface MeetingProps {
 
 export const Todo: React.VFC = () => {
   // const [data, setData] = React.useState(list)
-  const { meetingTodos, updateMeetingTodos, getMeetingTodos,getUserInfo,userInfo, email,removeTodo,selectedStudent } =
+
+  const { meetingTodos, updateMeetingTodos, getMeetingTodos, email,removeTodo, userInfo, getUserInfo } =
+
     useContext(AppContext);
   // useEffect(() => {}, [meetingTodos]);
   const [filter, setfilter] = React.useState(false);
@@ -140,8 +142,12 @@ export const Todo: React.VFC = () => {
 
   useEffect(() => {
     getMeetingTodos(email);
-    getUserInfo(email)
+
+    getUserInfo(email);
+
   }, [email]);
+
+
 
   const addTask = (item: any, index: any) => {
     let meet = JSON.parse(JSON.stringify(meetingTodos));
@@ -212,6 +218,7 @@ export const Todo: React.VFC = () => {
     updateMeetingTodos(meet,email)
   };
 
+  console.log('data',data)
   return (
     <article>
       <div className="meet-body">
@@ -228,8 +235,8 @@ export const Todo: React.VFC = () => {
         </div>
         <div className="meet-userCard">
           <CalendarUserCardPrimary
-            avatar={userInfo?.avatar}
-            name={userInfo?.lastName + " " + userInfo?.firstName}
+            avatar={userInfo?`../avatars/${userInfo.avatar}.png` : '../avatars/0.png'}
+            name={userInfo?.firstName + ' ' + userInfo?.lastName}
             rating={userInfo?.rating}
             job={userInfo?.role}
           />
