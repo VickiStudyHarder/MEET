@@ -8,27 +8,29 @@ export interface IMeetingPayload {
   description: string;
   location: string;
   attendee: string[];
+  googleCalendarId?: string;
+  requestId?: string;
   toDoItem?: IToDoItem[];
   notes?: INotes[];
   meetingAttendee?: IMeetingAttendee[];
   agendas?: IAgenda[];
-  recordings?: IRecording[]
+  recordings?: IRecording[];
 }
 export interface IToDoItem {
-  id: number;
+  id?: number;
   title: string;
   dueDate: Date;
   assigneeId: string;
   isCompleted?: boolean;
 }
 export interface INotes {
-  id: number;
+  id?: number;
   title: string;
   details: string;
   meetingId: number;
 }
 export interface IMeetingAttendee {
-  id: number;
+  id?: number;
   userId: string;
   attended: boolean;
   googleCalendarId: string;
@@ -45,4 +47,3 @@ export interface IRecording {
   url: string;
   description: string;
 }
-

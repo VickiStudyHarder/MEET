@@ -39,6 +39,8 @@ model Meeting {
   meetingEnd         DateTime
   summary         String
   description     String
+  googleCalendarId String @default("")
+  requestId String @default("")
   location        String
   meetingAttendee MeetingAttendee[]
   toDoItem        ToDoItem[]

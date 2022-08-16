@@ -90,6 +90,10 @@ const addGoogleMeeting = async (
   meetingPayload: IMeetingPayload,
   meetingId: number
 ) => {
+  if (meetingPayload.meetingAttendee.length === 0) {
+    return 0;
+  }
+
   const attendees = meetingPayload.meetingAttendee.map(
     (attendee: IMeetingAttendee) => {
       return { email: attendee.userId };
@@ -139,20 +143,17 @@ const addGoogleMeeting = async (
 
   const response = JSON.parse(JSON.stringify(googleApiResponse));
 
-  meetingPayload.meetingAttendee.forEach(async (attendee: IMeetingAttendee) => {
-    await prisma.meetingAttendee.updateMany({
-      where: {
-        userId: attendee.userId,
-        meetingId: meetingId,
-      },
-      data: {
-        googleCalendarId: response.data.hangoutLink,
-        requestId: requestId,
-      },
-    });
+  await prisma.meeting.update({
+    where: {
+      id: meetingId,
+    },
+    data: {
+      googleCalendarId: response.data.hangoutLink,
+      requestId: response.data.id,
+    },
   });
 
-  console.log(googleApiResponse);
+  //console.log(googleApiResponse);
   return googleApiResponse;
 };
 
