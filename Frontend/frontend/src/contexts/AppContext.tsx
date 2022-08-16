@@ -343,29 +343,25 @@ const AppContextProvider = (props: any) => {
 
   const getMeetingTodos = async (userId: string) => {
     let meetings = await getMeetingsByUserId(userId);
-    console.log("getMeeting", meetings);
-    console.log("meetingtodo", meetingTodos);
-    if (meetings) {
-      if (meetingTodos.length === 0) {
-        meetings = meetings.map((m: any) => ({
-          meetingId: m.meeting.id,
-          option: {
-            show: true,
-            showAdd: true,
-          },
-          title: m.meeting.summary,
-          task: m.meeting.toDoItem.map((td: any) => ({
-            id: td.id,
-            name: td.title,
-            isCompleted: false,
-            isDeleted: false,
-            isEditing: false,
-          })),
-        }));
-        setMeetingTodos(meetings);
-      } else {
-        setMeetingTodos(meetingTodos);
-      }
+    console.log("getMeetingTodos", meetings);
+    if (meetings?.length > 0) {
+      meetings = meetings.map((m: any) => ({
+        meetingId: m.meeting.id,
+        option: {
+          show: true,
+          showAdd: true,
+        },
+        title: m.meeting.summary,
+        task: m.meeting.toDoItem.map((td: any) => ({
+          id: td.id,
+          name: td.title,
+          isCompleted: false,
+          isDeleted: false,
+          isEditing: false,
+        })),
+      }));
+      setMeetingTodos(meetings);
+      console.log("getMeetingTodos:setMeetingTodo", meetings);
     }
   };
 
@@ -572,8 +568,28 @@ const AppContextProvider = (props: any) => {
   const rate = async (mentorId: string, rating: number) => {};
 
   const updateMeetingTodos = async (todos: any, userId: string) => {
+    console.log("update meeting todos", todos);
     let meetings = await getMeetingsByUserId(userId);
-    meetings.forEach((m: any) => {});
+    meetings.forEach((m: any) => {
+      todos.forEach((td: any) => {
+        if (td.meetingId === m.meeting.id) {
+          m.meeting.toDoItem = td.task.map((task: any) => ({
+            id: task.id,
+            title: task.name,
+            dueDate: new Date(),
+            assigneeId: email,
+          }));
+        }
+      });
+    });
+    console.log("update meeting todos", meetings);
+    meetings.forEach((m: any) => {
+      console.log(
+        "update meeting todos:update meeting",
+        JSON.stringify(m.meeting)
+      );
+      updateMeeting(m.meeting,m.meeting.id)
+    });
   };
 
   const getSession = async () =>
