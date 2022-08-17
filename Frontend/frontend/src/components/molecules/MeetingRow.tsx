@@ -47,6 +47,8 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting, getAllMeetings }) => {
     setOpen(false);
   };
   console.log("meeting:", meeting);
+  console.log(meeting.googleCalendarId);
+
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "row", m: 2 }}>
@@ -91,26 +93,26 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting, getAllMeetings }) => {
               mt: 6,
             }}
           >
-            <a href={meeting.googleCalendarId}>
-              <Button
-                sx={{
-                  minWidth: "140px",
-                  minHeight: "40px",
-                  maxHeight: "40px",
-                  maxWidth: "100px",
-                  borderRadius: 5,
-                  backgroundColor: "#6001D3",
-                  color: "#FFFFFF",
-                  fontSize: 12,
-                  fontWeight: "semibold",
-                  my: "auto",
-                  mr: 2,
-                }}
-                variant="contained"
-              >
-                Join Meeting
-              </Button>
-            </a>
+            <Button
+              onClick={() => window.open(meeting.googleCalendarId)}
+              sx={{
+                minWidth: "140px",
+                minHeight: "40px",
+                maxHeight: "40px",
+                maxWidth: "100px",
+                borderRadius: 5,
+                backgroundColor: "#6001D3",
+                color: "#FFFFFF",
+                fontSize: 12,
+                fontWeight: "semibold",
+                my: "auto",
+                mr: 2,
+              }}
+              variant="contained"
+            >
+              Join Meeting
+            </Button>
+
             <Button
               onClick={() => {
                 setOpen(true);

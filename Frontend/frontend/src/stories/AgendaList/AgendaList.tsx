@@ -19,13 +19,12 @@ export interface IAgendaList {
   handleGetMeeting: any;
 }
 
-const { userInfo } = useContext(AppContext);
-
 const AgendaList: React.FC<IAgendaList> = ({
   agendaList,
   handleGetMeeting,
 }) => {
   const [open, setOpen] = useState(false);
+  const { userInfo } = useContext(AppContext);
 
   return (
     <Box className="agenda-list-wrap" sx={{ height: "800px" }}>
