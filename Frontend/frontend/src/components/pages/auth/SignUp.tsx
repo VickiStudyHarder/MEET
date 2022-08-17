@@ -43,19 +43,19 @@ const SignUpPage = () => {
           }}
         />
         {stage === 1 && <GetStarted incrementStage={incrementStage} />}
-        {stage === 2 && (
+        {/* {stage === 2 && (
           <StudentMentor
             incrementStage={incrementStage}
             decrementStage={decrementStage}
           />
-        )}
-        {stage === 3 && (
+        )} */}
+        {stage === 2 && (
           <GoogleAuth
             incrementStage={incrementStage}
             decrementStage={decrementStage}
           />
         )}
-        {stage === 4 && <CompleteSignUp />}
+        {stage === 3 && <CompleteSignUp />}
       </Grid>
     </ThemeProvider>
   );
