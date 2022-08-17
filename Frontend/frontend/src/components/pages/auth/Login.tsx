@@ -46,8 +46,26 @@ const SignUp = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Grid container component="main" sx={{ height: "100vh" }}>
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={12}
+          md={12}
+          sx={{
+            height:'100%',
+            width:'100%',
+            backgroundImage:
+              "url(./landing_page.jpg)",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
       <Container component='main' maxWidth='xs'>
         <img style={{position:"absolute"}}/>
+
         <Box className='login-box'  style={{ backdropFilter: "blur(8px)" }}>
           {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                 <LockOutlinedIcon />
@@ -113,6 +131,7 @@ const SignUp = () => {
           </Box>
         </Box>
       </Container>
+      </Grid>
     </ThemeProvider>
   );
 };
