@@ -245,13 +245,13 @@ export const Todo: React.VFC = () => {
     await getMeetingTodos(email)
   };
 
-  const editTask = (index: any, idx: any, e: any) => {
+  const editTask = async (index: any, idx: any, e: any) => {
     let val = e.target.value;
     let meet = JSON.parse(JSON.stringify(data));
     meet[index].task[idx].name = val;
     meet[index].task[idx].isEdit = false;
     setData(meet);
-    updateMeetingTodos(meet, email);
+    await updateMeetingTodos(meet, email);
     await sleep(500)
     await getMeetingTodos(email)
   };
@@ -287,7 +287,6 @@ export const Todo: React.VFC = () => {
     let meet = JSON.parse(JSON.stringify(data));
     meet[index].task[idx].isEdit = true;
     setData(meet);
-    updateMeetingTodos(meet, email);
   };
 
   const onFilter = () => {
