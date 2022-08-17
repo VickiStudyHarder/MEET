@@ -245,7 +245,7 @@ export const Todo: React.VFC = () => {
     await getMeetingTodos(email)
   };
 
-  const editTask = (index: any, idx: any, e: any) => {
+  const editTask = async (index: any, idx: any, e: any) => {
     let val = e.target.value;
     let meet = JSON.parse(JSON.stringify(data));
     meet[index].task[idx].name = val;
