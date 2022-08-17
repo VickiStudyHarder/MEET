@@ -219,12 +219,12 @@ export const Todo: React.VFC = () => {
       });
     });
     console.log("todo page:update meeting todos", meetings);
-    meetings.forEach((m: any) => {
+    meetings.forEach(async (m: any) => {
       console.log(
         "todo page:update meeting todos:update meeting",
         JSON.stringify(m.meeting)
       );
-      updateMeeting(m.meeting, m.meeting.id);
+      await updateMeeting(m.meeting, m.meeting.id);
     });
   };
 
@@ -277,7 +277,7 @@ export const Todo: React.VFC = () => {
     let meet = JSON.parse(JSON.stringify(data));
     meet[modalCtx.index].task[modalCtx.idx].deled = true;
     setData(meet);
-    removeTodo(meet[modalCtx.index].task[modalCtx.idx].id);
+    await removeTodo(meet[modalCtx.index].task[modalCtx.idx].id);
     await sleep(500)
     await getMeetingTodos(email)
     setisModalVisible(!isModalVisible);
