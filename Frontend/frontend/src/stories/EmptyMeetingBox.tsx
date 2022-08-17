@@ -70,6 +70,7 @@ export default function EmptyMeetingBox(props: IEmptyMeetingBox) {
                 style={{
                   width: 380,
                   height: 220,
+                  marginTop:-26,
                   borderRadius: 20,
                   boxShadow: "-15px 30px 30px rgba(8, 20, 32, 0.2)",
                 }}
