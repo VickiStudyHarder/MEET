@@ -124,7 +124,7 @@ const CreateToDoForm: React.FC<ICreateToDoForm> = ({
               <TextField
                 id="title"
                 fullWidth
-                label="title"
+                label="Content"
                 variant="filled"
                 value={title}
                 onChange={handleTitleChange}
@@ -138,7 +138,7 @@ const CreateToDoForm: React.FC<ICreateToDoForm> = ({
             >
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                  label="Date Of Birth"
+                  label="Due Date"
                   inputFormat="MM/dd/yyyy"
                   value={dueDate}
                   onChange={(value: Date | null) => setDueDate(value)}
