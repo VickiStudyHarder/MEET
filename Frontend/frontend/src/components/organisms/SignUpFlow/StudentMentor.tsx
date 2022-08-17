@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Grid,
   Box,
@@ -22,6 +22,10 @@ const StudentMentor: React.FC<IStudentMentor> = ({
   decrementStage,
 }) => {
   const { userType, setUserType } = useContext(AppContext);
+
+  useEffect(() => {
+    console.log(userType)
+  }, [setUserType, userType])
 
   const handleChange = async (
     event: React.MouseEvent<HTMLElement>,
