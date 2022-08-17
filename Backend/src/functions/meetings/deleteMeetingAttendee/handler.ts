@@ -33,6 +33,8 @@ const removeMeetingAttendee: ValidatedEventAPIGatewayProxyEvent<
       message: `${e.message}}`,
       event,
     });
+  } finally {
+    await prisma.$disconnect();
   }
 };
 

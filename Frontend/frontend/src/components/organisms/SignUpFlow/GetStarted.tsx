@@ -74,7 +74,7 @@ const GetStarted: React.FC<IGetStarted> = ({ incrementStage }) => {
       setError('Last Name is required');
       setOpen(true);
       return;
-    } else if (dateOfBirth === null) {
+    } else if (dateOfBirth === null||dateOfBirth === undefined) {
       setError('Date Of Birth Is Required');
       setOpen(true);
       return;

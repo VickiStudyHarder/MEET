@@ -77,9 +77,11 @@ const deleteGoogleMeeting = async (
       } catch (e) {
         console.error(e);
         return;
+      } finally {
+        await prisma.$disconnect();
       }
     })
-  );
+  )
   return result;
 };
 

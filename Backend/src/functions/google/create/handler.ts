@@ -50,7 +50,9 @@ const createCalendarEvent: ValidatedEventAPIGatewayProxyEvent<
       status: 500,
       message: `${e.message}}`,
       event,
-    });
+    })
+  } finally {
+    await prisma.$disconnect();
   }
 };
 
