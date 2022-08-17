@@ -71,7 +71,7 @@
   align-items: center;
 }
 .meet-from {
-  width: 200px;
+  width: 300px;
   height: auto;
   padding: 5px 10px;
   background: #e9e9e9;
@@ -81,8 +81,8 @@
   margin-top: 0;
 }
 .form-info {
-  width: 180px;
-  height: 30px;
+  width: 280px;
+  height: 40px;
   background: white;
   display: flex;
   align-items: center;
@@ -93,7 +93,7 @@
   text-decoration: line-through;
 }
 .form-btn {
-  width: 180px;
+  width: 280px;
   height: 30px;
   margin-top: 5px;
   background: #e9e9e9;
@@ -114,15 +114,15 @@
   margin-bottom: 10px;
 }
 .form-txt {
-  width: 100px;
+  width: 200px;
 }
 .from-area {
   margin-top: 5px;
-  width: 180px;
+  width: 280px;
 }
 .edit-area {
   margin-top: 5px;
-  width: 180px;
+  width: 280px;
   height: 30px;
 }
 .radio_type {
