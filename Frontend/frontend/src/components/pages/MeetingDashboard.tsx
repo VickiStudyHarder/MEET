@@ -38,7 +38,7 @@ const MeetingDasboard: React.FC<{}> = ({ }) => {
   const [meeting, setMeeting] = useState<IMeeting | null>(null);
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
-  const { email } = useContext(AppContext);
+  const { email, userInfo } = useContext(AppContext);
   const { id } = useParams();
   // loading
   const [loading, setLoading] = useState(false);
@@ -299,14 +299,27 @@ const MeetingDasboard: React.FC<{}> = ({ }) => {
                   flexDirection: "column",
                 }}
               >
-                <Typography
-                  variant="h3"
-                  align="center"
-                  sx={{ m: 4 }}
-                  style={{ fontFamily: "Quicksand" }}
-                >
-                  Rate Your Mentors
-                </Typography>
+                {userInfo.role === 'student' && (
+                  <Typography
+                    variant="h3"
+                    align="center"
+                    sx={{ m: 4 }}
+                    style={{ fontFamily: "Quicksand" }}
+                  >
+                    Rate Your Mentors
+                  </Typography>
+                )}
+                {userInfo.role === 'mentor' && (
+                  <Typography
+                    variant="h3"
+                    align="center"
+                    sx={{ m: 4 }}
+                    style={{ fontFamily: "Quicksand" }}
+                  >
+                    Rate Yourself
+                  </Typography>
+                )}
+
                 <Divider variant="middle" />
                 {meeting &&
                   meeting?.meetingAttendee?.map(

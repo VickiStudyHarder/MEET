@@ -35,7 +35,7 @@ const MentorMeetingRow: React.FC<IMentorMeetingRow> = ({ attendee }) => {
           sx={{ display: "flex", m: "auto" }}
           style={{ fontFamily: "Quicksand" }}
         >
-          {attendee?.user?.firstName} {attendee?.user?.firstName}
+          {attendee?.user?.firstName} {attendee?.user?.lastName}
         </Typography>
         <Rating
           name="simple-controlled"
