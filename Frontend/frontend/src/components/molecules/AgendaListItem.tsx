@@ -11,12 +11,14 @@ export interface IAgendaListItem {
   item: IAgenda;
   index: number;
   handleGetMeeting: any;
+  role?: string;
 }
 
 const AgendaListItem: React.FC<IAgendaListItem> = ({
   item,
   index,
   handleGetMeeting,
+  role,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -42,7 +44,8 @@ const AgendaListItem: React.FC<IAgendaListItem> = ({
           {item.details}{" "}
         </Box>
       </Box>
-      <Box>
+      {role === 'mentor' && (
+        <Box>
         <Button
           sx={{ mx: "auto", width: "100%" }}
           style={{ justifyContent: "flex-end" }}
@@ -71,9 +74,10 @@ const AgendaListItem: React.FC<IAgendaListItem> = ({
           >
             Delete
           </Typography>
-          <img src={MeetingsArrow} alt="meeting-arrow" width="30" height="30" />
+          <img src={MeetingsArrow} alt="meeting-arrow" width="30" height="30"/>
         </Button>
       </Box>
+      )} 
       <Dialog
         open={open}
         onClose={handleClose}
