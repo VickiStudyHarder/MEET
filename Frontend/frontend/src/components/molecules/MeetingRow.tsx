@@ -8,6 +8,7 @@ import EditMeetingForm from "./EditMeetingForm";
 export interface IMeetingRow {
   meeting: IMeeting;
   getAllMeetings: any;
+  role?: string;
 }
 
 // function date
@@ -38,7 +39,7 @@ function format(input: any) {
   );
 }
 
-const MeetingRow: React.FC<IMeetingRow> = ({ meeting, getAllMeetings }) => {
+const MeetingRow: React.FC<IMeetingRow> = ({ meeting, getAllMeetings,role }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -113,7 +114,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting, getAllMeetings }) => {
               Join Meeting
             </Button>
 
-            <Button
+            {role === 'mentor' && <Button
               onClick={() => {
                 setOpen(true);
               }}
@@ -133,7 +134,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting, getAllMeetings }) => {
               variant="contained"
             >
               Edit Meeting
-            </Button>
+            </Button>}
           </Box>
         </Box>
         <Box

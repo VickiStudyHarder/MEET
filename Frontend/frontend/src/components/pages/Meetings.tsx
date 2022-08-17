@@ -23,7 +23,7 @@ const theme = createTheme();
 
 const Meetings = () => {
   const [meetings, setMeetings] = useState<null | IMeetingResponse[]>(null);
-  const { email } = useContext(AppContext);
+  const { email, userInfo } = useContext(AppContext);
   const [open, setOpen] = useState(false);
   // loading
   const [loading, setLoading] = useState(false);
@@ -117,6 +117,7 @@ const Meetings = () => {
                   return (
                     <MeetingRow
                       meeting={meeting.meeting}
+                      role={userInfo.role}
                       getAllMeetings={getAllMeetings}
                     />
                   );

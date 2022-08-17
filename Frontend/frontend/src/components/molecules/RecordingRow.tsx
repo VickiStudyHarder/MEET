@@ -98,8 +98,9 @@ const RecordingRow: React.FC<IRecordingRow> = ({
               marginRight: 5,
             }}
           >
-            <a target="_blank" href={modifiedUrl} rel="noreferrer">
+
               <Fab
+                onClick={() => window.open(modifiedUrl)}
                 style={{ backgroundColor: "#6001D3", marginRight: 30 }}
                 aria-label="delete recording"
                 size="medium"
@@ -108,7 +109,7 @@ const RecordingRow: React.FC<IRecordingRow> = ({
                   style={{ fontSize: 35, margin: 10, color: "#ffffff" }}
                 />
               </Fab>
-            </a>
+
             <Fab
               onClick={() => {
                 setOpen(true);
