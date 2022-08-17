@@ -161,6 +161,7 @@ export const Todo: React.VFC = () => {
   const getMeetingTodos = async (userId: string) => {
     let meetings = await getMeetingsByUserId(userId);
     console.log("getMeetingTodos", meetings);
+      setLoading(false);    
     if (meetings?.length > 0) {
       meetings = meetings.map((m: any) => ({
         meetingId: m.meeting.id,
@@ -179,7 +180,7 @@ export const Todo: React.VFC = () => {
         })),
       }));
       setData(meetings);
-      setLoading(false);
+
       console.log("todo page:getMeetingTodo", meetings);
     }
   }
