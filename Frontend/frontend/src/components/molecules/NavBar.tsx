@@ -54,6 +54,9 @@ const NavBar: React.FC<INavBar> = ({ inMeeting = false }) => {
   useEffect(() => {
     console.log("navbar:email=", email);
     getUserInfo(email);
+    if (userInfo.avatar === "0") {
+      setImage(avater1);
+    }
     if (userInfo.avatar === "1") {
       setImage(avater1);
     }
