@@ -36,8 +36,8 @@ function App() {
               <Route path="/calendar" element={<Calendar />} />
               <Route path="/group" element={<Group />} />
               <Route path="/group/:id" element={<GroupChat />} />
-              <Route path="/meeting/:id" element={<MeetingDashboard />} />
               <Route path="/meetings" element={<Meetings />} />
+              <Route path="/meeting/:id" element={<MeetingDashboard />} />
               <Route path="/todo" element={<ToDos />} />
               <Route path="/todo/:id" element={<ToDoHome />} />
               <Route path="/notes/:id" element={<Notes />} />

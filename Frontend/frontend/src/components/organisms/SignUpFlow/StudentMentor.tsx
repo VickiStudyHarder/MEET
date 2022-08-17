@@ -23,13 +23,17 @@ const StudentMentor: React.FC<IStudentMentor> = ({
 }) => {
   const { userType, setUserType } = useContext(AppContext);
 
-  const handleChange = (
+  const handleChange = async (
     event: React.MouseEvent<HTMLElement>,
     userType: string
   ) => {
-    setUserType(userType);
+    await handleSetUserType(userType)
     console.log(userType);
   };
+
+  const handleSetUserType = (userType: string) => {
+    setUserType(userType);
+  }
 
   return (
     <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
