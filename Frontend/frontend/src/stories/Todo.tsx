@@ -15,6 +15,7 @@ import { deleteToDoItem, getMeetingsByUserId, updateMeeting } from "../api/meeti
 import CircleLoader from "react-spinners/CircleLoader";
 import NavBar from "../components/molecules/NavBar";
 import PageTitle from "./PageTiltle";
+import { sleep } from "../utils/time";
 
 const { TextArea } = Input;
 
@@ -233,13 +234,15 @@ export const Todo: React.VFC = () => {
     setData(meet);
   };
 
-  const enterTask = (item: any, index: any, e: any) => {
+  const enterTask = async (item: any, index: any, e: any) => {
     let val = e.target.value;
     let meet = JSON.parse(JSON.stringify(data));
     meet[index].option.showAdd = !meet[index].option.showAdd;
     meet[index].task.push({ name: val });
     setData(meet);
-    updateMeetingTodos(meet, email);
+    await updateMeetingTodos(meet, email);
+    await sleep(500)
+    await getMeetingTodos(email)
   };
 
   const editTask = (index: any, idx: any, e: any) => {
@@ -249,6 +252,8 @@ export const Todo: React.VFC = () => {
     meet[index].task[idx].isEdit = false;
     setData(meet);
     updateMeetingTodos(meet, email);
+    await sleep(500)
+    await getMeetingTodos(email)
   };
 
   const showModel = (index: any, itm: any, idx: any) => {
@@ -261,18 +266,20 @@ export const Todo: React.VFC = () => {
     setisModalVisible(!isModalVisible);
   };
 
-  const ondel = (index: any, idx: any) => {
+  const onDelBtnClick = (index: any, idx: any) => {
     let meet = JSON.parse(JSON.stringify(data));
     meet[index].task[idx].isdel = !meet[index].task[idx].isdel;
     setData(meet);
     updateMeetingTodos(meet, email);
   };
 
-  const delItem = () => {
+  const delItem = async () => {
     let meet = JSON.parse(JSON.stringify(data));
     meet[modalCtx.index].task[modalCtx.idx].deled = true;
     setData(meet);
     removeTodo(meet[modalCtx.index].task[modalCtx.idx].id);
+    await sleep(500)
+    await getMeetingTodos(email)
     setisModalVisible(!isModalVisible);
   };
 
@@ -293,7 +300,6 @@ export const Todo: React.VFC = () => {
     });
     setfilter(!filter);
     setData(meet);
-    updateMeetingTodos(meet, email);
   };
 
   console.log("data", data);
@@ -400,7 +406,7 @@ export const Todo: React.VFC = () => {
                                           type="radio"
                                           name="type"
                                           id={idx}
-                                          onClick={() => ondel(index, idx)}
+                                          onClick={() => onDelBtnClick(index, idx)}
                                         />
                                         <CheckOutlined
                                           style={{
@@ -408,7 +414,7 @@ export const Todo: React.VFC = () => {
                                               ? "visible"
                                               : "hidden",
                                           }}
-                                          onClick={() => ondel(index, idx)}
+                                          onClick={() => onDelBtnClick(index, idx)}
                                           className="Check-Outlined"
                                         />
                                         <div

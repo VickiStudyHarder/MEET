@@ -26,6 +26,8 @@ import { useParams } from "react-router-dom";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { IOSSwitch } from "../../stories/MeetingTime/MeetingTime";
+import { sleep } from "../../utils/time";
 
 export interface IEditToDoForm {
   setOpen: Dispatch<React.SetStateAction<boolean>>;
@@ -47,6 +49,7 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
   const [title, setTitle] = useState(toDoItem.title);
   const [dueDate, setDueDate] = useState<Date | null>(toDoItem.dueDate);
   const [assigneeId, setAssigneeId] = useState(toDoItem.assigneeId);
+  const [completed,setCompleted] = useState(toDoItem.isCompleted)
 
   const handleCreate = async (e: any) => {
     e.preventDefault();
@@ -58,6 +61,7 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
       title: title,
       dueDate: dueDate || new Date(),
       assigneeId: assigneeId,
+      isCompleted:completed
     });
     console.log(toDoList);
 
@@ -66,6 +70,7 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
     };
     console.log({ meetingUpdate });
     await updateMeeting(meetingUpdate, Number(id));
+    await sleep(500);
     handleGetMeeting();
     handleClose();
   };
@@ -117,7 +122,7 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
               <Grid item>
                 <Typography
                   variant="body1"
-                  sx={{ fontSize: 40, mx: 2, my: "auto" }}
+                  sx={{ fontSize: 40, mx: 2, my: "auto" }} style={{ fontFamily: "Quicksand" }}
                 >
                   Create To Do
                 </Typography>
@@ -146,13 +151,23 @@ const EditToDoForm: React.FC<IEditToDoForm> = ({
             >
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
-                  label="Date Of Birth"
+                  label="Due date"
                   inputFormat="MM/dd/yyyy"
                   value={dueDate}
                   onChange={(value: Date | null) => setDueDate(value)}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
+            </Grid>
+            <Grid
+              item
+              sx={{
+                m: 2,
+              }}
+            >
+              <IOSSwitch
+                defaultChecked={toDoItem.isCompleted}  onChange={(e)=>{setCompleted(!completed)}}
+              ></IOSSwitch>
             </Grid>
             <Grid
               item

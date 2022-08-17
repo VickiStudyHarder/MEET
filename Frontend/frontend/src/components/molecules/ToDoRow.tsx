@@ -12,6 +12,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AppContext from "../../contexts/AppContext";
+import { sleep } from "../../utils/time";
 
 export interface IToDoItemRow {
   toDoItem: IToDoItem;
@@ -38,6 +39,7 @@ const ToDoRow: React.FC<IToDoItemRow> = ({
 
   const handleDelete = async () => {
     await deleteToDoItem(toDoItem.id!);
+    await sleep(500);
     await handleGetMeeting();
   };
 
@@ -56,6 +58,7 @@ const ToDoRow: React.FC<IToDoItemRow> = ({
               height: 220,
               borderRadius: 20,
               boxShadow: "-15px 30px 30px rgba(8, 20, 32, 0.2)",
+              filter:toDoItem.isCompleted?"grayscale(100%)":""
             }}
             alt="YourMeetingImage"
           />
@@ -72,7 +75,7 @@ const ToDoRow: React.FC<IToDoItemRow> = ({
           <Typography>
             <>Due Date: {date}</>
           </Typography>
-          <Typography variant="h4" sx={{ mt: 6 }}>
+          <Typography variant="h4" sx={{ mt: 6 }} style={{textDecorationLine:toDoItem.isCompleted?"line-through":"",fontFamily: "Quicksand"}}>
             {toDoItem.title}
           </Typography>
         </Box>

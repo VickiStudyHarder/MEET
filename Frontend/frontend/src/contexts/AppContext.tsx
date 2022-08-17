@@ -607,6 +607,7 @@ const AppContextProvider = (props: any) => {
       );
       updateMeeting(m.meeting, m.meeting.id);
     });
+    
   };
 
   const removeTodo = async (id: number) => {
