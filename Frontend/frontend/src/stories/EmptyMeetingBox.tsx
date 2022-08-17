@@ -26,8 +26,8 @@ export interface IEmptyMeetingBox {
 
 export default function EmptyMeetingBox(props: IEmptyMeetingBox) {
   const navigate = useNavigate();
-  const iconset = [agenda, note, todo];
-  const name = ["Create Agenda", "Create Note", "Create Todo"];
+  const iconset = [agenda, todo, note];
+  const name = ["Create Agenda", "Create Todo", "Create Note"];
   return (
     <Button onClick={() => navigate(`/${props.type}/${props.id}`)}>
       <Box sx={{ width: 260, height: 210 }}>
