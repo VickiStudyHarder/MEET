@@ -27,7 +27,7 @@ const create: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     });
   } finally {
     await prisma.$disconnect();
-  }
+  } 
 };
 
 export const main = middyfy(create);

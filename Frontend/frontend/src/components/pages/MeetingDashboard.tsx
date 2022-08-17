@@ -34,7 +34,7 @@ import PageTitle from "../../stories/PageTiltle";
 
 const theme = createTheme();
 
-const MeetingDasboard: React.FC<{}> = ({}) => {
+const MeetingDasboard: React.FC<{}> = ({ }) => {
   const [meeting, setMeeting] = useState<IMeeting | null>(null);
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
@@ -59,7 +59,7 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
     const result = await getMeetingById(Number(id));
     console.log(result);
     setMeeting(result);
-      setLoading(false);    
+    setLoading(false);
     const currentUser = await result.meetingAttendee.filter(
       (attendee: IMeetingAttendee) => attendee?.user?.id === email
     );
@@ -151,26 +151,26 @@ const MeetingDasboard: React.FC<{}> = ({}) => {
                   <Box sx={{ display: "flex", flexDirection: "row" }}>
                     <Box>
                       {meeting && meeting?.googleCalendarId && (
-                        <a href={meeting.googleCalendarId}>
-                          <Button
-                            sx={{
-                              minWidth: "200px",
-                              minHeight: "40px",
-                              maxHeight: "40px",
-                              maxWidth: "100px",
-                              borderRadius: 5,
-                              backgroundColor: "#6001D3",
-                              color: "#FFFFFF",
-                              fontSize: 12,
-                              fontWeight: "semibold",
-                              my: "auto",
-                              mx: 2,
-                            }}
-                            variant="contained"
-                          >
-                            Join Meeting
-                          </Button>
-                        </a>
+
+                        <Button
+                          onClick={() => window.open(meeting.googleCalendarId)}
+                          sx={{
+                            minWidth: "200px",
+                            minHeight: "40px",
+                            maxHeight: "40px",
+                            maxWidth: "100px",
+                            borderRadius: 5,
+                            backgroundColor: "#6001D3",
+                            color: "#FFFFFF",
+                            fontSize: 12,
+                            fontWeight: "semibold",
+                            my: "auto",
+                            mx: 2,
+                          }}
+                          variant="contained"
+                        >
+                          Join Meeting
+                        </Button>
                       )}
                     </Box>
                     <Box>

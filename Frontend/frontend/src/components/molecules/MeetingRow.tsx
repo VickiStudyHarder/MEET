@@ -8,6 +8,7 @@ import EditMeetingForm from "./EditMeetingForm";
 export interface IMeetingRow {
   meeting: IMeeting;
   getAllMeetings: any;
+  role?: string;
 }
 
 // function date
@@ -38,7 +39,7 @@ function format(input: any) {
   );
 }
 
-const MeetingRow: React.FC<IMeetingRow> = ({ meeting, getAllMeetings }) => {
+const MeetingRow: React.FC<IMeetingRow> = ({ meeting, getAllMeetings,role }) => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,6 +48,8 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting, getAllMeetings }) => {
     setOpen(false);
   };
   console.log("meeting:", meeting);
+  console.log(meeting.googleCalendarId);
+
   return (
     <>
       <Box sx={{ display: "flex", flexDirection: "row", m: 2 }}>
@@ -91,27 +94,27 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting, getAllMeetings }) => {
               mt: 6,
             }}
           >
-            <a href={meeting.googleCalendarId}>
-              <Button
-                sx={{
-                  minWidth: "140px",
-                  minHeight: "40px",
-                  maxHeight: "40px",
-                  maxWidth: "100px",
-                  borderRadius: 5,
-                  backgroundColor: "#6001D3",
-                  color: "#FFFFFF",
-                  fontSize: 12,
-                  fontWeight: "semibold",
-                  my: "auto",
-                  mr: 2,
-                }}
-                variant="contained"
-              >
-                Join Meeting
-              </Button>
-            </a>
             <Button
+              onClick={() => window.open(meeting.googleCalendarId)}
+              sx={{
+                minWidth: "140px",
+                minHeight: "40px",
+                maxHeight: "40px",
+                maxWidth: "100px",
+                borderRadius: 5,
+                backgroundColor: "#6001D3",
+                color: "#FFFFFF",
+                fontSize: 12,
+                fontWeight: "semibold",
+                my: "auto",
+                mr: 2,
+              }}
+              variant="contained"
+            >
+              Join Meeting
+            </Button>
+
+            {role === 'mentor' && <Button
               onClick={() => {
                 setOpen(true);
               }}
@@ -131,7 +134,7 @@ const MeetingRow: React.FC<IMeetingRow> = ({ meeting, getAllMeetings }) => {
               variant="contained"
             >
               Edit Meeting
-            </Button>
+            </Button>}
           </Box>
         </Box>
         <Box

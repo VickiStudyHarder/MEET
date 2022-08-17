@@ -53,6 +53,7 @@ const RatingCard: React.FC<IRatingCard> = ({ user }) => {
                   my: 2,
                   mx: "auto",
                 }}
+                align='center'
                 style={{ fontFamily: "Quicksand" }}
               >
                 {`${user.firstName} ${user.lastName}`}
@@ -65,6 +66,7 @@ const RatingCard: React.FC<IRatingCard> = ({ user }) => {
                   color: "#617181",
                 }}
                 variant="h4"
+                align='center'
                 style={{ fontFamily: "Quicksand" }}
               >
                 {formattedRole}
@@ -74,13 +76,13 @@ const RatingCard: React.FC<IRatingCard> = ({ user }) => {
                 component="legend"
                 sx={{
                   mx: "auto",
-                  marginTop: 6,
                   fontSize: "2rem",
                   color: "#ABAFC7",
                 }}
+                align='center'
                 style={{ fontFamily: "Quicksand" }}
               >
-                Your Rating
+               {user.role === 'student' ? 'Attendance' : 'Your Rating'}
               </Typography>
               <Rating
                 name="read-only"

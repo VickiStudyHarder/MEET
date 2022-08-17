@@ -31,6 +31,8 @@ const removeRecording: ValidatedEventAPIGatewayProxyEvent<
       message: `${e.message}}`,
       event,
     });
+  } finally {
+    await prisma.$disconnect();
   }
 };
 

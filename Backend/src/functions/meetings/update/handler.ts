@@ -189,6 +189,8 @@ const update: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       message: `${e.message}}`,
       event,
     });
+  } finally {
+    await prisma.$disconnect();
   }
 };
 
@@ -251,7 +253,7 @@ const updateGoogleMeeting = async (
       } catch (e) {
         console.error(e);
         return;
-      }
+      } 
     })
   );
   return result;

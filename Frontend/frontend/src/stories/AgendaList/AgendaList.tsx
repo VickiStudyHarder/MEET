@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { Box, Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -12,6 +12,7 @@ import MeetingsArrow from "../../assets/MeetingsArrow.png";
 import { useEffect } from "react";
 import AgendaListItem from "../../components/molecules/AgendaListItem";
 import { AnyRecordWithTtl } from "dns";
+import AppContext from "../../contexts/AppContext";
 
 export interface IAgendaList {
   agendaList: IAgenda[];
@@ -23,6 +24,7 @@ const AgendaList: React.FC<IAgendaList> = ({
   handleGetMeeting,
 }) => {
   const [open, setOpen] = useState(false);
+  const { userInfo } = useContext(AppContext);
 
   return (
     <Box className="agenda-list-wrap" sx={{ height: "800px" }}>
@@ -33,6 +35,7 @@ const AgendaList: React.FC<IAgendaList> = ({
         {agendaList.map((item: IAgenda, index) => {
           return (
             <AgendaListItem
+              role={userInfo.role}
               item={item}
               index={index}
               handleGetMeeting={handleGetMeeting}

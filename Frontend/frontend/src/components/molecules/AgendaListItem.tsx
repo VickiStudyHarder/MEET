@@ -11,12 +11,14 @@ export interface IAgendaListItem {
   item: IAgenda;
   index: number;
   handleGetMeeting: any;
+  role?: string;
 }
 
 const AgendaListItem: React.FC<IAgendaListItem> = ({
   item,
   index,
   handleGetMeeting,
+  role,
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -35,45 +37,51 @@ const AgendaListItem: React.FC<IAgendaListItem> = ({
         {index + 1}
       </Box>
       <Box className="r">
-        <Box className="tit" style={{ fontFamily: "Quicksand" }}>
+        <Box className="tit" style={{ fontFamily: "Quicksand", width: 165 }}>
           {item.title}
         </Box>
-        <Box className="desc" style={{ fontFamily: "Quicksand" }}>
+        <Box className="desc" style={{ fontFamily: "Quicksand", width: 165 }}>
           {item.details}{" "}
         </Box>
       </Box>
-      <Box>
-        <Button
-          sx={{ mx: "auto", width: "100%" }}
-          style={{ justifyContent: "flex-end" }}
-          onClick={() => {
-            setOpen(true);
-          }}
-        >
-          <Typography
-            variant="subtitle2"
-            sx={{ color: "black", mr: 2 }}
-            style={{ fontFamily: "Quicksand" }}
-          >
-            Edit
-          </Typography>
-          <img src={MeetingsArrow} alt="meeting-arrow" width="30" height="30" />
-        </Button>
-        <Button
-          sx={{ mx: "auto", width: "100%" }}
-          style={{ justifyContent: "flex-end" }}
-          onClick={handleDelete}
-        >
-          <Typography
-            variant="subtitle2"
-            sx={{ color: "black", mr: 2 }}
-            style={{ fontFamily: "Quicksand" }}
-          >
-            Delete
-          </Typography>
-          <img src={MeetingsArrow} alt="meeting-arrow" width="30" height="30" />
-        </Button>
+
+      <Box sx={{ width: 180 }}>
+        {role === 'mentor' && (
+          <Box>
+            <Button
+              sx={{ mx: "auto", width: "100%" }}
+              style={{ justifyContent: "flex-end" }}
+              onClick={() => {
+                setOpen(true);
+              }}
+            >
+              <Typography
+                variant="subtitle2"
+                sx={{ color: "black", mr: 2 }}
+                style={{ fontFamily: "Quicksand" }}
+              >
+                Edit
+              </Typography>
+              <img src={MeetingsArrow} alt="meeting-arrow" width="30" height="30" />
+            </Button>
+            <Button
+              sx={{ mx: "auto", width: "100%" }}
+              style={{ justifyContent: "flex-end" }}
+              onClick={handleDelete}
+            >
+              <Typography
+                variant="subtitle2"
+                sx={{ color: "black", mr: 2 }}
+                style={{ fontFamily: "Quicksand" }}
+              >
+                Delete
+              </Typography>
+              <img src={MeetingsArrow} alt="meeting-arrow" width="30" height="30" />
+            </Button>
+          </Box>
+        )}
       </Box>
+
       <Dialog
         open={open}
         onClose={handleClose}

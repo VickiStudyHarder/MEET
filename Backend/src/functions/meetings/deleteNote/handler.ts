@@ -31,6 +31,8 @@ const removeNote: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
       message: `${e.message}}`,
       event,
     });
+  } finally {
+    await prisma.$disconnect();
   }
 };
 
